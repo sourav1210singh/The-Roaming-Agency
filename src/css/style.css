@@ -1164,7 +1164,7 @@ body {
 .contact__form {
   display: flex;
   flex-direction: column;
-  gap: var(--space-lg);
+  gap: var(--space-sm);
 }
 
 .form-group {
@@ -1174,7 +1174,7 @@ body {
 }
 
 .form-group label {
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
   color: var(--color-gray-400);
   text-transform: uppercase;
   letter-spacing: 0.1em;
@@ -1186,9 +1186,9 @@ body {
   background: var(--color-dark-card);
   border: 1px solid var(--color-gray-800);
   border-radius: var(--radius-sm);
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-sm) var(--space-md);
   color: var(--color-white);
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
   transition: border-color var(--duration-fast);
 }
 
@@ -1201,7 +1201,7 @@ body {
 
 .form-group textarea {
   resize: vertical;
-  min-height: 120px;
+  min-height: 80px;
 }
 
 .form-group select {
