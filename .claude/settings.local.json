@@ -1,0 +1,40 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:adhesive-leech-13c.notion.site)",
+      "WebFetch(domain:brotherockers.com)",
+      "WebFetch(domain:www.brotherockers.com)",
+      "WebSearch",
+      "Read(//c/Users/SEO Hey/Downloads/**)",
+      "Bash(python3 -c \":*)",
+      "Bash(python -c \":*)",
+      "Bash(pip install:*)",
+      "WebFetch(domain:www.weavy.ai)",
+      "WebFetch(domain:legora.com)",
+      "WebFetch(domain:www.ingmarcoenen.com)",
+      "WebFetch(domain:www.museosansevero.it)",
+      "WebFetch(domain:nitex.com)",
+      "WebFetch(domain:francopisso.com)",
+      "Bash(npx --version)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(taskkill /F /IM \"node.exe\")",
+      "Bash(npm list:*)",
+      "Bash(npm install:*)",
+      "Bash(http-server --version)",
+      "Bash(wc -c \"C:/Brotherockers/extractori_images/\"*.png)",
+      "Bash(wc -c \"C:/Brotherockers/extractori_images/\"*)",
+      "Bash(for d:*)",
+      "Bash(do echo:*)",
+      "Read(//c/Brotherockers/extractori_images/**)",
+      "Bash(done)",
+      "Bash(grep -l \"\\\\.svg\" *.html)",
+      "Bash(pandoc \"Information for the developer.docx\" -t plain --wrap=none)",
+      "WebFetch(domain:travelnextlvl.de)",
+      "WebFetch(domain:www.cregg-paris.com)",
+      "WebFetch(domain:www.camronglobal.com)",
+      "WebFetch(domain:www.amra.com)",
+      "WebFetch(domain:amra.com)",
+      "Bash(taskkill //f //im node.exe)"
+    ]
+  }
+}
