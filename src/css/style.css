@@ -1105,9 +1105,9 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--space-xl) 0;
+  padding: var(--space-md) 0;
   font-family: var(--font-heading);
-  font-size: var(--text-lg);
+  font-size: var(--text-base);
   font-weight: 500;
   color: var(--color-white);
   text-align: left;
@@ -1140,13 +1140,13 @@ body {
 
 .faq__item.open .faq__answer {
   max-height: 300px;
-  padding-bottom: var(--space-xl);
+  padding-bottom: var(--space-md);
 }
 
 .faq__answer p {
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
   color: var(--color-gray-400);
-  line-height: 1.7;
+  line-height: 1.6;
 }
 
 /* === CONTACT SECTION === */
