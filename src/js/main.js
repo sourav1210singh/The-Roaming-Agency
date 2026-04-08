@@ -134,20 +134,43 @@ function initNavigation() {
   const navList = document.getElementById('bandNavList');
   if (!navList) return;
 
-  // Horizontal scroll with mouse wheel
+  // Smooth horizontal scroll with mouse wheel (lerp-based)
+  let targetScroll = navList.scrollLeft;
+  let currentScroll = navList.scrollLeft;
+  let scrolling = false;
+
+  function smoothScroll() {
+    currentScroll += (targetScroll - currentScroll) * 0.15;
+    navList.scrollLeft = currentScroll;
+    if (Math.abs(targetScroll - currentScroll) > 0.5) {
+      requestAnimationFrame(smoothScroll);
+    } else {
+      scrolling = false;
+      navList.scrollLeft = targetScroll;
+    }
+  }
+
   navList.addEventListener('wheel', (e) => {
     e.preventDefault();
-    navList.scrollLeft += e.deltaY;
+    targetScroll = Math.max(0, Math.min(
+      navList.scrollWidth - navList.clientWidth,
+      targetScroll + e.deltaY * 1.5
+    ));
+    if (!scrolling) {
+      scrolling = true;
+      currentScroll = navList.scrollLeft;
+      requestAnimationFrame(smoothScroll);
+    }
   }, { passive: false });
 
   // Smooth drag scroll
   let isDown = false;
-  let startX, scrollLeft;
+  let startX, dragScrollLeft;
 
   navList.addEventListener('mousedown', (e) => {
     isDown = true;
     startX = e.pageX - navList.offsetLeft;
-    scrollLeft = navList.scrollLeft;
+    dragScrollLeft = navList.scrollLeft;
   });
 
   navList.addEventListener('mouseleave', () => isDown = false);
@@ -157,7 +180,9 @@ function initNavigation() {
     e.preventDefault();
     const x = e.pageX - navList.offsetLeft;
     const walk = (x - startX) * 1.5;
-    navList.scrollLeft = scrollLeft - walk;
+    navList.scrollLeft = dragScrollLeft - walk;
+    targetScroll = navList.scrollLeft;
+    currentScroll = navList.scrollLeft;
   });
 }
 
