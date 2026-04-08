@@ -393,12 +393,11 @@ function initBandSelector() {
 function initGlobeAnimation() {
   const section = document.getElementById('worldwide');
   const container = document.getElementById('globeContainer');
-  const svgEl = document.getElementById('globeSvg');
   const cardsEl = document.getElementById('globeCards');
-  if (!container || !section || !svgEl || !cardsEl) return;
+  const globeImg = document.getElementById('globeImg');
+  if (!container || !section || !cardsEl) return;
 
   const R = 280; // Globe radius (for card projection math)
-  const globeImg = document.getElementById('globeImg');
 
   // Cities spread across ALL zones — north, equator, south + evenly around longitude
   const cities = [
