@@ -419,18 +419,19 @@ function initGlobeAnimation() {
   ];
 
   // === BUILD SVG WIREFRAME ===
+  // Layer order: white fill → front lines only (no back lines visible)
   const ns = 'http://www.w3.org/2000/svg';
   const g = document.createElementNS(ns, 'g');
   g.setAttribute('transform', `translate(${CX},${CY})`);
 
-  // Globe fill — white background
+  // 1. SOLID WHITE FILL — opaque, hides everything behind
   const fill = document.createElementNS(ns, 'circle');
   fill.setAttribute('r', R);
-  fill.setAttribute('fill', 'rgba(255,255,255,1)');
+  fill.setAttribute('fill', '#ffffff');
   fill.setAttribute('stroke', 'none');
   g.appendChild(fill);
 
-  // Outer circle border — gold
+  // 2. Outer circle border — gold, thick
   const outer = document.createElementNS(ns, 'circle');
   outer.setAttribute('r', R);
   outer.setAttribute('fill', 'none');
@@ -438,38 +439,42 @@ function initGlobeAnimation() {
   outer.setAttribute('stroke-width', '2');
   g.appendChild(outer);
 
-  // Parallels / Latitude lines — GOLD, THICK, front half only
+  // 3. LATITUDE LINES — curved, gold, dense (every 15°)
+  // ry controls the curve — bigger = more curved like real globe
   const parallelLats = [-75, -60, -45, -30, -15, 0, 15, 30, 45, 60, 75];
   const parallelEls = [];
 
   parallelLats.forEach(lat => {
     const y = -R * Math.sin(lat * Math.PI / 180);
     const rx = R * Math.cos(lat * Math.PI / 180);
+    // ry scales with latitude — equator has more curve, poles less
+    const ry = 50 * Math.cos(lat * Math.PI / 180);
     const el = document.createElementNS(ns, 'ellipse');
     el.setAttribute('cx', 0); el.setAttribute('cy', y);
-    el.setAttribute('rx', rx); el.setAttribute('ry', 16);
+    el.setAttribute('rx', rx); el.setAttribute('ry', Math.max(ry, 10));
     el.setAttribute('fill', 'none');
-    el.setAttribute('stroke', lat === 0 ? 'rgba(178,130,32,0.55)' : 'rgba(178,130,32,0.3)');
-    el.setAttribute('stroke-width', lat === 0 ? '1.2' : '0.8');
-    // Show only front half
-    const circ = 2 * Math.PI * Math.sqrt((rx * rx + 16 * 16) / 2);
+    el.setAttribute('stroke', lat === 0 ? 'rgba(178,130,32,0.5)' : 'rgba(178,130,32,0.25)');
+    el.setAttribute('stroke-width', lat === 0 ? '1.2' : '0.7');
+    // Front half only via dasharray
+    const circ = 2 * Math.PI * Math.sqrt((rx * rx + ry * ry) / 2);
     el.setAttribute('stroke-dasharray', `${circ / 2} ${circ / 2}`);
     el.dataset.rx = rx;
+    el.dataset.ry = ry;
     el.dataset.circ = circ;
     g.appendChild(el);
     parallelEls.push(el);
   });
 
-  // Meridians / Longitude lines (12 vertical ellipses — animated by JS)
+  // 4. LONGITUDE / MERIDIAN LINES — 18 lines (every 10°), animated by JS
   const meridianEls = [];
-  for (let i = 0; i < 12; i++) {
-    const baseLon = i * 15;
+  for (let i = 0; i < 18; i++) {
+    const baseLon = i * 10; // 0, 10, 20...170
     const el = document.createElementNS(ns, 'ellipse');
     el.setAttribute('cx', 0); el.setAttribute('cy', 0);
     el.setAttribute('rx', 0); el.setAttribute('ry', R);
     el.setAttribute('fill', 'none');
-    el.setAttribute('stroke', 'rgba(178,130,32,0.3)');
-    el.setAttribute('stroke-width', '0.8');
+    el.setAttribute('stroke', 'rgba(178,130,32,0.25)');
+    el.setAttribute('stroke-width', '0.7');
     el.dataset.baseLon = baseLon;
     g.appendChild(el);
     meridianEls.push(el);
@@ -520,26 +525,31 @@ function initGlobeAnimation() {
     // Smooth interpolation
     currentRotY += (targetRotY - currentRotY) * 0.12;
 
-    // Update meridians
+    // Update meridians — only front-facing visible, back completely hidden
     meridianEls.forEach(el => {
       const baseLon = parseFloat(el.dataset.baseLon);
       const lon = baseLon + currentRotY;
       const rx = R * Math.cos(lon * Math.PI / 180);
       el.setAttribute('rx', Math.abs(rx));
-      // Fade: front = visible, back = dim
+
       const zFactor = Math.sin(lon * Math.PI / 180);
-      // Gold, front = visible, back = hidden
-      if (zFactor > 0) {
-        const opacity = 0.15 + zFactor * 0.45;
+      if (zFactor > 0.05) {
+        // Front side — visible, gold
+        const opacity = 0.12 + zFactor * 0.35;
         el.setAttribute('stroke', `rgba(178,130,32,${opacity})`);
-        el.setAttribute('stroke-width', '0.8');
+        el.setAttribute('stroke-width', '0.7');
+        // Only show front half of the ellipse
+        const mCirc = 2 * Math.PI * Math.sqrt((Math.abs(rx) * Math.abs(rx) + R * R) / 2);
+        el.setAttribute('stroke-dasharray', `${mCirc / 2} ${mCirc / 2}`);
       } else {
-        el.setAttribute('stroke', 'rgba(178,130,32,0)');
+        // Back side — completely hidden
+        el.setAttribute('stroke', 'rgba(0,0,0,0)');
         el.setAttribute('stroke-width', '0');
+        el.removeAttribute('stroke-dasharray');
       }
     });
 
-    // Update parallels — shift front-half dashoffset with rotation
+    // Update parallels — shift dashoffset to track rotation (front half only)
     parallelEls.forEach(el => {
       const circ = parseFloat(el.dataset.circ);
       const offset = (currentRotY / 360) * circ;
