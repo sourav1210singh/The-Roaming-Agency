@@ -140,7 +140,7 @@ function initNavigation() {
   let scrolling = false;
 
   function smoothScroll() {
-    currentScroll += (targetScroll - currentScroll) * 0.15;
+    currentScroll += (targetScroll - currentScroll) * 0.4;
     navList.scrollLeft = currentScroll;
     if (Math.abs(targetScroll - currentScroll) > 0.5) {
       requestAnimationFrame(smoothScroll);
