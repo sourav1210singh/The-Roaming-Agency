@@ -102,12 +102,15 @@ body {
   padding: var(--space-md) var(--container-padding);
   transition: background var(--duration-slow) var(--ease-smooth);
   pointer-events: none;
+  will-change: background;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .header--scrolled {
-  background: rgba(10, 10, 10, 0.9);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .header > * {
@@ -130,6 +133,9 @@ body {
   transition: all var(--duration-logo) var(--ease-out-expo);
   z-index: calc(var(--z-header) + 1);
   flex-shrink: 0;
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .logo__text {
@@ -200,8 +206,9 @@ body {
   min-width: 0;
   opacity: 0;
   transform: translateY(-8px);
-  transition: all var(--duration-slow) var(--ease-smooth);
+  transition: opacity var(--duration-slow) var(--ease-smooth), transform var(--duration-slow) var(--ease-smooth);
   pointer-events: none;
+  will-change: opacity, transform;
 }
 
 .nav--visible {
@@ -218,6 +225,10 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
   padding: var(--space-xs) 0;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
 }
 
 .nav__band-list::-webkit-scrollbar {
