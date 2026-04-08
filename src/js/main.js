@@ -397,8 +397,8 @@ function initGlobeAnimation() {
   const cardsEl = document.getElementById('globeCards');
   if (!container || !section || !svgEl || !cardsEl) return;
 
-  const R = 280; // Globe radius
-  const CX = 300, CY = 300; // Globe center in SVG viewBox
+  const R = 280; // Globe radius (for card projection math)
+  const globeImg = document.getElementById('globeImg');
 
   // Cities spread across ALL zones — north, equator, south + evenly around longitude
   const cities = [
@@ -418,63 +418,7 @@ function initGlobeAnimation() {
     { name: 'Corsica', country: 'FRANCE', lat: 30, lon: -130, img: 'gallery-23.jpg' },
   ];
 
-  // === BUILD SVG WIREFRAME (amra.com style — grey lines, dense grid) ===
-  const ns = 'http://www.w3.org/2000/svg';
-  const g = document.createElementNS(ns, 'g');
-  g.setAttribute('transform', `translate(${CX},${CY})`);
-
-  // 1. Solid white fill — completely opaque
-  const fill = document.createElementNS(ns, 'circle');
-  fill.setAttribute('r', R);
-  fill.setAttribute('fill', '#ffffff');
-  fill.setAttribute('stroke', 'none');
-  g.appendChild(fill);
-
-  // 2. Outer circle — thin grey border like amra.com
-  const outer = document.createElementNS(ns, 'circle');
-  outer.setAttribute('r', R);
-  outer.setAttribute('fill', 'none');
-  outer.setAttribute('stroke', 'rgba(160,160,160,0.5)');
-  outer.setAttribute('stroke-width', '1');
-  g.appendChild(outer);
-
-  // 3. LATITUDE LINES — grey, dense (every 10°), proper curve
-  const parallelEls = [];
-  for (let lat = -80; lat <= 80; lat += 10) {
-    const y = -R * Math.sin(lat * Math.PI / 180);
-    const rx = R * Math.cos(lat * Math.PI / 180);
-    const ry = 40 * Math.cos(lat * Math.PI / 180);
-    const el = document.createElementNS(ns, 'ellipse');
-    el.setAttribute('cx', 0); el.setAttribute('cy', y);
-    el.setAttribute('rx', rx); el.setAttribute('ry', Math.max(ry, 8));
-    el.setAttribute('fill', 'none');
-    el.setAttribute('stroke', lat === 0 ? 'rgba(140,140,140,0.4)' : 'rgba(170,170,170,0.25)');
-    el.setAttribute('stroke-width', lat === 0 ? '0.8' : '0.5');
-    // Front half only
-    const circ = 2 * Math.PI * Math.sqrt((rx * rx + Math.max(ry, 8) * Math.max(ry, 8)) / 2);
-    el.setAttribute('stroke-dasharray', `${circ / 2} ${circ / 2}`);
-    el.dataset.rx = rx;
-    el.dataset.circ = circ;
-    g.appendChild(el);
-    parallelEls.push(el);
-  }
-
-  // 4. LONGITUDE / MERIDIAN LINES — 24 lines (every 7.5°), grey, animated
-  const meridianEls = [];
-  for (let i = 0; i < 24; i++) {
-    const baseLon = i * 7.5;
-    const el = document.createElementNS(ns, 'ellipse');
-    el.setAttribute('cx', 0); el.setAttribute('cy', 0);
-    el.setAttribute('rx', 0); el.setAttribute('ry', R);
-    el.setAttribute('fill', 'none');
-    el.setAttribute('stroke', 'rgba(170,170,170,0.25)');
-    el.setAttribute('stroke-width', '0.5');
-    el.dataset.baseLon = baseLon;
-    g.appendChild(el);
-    meridianEls.push(el);
-  }
-
-  svgEl.appendChild(g);
+  // Globe image already in HTML — no SVG to build
 
   // === BUILD CITY CARDS ===
   cities.forEach((city, i) => {
@@ -519,36 +463,11 @@ function initGlobeAnimation() {
     // Smooth interpolation
     currentRotY += (targetRotY - currentRotY) * 0.12;
 
-    // Update meridians — grey, front-only, back hidden
-    meridianEls.forEach(el => {
-      const baseLon = parseFloat(el.dataset.baseLon);
-      const lon = baseLon + currentRotY;
-      const rx = R * Math.cos(lon * Math.PI / 180);
-      el.setAttribute('rx', Math.abs(rx));
-
-      const zFactor = Math.sin(lon * Math.PI / 180);
-      if (zFactor > 0.02) {
-        // Front — grey, opacity based on angle
-        const opacity = 0.1 + zFactor * 0.3;
-        el.setAttribute('stroke', `rgba(160,160,160,${opacity})`);
-        el.setAttribute('stroke-width', '0.5');
-        // Front half only via dasharray
-        const absRx = Math.abs(rx);
-        const mCirc = 2 * Math.PI * Math.sqrt((absRx * absRx + R * R) / 2);
-        el.setAttribute('stroke-dasharray', `${mCirc / 2} ${mCirc / 2}`);
-      } else {
-        // Back — completely hidden
-        el.setAttribute('stroke', 'rgba(0,0,0,0)');
-        el.setAttribute('stroke-width', '0');
-      }
-    });
-
-    // Update parallels — shift dashoffset to track rotation
-    parallelEls.forEach(el => {
-      const circ = parseFloat(el.dataset.circ);
-      const offset = (currentRotY / 360) * circ;
-      el.setAttribute('stroke-dashoffset', circ / 4 + offset);
-    });
+    // Rotate globe image on Y-axis with perspective
+    if (globeImg) {
+      const rotation = (currentRotY + 30) * 0.3; // subtle rotation
+      globeImg.style.transform = `rotateY(${rotation}deg)`;
+    }
 
     // Update cards
     const containerRect = container.getBoundingClientRect();

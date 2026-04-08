@@ -958,12 +958,17 @@ body {
   width: 140%;
   max-width: 900px;
   margin-left: 10%;
+  perspective: 1200px;
 }
 
-/* SVG Globe */
-.globe-svg {
+/* Globe image */
+.globe-img {
   width: 100%;
   height: auto;
+  transition: transform 0.1s linear;
+  transform-origin: center center;
+  pointer-events: none;
+  user-select: none;
 }
 
 /* Cards wrapper overlays the SVG */
