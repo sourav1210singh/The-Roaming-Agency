@@ -952,11 +952,12 @@ body {
   text-align: left;
 }
 
-/* Globe container */
+/* Globe container — large, overflows right */
 .globe-container {
   position: relative;
-  width: 110%;
-  max-width: 700px;
+  width: 140%;
+  max-width: 900px;
+  margin-left: 10%;
 }
 
 /* SVG Globe */
@@ -989,7 +990,7 @@ body {
   cursor: pointer;
   opacity: 0;
   transform: scale(0.8) translateY(10px) translateX(0px);
-  transition: opacity 0.4s ease, transform 0.3s ease;
+  transition: opacity 0.3s ease, transform 0.2s ease, filter 0.3s ease;
 }
 
 /* Card visibility + transform handled by JS */
@@ -1092,14 +1093,15 @@ body {
 
   .globe-container {
     width: 100%;
-    max-width: 500px;
+    max-width: 550px;
     margin: 0 auto;
   }
 }
 
 @media (max-width: 768px) {
   .globe-container {
-    max-width: 380px;
+    max-width: 400px;
+    margin: 0 auto;
   }
 
   .globe-card {

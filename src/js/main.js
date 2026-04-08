@@ -560,16 +560,27 @@ function initGlobeAnimation() {
       const px = ((p.x + R) / (R * 2)) * cw;
       const py = ((p.y + R) / (R * 2)) * ch;
 
-      if (p.visible && p.scale > 0.7) {
+      // z ranges from -R (back) to +R (front)
+      // Normalize to 0 (back) → 1 (front)
+      const zNorm = (p.z + R) / (R * 2);
+
+      if (p.visible && zNorm > 0.35) {
         card.style.left = px + 'px';
         card.style.top = py + 'px';
-        card.style.transform = `translate(-50%, -50%) scale(${Math.max(0.6, p.scale)})`;
-        card.style.opacity = Math.min(1, (p.scale - 0.6) * 2.5);
+
+        // Front cards = full size, back cards = shrink dramatically
+        const cardScale = 0.3 + zNorm * 0.8; // 0.58 to 1.1
+        const cardOpacity = Math.pow(Math.max(0, (zNorm - 0.35) / 0.65), 1.5); // smooth fade
+
+        card.style.transform = `translate(-50%, -50%) scale(${Math.min(1, cardScale)})`;
+        card.style.opacity = Math.min(1, cardOpacity);
         card.style.zIndex = Math.round(p.z + R);
-        card.style.pointerEvents = p.scale > 0.8 ? 'auto' : 'none';
+        card.style.pointerEvents = cardOpacity > 0.5 ? 'auto' : 'none';
+        card.style.filter = `blur(${Math.max(0, (1 - zNorm) * 2)}px)`;
       } else {
         card.style.opacity = '0';
         card.style.pointerEvents = 'none';
+        card.style.filter = 'blur(4px)';
       }
     });
 
