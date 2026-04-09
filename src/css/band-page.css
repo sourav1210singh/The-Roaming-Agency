@@ -290,16 +290,16 @@
 
 /* === BACK TO BANDS NAV === */
 .band-back {
-  position: fixed;
-  top: var(--space-lg);
+  position: absolute;
+  top: var(--space-xl);
   left: var(--container-padding);
-  z-index: calc(var(--z-header) + 1);
+  z-index: 3;
   display: flex;
   align-items: center;
   gap: var(--space-sm);
   color: var(--color-white);
   font-size: var(--text-sm);
-  opacity: 0.7;
+  opacity: 0.8;
   transition: opacity var(--duration-fast);
 }
 
