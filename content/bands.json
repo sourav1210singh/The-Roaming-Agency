@@ -1,0 +1,492 @@
+{
+  "agency": {
+    "name": "The Roaming Agency",
+    "tagline_en": "The biggest hits in the world performed for special events worldwide.",
+    "tagline_fr": "Les meilleurs hits de la planète performés lors de soirées d'exception.",
+    "description_en": "The Roaming Agency offers the widest roaming band offering worldwide, specializing in entertainment for luxury events like weddings and private parties.",
+    "description_fr": "",
+    "phone": "+33 6 86 62 12 82",
+    "email": "contact@theroamingagency.com",
+    "whatsapp": "+33686621282",
+    "instagram": "@theroamingagency",
+    "facebook": "thebrotherockers",
+    "youtube": "TheBrotherockers",
+    "gmb": "https://g.page/r/CeRTVoJV51FxEAI/review",
+    "base_location": "French Riviera, France",
+    "availability": "Available worldwide",
+    "experience": "Over 10 years of experience",
+    "events_count": "600+",
+    "languages_count": 6
+  },
+  "bands": [
+    {
+      "id": "brotherockers",
+      "name": "The Brotherockers",
+      "slug": "the-brotherockers",
+      "tagline_en": "A Journey to the Extraordinary",
+      "tagline_fr": "Un voyage vers l'extraordinaire",
+      "description_en": "Based on the French Riviera, available worldwide. Composed of international musicians fluent in French, English, Italian, Spanish, and Portuguese, The Brotherockers transform your drinks and dinners into unforgettable memories.",
+      "description_fr": "Basés sur la Côte d'Azur, disponibles dans le monde entier. Composés de musiciens internationaux parlant couramment le français, l'anglais, l'italien, l'espagnol et le portugais, les Brotherockers transforment vos cocktails et dîners en souvenirs inoubliables.",
+      "concept_en": "No mics, no barriers! The Brotherockers are fully mobile, effortlessly mingling with your guests to create interactive experiences.",
+      "concept_fr": "Pas de micro, pas de barrières ! Les Brotherockers sont entièrement mobiles, se mêlant sans effort à vos invités.",
+      "instagram": "@thebrotherockers",
+      "instagram_followers": 5297,
+      "gmb": "https://g.page/r/CZ12mswnNpzREBM/review",
+      "standards": [
+        {
+          "title_en": "Custom",
+          "title_fr": "Sur mesure",
+          "desc_en": "Because every event is unique, The Brotherockers deliver a tailor-made performance designed to meet your specific needs.",
+          "desc_fr": "Parce que chaque événement est unique, les Brotherockers offrent une performance sur mesure conçue pour répondre à vos besoins spécifiques."
+        },
+        {
+          "title_en": "Interactive",
+          "title_fr": "Immersif",
+          "desc_en": "The Brotherockers are highly interactive, inviting guests to take part in a unique and memorable musical experience.",
+          "desc_fr": "Les Brotherockers sont hautement interactifs, invitant les invités à participer à une expérience musicale unique et mémorable."
+        },
+        {
+          "title_en": "International",
+          "title_fr": "International",
+          "desc_en": "Fluent in five languages and performing in six, the band offers a versatile repertoire that engages all audiences.",
+          "desc_fr": "Parlant couramment cinq langues et jouant en six, le groupe offre un répertoire polyvalent qui engage tous les publics."
+        },
+        {
+          "title_en": "Reliable",
+          "title_fr": "Fiabilité",
+          "desc_en": "The Brotherockers take their mission seriously: punctuality, professionalism, attention to detail; nothing is left up to chance.",
+          "desc_fr": "Les Brotherockers prennent leur mission au sérieux : ponctualité, professionnalisme, souci du détail ; rien n'est laissé au hasard."
+        },
+        {
+          "title_en": "Savoir-Faire",
+          "title_fr": "Savoir-Faire",
+          "desc_en": "The right song at the right time! The guys' expert control of the mood will take your guests from base to summit.",
+          "desc_fr": "La bonne chanson au bon moment ! Le contrôle expert de l'ambiance emmènera vos invités du calme au sommet."
+        },
+        {
+          "title_en": "Passion",
+          "title_fr": "Passionnés",
+          "desc_en": "These gentlemen's love for the art shows not only in their explosive live energy, but also in the years spent mastering their instruments.",
+          "desc_fr": "L'amour de ces messieurs pour l'art se manifeste non seulement dans leur énergie explosive sur scène, mais aussi dans les années passées à maîtriser leurs instruments."
+        }
+      ],
+      "video_drive": "https://drive.google.com/drive/folders/1AoT3Hr00nl3o91Hv0y8wB9ZRYU0zfxnB",
+      "logo_drive": "https://drive.google.com/drive/folders/1dG9MB0XJ5LGT6iSS2SER4ePmwcVVwja_",
+      "content_status": "complete"
+    },
+    {
+      "id": "kingsmen",
+      "name": "The Kingsmen",
+      "slug": "the-kingsmen",
+      "tagline_en": "The Power of a Quintet with the Best Singers in the Industry",
+      "tagline_fr": "La puissance d'un quintette avec les meilleurs chanteurs de l'industrie",
+      "description_en": "A quintet featuring lead singers who play instruments plus a distinctive saxophone player. The band delivers stunning vocals, live instruments, and powerful energy to events worldwide.",
+      "description_fr": "",
+      "instagram": "@thekingsmen_band",
+      "gmb": "https://g.page/r/CZW68c5uBAAsEAE/review",
+      "standards": [
+        {
+          "title_en": "Powerful",
+          "desc_en": "Incomparable energy from five top-tier musicians"
+        },
+        {
+          "title_en": "Reliable",
+          "desc_en": "Punctuality, professionalism, attention to detail and musicianship; nothing is left up to chance"
+        },
+        {
+          "title_en": "Tailored",
+          "desc_en": "Custom collaboration with event planners for bespoke entertainment"
+        },
+        {
+          "title_en": "Experienced",
+          "desc_en": "Hundreds of events performed globally"
+        },
+        {
+          "title_en": "Immersive",
+          "desc_en": "Interactive shows encouraging guest participation"
+        },
+        {
+          "title_en": "International",
+          "desc_en": "More than 10 countries, engaging worldwide crowds in 5 different languages"
+        }
+      ],
+      "content_status": "partial"
+    },
+    {
+      "id": "peppermints",
+      "name": "The Peppermints",
+      "slug": "the-peppermints",
+      "tagline_en": "Fresh Music Anywhere, Anytime",
+      "tagline_fr": "Musique fraîche partout, à tout moment",
+      "description_en": "The Peppermints combine British pop/rock, French classics, Latin rhythms, and Irish folk in a refreshing and singular cocktail. A breath of fresh air — fun party band based in French Riviera, available worldwide.",
+      "description_fr": "",
+      "instagram": "@thepeppermints_band",
+      "instagram_followers": 5374,
+      "gmb": "https://g.page/r/CTm2b06c0xVlEAE/review",
+      "notable": "Featured in VOGUE magazine",
+      "standards": [
+        {
+          "title_en": "Inimitable",
+          "desc_en": "Various musical influences harmonized into unique performances"
+        },
+        {
+          "title_en": "Extensive Repertoire",
+          "desc_en": "One of the widest setlists combining songs across 5 languages"
+        },
+        {
+          "title_en": "Reliable",
+          "desc_en": "Punctuality, professionalism, attention to detail, musicianship"
+        },
+        {
+          "title_en": "Immersive",
+          "desc_en": "Highly interactive shows welcoming guest participation"
+        },
+        {
+          "title_en": "Tailored",
+          "desc_en": "Collaborative approach providing bespoke entertainment with expert advice"
+        },
+        {
+          "title_en": "International",
+          "desc_en": "Fluent in French, English, Spanish; confident in Italian; performed in 10+ countries"
+        }
+      ],
+      "content_status": "partial"
+    },
+    {
+      "id": "gentlemen",
+      "name": "The Gentlemen",
+      "slug": "the-gentlemen",
+      "tagline_en": "When French Flair Meets Latin Fire",
+      "tagline_fr": "Quand l'élégance française rencontre le feu latin",
+      "description_en": "Composed of musicians from France and Latin America, The Gentlemen blend diverse musical styles and influences. They perform in five languages and offer flexible lineup options (4-7 musicians) for various occasions.",
+      "description_fr": "The Gentlemen allient élégance, diversité musicale et performance multilingue pour sublimer vos événements, en formation de 4 à 7 musiciens.",
+      "headline_en": "Paris dances to the rhythm of South America",
+      "instagram": "@gentlemen.riviera",
+      "instagram_followers": 28645,
+      "gmb": "https://g.page/r/CcD5uKbGy3P-EAE/review",
+      "standards": [
+        {
+          "title_en": "Original",
+          "desc_en": "Latin American and French musicians unite the best of both musical worlds"
+        },
+        {
+          "title_en": "Reliable",
+          "desc_en": "Punctuality, professionalism, attention to detail"
+        },
+        {
+          "title_en": "Immersive",
+          "desc_en": "Highly interactive show welcoming guests to take part in an exceptional musical experience"
+        },
+        {
+          "title_en": "Talented",
+          "desc_en": "Trained at premier music schools"
+        },
+        {
+          "title_en": "Tailored",
+          "desc_en": "Custom entertainment with expert guidance"
+        },
+        {
+          "title_en": "International",
+          "desc_en": "Multilingual repertoire across 5 languages"
+        }
+      ],
+      "content_status": "partial"
+    },
+    {
+      "id": "serenades",
+      "name": "The Serenades",
+      "slug": "the-serenades",
+      "tagline_en": "Your International Roaming Band Al Dente",
+      "tagline_fr": "Votre groupe itinérant international Al Dente",
+      "description_en": "A talented blend of Italian and French musicians delivering timeless Italian charm mixed with international hits. Far more than a party band, they offer elegant piano performances, live jazz sets, and bossa nova arrangements tailored to any occasion.",
+      "description_fr": "",
+      "instagram": "@the.serenades",
+      "instagram_followers": 38999,
+      "gmb": "https://g.page/r/CWLBTCA6lESaEAE/review",
+      "standards": [
+        {
+          "title_en": "Al Dente",
+          "desc_en": "Wide range of international hits blended with Italian classics"
+        },
+        {
+          "title_en": "Multitalented",
+          "desc_en": "Jazz, Bossa & Piano performances for ceremonies and receptions"
+        },
+        {
+          "title_en": "Tailored",
+          "desc_en": "Collaborative approach with event planners for bespoke entertainment"
+        },
+        {
+          "title_en": "Reliable",
+          "desc_en": "Punctuality, professionalism, attention to detail, musicianship"
+        },
+        {
+          "title_en": "Immersive",
+          "desc_en": "Highly interactive shows welcoming guest participation"
+        },
+        {
+          "title_en": "International",
+          "desc_en": "Performed across 8+ countries in 4 different languages"
+        }
+      ],
+      "content_status": "partial"
+    },
+    {
+      "id": "supersonics",
+      "name": "The Supersonics",
+      "slug": "the-supersonics",
+      "tagline_en": "Break the Sound Barrier",
+      "tagline_fr": "Franchir le mur du son",
+      "description_en": "A powerful roaming band blending UK vocals with French musical talent. Combines British-American pop rock hits with timeless French, Italian, and Spanish classics. Features a London tenor singer backed by accomplished French musicians including a standout saxophonist.",
+      "description_fr": "",
+      "instagram": "@thesupersonics.roaming",
+      "instagram_followers": 18439,
+      "gmb": "https://g.page/r/CVP7CAc_FJ4jEBM/review",
+      "notable": "35+ destination weddings in 2025, performed for Louis Vuitton",
+      "standards": [
+        {
+          "title_en": "Bravado",
+          "desc_en": "Perform iconic British songs beyond mainstream hits"
+        },
+        {
+          "title_en": "Talented",
+          "desc_en": "Musicians with international performance credentials"
+        },
+        {
+          "title_en": "Tailored",
+          "desc_en": "Customized entertainment through collaboration with planners"
+        },
+        {
+          "title_en": "Reliable",
+          "desc_en": "Professional punctuality and attention to detail"
+        },
+        {
+          "title_en": "Immersive",
+          "desc_en": "Highly interactive shows encouraging guest participation"
+        },
+        {
+          "title_en": "International",
+          "desc_en": "Multilingual performances in 4 languages"
+        }
+      ],
+      "content_status": "partial"
+    },
+    {
+      "id": "rendezvous",
+      "name": "The Rendez-Vous",
+      "slug": "the-rendez-vous",
+      "tagline_en": "Back to the Future",
+      "tagline_fr": "Retour vers le futur",
+      "description_en": "The Rendez-Vous is a roaming band specializing in 60s and 70s hits delivered with sharp style, breathtaking vocal harmonies, and legendary guitar solos. Members bring over 10 years of experience from their own projects and are graduates of top music schools.",
+      "description_fr": "",
+      "headline_en": "The best parties' meeting point!",
+      "instagram": "@rendezvousroamingband",
+      "instagram_followers": 17237,
+      "gmb": "https://g.page/r/CVQbLDM6wDpPEBM/review",
+      "standards": [
+        {
+          "title_en": "Retro",
+          "desc_en": "60s-70s repertoire with authentic pop/rock and folk covers"
+        },
+        {
+          "title_en": "Reliable",
+          "desc_en": "Punctuality, professionalism, attention to detail"
+        },
+        {
+          "title_en": "Tailored",
+          "desc_en": "Collaborative customization with clients and event planners"
+        },
+        {
+          "title_en": "Talented",
+          "desc_en": "Formally trained musicians with exceptional skills"
+        },
+        {
+          "title_en": "Immersive",
+          "desc_en": "Highly interactive performances welcoming guest participation"
+        },
+        {
+          "title_en": "International",
+          "desc_en": "Fluent in French and English; active in 10+ countries"
+        }
+      ],
+      "content_status": "partial"
+    },
+    {
+      "id": "cafecreme",
+      "name": "Café Crème",
+      "slug": "cafe-creme",
+      "tagline_en": "Paris, Mon Amour",
+      "tagline_fr": "Paris, mon amour",
+      "description_en": "The city of lights calls to mind café terraces, grand boulevards, a stolen kiss, romance, a moment suspended in time. Formed by musician friends for years, Café Crème brings a distinguished touch to your event and has become the reference for strolling music based in Paris, alongside The Gentlemen. Beyond their elegant allure and impeccable style, the four musicians stand out for their undeniable talent and infectious energy. Trained in some of the finest music schools in Paris, they are carried by the rich, sensitive voice of Enzo. Their influences are wide and their sound remains refined, moving between soul, neo soul, pop, and jazz. The band also knows how to lift the atmosphere when the moment calls for it, with a gypsy, Italian, and rock repertoire. Designed for luxury events and destination weddings, Café Crème delivers effortless refinement, and, when the atmosphere allows, raises the energy to create unforgettable memories.",
+      "description_fr": "",
+      "instagram": "",
+      "gmb": "https://g.page/r/CXyGrlZDqE9EEBM/review",
+      "standards": [
+        {
+          "title_en": "Refined",
+          "desc_en": "Elegant allure, impeccable style, and a polished presence: Café Crème elevates the most prestigious events."
+        },
+        {
+          "title_en": "Talented",
+          "desc_en": "A singer guitarist with a warm and sensitive voice backed up by some of the best musicians in Paris."
+        },
+        {
+          "title_en": "International",
+          "desc_en": "Café Crème connects with guests from all backgrounds by performing songs in four different languages."
+        },
+        {
+          "title_en": "Reliable",
+          "desc_en": "Punctuality, professionalism, attention to detail and musicianship; nothing is left up to chance."
+        },
+        {
+          "title_en": "Experience",
+          "desc_en": "The band has extensive experience performing at a wide range of events, consistently delivering high-level entertainment."
+        },
+        {
+          "title_en": "Tailored",
+          "desc_en": "We collaborate and brainstorm with you or your event planner to provide bespoke entertainment while also offering expert advice."
+        }
+      ],
+      "content_status": "complete"
+    },
+    {
+      "id": "whysoserious",
+      "name": "Why So Serious?",
+      "slug": "why-so-serious",
+      "tagline_en": "A Journey to the Extraordinary",
+      "tagline_fr": "",
+      "description_en": "",
+      "description_fr": "",
+      "instagram": "",
+      "gmb": "https://g.page/r/CSSAvqu0zcFfEBM/review",
+      "standards": [],
+      "content_status": "empty"
+    },
+    {
+      "id": "blackjacks",
+      "name": "The Blackjacks",
+      "slug": "the-blackjacks",
+      "tagline_en": "A Journey to the Extraordinary",
+      "tagline_fr": "",
+      "description_en": "",
+      "description_fr": "",
+      "instagram": "",
+      "gmb": "",
+      "standards": [],
+      "content_status": "empty"
+    },
+    {
+      "id": "dj",
+      "name": "DJ",
+      "slug": "dj",
+      "tagline_en": "The Party Engineer",
+      "tagline_fr": "",
+      "dj_name": "Johnny Molotov",
+      "dj_secondary": "Baptiste",
+      "description_en": "The only man you will see performing live with a roaming band, entertaining your guests with both his powerful vocals and mastery of the cajon before switching to an unbelievable DJ set. Johnny is a graduate of a prestigious French music school with expertise in sound systems and controllers.",
+      "description_fr": "",
+      "instagram": "",
+      "gmb": "",
+      "standards": [
+        {
+          "title_en": "Tailored",
+          "desc_en": "Custom setlists based on musical preferences"
+        },
+        {
+          "title_en": "Talented",
+          "desc_en": "Trained at top music conservatory"
+        },
+        {
+          "title_en": "Passionate",
+          "desc_en": "Fully committed to party energy"
+        },
+        {
+          "title_en": "All-in-One",
+          "desc_en": "Combines roaming bands with DJ sets and saxophone"
+        },
+        {
+          "title_en": "Reliable",
+          "desc_en": "Punctual, professional, detail-oriented"
+        },
+        {
+          "title_en": "Equipment",
+          "desc_en": "Modern, stylish, dependable gear"
+        }
+      ],
+      "content_status": "partial"
+    }
+  ],
+  "faq": [
+    {
+      "q_en": "What is a roaming band?",
+      "a_en": "A roaming band, equally known as a strolling band, is an unplugged and therefore mobile group. Musicians perform while mingling with guests throughout the venue without microphones, offering interactive performances.",
+      "q_fr": "Qu'est-ce qu'un groupe itinérant ?",
+      "a_fr": ""
+    },
+    {
+      "q_en": "How long do you play for?",
+      "a_en": "The standard offering consists of 3 sets of 30 minutes each, with the possibility of spreading them out between the key stages of the event. Larger or premium events can book extended options: 4 sets of 30 minutes or 3 sets of 40 minutes.",
+      "q_fr": "Combien de temps jouez-vous ?",
+      "a_fr": ""
+    },
+    {
+      "q_en": "What type of music do you play?",
+      "a_en": "Our repertoire spans a wide variety of songs, in different languages and in all styles. We adapt performances to each unique audience and recommend trusting us musically once festivities begin, though specific titles can be requested.",
+      "q_fr": "Quel type de musique jouez-vous ?",
+      "a_fr": ""
+    },
+    {
+      "q_en": "Where are you based?",
+      "a_en": "We live in Nice, France, just like our friends The Peppermints and The Kingsmen.",
+      "q_fr": "Où êtes-vous basés ?",
+      "a_fr": ""
+    },
+    {
+      "q_en": "How far do you travel?",
+      "a_en": "Anywhere and everywhere our music is needed!",
+      "q_fr": "Jusqu'où voyagez-vous ?",
+      "a_fr": ""
+    },
+    {
+      "q_en": "What is the volume of a roaming band?",
+      "a_en": "A strolling band has no strong amplification. The concept involves bringing the music directly to the guests. The acoustic setup performs loud enough to get over 150 people dancing without DJ-level volume.",
+      "q_fr": "Quel est le volume d'un groupe itinérant ?",
+      "a_fr": ""
+    },
+    {
+      "q_en": "What do you need at the venue?",
+      "a_en": "Being acoustic, there is no need for access to a power source. A hot meal onsite and digital content from photographers/videographers are appreciated.",
+      "q_fr": "De quoi avez-vous besoin sur le lieu ?",
+      "a_fr": ""
+    },
+    {
+      "q_en": "Do you need to do a soundcheck?",
+      "a_en": "Not if we play roaming. Amplified events require installation time estimated case-by-case.",
+      "q_fr": "Avez-vous besoin de faire un soundcheck ?",
+      "a_fr": ""
+    },
+    {
+      "q_en": "What about last-minute bookings?",
+      "a_en": "The band is highly responsive and is always prepared to travel last minute, ready to handle musical emergencies.",
+      "q_fr": "Et pour les réservations de dernière minute ?",
+      "a_fr": ""
+    }
+  ],
+  "event_types": [
+    {
+      "id": "weddings",
+      "name_en": "Weddings",
+      "name_fr": "Mariages"
+    },
+    {
+      "id": "corporate",
+      "name_en": "Corporate Events",
+      "name_fr": "Événements d'entreprise"
+    },
+    {
+      "id": "parties",
+      "name_en": "Private Parties",
+      "name_fr": "Événements Privés"
+    }
+  ]
+}
