@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "roaming-agency-dev",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["C:/The-Roaming-Agency-main/The-Roaming-Agency-main/server.js"],
+      "port": 3000
+    }
+  ]
+}
