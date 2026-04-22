@@ -61,6 +61,99 @@ body {
   border: 0;
 }
 
+/* === CUSTOM LUXURY CURSOR (behind default cursor — additive layer) === */
+/* Default system cursor stays visible — custom ring+dot follow on top as overlay */
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference; /* Auto invert based on background */
+  will-change: transform;
+}
+
+/* Outer ring — elastic follow with delay, SAME size always */
+.cursor__ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid #ffffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: border-color 0.25s var(--ease-smooth),
+              opacity 0.25s ease;
+  will-change: transform;
+}
+
+/* Inner dot — instant follow. On content/clickable hover it grows into a big
+   SOLID blob that, via mix-blend-mode: difference on the parent, inverts whatever
+   text/image is beneath — travelnextlvl.de style "eating" effect. */
+.cursor__dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  background: #ffffff;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              height 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 0.3s ease,
+              opacity 0.25s ease;
+  will-change: transform, width, height;
+}
+
+/* Label hidden — no longer used */
+.cursor__label {
+  display: none;
+}
+
+/* On CONTENT hover (text, images, headings) — DOT grows to sit just inside the
+   ring (smaller than the 40px ring), dot goes dark, ring fills white.
+   mix-blend-mode: difference turns this into a soft inverted blob over text. */
+.cursor.is-over-content .cursor__dot {
+  width: 30px;
+  height: 30px;
+  background: #0a0a0a;
+}
+
+.cursor.is-over-content .cursor__ring {
+  background: rgba(255, 255, 255, 0.9);
+  border-color: rgba(255, 255, 255, 0.9);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+/* On CLICKABLE hover — same grown dot + gold-filled ring */
+.cursor.is-hovering .cursor__dot {
+  width: 30px;
+  height: 30px;
+  background: #0a0a0a;
+}
+
+.cursor.is-hovering .cursor__ring {
+  background: rgba(230, 190, 100, 1);
+  border-color: rgba(230, 190, 100, 1);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+/* Click state — tiny pulse only (no size explosion) */
+.cursor.is-clicking .cursor__ring {
+  scale: 0.85;
+  transition: scale 0.12s ease;
+}
+
+/* Hide custom cursor on touch devices */
+@media (hover: none), (pointer: coarse) {
+  .cursor {
+    display: none;
+  }
+}
+
 /* === PAGE LOADER === */
 .page-loader {
   position: fixed;
@@ -100,8 +193,12 @@ body {
   right: 0;
   z-index: var(--z-header);
   padding: var(--space-md) var(--container-padding);
+  /* Only background transitions smoothly — opacity + transform are driven
+     by JS every frame during the intro phases, so CSS transitions on those
+     properties would fight the scroll-scrubbed animation. */
   transition: background var(--duration-slow) var(--ease-smooth);
   pointer-events: none;
+  opacity: 0; /* JS drives this during intro-zoom; stays 0 until phase 2 */
 }
 
 .header--scrolled {
@@ -154,28 +251,29 @@ body {
 }
 
 /* Hero state — logo centered at bottom of video */
+/* Header DOM still contains .logo--hero for backward compatibility and for
+   use as a measurement proxy (JS temporarily makes it visible to read its
+   final docked pixel position). The actual visible/clickable logo is now
+   the .hero-center-title anchor — single element, no swap, no z-index glitch. */
 .logo--hero {
-  position: fixed;
-  top: auto;
-  bottom: 20vh;
-  left: 50%;
-  transform: translateX(-50%);
-  flex-direction: column;
+  display: none;
+  flex-direction: row;
   align-items: center;
-  text-align: center;
-  pointer-events: auto;
-  width: max-content;
-  max-width: 90vw;
-}
-
-.logo--hero .logo__text {
-  font-size: var(--text-4xl);
+  position: relative;
+  top: auto;
+  left: auto;
+  bottom: auto;
+  transform: none;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .logo--hero .logo__tagline {
-  font-size: var(--text-xs);
-  margin-top: var(--space-md);
-  opacity: 1;
+  display: none;
+}
+
+.logo--hero .logo__text {
+  font-size: var(--text-xl);
 }
 
 /* Scrolled state — logo top-left, part of flex row */
@@ -312,6 +410,344 @@ body {
   height: 2px;
   background: var(--color-white);
   transition: all var(--duration-base) var(--ease-smooth);
+}
+
+/* === INTRO ZOOM SECTION (saxophone reveals hero) === */
+.intro-zoom {
+  position: relative;
+  width: 100%;
+  /* 600vh budget:
+       0-50% (300vh) saxophone zoom
+       50-66% (96vh)  hold + fade-in of hero center title ("The Roaming Agency")
+       66-78% (72vh)  header fade-in (band nav + FR toggle — no logo yet)
+       78-100% (132vh) center title travels to top-left and becomes header logo */
+  height: 600vh;
+  background: var(--color-black);
+}
+
+.intro-zoom__sticky {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.intro-zoom__video-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.intro-zoom__video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Luxury background — blurred photo with warm overlay (visible initially) */
+.intro-zoom__bg {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  overflow: hidden;
+  will-change: opacity;
+}
+
+.intro-zoom__bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: blur(20px) brightness(0.35) saturate(1.2);
+  transform: scale(1.1); /* Prevent blur edges */
+}
+
+.intro-zoom__bg-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at center, transparent 0%, rgba(10, 10, 10, 0.7) 100%),
+    linear-gradient(135deg, rgba(178, 130, 32, 0.15) 0%, transparent 50%, rgba(178, 130, 32, 0.15) 100%);
+}
+
+/* Solid white panel — fades in after scroll starts (hides background) */
+.intro-zoom__white-panel {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  background: #ffffff;
+  opacity: 0;
+  will-change: opacity;
+}
+
+/* Side content panels — tagline + stats visible on sides */
+.intro-zoom__side {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+/* Re-enable pointer-events on actual text children so custom cursor can detect
+   "content" hover and grow the dot — parent stays non-interactive for layout */
+.intro-zoom__side > p,
+.intro-zoom__side > .intro-zoom__accent-line {
+  pointer-events: auto;
+}
+
+.intro-zoom__side--left {
+  left: 6%;
+  max-width: 280px;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.intro-zoom__side--right {
+  right: 6%;
+  max-width: 200px;
+  align-items: flex-end;
+  text-align: right;
+}
+
+.intro-zoom__tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 1.3vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.3;
+  color: #fff;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.intro-zoom__subtext {
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin: 0;
+}
+
+.intro-zoom__vertical {
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.4em;
+  color: #fff;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.intro-zoom__accent-line {
+  width: 40px;
+  height: 2px;
+  background: var(--color-gold);
+  opacity: 0.8;
+}
+
+.intro-zoom__side--right .intro-zoom__accent-line {
+  align-self: flex-end;
+}
+
+/* Hide side panels on smaller screens */
+@media (max-width: 1024px) {
+  .intro-zoom__side {
+    display: none;
+  }
+}
+
+/* Saxophone — zooms with scale, with all browser quality hints enabled */
+.intro-zoom__instrument {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  width: auto;
+  height: 85vh;
+  max-height: 750px;
+  filter: drop-shadow(0 10px 40px rgba(0, 0, 0, 0.2));
+  transform: translate(-52%, -57%) scale(1);
+  transform-origin: 52% 57%;
+  image-rendering: -webkit-optimize-contrast;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  will-change: transform;
+  /* Not interactive — cursor hovers pass through the transparent PNG rectangle
+     to the text/content behind (prevents misleading "button-like" cursor feedback) */
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Music notes overlay — notes spawn from bell hole and float */
+.intro-zoom__notes {
+  position: absolute;
+  z-index: 4;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.intro-zoom__note {
+  position: absolute;
+  font-size: 32px;
+  color: #b28220;
+  opacity: 0;
+  user-select: none;
+  text-shadow: 0 2px 8px rgba(178, 130, 32, 0.4);
+  will-change: transform, opacity;
+  pointer-events: none;
+}
+
+@keyframes noteFloat {
+  0% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.3) rotate(0deg);
+  }
+  15% {
+    opacity: 1;
+    transform: translate(var(--drift-x-1), -50px) scale(1) rotate(var(--rotate-1));
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--drift-x-2), -350px) scale(1.3) rotate(var(--rotate-2));
+  }
+}
+
+.intro-zoom__text {
+  position: absolute;
+  bottom: 6vh;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  text-align: center;
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+/* === HERO TITLE / LOGO (same element, two visual states) ===
+   Acts as:
+     • a BIG dark-gold shimmering title over the video after saxophone zoom
+     • the permanent clickable site LOGO once scroll-driven travel completes
+   JS drives opacity + position + font-size via inline styles, scroll-scrubbed
+   across phases 2 & 3 so it travels smoothly between its two positions.
+   z-index sits ABOVE the header so the text never slides under the dark bar. */
+.hero-center-title {
+  position: fixed;
+  top: 62%;      /* lowered from dead-center for a more cinematic composition */
+  left: 50%;
+  transform: translate(-50%, -50%); /* JS overrides each frame */
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4.5vw, 4rem);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-align: center;
+  white-space: nowrap;
+  line-height: 1;
+  text-decoration: none;
+  opacity: 0;                               /* JS fades in after zoom */
+  /* Sits above the header background (even above .header--scrolled blur layer).
+     Cursor z-index is 9999 so stays on top; anything 900+ keeps us clear of
+     all normal UI layers. */
+  z-index: 900;
+  pointer-events: none;                     /* JS enables when visible */
+  will-change: opacity, transform, font-size;
+}
+
+/* Dark-gold shimmering text — linear-gradient clipped to text,
+   animated background-position for a slow metallic shine sweep. */
+.hero-center-title__text {
+  display: inline-block;
+  background: linear-gradient(
+    115deg,
+    #6b4e1a 0%,
+    #8c6a24 18%,
+    #c09a3e 40%,
+    #f0d27a 50%,
+    #c09a3e 60%,
+    #8c6a24 82%,
+    #6b4e1a 100%
+  );
+  background-size: 220% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 24px rgba(178, 130, 32, 0.25);
+  animation: heroTitleShine 5.5s ease-in-out infinite;
+}
+
+@keyframes heroTitleShine {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+/* Re-enable pointer-events on actual pitch + hint text so cursor content state triggers */
+.intro-zoom__text > h1,
+.intro-zoom__text > p {
+  pointer-events: auto;
+}
+
+/* Premium pitch headline */
+.intro-zoom__pitch {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2vw, 2rem);
+  font-weight: 500;
+  line-height: 1.25;
+  color: #fff;
+  letter-spacing: 0.04em;
+  margin: 0 0 var(--space-lg) 0;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+  animation: pitchFadeIn 1.2s var(--ease-out-expo) 0.3s both;
+}
+
+/* Gold accent on "memory" line — use span for emphasis? Skip — keep it clean */
+
+/* Scroll hint with pulse */
+.intro-zoom__hint {
+  font-family: var(--font-accent);
+  font-size: 0.8rem;
+  color: var(--color-gold);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  margin: 0;
+  opacity: 0.9;
+  animation: introHintPulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pitchFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes introHintPulse {
+  0%, 100% { opacity: 0.5; letter-spacing: 0.35em; }
+  50% { opacity: 1; letter-spacing: 0.4em; }
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .intro-zoom__instrument {
+    height: 50vh;
+    max-height: 400px;
+  }
 }
 
 /* === HERO SECTION === */
@@ -595,6 +1031,48 @@ body {
   opacity: 0.6;
   filter: brightness(0) invert(1);
   transition: opacity var(--duration-base) var(--ease-smooth);
+}
+
+/* Bvlgari logo reads smaller than the others visually — bump its height
+   so it matches the optical weight of the surrounding brand marks. */
+.brands-ticker__logo[alt="Bvlgari"] {
+  height: 80px;
+  max-width: 220px;
+}
+
+/* Edmond de Rothschild uses a full-colour heraldic crest (eagle, stars, lion
+   in yellow/blue/red). The global brightness(0) invert(1) filter wipes out
+   its colours and reduces it to a flat silhouette — preserve the original
+   artwork here, and give it a touch more height since it reads smaller with
+   the detailed shield + text layout. */
+.brands-ticker__logo[alt="Edmond de Rothschild"] {
+  filter: none;
+  height: 70px;
+  max-width: 240px;
+  opacity: 0.85;
+}
+
+/* These brand logos are already designed as WHITE artwork on transparent
+   background (PokerStars, AstraZeneca, Novartis, Formula 1) — the default
+   brightness(0) invert(1) filter is a no-op for them in principle, but we
+   strip it anyway to keep edges crisper. Bürgenstock has a MIXED palette
+   (dark shield + white wordmark) so the filter must be disabled or the
+   dark shield gets wiped — keep its original look. */
+.brands-ticker__logo[alt="Bürgenstock Collection"],
+.brands-ticker__logo[alt="AstraZeneca"],
+.brands-ticker__logo[alt="PokerStars"],
+.brands-ticker__logo[alt="Novartis"],
+.brands-ticker__logo[alt="Formula 1"],
+.brands-ticker__logo[alt="Boat World Superyacht Awards"],
+.brands-ticker__logo[alt="Ultima Gstaad"] {
+  filter: none;
+}
+
+/* Bürgenstock has a dark shield which may blend into the ticker's dark
+   background. Bump its height + contrast so it reads cleanly. */
+.brands-ticker__logo[alt="Bürgenstock Collection"] {
+  height: 72px;
+  max-width: 260px;
 }
 
 .brands-ticker__item:hover .brands-ticker__logo {
@@ -952,21 +1430,24 @@ body {
   text-align: left;
 }
 
-/* Globe container — large, overflows right */
+/* Globe container — large, overflows right.
+   Tilt 10deg clockwise (north pole → right, south pole → left) for a subtle
+   "earth-axis" feel like real planetary illustrations. */
 .globe-container {
   position: relative;
-  width: 140%;
-  max-width: 900px;
-  margin-left: 10%;
+  width: 160%;
+  max-width: 1080px;
+  margin-left: 12%;
   perspective: 1200px;
+  transform: rotate(10deg);
+  transform-origin: center center;
 }
 
-/* Globe image */
-.globe-img {
+/* Globe canvas (Three.js 3D render) */
+.globe-canvas {
   width: 100%;
-  height: auto;
-  transition: transform 0.1s linear;
-  transform-origin: center center;
+  aspect-ratio: 1 / 1;
+  display: block;
   pointer-events: none;
   user-select: none;
 }
@@ -995,21 +1476,28 @@ body {
   cursor: pointer;
   opacity: 0;
   transform: scale(0.8) translateY(10px) translateX(0px);
-  transition: opacity 0.3s ease, transform 0.2s ease, filter 0.3s ease;
+  /* Smooth pop-in / pop-out — longer opacity + scale eases for an organic
+     amra.com-style fade. Transform duration kept shorter so per-frame position
+     updates (from globe rotation) don't feel laggy. */
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.4s ease;
 }
 
 /* Card visibility + transform handled by JS */
 
 .globe-card__icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: var(--color-gold);
+  /* No circle background — just the emoji icon floating next to the text.
+     Keeps the card clean and modern while each city's icon stays distinct. */
+  width: auto;
+  height: auto;
+  background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 14px;
+  font-size: 22px;
+  line-height: 1;
 }
 
 .globe-card__dot {

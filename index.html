@@ -26,12 +26,20 @@
   <!-- GSAP + ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 </head>
 <body>
 
   <!-- ===== PAGE LOADER ===== -->
   <div class="page-loader" id="pageLoader">
     <div class="page-loader__spinner"></div>
+  </div>
+
+  <!-- ===== CUSTOM CURSOR ===== -->
+  <div class="cursor" id="cursor" aria-hidden="true">
+    <div class="cursor__ring" id="cursorRing"></div>
+    <div class="cursor__dot" id="cursorDot"></div>
+    <div class="cursor__label" id="cursorLabel"></div>
   </div>
 
   <!-- ===== WHATSAPP BUTTON ===== -->
@@ -75,18 +83,57 @@
     </div>
   </header>
 
-  <!-- ===== HERO SECTION ===== -->
-  <section class="hero" id="hero">
-    <div class="hero__video-wrap">
-      <video class="hero__video" autoplay muted loop playsinline poster="src/assets/images/hero-banner.jpg">
-        <source src="src/assets/videos/hero.mp4" type="video/mp4">
-      </video>
-      <div class="hero__overlay"></div>
-    </div>
+  <!-- ===== HERO TITLE / LOGO (single element, body-level to avoid any parent
+       overflow clipping or stacking-context traps). Visible only after the
+       saxophone zoom completes; scroll-driven travel moves it from center-lower
+       to the header's top-left slot where it becomes the permanent clickable
+       site logo. Same element throughout — no swap. ===== -->
+  <a href="/" class="hero-center-title" id="heroCenterTitle">
+    <span class="hero-center-title__text">The Roaming Agency</span>
+  </a>
 
-    <div class="hero__scroll-indicator">
-      <span data-en="Scroll" data-fr="Défiler">Scroll</span>
-      <div class="hero__scroll-line"></div>
+  <!-- ===== INTRO ZOOM SECTION (saxophone reveals hero) ===== -->
+  <section class="intro-zoom" id="introZoom">
+    <div class="intro-zoom__sticky">
+      <!-- Hero video at bottom (revealed at end) -->
+      <div class="intro-zoom__video-wrap">
+        <video class="intro-zoom__video" autoplay muted loop playsinline>
+          <source src="src/assets/videos/hero.mp4" type="video/mp4">
+        </video>
+      </div>
+      <!-- Luxury background — French Riviera gallery photo heavily blurred, with warm overlay -->
+      <div class="intro-zoom__bg" id="introBg">
+        <img src="src/assets/images/gallery/gallery-01.jpg" alt="" class="intro-zoom__bg-img">
+        <div class="intro-zoom__bg-overlay"></div>
+      </div>
+      <!-- White panel covers viewport after scroll starts — fades out at end -->
+      <div class="intro-zoom__white-panel" id="introWhite"></div>
+      <!-- Left side content — tagline + stats -->
+      <div class="intro-zoom__side intro-zoom__side--left" id="introSideLeft">
+        <div class="intro-zoom__accent-line"></div>
+        <p class="intro-zoom__tagline" data-en="Extraordinary Events<br>Deserve Extraordinary<br>Music" data-fr="Les événements extraordinaires<br>méritent une musique<br>extraordinaire">
+          Extraordinary Events<br>Deserve Extraordinary<br>Music
+        </p>
+        <p class="intro-zoom__subtext" data-en="10+ Years · 600+ High-End Events" data-fr="10+ Ans · 600+ Événements Haut de Gamme">
+          10+ Years · 600+ High-End Events
+        </p>
+      </div>
+      <!-- Right side content — location + quote -->
+      <div class="intro-zoom__side intro-zoom__side--right" id="introSideRight">
+        <p class="intro-zoom__vertical">FRENCH RIVIERA</p>
+        <div class="intro-zoom__accent-line"></div>
+        <p class="intro-zoom__subtext" data-en="Available Worldwide" data-fr="Disponible dans le monde entier">Available Worldwide</p>
+      </div>
+      <!-- Saxophone (zooms in from bell center, idle floats gently) -->
+      <img src="src/assets/images/Saxophone_HD.png" alt="Saxophone" class="intro-zoom__instrument" id="introSax">
+      <!-- Music notes container — notes spawn from bell hole and float up -->
+      <div class="intro-zoom__notes" id="introNotes"></div>
+      <!-- Intro text: premium pitch — fades out + drifts up as we zoom -->
+      <div class="intro-zoom__text" id="introText">
+        <h1 class="intro-zoom__pitch" data-en="This isn't music.<br>It's a memory being made." data-fr="Ce n'est pas de la musique.<br>C'est un souvenir en train de naître.">This isn't music.<br>It's a memory being made.</h1>
+        <p class="intro-zoom__hint" data-en="Scroll to begin ↓" data-fr="Défilez pour commencer ↓">Scroll to begin ↓</p>
+      </div>
+
     </div>
   </section>
 
@@ -95,8 +142,8 @@
     <div class="container">
       <span class="section__label reveal" data-en="Who We Are" data-fr="Qui Sommes-Nous">Who We Are</span>
       <h2 class="section__title reveal" data-en="The Roaming Agency" data-fr="The Roaming Agency">The Roaming Agency</h2>
-      <p class="section__subtitle reveal" data-en="The biggest hits in the world performed for special events worldwide. Based on the French Riviera, available worldwide — with over 10 years of experience and 600+ high-end events globally." data-fr="Les meilleurs hits de la planète performés lors de soirées d'exception. Basés sur la Côte d'Azur, disponibles dans le monde entier — avec plus de 10 ans d'expérience et plus de 600 événements haut de gamme dans le monde.">
-        The biggest hits in the world performed for special events worldwide. Based on the French Riviera, available worldwide — with over 10 years of experience and 600+ high-end events globally.
+      <p class="section__subtitle reveal" data-en="The Roaming Agency is a premium live music and entertainment agency based on the French Riviera, curating world-class roaming bands, jazz ensembles, DJs and soloists for luxury weddings, corporate galas, private parties and destination events across the globe. From intimate villa soirées in Monaco, Saint-Tropez and Cannes to large-scale celebrations in Paris, London, Dubai, Saudi Arabia and Miami, our multilingual musicians deliver the biggest hits in the world — performed live, with a cinematic touch that transforms every event into a lasting memory. With over 10 years of experience and 600+ high-end events delivered worldwide, we handpick every artist, rehearse every setlist, and tailor each performance to your venue, guests and vision. Whether you need a roaming brass band to welcome guests, a rooftop jazz trio for cocktails, a pop-rock headline act for the dancefloor, or a full-production show with lights and stage design, The Roaming Agency is your trusted partner for unforgettable luxury entertainment. Based on the French Riviera — available worldwide." data-fr="The Roaming Agency est une agence premium de musique live et de divertissement basée sur la Côte d'Azur, qui sélectionne des groupes itinérants, ensembles jazz, DJs et solistes d'exception pour mariages de luxe, galas d'entreprise, soirées privées et événements de destination à travers le monde. Des réceptions intimistes en villa à Monaco, Saint-Tropez et Cannes aux grandes célébrations à Paris, Londres, Dubaï, Arabie Saoudite et Miami, nos musiciens multilingues interprètent les plus grands hits de la planète — en live, avec une touche cinématographique qui transforme chaque événement en souvenir inoubliable. Avec plus de 10 ans d'expérience et plus de 600 événements haut de gamme livrés dans le monde entier, nous sélectionnons chaque artiste, répétons chaque setlist et adaptons chaque performance à votre lieu, vos invités et votre vision. Que vous ayez besoin d'un brass band itinérant pour accueillir vos invités, d'un trio jazz en rooftop pour le cocktail, d'un groupe pop-rock pour la piste de danse, ou d'un show complet avec lumières et scénographie, The Roaming Agency est votre partenaire de confiance pour un divertissement de luxe inoubliable. Basés sur la Côte d'Azur — disponibles dans le monde entier.">
+        The Roaming Agency is a premium live music and entertainment agency based on the French Riviera, curating world-class roaming bands, jazz ensembles, DJs and soloists for luxury weddings, corporate galas, private parties and destination events across the globe. From intimate villa soirées in Monaco, Saint-Tropez and Cannes to large-scale celebrations in Paris, London, Dubai, Saudi Arabia and Miami, our multilingual musicians deliver the biggest hits in the world — performed live, with a cinematic touch that transforms every event into a lasting memory. With over 10 years of experience and 600+ high-end events delivered worldwide, we handpick every artist, rehearse every setlist, and tailor each performance to your venue, guests and vision. Whether you need a roaming brass band to welcome guests, a rooftop jazz trio for cocktails, a pop-rock headline act for the dancefloor, or a full-production show with lights and stage design, The Roaming Agency is your trusted partner for unforgettable luxury entertainment. Based on the French Riviera — available worldwide.
       </p>
 
       <!-- Stats -->
@@ -212,9 +259,9 @@
           <h2 class="section__title reveal" data-en="Performing Across Europe's Most Beautiful Celebrations" data-fr="Présents dans les Plus Belles Célébrations d'Europe">Performing Across Europe's Most Beautiful Celebrations</h2>
           <p class="section__subtitle reveal" data-en="Based on the French Riviera, our bands travel wherever the music is needed." data-fr="Basés sur la Côte d'Azur, nos groupes se déplacent partout où la musique est nécessaire.">Based on the French Riviera, our bands travel wherever the music is needed.</p>
         </div>
-        <!-- Globe: image + JS-positioned cards -->
+        <!-- Globe: Three.js canvas + JS-positioned cards -->
         <div class="globe-container" id="globeContainer">
-          <img src="src/assets/images/globe.png" alt="Globe wireframe" class="globe-img" id="globeImg">
+          <canvas id="globeCanvas" class="globe-canvas"></canvas>
           <div class="globe-cards" id="globeCards"></div>
         </div>
       </div>
@@ -319,7 +366,14 @@
       <span class="brands-ticker__item"><img src="src/assets/images/brands/loreal.png" alt="L'Oreal" class="brands-ticker__logo"></span>
       <span class="brands-ticker__item"><img src="src/assets/images/brands/just-cavalli.png" alt="Just Cavalli" class="brands-ticker__logo"></span>
       <span class="brands-ticker__item"><img src="src/assets/images/brands/veolia.png" alt="Veolia" class="brands-ticker__logo"></span>
-      <span class="brands-ticker__item"><img src="src/assets/images/brands/lamer.png" alt="La Mer" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/lamer.png" alt="Edmond de Rothschild" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/boat.png" alt="Boat World Superyacht Awards" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/ultima-gstaad.png" alt="Ultima Gstaad" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/burgenstock.png" alt="Bürgenstock Collection" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/astrazeneca.png" alt="AstraZeneca" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/pokerstars.png" alt="PokerStars" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/novartis.png" alt="Novartis" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/f1.png" alt="Formula 1" class="brands-ticker__logo"></span>
       <!-- Duplicate for seamless loop -->
       <span class="brands-ticker__item"><img src="src/assets/images/brands/dior.png" alt="Dior" class="brands-ticker__logo"></span>
       <span class="brands-ticker__item"><img src="src/assets/images/brands/louis-vuitton.png" alt="Louis Vuitton" class="brands-ticker__logo"></span>
@@ -338,7 +392,14 @@
       <span class="brands-ticker__item"><img src="src/assets/images/brands/loreal.png" alt="L'Oreal" class="brands-ticker__logo"></span>
       <span class="brands-ticker__item"><img src="src/assets/images/brands/just-cavalli.png" alt="Just Cavalli" class="brands-ticker__logo"></span>
       <span class="brands-ticker__item"><img src="src/assets/images/brands/veolia.png" alt="Veolia" class="brands-ticker__logo"></span>
-      <span class="brands-ticker__item"><img src="src/assets/images/brands/lamer.png" alt="La Mer" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/lamer.png" alt="Edmond de Rothschild" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/boat.png" alt="Boat World Superyacht Awards" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/ultima-gstaad.png" alt="Ultima Gstaad" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/burgenstock.png" alt="Bürgenstock Collection" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/astrazeneca.png" alt="AstraZeneca" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/pokerstars.png" alt="PokerStars" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/novartis.png" alt="Novartis" class="brands-ticker__logo"></span>
+      <span class="brands-ticker__item"><img src="src/assets/images/brands/f1.png" alt="Formula 1" class="brands-ticker__logo"></span>
     </div>
   </div>
 

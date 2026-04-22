@@ -4,8 +4,14 @@
     {
       "name": "roaming-agency-dev",
       "runtimeExecutable": "node",
-      "runtimeArgs": ["The-Roaming-Agency-main/server.js"],
+      "runtimeArgs": ["server.js"],
       "port": 3000
+    },
+    {
+      "name": "origynz-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev", "--prefix", "C:/origynz-longevity-full-export"],
+      "port": 8080
     }
   ]
 }
