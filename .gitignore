@@ -1,0 +1,22 @@
+# macOS metadata
+.DS_Store
+
+# IDE / editor folders
+.vscode/
+.idea/
+
+# Local settings (Claude harness)
+.claude/settings.local.json
+
+# Original messy-named client deliverables (zip artefacts).
+# We've already copied the contents into src/assets/images/brands/v2/
+# with clean kebab-case filenames — those copies are tracked. The
+# original archived folders are kept locally for reference but stay
+# out of the repo to avoid duplicate assets and unicode-in-path issues.
+src/assets/images/1st line-*/
+src/assets/images/Hotels-*/
+
+# WPF intermediate PNGs (auto-generated from .webp/.jpg sources by the
+# logo-processing pipeline). The final outputs in v2-clean/ are what
+# the site actually loads.
+src/assets/images/brands/v2-temp/

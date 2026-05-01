@@ -2,6 +2,23 @@
    BAND PAGE — Individual Band Styles
    ============================================ */
 
+/* Header opacity reset — the homepage uses opacity: 0 on .header so the
+   intro-zoom JS can fade it in. Band sub-pages have no intro-zoom, so the
+   default needs to be visible. We don't add !important — the smart-header
+   `body.is-header-hidden` class still gets to translate the bar away on
+   scroll-down. */
+.header {
+  opacity: 1;
+}
+.header__inner {
+  opacity: 1;
+}
+.nav {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
 /* === BAND HERO === */
 .band-hero {
   position: relative;

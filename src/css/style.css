@@ -193,12 +193,34 @@ body {
   right: 0;
   z-index: var(--z-header);
   padding: var(--space-md) var(--container-padding);
-  /* Only background transitions smoothly — opacity + transform are driven
-     by JS every frame during the intro phases, so CSS transitions on those
-     properties would fight the scroll-scrubbed animation. */
-  transition: background var(--duration-slow) var(--ease-smooth);
+  /* Background + translate transition smoothly. Opacity + `transform` are
+     driven by JS during intro-zoom — we deliberately leave those off the
+     transition list so they can scroll-scrub without lag. The smart-header
+     hide/show uses the standalone `translate` property instead, so it
+     composes with the JS transform without overwriting it. */
+  transition: background var(--duration-slow) var(--ease-smooth),
+              translate 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   pointer-events: none;
   opacity: 0; /* JS drives this during intro-zoom; stays 0 until phase 2 */
+}
+
+/* Smart-header hidden state — slides off-screen via the `translate` CSS
+   property (separate from `transform` so it never fights the intro-zoom
+   animation). Pointer-events suspended so a fully-hidden bar can't block
+   accidental clicks at the top edge.
+
+   The matching `body.is-header-hidden` selector lets us also hide the
+   floating hero-center-title (it lives outside the <header> in the DOM,
+   but is visually part of the header chrome on the homepage). */
+.header.is-hidden {
+  translate: 0 -100%;
+  pointer-events: none;
+}
+
+body.is-header-hidden .hero-center-title {
+  opacity: 0 !important;
+  pointer-events: none;
+  transition: opacity 0.35s ease, translate 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .header--scrolled {
@@ -411,6 +433,84 @@ body {
   background: var(--color-white);
   transition: all var(--duration-base) var(--ease-smooth);
 }
+
+/* === HERO STACK (sticky black panel + video that slides up) ===
+   Two-section stack: a sticky black panel and a video that overlaps it
+   at a higher z-index. As the user scrolls, the panel stays pinned at
+   viewport top and the video slides UP from below to cover it.
+
+   The wrapper (.hero-stack) bounds the sticky scope to one viewport
+   height. After the user scrolls past it, both sections release and
+   the rest of the page scrolls normally. */
+.hero-stack {
+  position: relative;
+  width: 100%;
+}
+
+.hero-intro {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero-intro__tagline {
+  /* Pinned to the viewport (not the section) so it stays visible OVER
+     the video as the video slides up to cover the black panel. JS
+     toggles its opacity when the user scrolls past the hero stack. */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  max-width: 92vw;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4.5vw, 4rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: 0.005em;
+  color: #ffffff;
+  z-index: 3; /* above .hero-video (z:2) and .hero-intro (z:1) */
+  pointer-events: none;
+  will-change: opacity, transform;
+  /* No transition here — JS drives opacity + transform each frame so a
+     CSS transition would lag the scroll-scrubbed motion. */
+}
+
+@media (max-width: 640px) {
+  .hero-intro__tagline {
+    font-size: clamp(1.4rem, 7vw, 2.4rem);
+    line-height: 1.25;
+  }
+}
+
+.hero-video {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  /* Higher than the sticky panel so it COVERS it on scroll-up */
+  z-index: 2;
+}
+
+.hero-video__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ============================================================================
+   Legacy intro-zoom styles below — kept temporarily as dead CSS so older
+   selectors still validate, but no longer applied (the saxophone zoom HTML
+   has been removed). Safe to delete in a future cleanup pass.
+   ============================================================================ */
 
 /* === INTRO ZOOM SECTION (saxophone reveals hero) === */
 .intro-zoom {
@@ -858,6 +958,142 @@ body {
   line-height: 1.7;
 }
 
+/* ============================================================================
+   WHO WE ARE — light section per client brief v2
+   ----------------------------------------------------------------------------
+   Off-white panel with a 2-column grid: left = eyebrow + huge sans-serif
+   title + paragraph, right = four animated counter stats arranged in a
+   staggered zig-zag.
+
+   Typography uses a modern geometric sans (Nohemi target — Inter is the
+   placeholder until the client provides Nohemi font files). Body text
+   colour shifts to dark grey so the scroll word-darkening effect remains
+   readable on the light panel.
+   ============================================================================ */
+.who-we-are {
+  background-color: #f0f0f0; /* off-white per palette spec */
+  color: #393939;            /* dark grey body text */
+  padding-block: clamp(5rem, 9vw, 8rem);
+}
+
+.who-we-are__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(3rem, 8vw, 6rem);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .who-we-are__grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+}
+
+/* — Left column — */
+.who-we-are__intro {
+  max-width: 32rem;
+}
+
+.who-we-are__label {
+  display: block;
+  color: #c9a85a;            /* warm gold — readable on off-white */
+  font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  margin-bottom: clamp(1.25rem, 2vw, 2rem);
+}
+
+/* Modern geometric heading — 'Inter' as Nohemi placeholder. Replace
+   `Nohemi` once the licensed font is loaded. */
+.who-we-are__title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(3rem, 6.5vw, 6.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #1c1c1c;
+  text-transform: uppercase;
+  margin: 0 0 clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+.who-we-are__copy {
+  font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: #393939;
+  max-width: 30rem;
+}
+
+/* The word-by-word darkening effect: words start partially transparent
+   and brighten as the user scrolls. Color is now driven by the parent
+   (currentColor) so dark-bg + light-bg sections both work correctly. */
+.who-we-are__copy .darken-word {
+  color: currentColor;
+}
+
+/* — Right column — staggered zig-zag stat grid —
+   Pattern (matches the mockup):
+     row 1: ___    +10
+     row 2: 600+   ___
+     row 3: ___    10+
+     row 4: 6      ___
+*/
+.who-we-are__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(4, auto);
+  gap: clamp(1.5rem, 3vw, 3rem) clamp(1.5rem, 4vw, 4rem);
+  align-items: end;
+}
+
+.stat--top-right    { grid-column: 2; grid-row: 1; }
+.stat--mid-left     { grid-column: 1; grid-row: 2; }
+.stat--mid-right    { grid-column: 2; grid-row: 3; }
+.stat--bottom-left  { grid-column: 1; grid-row: 4; }
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.stat__number {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-weight: 800;
+  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: #1c1c1c;
+  font-variant-numeric: tabular-nums;
+}
+
+.stat__label {
+  font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+  font-size: clamp(0.85rem, 1vw, 1rem);
+  font-weight: 400;
+  color: #555555;
+  margin-top: 0.4rem;
+}
+
+/* Mobile — stack stats vertically, no zig-zag */
+@media (max-width: 720px) {
+  .who-we-are__stats {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+  .stat--top-right,
+  .stat--mid-left,
+  .stat--mid-right,
+  .stat--bottom-left {
+    grid-column: 1;
+    grid-row: auto;
+  }
+}
+
 /* Reveal animations (toggled by GSAP/ScrollTrigger) */
 .reveal {
   opacity: 0;
@@ -871,17 +1107,31 @@ body {
   transform: translateY(0);
 }
 
-/* === CHOOSE YOUR BAND SECTION === */
+/* === CHOOSE YOUR BAND SECTION ===
+   Sticky-stack pattern (Weavy.ai style). The OUTER `.band-selector`
+   is tall — it provides the scroll runway. The INNER `.band-selector__sticky`
+   pins to the viewport for the duration of that runway, while JS slides
+   the right-hand band list upward and crossfades the matching B&W image.
+   No line + dot indicator — gold colour alone signals the active band. */
 .band-selector {
   position: relative;
-  min-height: 100vh;
+  /* ~one viewport of scroll budget per band (11 bands ≈ 11 stops).
+     Tuned conservatively at 500vh so the entire pin sequence is digestible
+     on a single mouse-wheel sweep. */
+  height: 500vh;
+  background: var(--color-black);
+}
+
+.band-selector__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
   overflow: hidden;
 }
 
 .band-selector__bg {
   position: absolute;
   inset: 0;
-  transition: opacity 0.8s var(--ease-smooth);
 }
 
 .band-selector__bg-image {
@@ -891,8 +1141,14 @@ body {
   background-position: center;
   opacity: 0;
   transition: opacity 0.8s var(--ease-smooth);
+  /* Subtle Ken Burns zoom while a band is active — matches the cinematic
+     feel without distracting from the list selection. */
+  transform: scale(1.04);
+  filter: grayscale(0.4) brightness(0.85);
 }
 
+/* Both `.is-active` (new) and legacy `.active` keep working. */
+.band-selector__bg-image.is-active,
 .band-selector__bg-image.active {
   opacity: 1;
 }
@@ -902,16 +1158,16 @@ body {
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(0, 0, 0, 0.7) 0%,
-    rgba(0, 0, 0, 0.4) 50%,
-    rgba(0, 0, 0, 0.7) 100%
+    rgba(0, 0, 0, 0.78) 0%,
+    rgba(0, 0, 0, 0.55) 50%,
+    rgba(0, 0, 0, 0.85) 100%
   );
 }
 
 .band-selector__content {
   position: relative;
   z-index: 2;
-  min-height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   padding: 0 var(--container-padding);
@@ -928,15 +1184,20 @@ body {
 }
 
 .band-selector__heading {
-  font-family: var(--font-heading);
-  font-size: var(--text-5xl);
-  font-weight: 500;
-  line-height: 1.1;
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: clamp(2.75rem, 5.5vw, 5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
   margin-bottom: var(--space-xl);
+  color: var(--color-white);
 }
 
+/* Drop the gold accent on the heading — modern flat white reads cleaner
+   per the v2 brief. Override the legacy span colour. */
 .band-selector__heading span {
-  color: var(--color-gold);
+  color: inherit;
 }
 
 .band-selector__desc {
@@ -947,153 +1208,575 @@ body {
   max-width: 500px;
 }
 
+/* Right column — viewport masks the list to a single band-row tall.
+   The list itself translates upward in JS so the active item centres. */
+.band-selector__viewport {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  /* Soft mask top + bottom so list items fade out at the edges of the
+     centred reveal window, drawing the eye to the gold active item. */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 25%,
+    #000 75%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 25%,
+    #000 75%,
+    transparent 100%
+  );
+}
+
 .band-selector__list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  width: 100%;
+  /* JS sets translateY in pixels via inline style; the smooth transition
+     here makes click-jumps glide while scroll-driven updates feel direct. */
+  transition: transform 0.6s var(--ease-out-expo);
+  will-change: transform;
 }
 
 .band-selector__item {
-  font-family: var(--font-heading);
-  font-size: var(--text-2xl);
-  font-weight: 400;
+  display: block;
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  font-weight: 500;
   color: var(--color-white);
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-sm) 0;
   cursor: pointer;
-  transition: all var(--duration-base) var(--ease-smooth);
-  border-left: 3px solid transparent;
-  position: relative;
-  opacity: 0.6;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+  /* Default state — dimmed, no indicator. */
+  opacity: 0.32;
+  transition: color var(--duration-base) var(--ease-smooth),
+              opacity var(--duration-base) var(--ease-smooth);
 }
 
 .band-selector__item:hover {
+  opacity: 0.6;
   color: var(--color-white);
-  opacity: 1;
-  padding-left: var(--space-xl);
 }
 
+/* Active state per client: gold colour ONLY — no border-line, no dot,
+   no padding shift. */
+.band-selector__item.is-active,
 .band-selector__item.active {
   color: var(--color-gold);
-  border-left-color: var(--color-gold);
-  font-weight: 500;
-  padding-left: var(--space-xl);
   opacity: 1;
 }
 
-/* === BRAND LOGOS TICKER (ingmarcoenen.com style) === */
-.brands-ticker {
-  padding: var(--space-3xl) 0;
+/* === BRANDS — TWO-ROW MARQUEE (vastspace.com style) ===
+   Per client v2 + later revision:
+   • Two rows, opposite directions (row 1 → left, row 2 → right)
+   • Light bg + solid black logos (no opacity dimming — were too light before)
+   • No internal divider lines, no diamond dots
+   • DEFAULT speed = fast (so the section feels alive while user scrolls
+     past it on adjacent sections).
+   • HOVER over a row → it SLOWS DOWN (so user can read each logo).
+     This is the REVERSE of the earlier vastspace pattern — client wants
+     "hover = slow, default = fast" so the marquee gives time to inspect
+     when intent is shown.
+   ----------------------------------------------------------------- */
+.brands-marquee {
+  /* SPEED MODEL (per client revision):
+     • Default = SLOW base pace (calm idle look while user is sitting still
+       on this section).
+     • While the page is actively SCROLLING (anywhere on the page) →
+       row tracks switch to a FASTER pace, giving the marquee a sense of
+       reactive motion as the user moves through neighbouring sections.
+     • Hover on a row → SLOW (so user can read each logo).
+     `body.is-scrolling` class is toggled by main.js on scroll events
+     with a small idle timeout. */
+  --marquee-speed-row1: 60s;        /* row 1 idle (slow) */
+  --marquee-speed-row2: 38s;        /* row 2 idle, scaled to match row 1 visual speed (60 × 18/28 ≈ 38) */
+  --marquee-speed-row1-active: 22s; /* row 1 while page is scrolling */
+  --marquee-speed-row2-active: 14s; /* row 2 while page is scrolling */
+  --marquee-speed-row1-hover: 110s; /* row 1 on hover (very slow read) */
+  --marquee-speed-row2-hover: 70s;  /* row 2 on hover (proportional) */
+  padding: clamp(2.5rem, 5vw, 4rem) 0;
+  /* Pure white panel per client revision — was #f0f0f0 light grey. */
+  background: #ffffff;
+  /* No border-top / border-bottom — divider lines removed per brief. */
   overflow: hidden;
-  background: var(--color-dark-surface);
-  border-top: 1px solid var(--color-gray-800);
-  border-bottom: 1px solid var(--color-gray-800);
 }
 
-.brands-ticker__track {
+.brands-marquee__row {
   display: flex;
-  animation: ticker 40s linear infinite;
+  overflow: hidden;
+  /* Soft edge fade so logos blur in/out at the viewport boundaries
+     instead of clipping mid-glyph. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 8%,
+    #000 92%,
+    transparent 100%
+  );
+}
+
+.brands-marquee__row + .brands-marquee__row {
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+}
+
+.brands-marquee__track {
+  display: flex;
+  align-items: center;
   width: max-content;
+  /* Idle base — slow. Each row pulls its own variable so the
+     pixels-per-second feel matches between rows of different widths. */
+  animation: brands-marquee-scroll var(--marquee-speed-row1) linear infinite;
+  will-change: transform;
 }
 
-.brands-ticker__track:hover {
-  animation-play-state: paused;
+/* Row 2 — same animation, reversed direction + its own duration. */
+.brands-marquee__row--reverse .brands-marquee__track {
+  animation-direction: reverse;
+  animation-duration: var(--marquee-speed-row2);
 }
 
-.brands-ticker__item {
+/* Active page scroll → both rows speed up. The `body.is-scrolling`
+   class is added by main.js whenever the page receives a scroll event
+   and removed after a short idle timeout. */
+body.is-scrolling .brands-marquee__row .brands-marquee__track {
+  animation-duration: var(--marquee-speed-row1-active);
+}
+body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
+  animation-duration: var(--marquee-speed-row2-active);
+}
+
+/* Hover wins over scroll-active — slows the row down so user can read.
+   Listed AFTER the .is-scrolling rules so its specificity (or order)
+   takes precedence on hover. */
+.brands-marquee__row:hover .brands-marquee__track {
+  animation-duration: var(--marquee-speed-row1-hover);
+}
+.brands-marquee__row--reverse:hover .brands-marquee__track {
+  animation-duration: var(--marquee-speed-row2-hover);
+}
+
+.brands-marquee__item {
+  /* UNIFORM CELL SIZING — every logo, regardless of its natural aspect
+     (wide wordmark vs square crest), gets the same fixed cell. The logo
+     inside is constrained to a percentage of the cell so they all read
+     at equal optical weight on the row. Per client revision:
+     "ek size m sahi lagega" — uniform size makes the row look right. */
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  gap: var(--space-xl);
-  padding: 0 var(--space-xl);
-  transition: opacity var(--duration-base) var(--ease-smooth);
+  justify-content: center;
+  width: clamp(180px, 14vw, 220px);
+  height: clamp(80px, 6vw, 96px);
+  padding: 0 clamp(1rem, 2vw, 1.5rem);
 }
 
-.brands-ticker__name {
-  font-family: var(--font-heading);
-  font-size: var(--text-lg);
-  color: var(--color-gray-400);
-  white-space: nowrap;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  transition: color var(--duration-base);
-}
-
-.brands-ticker__item:hover .brands-ticker__name {
-  color: var(--color-gold);
-}
-
-.brands-ticker__logo {
-  height: 55px;
-  width: auto;
-  min-width: 80px;
-  max-width: 180px;
+.brands-marquee__logo {
+  /* Logo fills its cell to a uniform percentage — this normalises the
+     OPTICAL size across logos that have wildly different intrinsic
+     dimensions. With object-fit:contain the aspect ratio is preserved,
+     but every logo occupies the same visible bounding box.
+     ----------
+     The v2-clean PNGs are already PRE-PROCESSED to pure black on
+     transparent (see src/assets/images/brands/v2/process-logos.ps1).
+     No more blend-modes, no more filter chains, no more per-logo
+     invert() overrides — every logo renders as plain black-on-
+     transparent over the white panel. Clean and uniform across all 46. */
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
   object-fit: contain;
-  opacity: 0.6;
-  filter: brightness(0) invert(1);
-  transition: opacity var(--duration-base) var(--ease-smooth);
-}
-
-/* Bvlgari logo reads smaller than the others visually — bump its height
-   so it matches the optical weight of the surrounding brand marks. */
-.brands-ticker__logo[alt="Bvlgari"] {
-  height: 80px;
-  max-width: 220px;
-}
-
-/* Edmond de Rothschild uses a full-colour heraldic crest (eagle, stars, lion
-   in yellow/blue/red). The global brightness(0) invert(1) filter wipes out
-   its colours and reduces it to a flat silhouette — preserve the original
-   artwork here, and give it a touch more height since it reads smaller with
-   the detailed shield + text layout. */
-.brands-ticker__logo[alt="Edmond de Rothschild"] {
-  filter: none;
-  height: 70px;
-  max-width: 240px;
-  opacity: 0.85;
-}
-
-/* These brand logos are already designed as WHITE artwork on transparent
-   background (PokerStars, AstraZeneca, Novartis, Formula 1) — the default
-   brightness(0) invert(1) filter is a no-op for them in principle, but we
-   strip it anyway to keep edges crisper. Bürgenstock has a MIXED palette
-   (dark shield + white wordmark) so the filter must be disabled or the
-   dark shield gets wiped — keep its original look. */
-.brands-ticker__logo[alt="Bürgenstock Collection"],
-.brands-ticker__logo[alt="AstraZeneca"],
-.brands-ticker__logo[alt="PokerStars"],
-.brands-ticker__logo[alt="Novartis"],
-.brands-ticker__logo[alt="Formula 1"],
-.brands-ticker__logo[alt="Boat World Superyacht Awards"],
-.brands-ticker__logo[alt="Ultima Gstaad"] {
-  filter: none;
-}
-
-/* Bürgenstock has a dark shield which may blend into the ticker's dark
-   background. Bump its height + contrast so it reads cleanly. */
-.brands-ticker__logo[alt="Bürgenstock Collection"] {
-  height: 72px;
-  max-width: 260px;
-}
-
-.brands-ticker__item:hover .brands-ticker__logo {
   opacity: 1;
+  transition: transform 0.3s ease;
 }
 
-/* Diamond separator */
-.brands-ticker__dot {
-  display: block;
-  width: 6px;
-  height: 6px;
-  background: var(--color-gold);
-  transform: rotate(45deg);
-  opacity: 0.5;
+/* Subtle hover lift. */
+.brands-marquee__item:hover .brands-marquee__logo {
+  transform: scale(1.06);
+}
+
+/* (Dark-bg per-logo overrides removed — the v2-clean PNGs are already
+   pre-processed black-on-transparent, so no runtime filter is needed.) */
+
+@keyframes brands-marquee-scroll {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Honour reduced-motion users — pause the loop entirely. */
+@media (prefers-reduced-motion: reduce) {
+  .brands-marquee__track {
+    animation: none;
+  }
+}
+
+/* === EVENTS WE SERVE — STICKY FRAME + NEGATIVE-SWAP =====================
+   Per client v2:
+   • Outer .events is tall (400vh = ~one viewport per category × 4) and
+     provides scroll runway. Inner .events__sticky is `position: sticky;
+     top: 0; height: 100vh` — pinned for the full runway.
+   • Frame, big heading, layout columns DON'T move while user scrolls
+     past. JS swaps the active category index based on scroll progress;
+     content + bg colour cross-fade.
+   • Bg alternates white ↔ black on each category index for the
+     "negative version" effect requested in the transcript.
+   • Vertical line on the left fills 0 → 100% as the user scrolls,
+     using `--events-progress` (set by JS) on .events__progress-fill.
+   ----------------------------------------------------------------- */
+.events {
+  position: relative;
+  height: 400vh;          /* ~1 viewport per category × 4 categories */
+  /* Theming — JS toggles `.is-negative` on the inner sticky to flip
+     these for the negative-effect bg swap. */
+  --events-bg: #ffffff;
+  --events-text: #1c1c1c;
+  --events-line-track: rgba(28, 28, 28, 0.12);
+  --events-line-fill: #1c1c1c;
+}
+
+/* Negative variant — applied to .events__sticky (inner) so the bg
+   transition is scoped to the sticky frame. */
+.events__sticky.is-negative {
+  --events-bg: #1c1c1c;
+  --events-text: #ffffff;
+  --events-line-track: rgba(255, 255, 255, 0.18);
+  --events-line-fill: #ffffff;
+}
+
+.events__sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  background: var(--events-bg);
+  color: var(--events-text);
+  /* Negative-style swap is the centrepiece — give it a smooth easing
+     so the white↔black flip feels deliberate, not abrupt. */
+  transition: background-color 0.6s ease, color 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(2rem, 5vw, 4.5rem) clamp(1.5rem, 5vw, 5rem);
+  overflow: hidden;
+}
+
+.events__title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: clamp(2.5rem, 7vw, 6rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(2rem, 5vw, 4rem);
+  text-align: center;
+}
+
+/* Mixed-weight title — "EVENTS" bold, "We Serve" lighter, per mockup. */
+.events__title--bold {
+  font-weight: 800;
+}
+.events__title--light {
+  font-weight: 300;
+  margin-left: 0.4ch;
+}
+
+.events__layout {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  min-height: 0; /* allow children to size against parent */
+}
+
+/* ── LEFT COLUMN ── */
+.events__left {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  height: 100%;
+}
+
+.events__progress-line {
   flex-shrink: 0;
-  margin-left: var(--space-xl);
+  width: 2px;
+  height: 70%;
+  background: var(--events-line-track);
+  position: relative;
+  align-self: center;
+  transition: background-color 0.6s ease;
 }
 
-@keyframes ticker {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+/* JS sets `--events-progress: 0..1` on this element (or its parent);
+   we map it to height with a calc(). */
+.events__progress-fill {
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: calc(var(--events-progress, 0) * 100%);
+  background: var(--events-line-fill);
+  transition: background-color 0.6s ease, height 0.15s linear;
+}
+
+/* Stack of category panels — only `.is-active` is visible; others fade
+   out to 0 in the same absolute slot. */
+.events__cat-stack {
+  position: relative;
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.events__cat {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  pointer-events: none;
+  margin: 0;
+}
+
+.events__cat.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.events__cat-title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: clamp(2.25rem, 4.5vw, 4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin: 0 0 clamp(1rem, 2vw, 1.5rem);
+}
+
+/* GSAP-SplitText-style line-mask reveal (Elyse-residence pattern).
+   Each word is wrapped in an overflow:hidden mask; the inner text
+   starts translated below the mask edge and rises to 0 when the
+   parent .events__cat becomes .is-active. Multi-word titles get a
+   stagger via :nth-child delays. */
+.events__cat-mask {
+  display: block;
+  overflow: hidden;
+  line-height: 1;
+  padding-bottom: 0.06em; /* keep descenders from being clipped */
+}
+
+.events__cat-text {
+  display: inline-block;
+  transform: translateY(110%);
+  will-change: transform;
+}
+
+@keyframes events-line-rise {
+  0%   { transform: translateY(110%); }
+  100% { transform: translateY(0); }
+}
+
+/* When a category becomes active, animate each of its line-mask texts
+   into view, staggered. Restart on every (re)activation by relying on
+   keyframes + animation-fill-mode forwards. */
+.events__cat.is-active .events__cat-text {
+  animation: events-line-rise 0.85s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+}
+.events__cat.is-active .events__cat-mask:nth-child(2) .events__cat-text {
+  animation-delay: 0.12s;
+}
+.events__cat.is-active .events__cat-mask:nth-child(3) .events__cat-text {
+  animation-delay: 0.24s;
+}
+
+.events__cat-desc {
+  font-size: clamp(0.95rem, 1.1vw, 1.125rem);
+  line-height: 1.6;
+  max-width: 32em;
+  margin: 0;
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.events__cat.is-active .events__cat-desc {
+  opacity: 0.85;
+  transform: translateY(0);
+  /* Description fades in AFTER the title finishes rising, so the eye
+     follows title → body naturally. */
+  transition-delay: 0.4s;
+}
+
+/* ── RIGHT COLUMN — staggered photo pair ── */
+.events__right {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.events__photo-stack {
+  position: relative;
+  width: 100%;
+  height: clamp(360px, 60vh, 600px);
+  z-index: 2;
+}
+
+.events__photo-set {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.events__photo-set.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.events__photo {
+  position: absolute;
+  border-radius: 14px;
+  object-fit: cover;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  /* Default state for INACTIVE photo-sets: photo fully clipped to a
+     thin horizontal slot in the middle, dimmed. When the set becomes
+     active, the keyframe below scrubs the clip + brightness back to
+     full — produces the Elyse "letterbox unfurls into rectangle" feel. */
+  clip-path: inset(45% 0% 45% 0%);
+  filter: brightness(0.35);
+  will-change: clip-path, filter;
+}
+
+/* Front-left photo — slightly lower-left, slight CCW tilt. Reveals
+   a touch later than the back image so the two feel choreographed. */
+.events__photo--front {
+  width: 48%;
+  height: 70%;
+  left: 0;
+  bottom: 6%;
+  transform: rotate(-2deg);
+  z-index: 2;
+}
+
+/* Back-right photo — taller, slightly upper-right, slight CW tilt.
+   Reveals first; the front photo follows. */
+.events__photo--back {
+  width: 56%;
+  height: 88%;
+  right: 0;
+  top: 0;
+  transform: rotate(1.5deg);
+  z-index: 1;
+}
+
+@keyframes events-photo-reveal {
+  0% {
+    clip-path: inset(45% 0% 45% 0%);
+    filter: brightness(0.35);
+  }
+  100% {
+    clip-path: inset(0% 0% 0% 0%);
+    filter: brightness(1);
+  }
+}
+
+/* When the set becomes active, both photos animate to full —
+   staggered so back enters first, then front follows. */
+.events__photo-set.is-active .events__photo--back {
+  animation: events-photo-reveal 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.1s forwards;
+}
+.events__photo-set.is-active .events__photo--front {
+  animation: events-photo-reveal 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.32s forwards;
+}
+
+/* ── DECORATIVE HORIZONTAL STRIPES ──
+   Five thin lines tucked at the bottom-right of the right column,
+   sitting BEHIND the photos (z-index: 1 vs photo-stack z:2). Each
+   line draws in from right edge → left as the section enters,
+   staggered. Pure visual flair — purely decorative. */
+.events__decoration {
+  position: absolute;
+  right: 0;
+  bottom: 8%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.events__deco-line {
+  display: block;
+  height: 1px;
+  background: var(--events-text);
+  opacity: 0.25;
+  transform-origin: right center;
+  transform: scaleX(0);
+  transition: background-color 0.6s ease, opacity 0.6s ease;
+}
+
+@keyframes events-deco-draw {
+  0%   { transform: scaleX(0); }
+  100% { transform: scaleX(1); }
+}
+
+/* Trigger draw whenever the events sticky has just had its is-active
+   state set; we restart by attaching the animation to .events__sticky
+   when the active idx changes — see below. */
+.events__sticky.is-stripes-active .events__deco-line {
+  animation: events-deco-draw 1.2s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+}
+.events__sticky.is-stripes-active .events__deco-line:nth-child(2) { animation-delay: 0.08s; }
+.events__sticky.is-stripes-active .events__deco-line:nth-child(3) { animation-delay: 0.16s; }
+.events__sticky.is-stripes-active .events__deco-line:nth-child(4) { animation-delay: 0.24s; }
+.events__sticky.is-stripes-active .events__deco-line:nth-child(5) { animation-delay: 0.32s; }
+
+/* On the negative (dark) variant, soften the shadow so it doesn't
+   clip awkwardly against the black bg. */
+.events__sticky.is-negative .events__photo {
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45),
+              0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .events {
+    height: auto;
+  }
+  .events__sticky {
+    position: relative;
+    height: auto;
+    padding: 3rem 1.25rem;
+  }
+  .events__layout {
+    grid-template-columns: 1fr;
+  }
+  .events__cat-stack {
+    height: 240px;
+  }
+  .events__photo-stack {
+    height: 60vh;
+    margin-top: 1.5rem;
+  }
+  .events__progress-line {
+    display: none;
+  }
 }
 
 /* === STANDARDS / VALUES GRID === */
@@ -1437,7 +2120,9 @@ body {
   position: relative;
   width: 160%;
   max-width: 1080px;
-  margin-left: 12%;
+  /* Per client revision — pull the globe back toward the centre of the
+     layout (was margin-left: 12%, sitting too far right). */
+  margin-left: -4%;
   perspective: 1200px;
   transform: rotate(10deg);
   transform-origin: center center;
@@ -1487,17 +2172,24 @@ body {
 /* Card visibility + transform handled by JS */
 
 .globe-card__icon {
-  /* No circle background — just the emoji icon floating next to the text.
-     Keeps the card clean and modern while each city's icon stays distinct. */
-  width: auto;
-  height: auto;
+  /* Per client revision — every card now wears the SAME black map-pin
+     SVG (no per-city emoji). Sized to read crisp next to the bold city
+     label inside the white pill. */
+  width: 18px;
+  height: 18px;
   background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  font-size: 22px;
+  color: #111;
   line-height: 1;
+}
+
+.globe-card__icon svg {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .globe-card__dot {
@@ -1522,14 +2214,11 @@ body {
   white-space: nowrap;
 }
 
+/* Country subtitle dropped per client revision — rule kept (display:none)
+   so any leftover .globe-card__country in cached HTML / future re-adds
+   doesn't blow out the card layout. */
 .globe-card__country {
-  font-family: var(--font-body);
-  font-size: 0.65rem;
-  font-weight: 500;
-  color: #999;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  white-space: nowrap;
+  display: none;
 }
 
 /* Hover photo reveal */

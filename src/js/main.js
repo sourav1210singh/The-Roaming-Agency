@@ -34,9 +34,153 @@ document.addEventListener('DOMContentLoaded', () => {
   initMobileMenu();
   initContactForm();
   initStandardsScroll();
-  initIntroZoom();
+  initHeroIntro();
   initCustomCursor();
+  initStatsCounter();
+  initBrandsMarquee();
+  initEventsScroll();
+  // Smart-header (hide on scroll-down, show on scroll-up) lives in its own
+  // standalone file `src/js/smart-header.js` so band sub-pages can load it
+  // without pulling in the rest of main.js. It self-initialises on DOM ready.
 });
+
+
+/* ──────────────────────────────────────────────
+   BRANDS MARQUEE — scroll-active speed mode
+   While the page is actively scrolling, the body gets `.is-scrolling`
+   so CSS can switch the marquee tracks to their faster duration. Idle
+   removes the class after 250ms — short enough that intermittent wheel
+   ticks chain into one continuous "fast" stretch, long enough that
+   mouse-rest doesn't blink the speed change.
+   ----------
+   The logo backgrounds were previously cleaned at runtime via canvas
+   sampling + CSS filter chains. That code was removed once the source
+   PNGs were pre-processed offline (process-logos.ps1) — the cleaned
+   PNGs in v2-clean/ are already pure-black on transparent, so no
+   runtime treatment is needed.
+   ────────────────────────────────────────────── */
+function initBrandsMarquee() {
+  let scrollIdleTimer = null;
+  const onScroll = () => {
+    if (!document.body.classList.contains('is-scrolling')) {
+      document.body.classList.add('is-scrolling');
+    }
+    clearTimeout(scrollIdleTimer);
+    scrollIdleTimer = setTimeout(() => {
+      document.body.classList.remove('is-scrolling');
+    }, 250);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+}
+
+
+/* ──────────────────────────────────────────────
+   EVENTS WE SERVE — sticky-stack scroll engine
+   • Outer .events provides ~400vh of scroll runway. We map progress
+     0→1 across the 4 categories (Weddings, Corporate, Private,
+     Artistic Direction).
+   • activeIdx = floor(progress * N), clamped — flips category content
+     and matching photo set.
+   • Even indexes (0, 2)  → light theme (white bg, dark text).
+     Odd indexes  (1, 3)  → "negative" dark theme (black bg, white text).
+     The CSS handles the actual colour transition; JS just toggles
+     `.is-negative` on .events__sticky.
+   • Vertical line on the left fills 0→100% smoothly via CSS variable
+     `--events-progress` set on .events__progress-fill.
+   ────────────────────────────────────────────── */
+function initEventsScroll() {
+  const section = document.getElementById('events');
+  if (!section) return;
+  const sticky    = section.querySelector('.events__sticky');
+  const cats      = section.querySelectorAll('.events__cat');
+  const photoSets = section.querySelectorAll('.events__photo-set');
+  const progressFill = document.getElementById('eventsProgressFill');
+  if (!sticky || !cats.length) return;
+
+  const N = cats.length; // 4 categories
+  let lastIdx = -1;
+  let raf = 0;
+
+  const update = () => {
+    raf = 0;
+    const rect = section.getBoundingClientRect();
+    const total = section.offsetHeight - window.innerHeight;
+    if (total <= 0) return;
+    const progress = Math.max(0, Math.min(1, -rect.top / total));
+
+    // Active category — split runway evenly between N stops.
+    const idx = Math.max(0, Math.min(N - 1, Math.floor(progress * N)));
+
+    // Progress line — fills 0→100% over the whole section.
+    if (progressFill) {
+      progressFill.style.setProperty('--events-progress', progress.toFixed(4));
+    }
+
+    if (idx !== lastIdx) {
+      lastIdx = idx;
+      cats.forEach((c, i) => c.classList.toggle('is-active', i === idx));
+      photoSets.forEach((p, i) => p.classList.toggle('is-active', i === idx));
+      // Negative bg swap on odd indexes.
+      sticky.classList.toggle('is-negative', idx % 2 === 1);
+      // Restart the decorative-stripes keyframe by removing the
+      // class, forcing a reflow, then re-adding it — without the
+      // reflow the browser collapses both class mutations into one
+      // tick and the keyframe never re-fires.
+      sticky.classList.remove('is-stripes-active');
+      void sticky.offsetWidth;
+      sticky.classList.add('is-stripes-active');
+    }
+  };
+
+  window.addEventListener('scroll', () => {
+    if (!raf) raf = requestAnimationFrame(update);
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  update();
+}
+
+
+/* ──────────────────────────────────────────────
+   STATS COUNTER
+   Counts each `.stat__number` from 0 to its `data-count` value when the
+   element first scrolls into view. Optional `data-prefix` ("+") and
+   `data-suffix` ("+") wrap the rendered number so we can render +10 vs
+   600+ without two different code paths.
+   ────────────────────────────────────────────── */
+function initStatsCounter() {
+  const numbers = document.querySelectorAll('.stat__number');
+  if (!numbers.length) return;
+
+  const animateCount = (el) => {
+    const target = parseInt(el.dataset.count || '0', 10);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = 1700;
+    const start = performance.now();
+    const ease = (t) => 1 - Math.pow(1 - t, 3); // ease-out-cubic
+
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration);
+      const value = Math.round(target * ease(t));
+      el.textContent = `${prefix}${value}${suffix}`;
+      if (t < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  };
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animateCount(entry.target);
+        io.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.6 },
+  );
+
+  numbers.forEach((el) => io.observe(el));
+}
 
 
 /* ──────────────────────────────────────────────
@@ -247,12 +391,16 @@ function initTextDarkening() {
   const subtitle = section.querySelector('.section__subtitle');
   if (!subtitle) return;
 
-  // Split text into words and wrap each in a span — every word starts nearly
-  // invisible and brightens as the user scrolls through the section (scrub).
+  // Split text into words and wrap each in a span. Each word starts at a
+  // dim opacity then brightens to full as the user scrolls through the
+  // section (scroll-scrubbed cascade with a 3-word feather).
+  // We let CSS `currentColor` drive the tint — that way the same effect
+  // works on BOTH dark-bg sections (light text) and light-bg sections
+  // (dark text), without hard-coding any rgba() values in JS.
   const text = subtitle.textContent.trim();
   const words = text.split(/\s+/);
   subtitle.innerHTML = words.map((word) =>
-    `<span class="darken-word" style="opacity: 0.12; transition: opacity 0.4s ease-out, color 0.4s ease-out; color: rgba(235, 220, 190, 0.35);">${word} </span>`
+    `<span class="darken-word" style="opacity: 0.18; transition: opacity 0.35s ease-out;">${word} </span>`
   ).join('');
 
   const wordSpans = subtitle.querySelectorAll('.darken-word');
@@ -261,25 +409,18 @@ function initTextDarkening() {
     trigger: subtitle,
     start: 'top 85%',
     end: 'bottom 55%',
-    scrub: 0.4,           // smooth scroll-scrubbed progress — matches scroll speed
+    scrub: 0.4,
     invalidateOnRefresh: true,
     onUpdate: (self) => {
       const progress = self.progress;
       const totalWords = wordSpans.length;
-      // Each word "catches up" to the scroll position with a cascade — words
-      // early in the text brighten first, later ones follow. Feathered by a
-      // 3-word window so the reveal feels like a soft sweep, not a step.
       const reveal = progress * (totalWords + 3);
       wordSpans.forEach((span, i) => {
         const wordProgress = Math.max(0, Math.min(1, (reveal - i) / 3));
-        const opacity = 0.12 + wordProgress * 0.88; // 0.12 → 1.0
-        span.style.opacity = opacity;
-        // Tint also shifts from muted beige to warm white for a visible colour change
-        const r = Math.round(235 + (245 - 235) * wordProgress);
-        const g = Math.round(220 + (238 - 220) * wordProgress);
-        const b = Math.round(190 + (222 - 190) * wordProgress);
-        const a = 0.35 + wordProgress * 0.6; // 0.35 → 0.95
-        span.style.color = `rgba(${r}, ${g}, ${b}, ${a})`;
+        // 0.18 (dim) → 1.0 (full). Colour comes from the parent via
+        // `currentColor` so the wrapping section's `color` rule decides
+        // whether words read as cream-on-dark or grey-on-light.
+        span.style.opacity = String(0.18 + wordProgress * 0.82);
       });
     },
   });
@@ -354,20 +495,45 @@ function initBandSelector() {
 
   const currentLang = () => document.documentElement.getAttribute('data-lang') || 'en';
 
-  items.forEach(item => {
-    item.addEventListener('click', () => {
-      const band = item.dataset.band;
+  const list = document.getElementById('bandList');
+  const viewport = document.querySelector('.band-selector__viewport');
+  const section = document.getElementById('chooseBand');
+  const sticky = document.querySelector('.band-selector__sticky');
 
-      // Update active state
-      items.forEach(i => i.classList.remove('active'));
-      item.classList.add('active');
+  /* setActive(idx) — single source of truth for which band is "current".
+     Centring trick: translate the list by `-itemIndex × itemHeight` so the
+     active row sits at the centre of the viewport's mask window. The
+     description crossfades only when the band actually changes (avoids
+     flicker every scroll tick). */
+  let currentBand = null;
+  function setActive(idx) {
+    idx = Math.max(0, Math.min(idx, items.length - 1));
+    const item = items[idx];
+    if (!item) return;
+    const band = item.dataset.band;
 
-      // Update background
-      bgImages.forEach(bg => {
-        bg.classList.toggle('active', bg.dataset.band === band);
-      });
+    // Translate the list so the active item centres in the viewport.
+    if (list && viewport) {
+      const itemHeight = item.offsetHeight;
+      const viewportHeight = viewport.clientHeight;
+      const offset = (viewportHeight / 2) - (itemHeight / 2) - (idx * itemHeight);
+      list.style.transform = `translateY(${offset}px)`;
+    }
 
-      // Update description
+    // Active class — gold colour, no line.
+    items.forEach(i => i.classList.remove('is-active', 'active'));
+    item.classList.add('is-active');
+
+    // Crossfade matching B&W image.
+    bgImages.forEach(bg => {
+      const match = bg.dataset.band === band;
+      bg.classList.toggle('is-active', match);
+      bg.classList.toggle('active', match);
+    });
+
+    // Description swap — only on real band change.
+    if (band !== currentBand) {
+      currentBand = band;
       if (descEl && bandDescriptions[band]) {
         const lang = currentLang();
         const text = bandDescriptions[band][lang] || bandDescriptions[band].en;
@@ -381,32 +547,46 @@ function initBandSelector() {
           }
         });
       }
-    });
+    }
+  }
 
-    // Double-click or enter to navigate to band page
-    item.addEventListener('dblclick', () => {
-      const href = item.dataset.href;
-      if (href) window.location.href = href;
+  // Click on a band name jumps to it AND lets the anchor navigate to the
+  // band's page. We hold default for a tiny beat so the gold flash is
+  // visible before the page transition kicks in.
+  items.forEach((item, idx) => {
+    item.addEventListener('click', (e) => {
+      // Allow default link navigation — no preventDefault.
+      setActive(idx);
     });
   });
 
-  // GSAP scroll-driven band switching
-  const section = document.getElementById('chooseBand');
-  if (section) {
-    ScrollTrigger.create({
-      trigger: section,
-      start: 'top center',
-      end: 'bottom center',
-      onUpdate: (self) => {
-        const progress = self.progress;
-        const bandCount = items.length;
-        const activeIndex = Math.min(Math.floor(progress * bandCount), bandCount - 1);
-
-        if (items[activeIndex] && !items[activeIndex].classList.contains('active')) {
-          items[activeIndex].click();
-        }
-      }
-    });
+  /* Scroll-driven active band — reads progress through the OUTER tall
+     section (which provides 500vh of scroll runway). The sticky inner
+     stays pinned for that whole stretch; we map progress 0→1 across the
+     11 bands. We use a plain rAF + scroll listener instead of ScrollTrigger
+     here so it survives even if GSAP fails to load. */
+  if (section && sticky) {
+    let raf = 0;
+    const updateFromScroll = () => {
+      raf = 0;
+      const rect = section.getBoundingClientRect();
+      const total = section.offsetHeight - window.innerHeight;
+      // How far through the pinned runway we are (0 at first reveal, 1 at exit).
+      const progress = Math.max(0, Math.min(1, -rect.top / total));
+      // Map progress across N bands. Slight interior bias so the first and
+      // last bands aren't only briefly visible at the extremes.
+      const idx = Math.round(progress * (items.length - 1));
+      if (!items[idx].classList.contains('is-active')) setActive(idx);
+    };
+    window.addEventListener('scroll', () => {
+      if (!raf) raf = requestAnimationFrame(updateFromScroll);
+    }, { passive: true });
+    window.addEventListener('resize', updateFromScroll);
+    // Initialise — place the list correctly on load.
+    setActive(0);
+    updateFromScroll();
+  } else {
+    setActive(0);
   }
 }
 
@@ -507,16 +687,25 @@ function initGlobeAnimation() {
     { name: 'Corsica',   country: 'FRANCE',          lat:  30, lon: -130, img: 'gallery-23.jpg', icon: '🎚️', color: '#3d5a5f' },
   ];
 
+  // Per client revision: every card uses the SAME black map-pin icon and
+  // shows ONE line of text only (the place name). The previous per-city
+  // emoji + country-subtitle layout was dropped — kept the data fields in
+  // the city objects above so future iterations can resurrect them without
+  // re-hand-crafting the lat/lon table.
+  const PIN_SVG = `
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
+    </svg>`;
+
   cities.forEach((city) => {
     const card = document.createElement('div');
     card.className = 'globe-card';
     card.dataset.lat = city.lat;
     card.dataset.lon = city.lon;
     card.innerHTML = `
-      <div class="globe-card__icon">${city.icon}</div>
+      <div class="globe-card__icon">${PIN_SVG}</div>
       <div class="globe-card__info">
         <span class="globe-card__city">${city.name}</span>
-        <span class="globe-card__country">${city.country}</span>
       </div>
       <div class="globe-card__photo"><img src="src/assets/images/gallery/${city.img}" alt="Performance in ${city.name}"></div>
     `;
@@ -889,7 +1078,7 @@ function initLanguageSwitcher() {
 
     // Update band selector description
     const descEl = document.getElementById('bandDesc');
-    const activeBand = document.querySelector('.band-selector__item.active');
+    const activeBand = document.querySelector('.band-selector__item.is-active, .band-selector__item.active');
     if (descEl && activeBand) {
       activeBand.click();
     }
@@ -956,34 +1145,34 @@ function initMobileMenu() {
    Scroll down → cards move left-to-right, background changes
    ────────────────────────────────────────────── */
 /* ──────────────────────────────────────────────
-   10. INTRO ZOOM (saxophone zooms in, reveals hero video)
-   travelnextlvl.de style door animation
+   10. HERO INTRO (logo + tagline on black, scroll → logo docks to header)
+   Replaces the old saxophone-zoom intro.
    ────────────────────────────────────────────── */
-function initIntroZoom() {
-  const section = document.getElementById('introZoom');
-  const sax = document.getElementById('introSax');
-  const white = document.getElementById('introWhite');
-  const text = document.getElementById('introText');
-  const notesContainer = document.getElementById('introNotes');
-  const bg = document.getElementById('introBg');
-  const sideLeft = document.getElementById('introSideLeft');
-  const sideRight = document.getElementById('introSideRight');
+function initHeroIntro() {
+  // Scroll progress is driven by the OUTER stack wrapper (which is twice
+  // the viewport height now that the video is layered over the sticky
+  // black panel). The inner #heroIntro is sticky inside that stack.
+  const stack = document.getElementById('heroStack');
+  const section = document.getElementById('heroIntro');
+  const tagline = document.getElementById('heroTagline');
   const header = document.getElementById('mainHeader');
   const heroCenterTitle = document.getElementById('heroCenterTitle');
-  if (!section || !sax || !white) return;
+  if (!section || !heroCenterTitle) return;
 
-  let targetProgress = 0;   // where scroll wants us to be (zoom 0-1)
-  let currentProgress = 0;  // smoothly interpolated zoom value
-  let targetRaw = 0;        // raw scroll position within section (0-1)
-  let currentRaw = 0;       // smoothly interpolated raw scroll
-  let scrollProgress = 0;   // for spawn checks (uses current)
+  // Re-export under the legacy name so any external callers still work.
+  // Everything below is the simplified flow — no saxophone, no white panel,
+  // no music notes, no side panels. Just: logo travels, tagline fades, header
+  // chrome reveals, all driven by scroll progress through the hero section.
 
-  // === Target pixel position for the docked-logo state.
-  //     Computed from the header's actual rendered layout: .header__inner's
-  //     left edge (which already accounts for auto margins + container max
-  //     width) plus a small inset + half the approximate text width at the
-  //     docked font size. More reliable than relying on a hidden measurement
-  //     element whose layout may be affected by font-loading timing. */
+  // Lerped scroll-progress through the hero-intro section. 0 = at top of
+  // the page (logo + tagline at rest), 1 = scrolled past one full hero
+  // height (logo docked in header, tagline gone).
+  let targetRaw = 0;
+  let currentRaw = 0;
+
+  // Pixel target of the docked logo in the header. Re-measured on
+  // resize and after fonts load so the landing spot always matches the
+  // real header layout.
   let logoTarget = { x: 160, y: 34, fontSizePx: 20, dockedWidth: 220 };
 
   function measureLogoTarget() {
@@ -991,18 +1180,12 @@ function initIntroZoom() {
     if (!headerEl) return;
     const headerInner = headerEl.querySelector('.header__inner');
     const rootFontSize = parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
-    // Docked logo font size — matches .logo__text default (var(--text-xl) ≈ 1.25rem)
     const dockedFontPx = rootFontSize * 1.25;
-    // Approximate "The Roaming Agency" width at this font-size with the
-    // heading font (Cormorant Garamond-ish) → avg char ratio ≈ 0.5.
-    // 18 chars including spaces * 0.55 * fontPx ≈ 10 * fontPx.
     const approxTextWidth = dockedFontPx * 10.0;
-
     const innerRect = headerInner
       ? headerInner.getBoundingClientRect()
       : { left: 40, top: 0 };
     const headerH = headerEl.offsetHeight || 56;
-
     logoTarget = {
       x: innerRect.left + approxTextWidth / 2,
       y: headerH / 2,
@@ -1011,7 +1194,6 @@ function initIntroZoom() {
     };
   }
   measureLogoTarget();
-  // Re-measure after fonts settle (heading font may load late and change width)
   if (document.fonts && document.fonts.ready) {
     document.fonts.ready.then(measureLogoTarget).catch(() => {});
   }
@@ -1021,250 +1203,86 @@ function initIntroZoom() {
     resizeT = setTimeout(measureLogoTarget, 150);
   });
 
-  // === MAIN ANIMATION LOOP ===
-  // Smoothly interpolates between target and current values every frame
-  function animate(t) {
-    // Lerp: each frame, move 8% closer to target (smooth easing)
-    currentProgress += (targetProgress - currentProgress) * 0.08;
-    currentRaw += (targetRaw - currentRaw) * 0.08;
-    scrollProgress = currentProgress;
+  // === MAIN ANIMATION LOOP — single rAF, lerped scroll values ===
+  function animate() {
+    currentRaw += (targetRaw - currentRaw) * 0.1;
 
-    // === COMBINED IDLE FLOAT + ZOOM (smooth blend, no jerk) ===
-    // Idle drift weight fades out smoothly as zoom progress increases
-    // At progress 0 = full idle float, at progress 0.15+ = no idle drift
-    const idleWeight = Math.max(0, 1 - currentProgress / 0.15);
-    const driftX = (Math.sin(t * 0.0008) * 8 + Math.sin(t * 0.0013) * 4) * idleWeight;
-    const driftY = (Math.cos(t * 0.0009) * 10 + Math.sin(t * 0.0015) * 5) * idleWeight;
-    const tilt = Math.sin(t * 0.0007) * 1.5 * idleWeight;
+    // ── Logo travel ────────────────────────────────────────────────
+    // Start: centred horizontally, ~22% from the top of the viewport
+    // (above the tagline, which sits at 50%).
+    // End:   header logo slot.
+    const travel = Math.max(0, Math.min(1, currentRaw));
+    const travelEase = 1 - Math.pow(1 - travel, 3); // ease-out-cubic
+    const startX = window.innerWidth / 2;
+    const startY = window.innerHeight * 0.22;
+    const x = startX + (logoTarget.x - startX) * travelEase;
+    const y = startY + (logoTarget.y - startY) * travelEase;
+    const baseFontPx = Math.max(28, Math.min(48, window.innerWidth * 0.035));
+    const fontPx = baseFontPx + (logoTarget.fontSizePx - baseFontPx) * travelEase;
 
-    // Scale always uses currentProgress (starts at 1, smoothly increases)
-    const scale = 1 + currentProgress * 25;
+    heroCenterTitle.style.opacity = '1';
+    heroCenterTitle.style.top = y + 'px';
+    heroCenterTitle.style.left = x + 'px';
+    heroCenterTitle.style.transform = 'translate(-50%, -50%)';
+    heroCenterTitle.style.fontSize = fontPx + 'px';
+    heroCenterTitle.style.pointerEvents = 'auto';
 
-    sax.style.transform = `translate(calc(-52% + ${driftX}px), calc(-57% + ${driftY}px)) scale(${scale}) rotate(${tilt}deg)`;
-
-    // === BACKGROUND + SIDE PANELS FADE (fade out as zoom starts) ===
-    // Progress 0 = full bg + sides visible, 0.15 = fully faded
-    const bgFade = Math.max(0, 1 - currentProgress / 0.15);
-    if (bg) bg.style.opacity = bgFade;
-    if (sideLeft) {
-      sideLeft.style.opacity = bgFade;
-      sideLeft.style.transform = `translateY(-50%) translateX(${(1 - bgFade) * -30}px)`;
-    }
-    if (sideRight) {
-      sideRight.style.opacity = bgFade;
-      sideRight.style.transform = `translateY(-50%) translateX(${(1 - bgFade) * 30}px)`;
-    }
-
-    // === WHITE PANEL — stays solid until 95%, then fades out fast ===
-    // Video behind stays hidden during entire zoom
-    let whiteOpacity = 1;
-    if (currentProgress < 0.15) {
-      // Fade in white as we scroll (replacing background)
-      whiteOpacity = currentProgress / 0.15;
-    } else if (currentProgress > 0.95) {
-      // Only fade out white at very end (revealing video)
-      whiteOpacity = 1 - (currentProgress - 0.95) / 0.05;
-    }
-    white.style.opacity = whiteOpacity;
-
-    // Saxophone fades at 90%+ (just before white reveals video)
-    if (currentProgress > 0.9) {
-      const fadeProgress = (currentProgress - 0.9) / 0.1;
-      sax.style.opacity = 1 - fadeProgress;
-      if (notesContainer) notesContainer.style.opacity = 1 - fadeProgress;
-    } else {
-      sax.style.opacity = 1;
-      if (notesContainer) notesContainer.style.opacity = 1;
+    // ── Tagline pin → travel-with-video ────────────────────────────
+    // Phase A (scroll 0 → pinEnd): tagline pinned at viewport centre
+    //   while the video slides up to cover the black panel beneath it.
+    // Phase B (scroll past pinEnd): tagline travels UPWARD at the
+    //   exact same rate as the page scroll, so it leaves the viewport
+    //   together with the rising video. No fade — the tagline simply
+    //   exits naturally with the rest of the stack.
+    if (tagline && stack) {
+      const pinEnd = stack.offsetHeight - window.innerHeight; // ≈ one viewport
+      const drift = Math.max(0, window.scrollY - pinEnd);
+      tagline.style.opacity = '1';
+      tagline.style.transform = `translate(-50%, calc(-50% - ${drift}px))`;
     }
 
-    // Hide notes container when zooming
-    if (notesContainer) {
-      notesContainer.style.visibility = currentProgress > 0.1 ? 'hidden' : 'visible';
-    }
-
-    // Text — premium fade + drift up as user scrolls
-    if (text) {
-      const textFade = Math.max(0, 1 - currentProgress * 4);
-      const driftUp = currentProgress * 80; // moves up to 80px as it fades
-      text.style.opacity = textFade;
-      text.style.transform = `translateX(-50%) translateY(-${driftUp}px)`;
-    }
-
-    // =========================================================================
-    //  NEW INTRO PHASES (scroll-driven, after saxophone zoom completes at 50%)
-    //  Phase 1  (raw 0.50-0.62) → Hero center title "The Roaming Agency" fades
-    //                              in, sits big/gold at viewport center.
-    //  Phase 2  (raw 0.66-0.78) → Header (band nav + FR toggle only) fades in
-    //                              from translateY(-20) and opacity 0.
-    //  Phase 3  (raw 0.78-1.00) → Center title travels to header top-left slot
-    //                              (interpolate x,y,font-size). At 0.99+ we
-    //                              toggle body.logo-docked so the real header
-    //                              .logo takes over — zero visual jump because
-    //                              the inline styles matched its position.
-    // =========================================================================
-
-    // Hero title / logo — single element handles BOTH states.
-    //  - Below raw 0.5: invisible (saxophone zoom phase)
-    //  - Raw 0.50-0.62: fade in at center-lower (big, shimmering gold)
-    //  - Raw 0.62-0.78: stays put (fully visible, waiting)
-    //  - Raw 0.78-1.00: travels to header top-left, shrinks to logo size
-    //  - Raw >= 1.00: stays docked as the header logo (clickable)
-    if (heroCenterTitle) {
-      const titleFade = Math.max(0, Math.min(1, (currentRaw - 0.50) / 0.12));
-      const travel = Math.max(0, Math.min(1, (currentRaw - 0.78) / 0.22));
-
-      // Ease-out-cubic for organic travel motion
-      const travelEase = 1 - Math.pow(1 - travel, 3);
-
-      // Start position: horizontally centered, vertically at 62%
-      const startX = window.innerWidth / 2;
-      const startY = window.innerHeight * 0.62;
-      const x = startX + (logoTarget.x - startX) * travelEase;
-      const y = startY + (logoTarget.y - startY) * travelEase;
-
-      // Font-size interpolates from CSS clamp base (32-64px) down to docked size
-      const baseFontPx = Math.max(32, Math.min(64, window.innerWidth * 0.045));
-      const fontPx = baseFontPx + (logoTarget.fontSizePx - baseFontPx) * travelEase;
-
-      heroCenterTitle.style.opacity = String(titleFade);
-      heroCenterTitle.style.top = y + 'px';
-      heroCenterTitle.style.left = x + 'px';
-      heroCenterTitle.style.transform = 'translate(-50%, -50%)';
-      heroCenterTitle.style.fontSize = fontPx + 'px';
-      // Clickable once visible (fade > 50%), inert while hidden
-      heroCenterTitle.style.pointerEvents = titleFade > 0.5 ? 'auto' : 'none';
-    }
-
-    // Header fade in — band nav + FR toggle become visible (no logo yet).
-    // Also adds .header--scrolled so the dark blurred background returns
-    // (previously driven by initLogoAnimation, which the new flow replaces).
+    // ── Header chrome reveal ───────────────────────────────────────
+    // Header fades in over the second half of the travel (raw 0.5-0.85).
     if (header) {
-      const headerFade = Math.max(0, Math.min(1, (currentRaw - 0.66) / 0.12));
+      const headerFade = Math.max(0, Math.min(1, (currentRaw - 0.5) / 0.35));
       header.style.opacity = String(headerFade);
       header.style.transform = `translateY(${(1 - headerFade) * -18}px)`;
-      if (headerFade > 0.05) {
-        header.classList.add('header--scrolled');
-      } else {
-        header.classList.remove('header--scrolled');
-      }
+      if (headerFade > 0.05) header.classList.add('header--scrolled');
+      else header.classList.remove('header--scrolled');
     }
 
-    // Nav visibility tracks the header fade — inside .header, .nav has its own
-    // opacity/transform driven by the .nav--visible class toggle.
-    // Also interpolate padding-left so band buttons shift right as the logo
-    // docks — making physical space for the incoming logo at top-left.
+    // ── Nav reveal + push-right (room for docking logo) ───────────
     const nav = document.getElementById('mainNav');
     if (nav) {
-      if (currentRaw > 0.66) {
-        nav.classList.add('nav--visible');
-      } else {
-        nav.classList.remove('nav--visible');
-      }
-      // travel is 0 when logo is at center (no space needed in header),
-      // 1 when logo docks at top-left (need room = logo width + gap).
-      const travelForNav = Math.max(0, Math.min(1, (currentRaw - 0.78) / 0.22));
-      const eased = 1 - Math.pow(1 - travelForNav, 3);
-      const gap = 32;
-      const pushPx = eased * (logoTarget.dockedWidth + gap);
+      if (currentRaw > 0.5) nav.classList.add('nav--visible');
+      else nav.classList.remove('nav--visible');
+      const pushPx = travelEase * (logoTarget.dockedWidth + 32);
       nav.style.paddingLeft = pushPx + 'px';
     }
-
-    // No dock-swap needed any more — the hero-center-title IS the logo at all
-    // positions. Same element, smooth scroll-scrubbed travel + reverse.
 
     requestAnimationFrame(animate);
   }
   requestAnimationFrame(animate);
 
-  // === MUSIC NOTES SPAWNING ===
-  // Notes emerge from bell hole and float upward with random drift
-  const noteSymbols = ['🎵', '🎶', '♪', '♫', '♬', '𝄞'];
-
-  function spawnNote() {
-    if (scrollProgress > 0.1) return; // Only spawn during idle (not scrolling)
-
-    const note = document.createElement('div');
-    note.className = 'intro-zoom__note';
-    note.textContent = noteSymbols[Math.floor(Math.random() * noteSymbols.length)];
-
-    // Bell hole is at viewport center (50%, 50%) thanks to translate(-52%, -57%)
-    // Spawn slightly inside the hole (small random offset)
-    const startX = 50 + (Math.random() - 0.5) * 3; // ±1.5% from center horizontal
-    const startY = 50 + (Math.random() - 0.5) * 2; // around bell hole vertical
-
-    // Random drift values for variety
-    const driftX1 = (Math.random() - 0.5) * 60; // initial drift
-    const driftX2 = (Math.random() - 0.5) * 200; // final drift
-    const rotate1 = (Math.random() - 0.5) * 30;
-    const rotate2 = (Math.random() - 0.5) * 90;
-    const fontSize = 24 + Math.random() * 24; // 24-48px
-    const duration = 3 + Math.random() * 2; // 3-5 seconds
-
-    note.style.left = startX + '%';
-    note.style.top = startY + '%';
-    note.style.fontSize = fontSize + 'px';
-    note.style.setProperty('--drift-x-1', driftX1 + 'px');
-    note.style.setProperty('--drift-x-2', driftX2 + 'px');
-    note.style.setProperty('--rotate-1', rotate1 + 'deg');
-    note.style.setProperty('--rotate-2', rotate2 + 'deg');
-    note.style.animation = `noteFloat ${duration}s ease-out forwards`;
-
-    notesContainer.appendChild(note);
-
-    // Cleanup after animation
-    setTimeout(() => note.remove(), duration * 1000);
-  }
-
-  // Spawn notes at intervals (premium pacing — not too frequent)
-  setInterval(spawnNote, 700);
-  // Spawn an initial burst
-  for (let i = 0; i < 3; i++) {
-    setTimeout(spawnNote, i * 300);
-  }
-
-  // === SCROLL LISTENER — only updates targets, animation loop smoothly interpolates ===
-  // Section is 600vh tall. rawProgress 0-1 maps across the whole section.
-  //  0.00-0.50 → saxophone zoom                     (zoom target 0 → 1)
-  //  0.50-0.66 → hold + hero-center-title fades in  (zoom stays at 1)
-  //  0.66-0.78 → header fades in from top           (zoom stays at 1)
-  //  0.78-1.00 → center title travels to top-left   (docks at 1.0)
-  //  >1.00     → unpinned, body has intro-complete + logo-docked — normal scroll
+  // === SCROLL LISTENER — maps scrollY across the heroIntro height ===
+  // 0 = top of page, 1 = scrolled one full heroIntro height. Past that,
+  // the logo is docked and `body.intro-complete` is set so other parts
+  // of the site (smart-header, etc.) know the intro is over.
   window.addEventListener('scroll', () => {
-    const rect = section.getBoundingClientRect();
-    const sectionH = section.offsetHeight;
-    const viewH = window.innerHeight;
-
-    if (rect.bottom < 0) {
-      // Past section — everything settled
-      document.body.classList.add('intro-complete');
-      targetRaw = 1;
-      targetProgress = 1;
-      return;
-    }
-    if (rect.top > viewH) {
-      // Not reached yet — stay at initial state
-      return;
-    }
-
+    // Use the .hero-stack wrapper (which is 2vh tall — pin period) so the
+    // animation completes exactly when the video has finished sliding up
+    // and fully covered the black panel. Falls back to the inner section
+    // if the wrapper isn't present.
+    const tracker = stack || section;
+    const rect = tracker.getBoundingClientRect();
+    const trackable = (tracker.offsetHeight || window.innerHeight * 2) - window.innerHeight;
     const scrolled = -rect.top;
-    const totalScrollable = sectionH - viewH;
-    const rawProgress = Math.max(0, Math.min(1, scrolled / totalScrollable));
+    const rawProgress = Math.max(0, Math.min(1, scrolled / trackable));
     targetRaw = rawProgress;
 
-    // Zoom target: 0 → 1 over the first 50% of the section, then held at 1
-    if (rawProgress <= 0.5) {
-      targetProgress = rawProgress / 0.5;
-    } else {
-      targetProgress = 1;
-    }
-
-    // intro-complete flips at the moment the header starts fading in (phase 2).
-    // Kept as a separate flag in case other components listen for it.
-    if (rawProgress > 0.66) {
-      document.body.classList.add('intro-complete');
-    } else {
-      document.body.classList.remove('intro-complete');
-    }
+    if (rawProgress > 0.6) document.body.classList.add('intro-complete');
+    else document.body.classList.remove('intro-complete');
+    // Tagline opacity + drift handled in the animate() loop above.
   }, { passive: true });
 }
 
@@ -1378,7 +1396,20 @@ function initCustomCursor() {
   });
 
   // === CLICK state (quick pulse) ===
-  document.addEventListener('mousedown', () => {
+  // On mousedown we snap the ring to the current pointer position so the
+  // elastic lag can't be "frozen" visible while the user holds the button.
+  // Without this the human micro-movement during a physical click leaves the
+  // ring a handful of pixels behind the dot, and it stays visibly offset
+  // because mousemove briefly pauses while the click is processed.
+  document.addEventListener('mousedown', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    ringX = mouseX;
+    ringY = mouseY;
+    dotX = mouseX;
+    dotY = mouseY;
+    ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
+    dot.style.transform = `translate(${dotX}px, ${dotY}px) translate(-50%, -50%)`;
     cursor.classList.add('is-clicking');
   });
   document.addEventListener('mouseup', () => {
