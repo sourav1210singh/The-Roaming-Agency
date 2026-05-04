@@ -35,6 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initStandardsScroll();
   initHeroIntro();
+  initDoorPortal();
   initCustomCursor();
   initStatsCounter();
   initBrandsMarquee();
@@ -137,6 +138,117 @@ function initEventsScroll() {
   }, { passive: true });
   window.addEventListener('resize', update);
   update();
+}
+
+
+/* ──────────────────────────────────────────────
+   DOOR PORTAL — cinematic scroll-driven 3D door intro
+   • Outer #heroStack provides 250vh of scroll runway. The inner
+     #heroIntro is `position: sticky; top: 0; height: 100vh` and pins
+     for the full stretch.
+   • This function wires each layer to `scrollYProgress` (0→1 across
+     the runway) using GSAP ScrollTrigger with `scrub` — the vanilla
+     equivalent of framer-motion's `useScroll` + `useSpring`.
+   • The existing initHeroIntro() still drives the hero-center-title
+     logo travel + tagline drift + header reveal. This function only
+     adds the door-specific sky parallax + door rotation + reveal.
+   ────────────────────────────────────────────── */
+function initDoorPortal() {
+  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
+  const stack    = document.getElementById('heroStack');
+  const sky      = document.getElementById('heroSky');
+  const clouds   = document.getElementById('heroCloudsDrift');
+  const door     = document.getElementById('heroDoor');
+  const reveal   = document.getElementById('heroReveal');
+  const spot     = document.getElementById('heroSpotlight');
+  const flash    = document.getElementById('heroFlash');
+  if (!stack || !door) return;
+
+  // Make sure the door starts un-rotated and the reveal layer is hidden.
+  gsap.set(door,   { rotateY: 0, transformOrigin: 'left center' });
+  gsap.set(reveal, { opacity: 0 });
+  gsap.set(flash,  { opacity: 0 });
+
+  // Master scrub timeline. Total duration is normalized to 1 so position
+  // numbers below read directly as scroll-progress percentages
+  // (0.10 = 10% through, 0.70 = 70% through, etc). `scrub: 0.6` is the
+  // GSAP equivalent of a spring with stiffness ~80 / damping ~22:
+  // ~600ms of smoothing as the user scrolls.
+  const tl = gsap.timeline({
+    defaults: { duration: 1, ease: 'none' },
+    scrollTrigger: {
+      trigger: stack,
+      start: 'top top',
+      end: 'bottom bottom',
+      scrub: 0.6,
+      // No pin — the inner element does the pinning via `position: sticky`.
+    }
+  });
+
+  // Sky parallax — runs across the full runway (0 → 1).
+  if (sky) {
+    tl.fromTo(sky,
+      { scale: 1.0,  yPercent: 0,  xPercent: 0 },
+      { scale: 1.15, yPercent: -8, xPercent: -2, duration: 1 },
+      0
+    );
+  }
+
+  // Second cloud layer drifts opposite direction across the full runway.
+  if (clouds) {
+    tl.fromTo(clouds,
+      { xPercent: 0, yPercent: 0 },
+      { xPercent: 4, yPercent: -3, duration: 1 },
+      0
+    );
+  }
+
+  // Door rotation 0 → 85° between progress 0.10 → 0.70 (duration 0.60).
+  // Cap at 85° (not 90°): at 90° the panel becomes edge-on and the knob
+  // detaches as a floating sphere even with backface-visibility:hidden.
+  tl.fromTo(door,
+    { rotateY: 0,  opacity: 1 },
+    { rotateY: 85, duration: 0.60, ease: 'power2.in' },
+    0.10
+  );
+
+  // Door fades out between 0.65 → 0.85 (duration 0.20) so it doesn't
+  // ghost over the revealed video.
+  tl.to(door,
+    { opacity: 0, duration: 0.20 },
+    0.65
+  );
+
+  // Behind-the-door reveal (Riviera footage) fades in 0.50 → 0.80
+  // (duration 0.30).
+  if (reveal) {
+    tl.fromTo(reveal,
+      { opacity: 0 },
+      { opacity: 1, duration: 0.30, ease: 'power1.out',
+        onUpdate: function () {
+          const o = parseFloat(reveal.style.opacity || '0');
+          reveal.style.pointerEvents = o > 0.5 ? 'auto' : 'none';
+        }
+      },
+      0.50
+    );
+  }
+
+  // Spotlight intensifies 0 → 0.6 (duration 0.6).
+  if (spot) {
+    tl.fromTo(spot,
+      { opacity: 0.4 },
+      { opacity: 1.0, duration: 0.6 },
+      0
+    );
+  }
+
+  // White-out flash — opacity 0 → 1 → 0 around the door reaching full
+  // open (~0.78–0.86). Feels like emerging into daylight.
+  if (flash) {
+    tl.to(flash, { opacity: 1, duration: 0.04, ease: 'power2.in'  }, 0.78);
+    tl.to(flash, { opacity: 0, duration: 0.06, ease: 'power2.out' }, 0.82);
+  }
 }
 
 

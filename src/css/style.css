@@ -442,25 +442,344 @@ body.is-header-hidden .hero-center-title {
    The wrapper (.hero-stack) bounds the sticky scope to one viewport
    height. After the user scrolls past it, both sections release and
    the rest of the page scrolls normally. */
-.hero-stack {
+/* ============================================================================
+   HERO — DOOR PORTAL
+   Cinematic 3D door-opening intro. Outer .door-portal wrapper provides
+   ~250vh of scroll runway. Inner .door-portal__sticky pins for the full
+   stretch and hosts every layer of the scene. JS (ScrollTrigger scrub)
+   drives sky parallax + door rotation + reveal opacity + spotlight.
+   ============================================================================ */
+.door-portal {
   position: relative;
   width: 100%;
+  height: 250vh;       /* scroll runway — ~2.5 viewports of comfortable scroll */
+  background: #000;    /* neutral fallback if images fail */
 }
 
-.hero-intro {
+.door-portal__sticky {
   position: sticky;
   top: 0;
   width: 100%;
   height: 100vh;
-  background: #000;
   overflow: hidden;
-  z-index: 1;
+  /* CSS perspective lives here so the door's rotateY reads as 3D depth.
+     1800px gives a slight, cinematic depth without distorting the panel. */
+  perspective: 1800px;
+  perspective-origin: 50% 50%;
 }
 
-.hero-intro__tagline {
-  /* Pinned to the viewport (not the section) so it stays visible OVER
-     the video as the video slides up to cover the black panel. JS
-     toggles its opacity when the user scrolls past the hero stack. */
+/* ── z:0 SKY BACKGROUND + PARALLAX ─────────────────────────────────── */
+.door-portal__sky-wrap {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  /* Force a GPU layer so transform updates don't trigger paint repaints. */
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+.door-portal__sky {
+  position: absolute;
+  inset: -2% -2% -2% -2%; /* slight overscan so parallax never reveals edges */
+  width: 104%;
+  height: 104%;
+  object-fit: cover;
+  /* JS scrubs scale 1.0 → 1.15 + translateY 0% → -8%, slow translateX 0% → -2%. */
+  will-change: transform;
+}
+
+/* Warm golden-hour tint — `mix-blend-mode: screen` lets the colour
+   brighten the sky without flattening detail. */
+.door-portal__sky-tint {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 210, 150, 0.12) 0%,
+    rgba(255, 180, 110, 0.18) 45%,
+    rgba(180, 130, 90, 0.10) 100%
+  );
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Second cloud layer for depth parallax — drifts opposite direction.
+   Pure CSS gradient stand-in for an extra cloud asset; reads as a soft
+   atmospheric haze. */
+.door-portal__clouds-drift {
+  position: absolute;
+  inset: -10%;
+  background:
+    radial-gradient(ellipse 60% 40% at 30% 35%, rgba(255,255,255,0.18), transparent 65%),
+    radial-gradient(ellipse 50% 35% at 75% 50%, rgba(255,240,220,0.14), transparent 70%),
+    radial-gradient(ellipse 70% 30% at 50% 70%, rgba(255,225,200,0.10), transparent 70%);
+  mix-blend-mode: screen;
+  opacity: 0.6;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ── z:5 VIGNETTE ──────────────────────────────────────────────────── */
+.door-portal__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    rgba(0, 0, 0, 0.20) 55%,
+    rgba(0, 0, 0, 0.60) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── z:15 BEHIND-THE-DOOR REVEAL (Riviera footage) ─────────────────── */
+.door-portal__reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  opacity: 0;             /* JS scrubs 0 → 1 between scroll 0.50–0.80 */
+  pointer-events: none;   /* re-enabled by JS once opacity > 0.5 */
+  overflow: hidden;
+  will-change: opacity;
+}
+
+.door-portal__reveal-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.door-portal__reveal-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    rgba(0, 0, 0, 0.45) 100%
+  );
+  pointer-events: none;
+}
+
+/* ── z:10 THE DOOR (3D, hinged on left) ────────────────────────────── */
+.door-portal__perspective {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Inherit parent's perspective; this child also enables preserve-3d
+     so the door + knob form one volumetric unit. */
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.door-portal__door {
+  position: relative;
+  width: clamp(280px, 38vw, 540px);
+  height: clamp(420px, 70vh, 720px);
+  /* Hinge on the left edge — the door swings open toward the right. */
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  /* Wood-toned solid with subtle vertical streak — no real wood photo
+     needed. Multiple stacked gradients build a believable grain. */
+  background:
+    linear-gradient(180deg, rgba(0,0,0,0.28) 0%, rgba(0,0,0,0) 18%, rgba(0,0,0,0) 82%, rgba(0,0,0,0.32) 100%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(0,0,0,0.06) 0px,
+      rgba(0,0,0,0.06) 1px,
+      transparent 1px,
+      transparent 7px
+    ),
+    linear-gradient(135deg, #2a1810 0%, #3d2517 50%, #2a1810 100%);
+  border-radius: 6px;
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.4),
+    inset 6px 0 14px rgba(0, 0, 0, 0.35),   /* shadow on hinge edge */
+    inset -6px 0 14px rgba(255, 200, 150, 0.05);
+  pointer-events: auto;
+  cursor: pointer;
+  will-change: transform, opacity;
+  /* Hover halo before scroll engages (only meaningful at scroll-progress 0). */
+  transition: box-shadow 0.6s ease;
+}
+
+.door-portal__door:hover {
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.55),
+    0 0 80px rgba(255, 200, 150, 0.30),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.4),
+    inset 6px 0 14px rgba(0, 0, 0, 0.35),
+    inset -6px 0 14px rgba(255, 200, 150, 0.10);
+}
+
+/* Subtle wood-grain veil on top of the panel for extra detail. */
+.door-portal__door-grain {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 14px,
+      rgba(0, 0, 0, 0.04) 14px,
+      rgba(0, 0, 0, 0.04) 15px
+    );
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* Two raised panels (top + bottom rectangles) mimicking real door joinery. */
+.door-portal__door-panel {
+  position: absolute;
+  left: 14%;
+  right: 14%;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 4px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 200, 150, 0.06),
+    inset 0 1px 6px rgba(255, 200, 150, 0.04),
+    0 1px 0 rgba(255, 200, 150, 0.03);
+}
+.door-portal__door-panel--top    { top: 8%;  height: 36%; }
+.door-portal__door-panel--bottom { top: 52%; height: 36%; }
+
+/* Knob wrapper — the preserve-3d + backface-visibility:hidden combo
+   here is what keeps the knob visually attached to the panel as the
+   door rotates. Without these the knob renders as a floating sphere
+   past ~80°. We also cap rotation at 85° in JS for the same reason. */
+.door-portal__door-knob-wrap {
+  position: absolute;
+  right: 7%;
+  top: 50%;
+  transform: translateY(-50%) translateZ(2px);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.door-portal__door-knob {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 30% 30%,
+    #f0d090 0%,
+    #c89856 40%,
+    #6e4a1e 80%,
+    #2c1c08 100%
+  );
+  box-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.5),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 230, 180, 0.5);
+}
+
+/* ── z:20 SPOTLIGHT (top-centre warm cone) ─────────────────────────── */
+.door-portal__spotlight {
+  position: absolute;
+  left: 50%;
+  top: -20%;
+  width: 80vw;
+  height: 100vh;
+  transform: translateX(-50%);
+  z-index: 20;
+  background: radial-gradient(
+    ellipse at center top,
+    rgba(255, 220, 160, 0.45) 0%,
+    rgba(255, 200, 140, 0.20) 25%,
+    rgba(255, 180, 120, 0.05) 55%,
+    transparent 80%
+  );
+  filter: blur(40px);
+  opacity: 0.4;
+  pointer-events: none;
+  will-change: opacity, filter;
+  animation: door-spotlight-pulse 4.5s ease-in-out infinite;
+}
+
+@keyframes door-spotlight-pulse {
+  0%, 100% { transform: translateX(-50%) scale(1);   filter: blur(40px); }
+  50%      { transform: translateX(-50%) scale(1.05); filter: blur(48px); }
+}
+
+/* ── z:21 WHITE-OUT FLASH (briefly at full open) ───────────────────── */
+.door-portal__flash {
+  position: absolute;
+  inset: 0;
+  z-index: 21;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(255, 250, 235, 0.95) 0%,
+    rgba(255, 240, 215, 0.6) 40%,
+    transparent 80%
+  );
+  opacity: 0;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* ── z:22 FLOATING DUST PARTICLES ──────────────────────────────────── */
+.door-portal__particles {
+  position: absolute;
+  inset: 0;
+  z-index: 22;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.door-portal__particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 230, 200, 0.9);
+  box-shadow: 0 0 8px rgba(255, 220, 180, 0.8);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+.door-portal__particle--a {
+  left: 18%; bottom: -10px;
+  animation: door-particle-rise 7s ease-in-out infinite;
+  animation-delay: 0.2s;
+}
+.door-portal__particle--b {
+  left: 64%; bottom: -10px;
+  animation: door-particle-rise 9s ease-in-out infinite;
+  animation-delay: 1.6s;
+}
+.door-portal__particle--c {
+  left: 82%; bottom: -10px;
+  animation: door-particle-rise 8s ease-in-out infinite;
+  animation-delay: 3.4s;
+}
+
+@keyframes door-particle-rise {
+  0%   { transform: translateY(0)      translateX(0);   opacity: 0; }
+  10%  { opacity: 1; }
+  50%  { transform: translateY(-55vh)  translateX(20px); opacity: 0.8; }
+  100% { transform: translateY(-100vh) translateX(-20px); opacity: 0; }
+}
+
+/* ── z:23 FILM GRAIN ───────────────────────────────────────────────── */
+.door-portal__grain {
+  position: absolute;
+  inset: 0;
+  z-index: 23;
+  pointer-events: none;
+  opacity: 0.05;
+  /* Tiny inline SVG noise filter — keeps the page weight unchanged. */
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.6 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  mix-blend-mode: overlay;
+}
+
+/* ── TAGLINE (preserved from previous hero) ────────────────────────── */
+.door-portal__tagline {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -475,36 +794,47 @@ body.is-header-hidden .hero-center-title {
   line-height: 1.18;
   letter-spacing: 0.005em;
   color: #ffffff;
-  z-index: 3; /* above .hero-video (z:2) and .hero-intro (z:1) */
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+  z-index: 30;
   pointer-events: none;
   will-change: opacity, transform;
-  /* No transition here — JS drives opacity + transform each frame so a
-     CSS transition would lag the scroll-scrubbed motion. */
 }
 
 @media (max-width: 640px) {
-  .hero-intro__tagline {
+  .door-portal__tagline {
     font-size: clamp(1.4rem, 7vw, 2.4rem);
     line-height: 1.25;
   }
+  .door-portal__door {
+    width: 60vw;
+    height: 60vh;
+  }
 }
 
-.hero-video {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  background: #000;
-  overflow: hidden;
-  /* Higher than the sticky panel so it COVERS it on scroll-up */
-  z-index: 2;
+/* Honour reduced-motion preference — disable parallax + spotlight pulse +
+   particles + grain shimmer so the section reads as a clean static frame. */
+@media (prefers-reduced-motion: reduce) {
+  .door-portal__sky,
+  .door-portal__clouds-drift,
+  .door-portal__door,
+  .door-portal__reveal {
+    transition: none !important;
+    animation: none !important;
+  }
+  .door-portal__spotlight,
+  .door-portal__particle {
+    animation: none;
+  }
 }
 
-.hero-video__media {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+/* Legacy aliases — keep .hero-intro / .hero-intro__tagline / .hero-stack
+   selectors validating in case any unrelated stylesheet still references
+   them. The actual layout now lives on .door-portal*. */
+.hero-stack { position: relative; width: 100%; }
+.hero-intro { display: none; }
+.hero-intro__tagline { display: none; }
+.hero-video { display: none; }
+.hero-video__media { display: none; }
 
 /* ============================================================================
    Legacy intro-zoom styles below — kept temporarily as dead CSS so older
