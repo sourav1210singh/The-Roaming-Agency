@@ -153,12 +153,15 @@
       <div class="door-portal__zoom" id="doorZoom">
         <div class="door-portal__frame">
 
-          <!-- Behind-door destination scene. Sits flush inside the frame
-               opening. Becomes visible as the door rotates open. -->
+          <!-- Behind-door destination scene — looping interactive-roaming
+               footage. Sits flush inside the frame opening; becomes visible
+               as the door rotates open. Autoplay + muted + loop + playsinline
+               so it starts on page load without a user gesture. -->
           <div class="door-portal__inside" id="doorInside">
-            <img class="door-portal__inside-img"
-                 src="src/assets/images/events/event-01.jpg"
-                 alt="" loading="eager">
+            <video class="door-portal__inside-video" id="doorInsideVideo"
+                   autoplay muted loop playsinline preload="auto">
+              <source src="src/assets/videos/door-reveal.mp4" type="video/mp4">
+            </video>
             <div class="door-portal__inside-shade"></div>
           </div>
 

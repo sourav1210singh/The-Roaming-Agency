@@ -145,14 +145,17 @@ function initEventsScroll() {
    DOOR PORTAL — pre-hero cinematic intro
    Sequence (all driven by scroll-progress through #doorPortal):
      0.00 → 0.20  L/R side text columns lift up + fade out
-     0.10 → 0.55  Door rotates 0 → 85° (left hinge)
-     0.30 → 0.85  Door zooms larger from CENTRE (scale 1 → 5×)
-     0.55 → 0.80  Door fades out (we're "through" it)
-     0.78 → 0.86  White-out flash (emerging into daylight)
+     0.15 → 0.85  Door rotates 0 → 85° GRADUALLY (linear)
+     0.55 → 0.95  Door zooms larger from CENTRE (scale 1 → 4×)
+     0.80 → 0.95  Door fades out (we're "through" it)
+     0.92 → 0.98  White-out flash (emerging into daylight)
      0.00 → 1.00  Sky parallax + cloud drift + spotlight intensify
-   After 1.00 the user lands on the original hero stack (black panel +
-   "The Roaming Agency" + tagline + sliding Riviera video).
-   Driven by GSAP ScrollTrigger + `scrub: 0.6`.
+   The rotation now spans 70% of the runway with a LINEAR ease so the
+   door opens at a constant, readable pace — feels like a real door
+   being pushed open, not a snap-cut. The runway itself is 300vh
+   (was 200vh) so each scroll wheel tick advances the door less.
+   `scrub: 1.2` adds ~1.2s of momentum smoothing — softens any
+   trackpad jitter into a fluid swing.
    ────────────────────────────────────────────── */
 function initDoorPortal() {
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
@@ -167,25 +170,24 @@ function initDoorPortal() {
   const flash   = document.getElementById('doorFlash');
   if (!section || !door) return;
 
-  // Initial state — door at rest, zoom unscaled, side text fully visible.
   gsap.set(door,  { rotateY: 0, transformOrigin: 'left center' });
   gsap.set(zoom,  { scale: 1, transformOrigin: 'center center' });
   gsap.set([left, right], { opacity: 1, y: 0 });
   gsap.set(flash, { opacity: 0 });
 
-  // Single timeline normalized to duration 1 so positions below read
-  // directly as scroll-progress percentages (0.10 = 10%, etc).
   const tl = gsap.timeline({
     defaults: { duration: 1, ease: 'none' },
     scrollTrigger: {
       trigger: section,
       start: 'top top',
       end: 'bottom bottom',
-      scrub: 0.6,
+      // Bumped from 0.6 → 1.2: ~1.2s of momentum smoothing makes the
+      // motion feel cinematic, not snappy.
+      scrub: 1.2,
     }
   });
 
-  // ── Sky parallax (whole runway) ─────────────────────────────────────
+  // ── Sky parallax (whole runway) ──────────────────────────────────
   if (sky) {
     tl.fromTo(sky,
       { scale: 1.0,  yPercent: 0,  xPercent: 0 },
@@ -201,7 +203,7 @@ function initDoorPortal() {
     );
   }
 
-  // ── L/R text columns lift up + fade out (0.00 → 0.20) ──────────────
+  // ── L/R text columns lift up + fade out (0.00 → 0.20) ────────────
   if (left) {
     tl.fromTo(left,
       { opacity: 1, y: 0 },
@@ -217,34 +219,36 @@ function initDoorPortal() {
     );
   }
 
-  // ── Door rotation 0 → 85° (0.10 → 0.55, duration 0.45) ─────────────
-  // Cap at 85° (not 90°) so the knob doesn't detach into a floating
-  // sphere when the panel goes edge-on.
+  // ── Door rotation 0 → 85° (0.15 → 0.85, duration 0.70, LINEAR) ───
+  // Linear ease (not power2.in) so the door opens at constant pace —
+  // feels like a real door being pushed, not snapping to fully open.
+  // 70% of the runway is dedicated to the rotation so each scroll
+  // tick visibly moves the door by a comfortable amount.
   tl.fromTo(door,
     { rotateY: 0 },
-    { rotateY: 85, duration: 0.45, ease: 'power2.in' },
-    0.10
+    { rotateY: 85, duration: 0.70, ease: 'none' },
+    0.15
   );
 
-  // ── Door zoom from centre (0.30 → 0.85, duration 0.55) ─────────────
-  // Scales the wrapper, NOT the door, so the rotation hinge stays at
-  // the panel's left edge. As the wrapper grows, the (rotated) door
-  // visually rushes past the camera.
+  // ── Door zoom from centre (0.55 → 0.95, duration 0.40) ───────────
+  // Zoom kicks in LATER and is GENTLER (1 → 4× instead of 1 → 5×) so
+  // the door's gradual rotation is the primary motion, not a quick
+  // zoom that masks the rotation.
   if (zoom) {
     tl.fromTo(zoom,
       { scale: 1 },
-      { scale: 5, duration: 0.55, ease: 'power2.in' },
-      0.30
+      { scale: 4, duration: 0.40, ease: 'power2.in' },
+      0.55
     );
   }
 
-  // ── Door fades out 0.55 → 0.80 ─────────────────────────────────────
+  // ── Door fades out 0.80 → 0.95 ───────────────────────────────────
   tl.to(door,
-    { opacity: 0, duration: 0.25 },
-    0.55
+    { opacity: 0, duration: 0.15 },
+    0.80
   );
 
-  // ── Spotlight intensifies 0 → 0.6 ──────────────────────────────────
+  // ── Spotlight intensifies 0 → 0.6 ────────────────────────────────
   if (spot) {
     tl.fromTo(spot,
       { opacity: 0.4 },
@@ -253,10 +257,10 @@ function initDoorPortal() {
     );
   }
 
-  // ── White-out flash 0.78 → 0.86 ────────────────────────────────────
+  // ── White-out flash 0.92 → 0.98 ──────────────────────────────────
   if (flash) {
-    tl.to(flash, { opacity: 1, duration: 0.04, ease: 'power2.in'  }, 0.78);
-    tl.to(flash, { opacity: 0, duration: 0.06, ease: 'power2.out' }, 0.82);
+    tl.to(flash, { opacity: 1, duration: 0.03, ease: 'power2.in'  }, 0.92);
+    tl.to(flash, { opacity: 0, duration: 0.04, ease: 'power2.out' }, 0.94);
   }
 }
 
