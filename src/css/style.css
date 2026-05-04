@@ -452,7 +452,7 @@ body.is-header-hidden .hero-center-title {
 .door-portal {
   position: relative;
   width: 100%;
-  height: 250vh;       /* scroll runway — ~2.5 viewports of comfortable scroll */
+  height: 200vh;       /* scroll runway — ~2 viewports of comfortable scroll */
   background: #000;    /* neutral fallback if images fail */
 }
 
@@ -466,6 +466,91 @@ body.is-header-hidden .hero-center-title {
      1800px gives a slight, cinematic depth without distorting the panel. */
   perspective: 1800px;
   perspective-origin: 50% 50%;
+}
+
+/* ── z:8 SIDE TEXT COLUMNS ────────────────────────────────────────────
+   L/R text columns flank the door at rest. JS scrubs their opacity
+   1 → 0 and translateY 0 → -60px during scroll progress 0 → 0.20 so
+   they "lift up and hide" before the door starts opening. */
+.door-portal__side {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 8;
+  width: clamp(220px, 22vw, 360px);
+  color: #ffffff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.55);
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+.door-portal__side--left {
+  left: clamp(1.5rem, 4vw, 4rem);
+  text-align: left;
+}
+
+.door-portal__side--right {
+  right: clamp(1.5rem, 4vw, 4rem);
+  text-align: right;
+}
+
+.door-portal__side-eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.85;
+  margin-bottom: 0.9rem;
+}
+
+.door-portal__side-heading {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: clamp(1.25rem, 1.8vw, 1.85rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.door-portal__side-body {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.05vw, 1.05rem);
+  line-height: 1.6;
+  margin: 0 0 1rem;
+  opacity: 0.92;
+}
+
+.door-portal__side-cue {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  opacity: 0.7;
+  animation: door-cue-bob 2.4s ease-in-out infinite;
+}
+
+@keyframes door-cue-bob {
+  0%, 100% { transform: translateY(0);   opacity: 0.7; }
+  50%      { transform: translateY(4px); opacity: 1; }
+}
+
+/* ── z:10 ZOOM WRAPPER ────────────────────────────────────────────────
+   The wrapper SCALES from centre as the user scrolls so the door grows
+   larger and "swallows the camera". The inner .door-portal__perspective
+   provides the 3D context for the door panel itself which rotates from
+   its LEFT edge — two separate transforms, two separate origins. */
+.door-portal__zoom {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-origin: center center;
+  transform-style: preserve-3d;
+  will-change: transform;
 }
 
 /* ── z:0 SKY BACKGROUND + PARALLAX ─────────────────────────────────── */
@@ -827,14 +912,68 @@ body.is-header-hidden .hero-center-title {
   }
 }
 
-/* Legacy aliases — keep .hero-intro / .hero-intro__tagline / .hero-stack
-   selectors validating in case any unrelated stylesheet still references
-   them. The actual layout now lives on .door-portal*. */
-.hero-stack { position: relative; width: 100%; }
-.hero-intro { display: none; }
-.hero-intro__tagline { display: none; }
-.hero-video { display: none; }
-.hero-video__media { display: none; }
+/* ============================================================================
+   HERO STACK — restored. The door portal is now its OWN section above this;
+   once the user scrolls past the door, they land here on the original
+   black-panel + sliding-video flow.
+   ============================================================================ */
+.hero-stack {
+  position: relative;
+  width: 100%;
+}
+
+.hero-intro {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.hero-intro__tagline {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: max-content;
+  max-width: 92vw;
+  margin: 0;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: clamp(1.75rem, 4.5vw, 4rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: 0.005em;
+  color: #ffffff;
+  z-index: 3;
+  pointer-events: none;
+  will-change: opacity, transform;
+}
+
+@media (max-width: 640px) {
+  .hero-intro__tagline {
+    font-size: clamp(1.4rem, 7vw, 2.4rem);
+    line-height: 1.25;
+  }
+}
+
+.hero-video {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  z-index: 2;
+}
+
+.hero-video__media {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
 /* ============================================================================
    Legacy intro-zoom styles below — kept temporarily as dead CSS so older

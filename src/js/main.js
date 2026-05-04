@@ -142,50 +142,50 @@ function initEventsScroll() {
 
 
 /* ──────────────────────────────────────────────
-   DOOR PORTAL — cinematic scroll-driven 3D door intro
-   • Outer #heroStack provides 250vh of scroll runway. The inner
-     #heroIntro is `position: sticky; top: 0; height: 100vh` and pins
-     for the full stretch.
-   • This function wires each layer to `scrollYProgress` (0→1 across
-     the runway) using GSAP ScrollTrigger with `scrub` — the vanilla
-     equivalent of framer-motion's `useScroll` + `useSpring`.
-   • The existing initHeroIntro() still drives the hero-center-title
-     logo travel + tagline drift + header reveal. This function only
-     adds the door-specific sky parallax + door rotation + reveal.
+   DOOR PORTAL — pre-hero cinematic intro
+   Sequence (all driven by scroll-progress through #doorPortal):
+     0.00 → 0.20  L/R side text columns lift up + fade out
+     0.10 → 0.55  Door rotates 0 → 85° (left hinge)
+     0.30 → 0.85  Door zooms larger from CENTRE (scale 1 → 5×)
+     0.55 → 0.80  Door fades out (we're "through" it)
+     0.78 → 0.86  White-out flash (emerging into daylight)
+     0.00 → 1.00  Sky parallax + cloud drift + spotlight intensify
+   After 1.00 the user lands on the original hero stack (black panel +
+   "The Roaming Agency" + tagline + sliding Riviera video).
+   Driven by GSAP ScrollTrigger + `scrub: 0.6`.
    ────────────────────────────────────────────── */
 function initDoorPortal() {
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-  const stack    = document.getElementById('heroStack');
-  const sky      = document.getElementById('heroSky');
-  const clouds   = document.getElementById('heroCloudsDrift');
-  const door     = document.getElementById('heroDoor');
-  const reveal   = document.getElementById('heroReveal');
-  const spot     = document.getElementById('heroSpotlight');
-  const flash    = document.getElementById('heroFlash');
-  if (!stack || !door) return;
+  const section = document.getElementById('doorPortal');
+  const sky     = document.getElementById('doorSky');
+  const clouds  = document.getElementById('doorCloudsDrift');
+  const zoom    = document.getElementById('doorZoom');
+  const door    = document.getElementById('doorPanel');
+  const left    = document.getElementById('doorTextLeft');
+  const right   = document.getElementById('doorTextRight');
+  const spot    = document.getElementById('doorSpotlight');
+  const flash   = document.getElementById('doorFlash');
+  if (!section || !door) return;
 
-  // Make sure the door starts un-rotated and the reveal layer is hidden.
-  gsap.set(door,   { rotateY: 0, transformOrigin: 'left center' });
-  gsap.set(reveal, { opacity: 0 });
-  gsap.set(flash,  { opacity: 0 });
+  // Initial state — door at rest, zoom unscaled, side text fully visible.
+  gsap.set(door,  { rotateY: 0, transformOrigin: 'left center' });
+  gsap.set(zoom,  { scale: 1, transformOrigin: 'center center' });
+  gsap.set([left, right], { opacity: 1, y: 0 });
+  gsap.set(flash, { opacity: 0 });
 
-  // Master scrub timeline. Total duration is normalized to 1 so position
-  // numbers below read directly as scroll-progress percentages
-  // (0.10 = 10% through, 0.70 = 70% through, etc). `scrub: 0.6` is the
-  // GSAP equivalent of a spring with stiffness ~80 / damping ~22:
-  // ~600ms of smoothing as the user scrolls.
+  // Single timeline normalized to duration 1 so positions below read
+  // directly as scroll-progress percentages (0.10 = 10%, etc).
   const tl = gsap.timeline({
     defaults: { duration: 1, ease: 'none' },
     scrollTrigger: {
-      trigger: stack,
+      trigger: section,
       start: 'top top',
       end: 'bottom bottom',
       scrub: 0.6,
-      // No pin — the inner element does the pinning via `position: sticky`.
     }
   });
 
-  // Sky parallax — runs across the full runway (0 → 1).
+  // ── Sky parallax (whole runway) ─────────────────────────────────────
   if (sky) {
     tl.fromTo(sky,
       { scale: 1.0,  yPercent: 0,  xPercent: 0 },
@@ -193,8 +193,6 @@ function initDoorPortal() {
       0
     );
   }
-
-  // Second cloud layer drifts opposite direction across the full runway.
   if (clouds) {
     tl.fromTo(clouds,
       { xPercent: 0, yPercent: 0 },
@@ -203,38 +201,50 @@ function initDoorPortal() {
     );
   }
 
-  // Door rotation 0 → 85° between progress 0.10 → 0.70 (duration 0.60).
-  // Cap at 85° (not 90°): at 90° the panel becomes edge-on and the knob
-  // detaches as a floating sphere even with backface-visibility:hidden.
-  tl.fromTo(door,
-    { rotateY: 0,  opacity: 1 },
-    { rotateY: 85, duration: 0.60, ease: 'power2.in' },
-    0.10
-  );
-
-  // Door fades out between 0.65 → 0.85 (duration 0.20) so it doesn't
-  // ghost over the revealed video.
-  tl.to(door,
-    { opacity: 0, duration: 0.20 },
-    0.65
-  );
-
-  // Behind-the-door reveal (Riviera footage) fades in 0.50 → 0.80
-  // (duration 0.30).
-  if (reveal) {
-    tl.fromTo(reveal,
-      { opacity: 0 },
-      { opacity: 1, duration: 0.30, ease: 'power1.out',
-        onUpdate: function () {
-          const o = parseFloat(reveal.style.opacity || '0');
-          reveal.style.pointerEvents = o > 0.5 ? 'auto' : 'none';
-        }
-      },
-      0.50
+  // ── L/R text columns lift up + fade out (0.00 → 0.20) ──────────────
+  if (left) {
+    tl.fromTo(left,
+      { opacity: 1, y: 0 },
+      { opacity: 0, y: -60, duration: 0.20, ease: 'power2.in' },
+      0
+    );
+  }
+  if (right) {
+    tl.fromTo(right,
+      { opacity: 1, y: 0 },
+      { opacity: 0, y: -60, duration: 0.20, ease: 'power2.in' },
+      0
     );
   }
 
-  // Spotlight intensifies 0 → 0.6 (duration 0.6).
+  // ── Door rotation 0 → 85° (0.10 → 0.55, duration 0.45) ─────────────
+  // Cap at 85° (not 90°) so the knob doesn't detach into a floating
+  // sphere when the panel goes edge-on.
+  tl.fromTo(door,
+    { rotateY: 0 },
+    { rotateY: 85, duration: 0.45, ease: 'power2.in' },
+    0.10
+  );
+
+  // ── Door zoom from centre (0.30 → 0.85, duration 0.55) ─────────────
+  // Scales the wrapper, NOT the door, so the rotation hinge stays at
+  // the panel's left edge. As the wrapper grows, the (rotated) door
+  // visually rushes past the camera.
+  if (zoom) {
+    tl.fromTo(zoom,
+      { scale: 1 },
+      { scale: 5, duration: 0.55, ease: 'power2.in' },
+      0.30
+    );
+  }
+
+  // ── Door fades out 0.55 → 0.80 ─────────────────────────────────────
+  tl.to(door,
+    { opacity: 0, duration: 0.25 },
+    0.55
+  );
+
+  // ── Spotlight intensifies 0 → 0.6 ──────────────────────────────────
   if (spot) {
     tl.fromTo(spot,
       { opacity: 0.4 },
@@ -243,8 +253,7 @@ function initDoorPortal() {
     );
   }
 
-  // White-out flash — opacity 0 → 1 → 0 around the door reaching full
-  // open (~0.78–0.86). Feels like emerging into daylight.
+  // ── White-out flash 0.78 → 0.86 ────────────────────────────────────
   if (flash) {
     tl.to(flash, { opacity: 1, duration: 0.04, ease: 'power2.in'  }, 0.78);
     tl.to(flash, { opacity: 0, duration: 0.06, ease: 'power2.out' }, 0.82);
@@ -1319,6 +1328,18 @@ function initHeroIntro() {
   function animate() {
     currentRaw += (targetRaw - currentRaw) * 0.1;
 
+    // ── Hero-stack visibility window ───────────────────────────────
+    // The door portal sits BEFORE the hero stack on the page. While the
+    // user is still on the door portal, the hero-only chrome (logo,
+    // tagline) must stay hidden — they belong to the hero, not the door.
+    // As the user approaches the hero stack we fade them in over a
+    // short lead-in window so the entrance feels intentional, not abrupt.
+    const heroStartTop = stack ? stack.offsetTop : 0;
+    const leadIn = window.innerHeight * 0.4; // start fading in 40vh before hero
+    const heroVisibility = Math.max(0, Math.min(1,
+      (window.scrollY - (heroStartTop - leadIn)) / leadIn
+    ));
+
     // ── Logo travel ────────────────────────────────────────────────
     // Start: centred horizontally, ~22% from the top of the viewport
     // (above the tagline, which sits at 50%).
@@ -1332,24 +1353,26 @@ function initHeroIntro() {
     const baseFontPx = Math.max(28, Math.min(48, window.innerWidth * 0.035));
     const fontPx = baseFontPx + (logoTarget.fontSizePx - baseFontPx) * travelEase;
 
-    heroCenterTitle.style.opacity = '1';
+    heroCenterTitle.style.opacity = String(heroVisibility);
     heroCenterTitle.style.top = y + 'px';
     heroCenterTitle.style.left = x + 'px';
     heroCenterTitle.style.transform = 'translate(-50%, -50%)';
     heroCenterTitle.style.fontSize = fontPx + 'px';
-    heroCenterTitle.style.pointerEvents = 'auto';
+    heroCenterTitle.style.pointerEvents = heroVisibility > 0.5 ? 'auto' : 'none';
 
     // ── Tagline pin → travel-with-video ────────────────────────────
-    // Phase A (scroll 0 → pinEnd): tagline pinned at viewport centre
-    //   while the video slides up to cover the black panel beneath it.
+    // Phase A (scroll heroStart → heroStart + pinEnd): tagline pinned
+    //   at viewport centre while the video slides up to cover the black
+    //   panel beneath it.
     // Phase B (scroll past pinEnd): tagline travels UPWARD at the
     //   exact same rate as the page scroll, so it leaves the viewport
-    //   together with the rising video. No fade — the tagline simply
-    //   exits naturally with the rest of the stack.
+    //   together with the rising video.
+    // PLUS the new pre-hero window: tagline opacity is gated on
+    // heroVisibility so it doesn't bleed over the door portal.
     if (tagline && stack) {
-      const pinEnd = stack.offsetHeight - window.innerHeight; // ≈ one viewport
+      const pinEnd = heroStartTop + stack.offsetHeight - window.innerHeight;
       const drift = Math.max(0, window.scrollY - pinEnd);
-      tagline.style.opacity = '1';
+      tagline.style.opacity = String(heroVisibility);
       tagline.style.transform = `translate(-50%, calc(-50% - ${drift}px))`;
     }
 

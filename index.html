@@ -98,87 +98,113 @@
     <span class="hero-center-title__text">The Roaming Agency</span>
   </a>
 
-  <!-- ===== HERO — DOOR PORTAL =====
-       Cinematic scroll-driven door-opening intro. The OUTER #heroStack is
-       250vh tall and provides the scroll runway. The INNER .door-portal__sticky
-       is `position: sticky; top: 0; height: 100vh` — pinned for the full
-       runway. As the user scrolls:
-         • Sky bg parallaxes (scale + Y + slow X for cloud drift)
-         • Door rotates 0 → 85° around its left edge (perspective: 1800)
-         • Behind-the-door layer (Riviera footage) fades in
-         • Spotlight intensifies + brief white flash at full open
-       Driven by GSAP ScrollTrigger with `scrub` (the vanilla equivalent of
-       framer-motion's `useScroll` + `useSpring`). The existing logo-travel,
-       header-reveal and tagline-drift logic in initHeroIntro() still runs
-       on top — the IDs heroStack / heroIntro / heroTagline are preserved
-       so smart-header + initHeroIntro work without changes. -->
-  <div class="door-portal" id="heroStack">
-    <div class="door-portal__sticky" id="heroIntro">
+  <!-- ===== DOOR PORTAL (FIRST viewport on page) =====
+       Pre-hero cinematic intro. As the user scrolls:
+         1. The L/R side text columns lift up + fade out (≤ 25%).
+         2. The door rotates open (left hinge) AND simultaneously zooms
+            larger from CENTER, so it feels like the camera is being
+            pulled through the open doorway.
+         3. The existing hero section (black panel + Roaming Agency
+            logo + tagline + Riviera footage) appears AFTER this section.
+       Section is 200vh tall; inner is sticky for the whole runway. -->
+  <section class="door-portal" id="doorPortal">
+    <div class="door-portal__sticky" id="doorPortalSticky">
 
-      <!-- z:0 — Sky background with parallax. -->
-      <div class="door-portal__sky-wrap" id="heroSkyWrap">
-        <img class="door-portal__sky" id="heroSky"
+      <!-- z:0 — Sky background with parallax (scrubbed by GSAP). -->
+      <div class="door-portal__sky-wrap" id="doorSkyWrap">
+        <img class="door-portal__sky" id="doorSky"
              src="src/assets/images/hero-door-bg.jpg"
              alt="" loading="eager" fetchpriority="high">
-        <!-- Warm tint for golden-hour feel (mix-blend-mode: screen). -->
         <div class="door-portal__sky-tint"></div>
-        <!-- Second drift layer at lower opacity for depth parallax. -->
-        <div class="door-portal__clouds-drift" id="heroCloudsDrift"></div>
+        <div class="door-portal__clouds-drift" id="doorCloudsDrift"></div>
       </div>
 
-      <!-- z:5 — Vignette so the corners darken and the door is the focal point. -->
+      <!-- z:5 — Vignette darkens corners, focal point on door. -->
       <div class="door-portal__vignette"></div>
 
-      <!-- z:15 — Behind-the-door reveal: the existing Riviera video. -->
-      <div class="door-portal__reveal" id="heroReveal">
-        <video class="door-portal__reveal-video" autoplay muted loop playsinline preload="auto">
-          <source src="src/assets/videos/hero.mp4" type="video/mp4">
-        </video>
-        <div class="door-portal__reveal-vignette"></div>
+      <!-- z:8 — LEFT side text column. Lifts up + fades on early scroll. -->
+      <div class="door-portal__side door-portal__side--left" id="doorTextLeft">
+        <span class="door-portal__side-eyebrow"
+              data-en="Est. 2018 · French Riviera"
+              data-fr="Depuis 2018 · Côte d'Azur">Est. 2018 · French Riviera</span>
+        <h2 class="door-portal__side-heading"
+            data-en="Step inside the world of bespoke roaming music"
+            data-fr="Entrez dans l'univers de la musique itinérante sur mesure">
+          Step inside the world of bespoke roaming music
+        </h2>
       </div>
 
-      <!-- z:10 — The door. Perspective parent + door (left-hinged) + knob. -->
-      <div class="door-portal__perspective">
-        <div class="door-portal__door" id="heroDoor">
-          <div class="door-portal__door-grain"></div>
-          <div class="door-portal__door-panel door-portal__door-panel--top"></div>
-          <div class="door-portal__door-panel door-portal__door-panel--bottom"></div>
-          <!-- Knob in its own preserve-3d wrapper — without that the knob
-               detaches as a floating sphere when the door rotates past
-               ~80°. Cap the rotation at 85° and we keep it visually
-               attached to the panel. -->
-          <div class="door-portal__door-knob-wrap">
-            <div class="door-portal__door-knob"></div>
+      <!-- z:8 — RIGHT side text column. Lifts up + fades on early scroll. -->
+      <div class="door-portal__side door-portal__side--right" id="doorTextRight">
+        <p class="door-portal__side-body"
+           data-en="Push the door open. Behind it: ten elite roaming bands ready to score every moment of your most unforgettable celebrations."
+           data-fr="Poussez la porte. Derrière elle : dix groupes itinérants d'élite prêts à mettre en musique chaque instant de vos célébrations les plus inoubliables.">
+          Push the door open. Behind it: ten elite roaming bands ready to score every moment of your most unforgettable celebrations.
+        </p>
+        <span class="door-portal__side-cue"
+              data-en="↓ Scroll to enter"
+              data-fr="↓ Faites défiler pour entrer">↓ Scroll to enter</span>
+      </div>
+
+      <!-- z:10 — Door zoom wrapper. The wrapper SCALES from centre,
+           the inner door ROTATES from its left edge. Two separate
+           transforms because one transform-origin can't be both
+           "left center" (for hinge) and "center" (for zoom). -->
+      <div class="door-portal__zoom" id="doorZoom">
+        <div class="door-portal__perspective">
+          <div class="door-portal__door" id="doorPanel">
+            <div class="door-portal__door-grain"></div>
+            <div class="door-portal__door-panel door-portal__door-panel--top"></div>
+            <div class="door-portal__door-panel door-portal__door-panel--bottom"></div>
+            <div class="door-portal__door-knob-wrap">
+              <div class="door-portal__door-knob"></div>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- z:20 — Top-centre warm spotlight cone. -->
-      <div class="door-portal__spotlight" id="heroSpotlight"></div>
+      <!-- z:20 — Top-centre warm spotlight (subtle pulse). -->
+      <div class="door-portal__spotlight" id="doorSpotlight"></div>
 
-      <!-- z:21 — Brief white-out flash when the door fully opens. -->
-      <div class="door-portal__flash" id="heroFlash"></div>
+      <!-- z:21 — Brief white-out flash at full open + zoom. -->
+      <div class="door-portal__flash" id="doorFlash"></div>
 
-      <!-- z:22 — Floating dust particles drifting up. -->
+      <!-- z:22 — Floating dust particles. -->
       <div class="door-portal__particles" aria-hidden="true">
         <span class="door-portal__particle door-portal__particle--a"></span>
         <span class="door-portal__particle door-portal__particle--b"></span>
         <span class="door-portal__particle door-portal__particle--c"></span>
       </div>
 
-      <!-- z:23 — Subtle film-grain overlay for cinematic texture. -->
+      <!-- z:23 — Film grain. -->
       <div class="door-portal__grain" aria-hidden="true"></div>
-
-      <!-- Tagline — sibling of all layers, top z so it sits above everything.
-           The existing initHeroIntro() pins it for one viewport then drifts
-           it upward with the scroll. -->
-      <h1 class="door-portal__tagline" id="heroTagline"
-          data-en="Bespoke musical solutions<br>for exclusive events worldwide"
-          data-fr="Solutions musicales sur mesure<br>pour événements exclusifs à travers le monde">
-        Bespoke musical solutions<br>for exclusive events worldwide
-      </h1>
-
     </div>
+  </section>
+
+
+  <!-- ===== HERO STACK (RESTORED — appears AFTER the door portal) =====
+       Original sticky black panel + sliding video + tagline. The user
+       lands here once they've passed through the door. The existing
+       initHeroIntro() drives the logo dock, header chrome reveal, and
+       tagline pin/drift — all unchanged. -->
+  <div class="hero-stack" id="heroStack">
+
+    <!-- Black panel — sticky, z:1 (deepest) -->
+    <section class="hero-intro" id="heroIntro"></section>
+
+    <!-- Riviera footage. z:2 — slides up OVER the sticky black panel. -->
+    <section class="hero-video" id="heroVideo">
+      <video class="hero-video__media" autoplay muted loop playsinline preload="auto">
+        <source src="src/assets/videos/hero.mp4" type="video/mp4">
+      </video>
+    </section>
+
+    <!-- Tagline overlay — pinned via position: fixed, JS drifts it up. -->
+    <h1 class="hero-intro__tagline" id="heroTagline"
+        data-en="Bespoke musical solutions<br>for exclusive events worldwide"
+        data-fr="Solutions musicales sur mesure<br>pour événements exclusifs à travers le monde">
+      Bespoke musical solutions<br>for exclusive events worldwide
+    </h1>
   </div>
 
   <!-- ===== WHO WE ARE =====
