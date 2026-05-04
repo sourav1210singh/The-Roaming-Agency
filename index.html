@@ -146,18 +146,45 @@
               data-fr="↓ Faites défiler pour entrer">↓ Scroll to enter</span>
       </div>
 
-      <!-- z:10 — Door zoom wrapper. The wrapper SCALES from centre,
-           the inner door ROTATES from its left edge. Two separate
-           transforms because one transform-origin can't be both
-           "left center" (for hinge) and "center" (for zoom). -->
+      <!-- z:10 — Door zoom wrapper. Centre-origin scale.
+           The frame stays in place around the door. Behind the door (inside
+           the frame opening) sits the destination image — visible through
+           the gap as the door swings open. -->
       <div class="door-portal__zoom" id="doorZoom">
-        <div class="door-portal__perspective">
-          <div class="door-portal__door" id="doorPanel">
-            <div class="door-portal__door-grain"></div>
-            <div class="door-portal__door-panel door-portal__door-panel--top"></div>
-            <div class="door-portal__door-panel door-portal__door-panel--bottom"></div>
-            <div class="door-portal__door-knob-wrap">
-              <div class="door-portal__door-knob"></div>
+        <div class="door-portal__frame">
+
+          <!-- Behind-door destination scene. Sits flush inside the frame
+               opening. Becomes visible as the door rotates open. -->
+          <div class="door-portal__inside" id="doorInside">
+            <img class="door-portal__inside-img"
+                 src="src/assets/images/events/event-01.jpg"
+                 alt="" loading="eager">
+            <div class="door-portal__inside-shade"></div>
+          </div>
+
+          <!-- The actual door — left-hinged, classic white interior style.
+               .door-portal__door has preserve-3d so the side-edge sibling
+               renders perpendicular to the front face for visible thickness. -->
+          <div class="door-portal__perspective">
+            <div class="door-portal__door" id="doorPanel">
+
+              <!-- Side edge — gives the door visible THICKNESS when it
+                   swings open. Translates -Z and rotates 90deg so it sits
+                   on the left edge of the front face. -->
+              <div class="door-portal__door-edge"></div>
+
+              <!-- Front face — classic 3-panel layout: arched top panel +
+                   rectangular middle + rectangular bottom + brass knob. -->
+              <div class="door-portal__door-face">
+                <div class="door-portal__door-arch"></div>
+                <div class="door-portal__door-rect door-portal__door-rect--mid"></div>
+                <div class="door-portal__door-rect door-portal__door-rect--bottom"></div>
+                <div class="door-portal__door-knob-wrap">
+                  <div class="door-portal__door-knob"></div>
+                  <div class="door-portal__door-plate"></div>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
