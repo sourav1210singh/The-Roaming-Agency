@@ -144,18 +144,14 @@ function initEventsScroll() {
 /* ──────────────────────────────────────────────
    DOOR PORTAL — pre-hero cinematic intro
    Sequence (all driven by scroll-progress through #doorPortal):
-     0.00 → 0.20  L/R side text columns lift up + fade out
-     0.15 → 0.85  Door rotates 0 → 85° GRADUALLY (linear)
-     0.55 → 0.95  Door zooms larger from CENTRE (scale 1 → 4×)
-     0.80 → 0.95  Door fades out (we're "through" it)
-     0.92 → 0.98  White-out flash (emerging into daylight)
+     0.00 → 0.12  LEFT side text lifts up + fades out FIRST
+     0.13 → 0.25  RIGHT side text lifts up + fades out SECOND
+     0.27 → 0.92  Door rotates 0 → -85° GRADUALLY (linear, OUTWARD)
+                  Negative rotateY = swing toward camera, hinge on left.
+     0.65 → 0.97  Door zooms larger from CENTRE (scale 1 → 4×)
+     0.88 → 0.96  Door fades out (we're "through" it)
+     0.94 → 0.99  White-out flash (emerging into daylight)
      0.00 → 1.00  Sky parallax + cloud drift + spotlight intensify
-   The rotation now spans 70% of the runway with a LINEAR ease so the
-   door opens at a constant, readable pace — feels like a real door
-   being pushed open, not a snap-cut. The runway itself is 300vh
-   (was 200vh) so each scroll wheel tick advances the door less.
-   `scrub: 1.2` adds ~1.2s of momentum smoothing — softens any
-   trackpad jitter into a fluid swing.
    ────────────────────────────────────────────── */
 function initDoorPortal() {
   if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
@@ -181,8 +177,6 @@ function initDoorPortal() {
       trigger: section,
       start: 'top top',
       end: 'bottom bottom',
-      // Bumped from 0.6 → 1.2: ~1.2s of momentum smoothing makes the
-      // motion feel cinematic, not snappy.
       scrub: 1.2,
     }
   });
@@ -203,49 +197,49 @@ function initDoorPortal() {
     );
   }
 
-  // ── L/R text columns lift up + fade out (0.00 → 0.20) ────────────
+  // ── LEFT text lifts FIRST (0.00 → 0.12) ──────────────────────────
   if (left) {
     tl.fromTo(left,
       { opacity: 1, y: 0 },
-      { opacity: 0, y: -60, duration: 0.20, ease: 'power2.in' },
+      { opacity: 0, y: -60, duration: 0.12, ease: 'power2.in' },
       0
     );
   }
+
+  // ── RIGHT text lifts SECOND, only after left is gone (0.13 → 0.25)
   if (right) {
     tl.fromTo(right,
       { opacity: 1, y: 0 },
-      { opacity: 0, y: -60, duration: 0.20, ease: 'power2.in' },
-      0
+      { opacity: 0, y: -60, duration: 0.12, ease: 'power2.in' },
+      0.13
     );
   }
 
-  // ── Door rotation 0 → 85° (0.15 → 0.85, duration 0.70, LINEAR) ───
-  // Linear ease (not power2.in) so the door opens at constant pace —
-  // feels like a real door being pushed, not snapping to fully open.
-  // 70% of the runway is dedicated to the rotation so each scroll
-  // tick visibly moves the door by a comfortable amount.
+  // ── Door rotation 0 → -85° (0.27 → 0.92, duration 0.65, LINEAR) ──
+  // Negative rotateY: door swings OUTWARD (toward camera). Hinge stays
+  // on the left edge per `transformOrigin: 'left center'`. Capped at
+  // -85° so the panel never goes fully edge-on (knob detachment).
+  // Starts at 0.27 so the right text has fully cleared at 0.25 with a
+  // tiny 0.02 buffer — nothing competes for the user's attention.
   tl.fromTo(door,
     { rotateY: 0 },
-    { rotateY: 85, duration: 0.70, ease: 'none' },
-    0.15
+    { rotateY: -85, duration: 0.65, ease: 'none' },
+    0.27
   );
 
-  // ── Door zoom from centre (0.55 → 0.95, duration 0.40) ───────────
-  // Zoom kicks in LATER and is GENTLER (1 → 4× instead of 1 → 5×) so
-  // the door's gradual rotation is the primary motion, not a quick
-  // zoom that masks the rotation.
+  // ── Door zoom from centre (0.65 → 0.97, duration 0.32) ───────────
   if (zoom) {
     tl.fromTo(zoom,
       { scale: 1 },
-      { scale: 4, duration: 0.40, ease: 'power2.in' },
-      0.55
+      { scale: 4, duration: 0.32, ease: 'power2.in' },
+      0.65
     );
   }
 
-  // ── Door fades out 0.80 → 0.95 ───────────────────────────────────
+  // ── Door fades out 0.88 → 0.96 ───────────────────────────────────
   tl.to(door,
-    { opacity: 0, duration: 0.15 },
-    0.80
+    { opacity: 0, duration: 0.08 },
+    0.88
   );
 
   // ── Spotlight intensifies 0 → 0.6 ────────────────────────────────
@@ -257,10 +251,10 @@ function initDoorPortal() {
     );
   }
 
-  // ── White-out flash 0.92 → 0.98 ──────────────────────────────────
+  // ── White-out flash 0.94 → 0.99 ──────────────────────────────────
   if (flash) {
-    tl.to(flash, { opacity: 1, duration: 0.03, ease: 'power2.in'  }, 0.92);
-    tl.to(flash, { opacity: 0, duration: 0.04, ease: 'power2.out' }, 0.94);
+    tl.to(flash, { opacity: 1, duration: 0.03, ease: 'power2.in'  }, 0.94);
+    tl.to(flash, { opacity: 0, duration: 0.05, ease: 'power2.out' }, 0.96);
   }
 }
 
