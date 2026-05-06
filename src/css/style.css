@@ -474,8 +474,6 @@ body.is-header-hidden .hero-center-title {
    they "lift up and hide" before the door starts opening. */
 .door-portal__side {
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
   z-index: 8;
   width: clamp(220px, 22vw, 360px);
   color: #ffffff;
@@ -484,13 +482,19 @@ body.is-header-hidden .hero-center-title {
   will-change: opacity, transform;
 }
 
+/* LEFT text — vertically centered. Scrolls UP first as user scrolls. */
 .door-portal__side--left {
   left: clamp(1.5rem, 4vw, 4rem);
+  top: 50%;
+  transform: translateY(-50%);
   text-align: left;
 }
 
+/* RIGHT text — anchored to BOTTOM per client revision. Stays put while
+   left exits, then starts moving up itself once left is gone. */
 .door-portal__side--right {
   right: clamp(1.5rem, 4vw, 4rem);
+  bottom: clamp(2rem, 5vw, 4rem);
   text-align: right;
 }
 
@@ -559,8 +563,9 @@ body.is-header-hidden .hero-center-title {
    the reference. */
 .door-portal__frame {
   position: relative;
-  width: clamp(280px, 26vw, 440px);
-  height: clamp(520px, 86vh, 860px);
+  /* Per client revision: door reduced 20% (clamp values × 0.8). */
+  width: clamp(224px, 21vw, 352px);
+  height: clamp(416px, 69vh, 688px);
   background: #ffffff;
   border-radius: 8px 8px 6px 6px;
   /* Subtle frame moulding via stacked shadows. */
