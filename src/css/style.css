@@ -645,6 +645,126 @@ body.is-header-hidden .hero-center-title {
   will-change: transform;
 }
 
+/* ── IDLE BREATH — slow scale cycle on the sky, runs forever ─────────
+   Wraps the <img>; GSAP's scroll-driven transform on the img still
+   stacks with the wrapper's transform, so both motions compose. */
+.door-portal__sky-breath {
+  position: absolute;
+  inset: 0;
+  animation: door-sky-breath 26s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes door-sky-breath {
+  0%, 100% { transform: scale(1)    translateY(0); }
+  50%      { transform: scale(1.025) translateY(-0.4%); }
+}
+
+/* ── CONTINUOUS CLOUD DRIFT (two depths) ─────────────────────────────
+   Wisps of soft white drifting horizontally at different speeds for
+   parallax. Far layer slower, near layer faster — eye reads it as
+   atmospheric depth. mix-blend-mode: screen so they brighten the
+   photo's clouds rather than sitting flat on top. */
+.door-portal__cloud-layer {
+  position: absolute;
+  inset: -8% -25% 45% -25%;  /* upper sky region only, oversized for pan room */
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.85;
+  will-change: transform;
+}
+
+.door-portal__cloud-layer--far {
+  background:
+    radial-gradient(ellipse 14% 28% at 12% 38%, rgba(255,255,255,0.22) 0%, transparent 70%),
+    radial-gradient(ellipse 12% 22% at 36% 52%, rgba(255,255,255,0.16) 0%, transparent 70%),
+    radial-gradient(ellipse 16% 30% at 64% 35%, rgba(255,255,255,0.20) 0%, transparent 70%),
+    radial-gradient(ellipse 13% 25% at 88% 48%, rgba(255,255,255,0.18) 0%, transparent 70%);
+  animation: door-cloud-drift-far 95s linear infinite;
+}
+
+.door-portal__cloud-layer--near {
+  background:
+    radial-gradient(ellipse 18% 32% at 22% 30%, rgba(255,255,255,0.20) 0%, transparent 70%),
+    radial-gradient(ellipse 15% 28% at 55% 45%, rgba(255,255,255,0.14) 0%, transparent 70%),
+    radial-gradient(ellipse 17% 26% at 80% 30%, rgba(255,255,255,0.16) 0%, transparent 70%);
+  animation: door-cloud-drift-near 58s linear infinite;
+  opacity: 0.7;
+}
+
+@keyframes door-cloud-drift-far {
+  0%   { transform: translateX(-12%); }
+  100% { transform: translateX( 12%); }
+}
+
+@keyframes door-cloud-drift-near {
+  0%   { transform: translateX( 14%); }
+  100% { transform: translateX(-14%); }
+}
+
+/* ── SEA SHIMMER ─────────────────────────────────────────────────────
+   Animated SVG fractalNoise on the water portion of the bg. Adds the
+   tiny constant sparkle of light moving on still water. The noise is
+   stretched horizontally (low x freq, high y freq) so it reads as
+   wave-like, not random snow. */
+.door-portal__sea-shimmer {
+  position: absolute;
+  left: -10%;
+  right: -10%;
+  bottom: 0;
+  height: 60%;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.06' numOctaves='2' seed='4'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.7 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 800px 280px;
+  animation: door-sea-shimmer 16s linear infinite;
+  will-change: background-position;
+}
+
+@keyframes door-sea-shimmer {
+  0%   { background-position: 0 0; }
+  100% { background-position: -800px 0; }
+}
+
+/* ── SUN-LIGHT FLARE ─────────────────────────────────────────────────
+   A soft warm radial near the horizon that pulses gently — mimics
+   atmospheric haze from the low sun. Independent rhythm from the
+   spotlight so the whole frame doesn't pulse in sync. */
+.door-portal__sun-flare {
+  position: absolute;
+  left: -20%;
+  top: -15%;
+  width: 70%;
+  height: 70%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  background: radial-gradient(
+    ellipse at 35% 60%,
+    rgba(255, 230, 180, 0.32) 0%,
+    rgba(255, 200, 150, 0.14) 28%,
+    transparent 60%
+  );
+  filter: blur(36px);
+  animation: door-sun-flare 9s ease-in-out infinite;
+  will-change: opacity, transform;
+}
+
+@keyframes door-sun-flare {
+  0%, 100% { opacity: 0.7; transform: scale(1)    translateX(0); }
+  50%      { opacity: 1;   transform: scale(1.06) translateX(2%); }
+}
+
+/* Reduced-motion: kill all the idle animations so the page is calm. */
+@media (prefers-reduced-motion: reduce) {
+  .door-portal__sky-breath,
+  .door-portal__cloud-layer,
+  .door-portal__sea-shimmer,
+  .door-portal__sun-flare {
+    animation: none !important;
+  }
+}
+
 /* Warm golden-hour tint — `mix-blend-mode: screen` lets the colour
    brighten the sky without flattening detail. */
 .door-portal__sky-tint {
@@ -2349,170 +2469,165 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   }
 }
 
-/* === STANDARDS / VALUES GRID === */
+/* === OUR STANDARDS — CLIP-REVEAL ZIGZAG GRID =====================
+   Per client v2: NO IMAGES, just typography + soft scroll-driven
+   reveals. Six items in a 3-column grid; the middle column is offset
+   downward to create the "brick" / zigzag rhythm visible in the
+   mockup. As each item enters the viewport, IntersectionObserver in
+   main.js adds `.is-revealed` and the title + description "uncover"
+   themselves rightward via animated clip-path — the thin vertical
+   line on the left stays put and reads as the curtain edge the text
+   is sliding out from. */
 .standards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-2xl);
+  background: #1c1c1c;
+  color: #ffffff;
+  padding-block: clamp(4rem, 9vw, 7rem);
 }
 
-.standard-card {
-  padding: var(--space-2xl);
-  background: var(--color-dark-card);
-  border: 1px solid var(--color-gray-800);
-  border-radius: var(--radius-md);
-  transition: all var(--duration-base) var(--ease-smooth);
-}
-
-.standard-card:hover {
-  border-color: var(--color-gold);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-gold);
-}
-
-.standard-card__title {
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  color: var(--color-gold);
-  margin-bottom: var(--space-md);
-}
-
-/* === STANDARDS HORIZONTAL SCROLL (icebergdoc style) === */
-.standards-scroll {
-  position: relative;
-  overflow: hidden;
-  background: var(--color-dark);
-}
-
-.standards-scroll__bg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-
-.standards-scroll__bg-img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0;
-  transition: opacity 0.8s ease;
-}
-
-.standards-scroll__bg-img.active {
-  opacity: 1;
-}
-
-.standards-scroll__bg-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-}
-
-.standards-scroll__header {
-  position: relative;
-  z-index: 2;
-  padding: 0 var(--container-padding);
+.standards__inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding-top: var(--space-4xl);
-  padding-bottom: var(--space-4xl);
-}
-
-.standards-scroll__track {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  gap: var(--space-3xl);
   padding: 0 var(--container-padding);
-  padding-bottom: var(--space-4xl);
-  will-change: transform;
 }
 
-.standards-scroll__card {
-  flex: 0 0 380px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.standards__title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: clamp(2.75rem, 6.5vw, 5.75rem);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  text-align: center;
+  margin: 0 0 clamp(3rem, 7vw, 6rem);
 }
 
-.standards-scroll__card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 60px rgba(0, 0, 0, 0.4);
+.standards__title--light { font-weight: 300; margin-right: 0.4ch; }
+.standards__title--bold  { font-weight: 800; }
+
+/* 3-COLUMN ZIGZAG GRID — middle column nudged down. */
+.standards__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: clamp(2rem, 5vw, 5rem);
+  row-gap: clamp(2.5rem, 6vw, 5rem);
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
-.standards-scroll__card-img {
-  width: 100%;
-  height: 220px;
-  overflow: hidden;
+/* Middle column drops by ~50% of a row so each row reads as a brick
+   stagger. Selector targets the 2nd, 5th items (every 3rd starting
+   at 2). */
+.standards__grid > .standard:nth-child(3n+2) {
+  margin-top: clamp(3rem, 6vw, 5.5rem);
 }
 
-.standards-scroll__card-img img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+/* ── Single standard ──────────────────────────────────────────────
+   Layout: thin vertical line on the left, then reveal column with
+   title + description. The line is always visible; the reveal column
+   has an animated clip-path that uncovers the text rightward. */
+.standard {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  margin: 0;
 }
 
-.standards-scroll__card:hover .standards-scroll__card-img img {
-  transform: scale(1.05);
+/* Thin vertical accent — sits to the left of the title baseline,
+   roughly the height of the title. Stays still during the reveal. */
+.standard__line {
+  display: block;
+  width: 1px;
+  height: clamp(2.5rem, 5vw, 3.5rem);
+  background: rgba(255, 255, 255, 0.55);
+  margin-top: 0.4em;
+  flex-shrink: 0;
 }
 
-.standards-scroll__card-body {
-  padding: var(--space-xl) var(--space-lg);
+/* Reveal wrapper — clip-path animates from "fully clipped from right"
+   (text hidden behind the line) to "fully visible". The clip starts
+   at the LEFT (where the line is) and uncovers rightward. */
+.standard__reveal {
+  display: block;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: clip-path;
 }
 
-.standards-scroll__card-title {
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  color: var(--color-gold);
-  margin-bottom: var(--space-sm);
+.standard.is-revealed .standard__reveal {
+  clip-path: inset(0 0 0 0);
 }
 
-.standards-scroll__card-desc {
-  font-size: var(--text-sm);
-  color: #444;
-  line-height: 1.6;
+.standard__title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  text-transform: uppercase;
+  margin: 0 0 clamp(0.65rem, 1vw, 1rem);
+  color: #ffffff;
 }
 
-@media (max-width: 768px) {
-  .standards-scroll {
-    min-height: auto;
-    padding: var(--space-section) 0;
+.standard__desc {
+  font-family: var(--font-body);
+  font-size: clamp(0.875rem, 1vw, 1rem);
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+  max-width: 28ch;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 900px) {
+  .standards__grid {
+    grid-template-columns: repeat(2, 1fr);
   }
-
-  .standards-scroll__header {
-    position: relative;
-    top: auto;
-    padding-top: 0;
+  /* Reset the zigzag — every other item drops instead of every 3rd. */
+  .standards__grid > .standard:nth-child(3n+2) {
+    margin-top: 0;
   }
-
-  .standards-scroll__track {
-    position: relative;
-    top: auto;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .standards-scroll__track::-webkit-scrollbar {
-    display: none;
-  }
-
-  .standards-scroll__card {
-    flex: 0 0 280px;
-    scroll-snap-align: start;
+  .standards__grid > .standard:nth-child(2n) {
+    margin-top: clamp(2rem, 5vw, 3.5rem);
   }
 }
 
-.standard-card__desc {
-  font-size: var(--text-base);
-  color: var(--color-gray-400);
-  line-height: 1.7;
+@media (max-width: 600px) {
+  .standards__grid {
+    grid-template-columns: 1fr;
+  }
+  .standards__grid > .standard:nth-child(2n),
+  .standards__grid > .standard:nth-child(3n+2) {
+    margin-top: 0;
+  }
+  .standard__desc { max-width: none; }
+}
+
+/* Reduced motion: skip the slide; just show the text. */
+@media (prefers-reduced-motion: reduce) {
+  .standard__reveal {
+    clip-path: none !important;
+    transition: none !important;
+  }
+}
+
+/* Legacy aliases — keep these selectors validating in case any other
+   stylesheet still references them. The actual section now lives on
+   .standards__* and .standard__*. */
+.standard-card,
+.standard-card__title,
+.standard-card__desc,
+.standards-scroll,
+.standards-scroll__bg,
+.standards-scroll__track,
+.standards-scroll__card,
+.standards-scroll__card-img,
+.standards-scroll__card-body,
+.standards-scroll__card-title,
+.standards-scroll__card-desc,
+.standards-scroll__header,
+.standards-scroll__bg-img,
+.standards-scroll__bg-overlay {
+  display: revert;
 }
 
 /* === TESTIMONIALS === */

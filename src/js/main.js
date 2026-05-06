@@ -1420,40 +1420,47 @@ function initHeroIntro() {
 }
 
 
+/* ──────────────────────────────────────────────
+   OUR STANDARDS — clip-reveal observer
+   No images, no horizontal scroll. As each .standard enters the
+   viewport, IntersectionObserver adds `.is-revealed` and the CSS
+   clip-path animates the title + description out from behind the
+   thin vertical line on the left, sliding rightward. One-and-done
+   per item — once revealed, it stays revealed even if the user
+   scrolls back up.
+   ────────────────────────────────────────────── */
 function initStandardsScroll() {
-  const section = document.getElementById('standards');
-  const track = document.getElementById('standardsTrack');
-  const bgImgs = document.querySelectorAll('.standards-scroll__bg-img');
-  if (!section || !track || typeof gsap === 'undefined') return;
+  const items = document.querySelectorAll('.standards .standard');
+  if (!items.length) return;
 
-  const cards = track.querySelectorAll('.standards-scroll__card');
-  const totalCards = cards.length;
+  // Reduced-motion users — short-circuit to "everything visible" so
+  // they don't see a blank section. The CSS rule for prefers-reduced-
+  // motion already cancels the clip animation; this just makes sure
+  // the .is-revealed class is on for any styling that depends on it.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    items.forEach((it) => it.classList.add('is-revealed'));
+    return;
+  }
 
-  // Calculate how far the track needs to move
-  const getMaxShift = () => {
-    const trackWidth = totalCards * (380 + 48); // card width + gap
-    return Math.max(0, trackWidth - window.innerWidth + 100);
-  };
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      // Tiny stagger by item index so a row of items doesn't reveal
+      // perfectly synchronized — adds a more natural "one-by-one"
+      // cadence even when several items enter the viewport together.
+      const idx = parseInt(entry.target.dataset.idx || '0', 10);
+      const delay = (idx % 3) * 110;
+      setTimeout(() => entry.target.classList.add('is-revealed'), delay);
+      observer.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.30,
+    rootMargin: '0px 0px -8% 0px',
+  });
 
-  // GSAP ScrollTrigger with pin — section stays pinned until all cards scroll through
-  gsap.to(track, {
-    x: () => -getMaxShift(),
-    ease: 'none',
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: () => '+=' + getMaxShift(),
-      pin: true,
-      scrub: 0.5,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        // Update background image
-        const activeIndex = Math.min(Math.floor(self.progress * totalCards), totalCards - 1);
-        bgImgs.forEach((img, i) => {
-          img.classList.toggle('active', i === activeIndex);
-        });
-      }
-    }
+  items.forEach((it, i) => {
+    it.dataset.idx = String(i);
+    observer.observe(it);
   });
 }
 

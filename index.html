@@ -110,12 +110,33 @@
   <section class="door-portal" id="doorPortal">
     <div class="door-portal__sticky" id="doorPortalSticky">
 
-      <!-- z:0 — Sky background with parallax (scrubbed by GSAP). -->
+      <!-- z:0 — Sky background with parallax (scrubbed by GSAP) +
+           continuous always-on motion layers underneath the door. -->
       <div class="door-portal__sky-wrap" id="doorSkyWrap">
-        <img class="door-portal__sky" id="doorSky"
-             src="src/assets/images/hero-door-bg.jpg"
-             alt="" loading="eager" fetchpriority="high">
+        <!-- Idle "breath" wrapper — gentle 26s scale cycle independent of
+             scroll, so the bg never feels frozen. The img inside still
+             takes its scroll-driven transform from GSAP — the two
+             transforms stack. -->
+        <div class="door-portal__sky-breath">
+          <img class="door-portal__sky" id="doorSky"
+               src="src/assets/images/hero-door-bg.jpg"
+               alt="" loading="eager" fetchpriority="high">
+        </div>
+        <!-- Warm tint for golden-hour feel. -->
         <div class="door-portal__sky-tint"></div>
+        <!-- Two cloud drift layers at different speeds — parallax depth.
+             Pure CSS gradients shaped like wisps; mix-blend-mode: screen
+             lets them brighten the photo's clouds rather than overlay them. -->
+        <div class="door-portal__cloud-layer door-portal__cloud-layer--far"  aria-hidden="true"></div>
+        <div class="door-portal__cloud-layer door-portal__cloud-layer--near" aria-hidden="true"></div>
+        <!-- Sea shimmer — animated SVG fractalNoise overlay on the
+             water portion. Adds the constant micro-sparkle that makes
+             still water look alive. -->
+        <div class="door-portal__sea-shimmer" aria-hidden="true"></div>
+        <!-- Sun-light flicker — a soft warm radial that breathes
+             on its own at the upper-left horizon. -->
+        <div class="door-portal__sun-flare" aria-hidden="true"></div>
+        <!-- Existing scroll-driven extra cloud band (kept for parallax). -->
         <div class="door-portal__clouds-drift" id="doorCloudsDrift"></div>
       </div>
 
@@ -490,80 +511,96 @@
     </div>
   </section>
 
-  <!-- ===== OUR STANDARDS (icebergdoc-style horizontal scroll) ===== -->
-  <section class="standards-scroll" id="standards">
-    <!-- Background image (changes with active card) -->
-    <div class="standards-scroll__bg" id="standardsBg">
-      <img src="src/assets/images/gallery/gallery-03.jpg" alt="" class="standards-scroll__bg-img active" data-index="0">
-      <img src="src/assets/images/gallery/gallery-07.jpg" alt="" class="standards-scroll__bg-img" data-index="1">
-      <img src="src/assets/images/gallery/gallery-11.jpg" alt="" class="standards-scroll__bg-img" data-index="2">
-      <img src="src/assets/images/gallery/gallery-15.jpg" alt="" class="standards-scroll__bg-img" data-index="3">
-      <img src="src/assets/images/gallery/gallery-19.jpg" alt="" class="standards-scroll__bg-img" data-index="4">
-      <img src="src/assets/images/gallery/gallery-23.jpg" alt="" class="standards-scroll__bg-img" data-index="5">
-      <div class="standards-scroll__bg-overlay"></div>
-    </div>
+  <!-- ===== OUR STANDARDS =====
+       Per client v2 brief:
+       • NO IMAGES — they didn't add value to each category
+       • Mixed-weight heading: "OUR" thin + "STANDARDS" bold
+       • 6 standards in a 3-column ZIGZAG grid (middle column offset down)
+       • Each item has a thin vertical line stub on the left, then bold
+         uppercase title, then description
+       • As the user scrolls, each item reveals one-by-one — text emerges
+         from BEHIND the vertical line and slides RIGHTWARD via animated
+         clip-path. The line stays put; the text "uncovers" itself.
+       • IntersectionObserver in main.js triggers `.is-revealed` per item. -->
+  <section class="standards" id="standards">
+    <div class="standards__inner">
+      <h2 class="standards__title">
+        <span class="standards__title--light" data-en="Our"        data-fr="Nos">Our</span>
+        <span class="standards__title--bold"  data-en="Standards"  data-fr="Standards">Standards</span>
+      </h2>
 
-    <!-- Header -->
-    <div class="standards-scroll__header">
-      <span class="section__label" data-en="What Sets Us Apart" data-fr="Ce Qui Nous Distingue">What Sets Us Apart</span>
-      <h2 class="section__title" data-en="Our Standards" data-fr="Nos Standards">Our Standards</h2>
-    </div>
+      <div class="standards__grid">
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title" data-en="Custom" data-fr="Sur Mesure">Custom</h3>
+            <p class="standard__desc"
+               data-en="Because every event is unique, we deliver a tailor-made performance designed to meet your specific needs."
+               data-fr="Parce que chaque événement est unique, nous offrons une performance sur mesure adaptée à vos besoins.">
+              Because every event is unique, we deliver a tailor-made performance designed to meet your specific needs.
+            </p>
+          </div>
+        </article>
 
-    <!-- Horizontal scrolling cards -->
-    <div class="standards-scroll__track" id="standardsTrack">
-      <div class="standards-scroll__card" data-index="0">
-        <div class="standards-scroll__card-img">
-          <img src="src/assets/images/gallery/gallery-03.jpg" alt="Custom performance" loading="lazy">
-        </div>
-        <div class="standards-scroll__card-body">
-          <h3 class="standards-scroll__card-title" data-en="Custom" data-fr="Sur Mesure">Custom</h3>
-          <p class="standards-scroll__card-desc" data-en="Because every event is unique, we deliver a tailor-made performance designed to meet your specific needs." data-fr="Parce que chaque événement est unique, nous offrons une performance sur mesure.">Because every event is unique, we deliver a tailor-made performance designed to meet your specific needs.</p>
-        </div>
-      </div>
-      <div class="standards-scroll__card" data-index="1">
-        <div class="standards-scroll__card-img">
-          <img src="src/assets/images/gallery/gallery-07.jpg" alt="Immersive experience" loading="lazy">
-        </div>
-        <div class="standards-scroll__card-body">
-          <h3 class="standards-scroll__card-title" data-en="Immersive" data-fr="Immersif">Immersive</h3>
-          <p class="standards-scroll__card-desc" data-en="No mics, no barriers. Our bands are fully mobile, inviting guests to take part in a unique musical experience." data-fr="Pas de micro, pas de barrières. Nos groupes sont entièrement mobiles.">No mics, no barriers. Our bands are fully mobile, inviting guests to take part in a unique musical experience.</p>
-        </div>
-      </div>
-      <div class="standards-scroll__card" data-index="2">
-        <div class="standards-scroll__card-img">
-          <img src="src/assets/images/gallery/gallery-11.jpg" alt="International performers" loading="lazy">
-        </div>
-        <div class="standards-scroll__card-body">
-          <h3 class="standards-scroll__card-title" data-en="International" data-fr="International">International</h3>
-          <p class="standards-scroll__card-desc" data-en="Fluent in multiple languages and performing in six, our bands engage audiences worldwide." data-fr="Nos groupes offrent un répertoire polyvalent en six langues.">Fluent in multiple languages and performing in six, our bands engage audiences worldwide.</p>
-        </div>
-      </div>
-      <div class="standards-scroll__card" data-index="3">
-        <div class="standards-scroll__card-img">
-          <img src="src/assets/images/gallery/gallery-15.jpg" alt="Reliable professionals" loading="lazy">
-        </div>
-        <div class="standards-scroll__card-body">
-          <h3 class="standards-scroll__card-title" data-en="Reliable" data-fr="Fiabilité">Reliable</h3>
-          <p class="standards-scroll__card-desc" data-en="Punctuality, professionalism, attention to detail; nothing is left up to chance." data-fr="Ponctualité, professionnalisme, souci du détail ; rien n'est laissé au hasard.">Punctuality, professionalism, attention to detail; nothing is left up to chance.</p>
-        </div>
-      </div>
-      <div class="standards-scroll__card" data-index="4">
-        <div class="standards-scroll__card-img">
-          <img src="src/assets/images/gallery/gallery-19.jpg" alt="Savoir-Faire" loading="lazy">
-        </div>
-        <div class="standards-scroll__card-body">
-          <h3 class="standards-scroll__card-title" data-en="Savoir-Faire" data-fr="Savoir-Faire">Savoir-Faire</h3>
-          <p class="standards-scroll__card-desc" data-en="The right song at the right time. Our expert control of the mood will take your guests from base to summit." data-fr="La bonne chanson au bon moment.">The right song at the right time. Our expert control of the mood will take your guests from base to summit.</p>
-        </div>
-      </div>
-      <div class="standards-scroll__card" data-index="5">
-        <div class="standards-scroll__card-img">
-          <img src="src/assets/images/gallery/gallery-23.jpg" alt="Passion for music" loading="lazy">
-        </div>
-        <div class="standards-scroll__card-body">
-          <h3 class="standards-scroll__card-title" data-en="Passion" data-fr="Passionnés">Passion</h3>
-          <p class="standards-scroll__card-desc" data-en="Our love for the art shows not only in explosive live energy, but also in the years spent mastering our instruments." data-fr="Notre amour pour l'art se manifeste dans notre énergie explosive.">Our love for the art shows not only in explosive live energy, but also in the years spent mastering our instruments.</p>
-        </div>
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title" data-en="Immersive" data-fr="Immersif">Immersive</h3>
+            <p class="standard__desc"
+               data-en="No mics, no barriers. Our bands are fully mobile, inviting guests to take part in a unique musical experience."
+               data-fr="Pas de micros, pas de barrières. Nos groupes sont entièrement mobiles et invitent vos invités à participer.">
+              No mics, no barriers. Our bands are fully mobile, inviting guests to take part in a unique musical experience.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title" data-en="International" data-fr="International">International</h3>
+            <p class="standard__desc"
+               data-en="Fluent in five languages and performing in six, the band offers a versatile repertoire that engages all audiences."
+               data-fr="Maîtrise de cinq langues et répertoire en six : nos groupes captivent les publics du monde entier.">
+              Fluent in five languages and performing in six, the band offers a versatile repertoire that engages all audiences.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title" data-en="Reliable" data-fr="Fiabilité">Reliable</h3>
+            <p class="standard__desc"
+               data-en="The Brotherockers take their mission seriously: punctuality, professionalism, attention to detail; nothing is left up to chance."
+               data-fr="Ponctualité, professionnalisme, attention aux détails — rien n'est laissé au hasard.">
+              The Brotherockers take their mission seriously: punctuality, professionalism, attention to detail; nothing is left up to chance.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title" data-en="Savoir-Faire" data-fr="Savoir-Faire">Savoir-Faire</h3>
+            <p class="standard__desc"
+               data-en="The right song at the right time. The guys' expert control of the mood will take your guests from base to summit. A night (or day) they will never forget."
+               data-fr="La bonne chanson au bon moment. Une maîtrise experte de l'ambiance qui emmène vos invités au sommet — une soirée (ou journée) inoubliable.">
+              The right song at the right time. The guys' expert control of the mood will take your guests from base to summit. A night (or day) they will never forget.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title" data-en="Passion" data-fr="Passion">Passion</h3>
+            <p class="standard__desc"
+               data-en="These gentlemen's love for the art shows not only in their explosive live energy, but also in the years spent mastering their instruments."
+               data-fr="L'amour de l'art transparaît dans leur énergie scénique et dans les années passées à maîtriser leurs instruments.">
+              These gentlemen's love for the art shows not only in their explosive live energy, but also in the years spent mastering their instruments.
+            </p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
