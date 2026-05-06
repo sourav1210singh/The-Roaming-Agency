@@ -187,43 +187,46 @@ function initDoorPortal() {
     }
   });
 
-  // ── Sky parallax (whole runway) ──────────────────────────────────
-  if (sky) {
-    tl.fromTo(sky,
-      { scale: 1.0,  yPercent: 0,  xPercent: 0 },
-      { scale: 1.15, yPercent: -8, xPercent: -2, duration: 1 },
-      0
-    );
-  }
-  if (clouds) {
-    tl.fromTo(clouds,
-      { xPercent: 0, yPercent: 0 },
-      { xPercent: 4, yPercent: -3, duration: 1 },
-      0
-    );
-  }
+  // ── Sky parallax / cloud-drift on scroll: REMOVED per client.
+  // The bg image was zooming + shifting on scroll which (a) caused a
+  // black gap to appear on the right edge as the image translated -X
+  // and (b) felt like an unwanted on-scroll zoom. The IDLE breath
+  // (CSS keyframe on .door-portal__sky-breath, 26s loop) and the
+  // continuous cloud drift keyframes are kept so the bg still feels
+  // alive — just not driven by scroll position.
 
-  // ── LEFT text lifts FIRST (0.00 → 0.22) ──────────────────────────
-  // Travels -180px up, fades out. Slow ease-in so motion is visible
-  // rather than a quick snap. Right text waits offstage during this.
+  // ── LEFT text — y travel and opacity SPLIT so the text scrolls
+  // visibly all the way up before fading (was fading half-way before).
+  // y: 0 → -500px linear over 0.00 → 0.22 (smooth scroll-up feel)
+  // opacity: 1 → 0 only over the LAST 0.04 of that travel, when the
+  // element is already past the viewport top edge.
   if (left) {
     tl.fromTo(left,
-      { opacity: 1, y: 0 },
-      { opacity: 0, y: -180, duration: 0.22, ease: 'power2.in' },
+      { y: 0 },
+      { y: -500, duration: 0.22, ease: 'none' },
       0
+    );
+    tl.fromTo(left,
+      { opacity: 1 },
+      { opacity: 0, duration: 0.04, ease: 'power2.in' },
+      0.18
     );
   }
 
-  // ── RIGHT text lifts SECOND (0.25 → 0.45) ────────────────────────
-  // Anchored at the bottom, so it travels FURTHER (-220px) than the
-  // centred left text. 0.03 buffer between left's end (0.22) and
-  // right's start (0.25) gives a beat of "calm" before right takes
-  // its turn — nothing competes for attention.
+  // ── RIGHT text — same pattern but bigger travel because it's
+  // anchored at the BOTTOM of the viewport, so it has further to go
+  // before exiting. 0.03 calm beat between left's end (0.22) and
+  // right's start (0.25) — never overlapping.
   if (right) {
     tl.fromTo(right,
-      { opacity: 1, y: 0 },
-      { opacity: 0, y: -220, duration: 0.20, ease: 'power2.in' },
+      { y: 0 },
+      { y: -700, duration: 0.20, ease: 'none' },
       0.25
+    );
+    tl.fromTo(right,
+      { opacity: 1 },
+      { opacity: 0, duration: 0.04, ease: 'power2.in' },
+      0.41
     );
   }
 

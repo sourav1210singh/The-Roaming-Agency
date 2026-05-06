@@ -563,9 +563,11 @@ body.is-header-hidden .hero-center-title {
    the reference. */
 .door-portal__frame {
   position: relative;
-  /* Per client revision: door reduced 20% (clamp values × 0.8). */
+  /* Per client revision: door height further reduced ~15% — feels less
+     dominant in the viewport and gives the L/R side text more breathing
+     room as they scroll up past the door's top edge. */
   width: clamp(224px, 21vw, 352px);
-  height: clamp(416px, 69vh, 688px);
+  height: clamp(354px, 58vh, 585px);
   background: #ffffff;
   border-radius: 8px 8px 6px 6px;
   /* Subtle frame moulding via stacked shadows. */
@@ -641,12 +643,17 @@ body.is-header-hidden .hero-center-title {
 }
 
 .door-portal__sky {
+  /* Per client revision: scroll-driven sky parallax was removed (it was
+     translating -X on scroll which exposed a black gap on the right
+     edge). With no scroll-X shift needed any more, the sky just fully
+     covers its parent. The IDLE breath wrapper still does a 1.025 scale
+     cycle but only ever scales UP from 1.0, so edges always stay
+     covered. */
   position: absolute;
-  inset: -2% -2% -2% -2%; /* slight overscan so parallax never reveals edges */
-  width: 104%;
-  height: 104%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
-  /* JS scrubs scale 1.0 → 1.15 + translateY 0% → -8%, slow translateX 0% → -2%. */
   will-change: transform;
 }
 
