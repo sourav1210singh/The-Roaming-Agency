@@ -2352,26 +2352,32 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   will-change: clip-path, filter;
 }
 
-/* Front-left photo — slightly lower-left, slight CCW tilt. Reveals
-   a touch later than the back image so the two feel choreographed. */
+/* Front-left photo — sits ON TOP of the back photo's left edge.
+   Shifted right by 5% so it visibly OVERLAPS the back rather than
+   sitting beside it. Deeper shadow than the back so it reads as the
+   foreground layer (closer to the camera). */
 .events__photo--front {
   width: 48%;
   height: 70%;
-  left: 0;
-  bottom: 6%;
-  transform: rotate(-2deg);
+  left: 5%;
+  bottom: 5%;
+  transform: rotate(-3deg);
   z-index: 2;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
 }
 
-/* Back-right photo — taller, slightly upper-right, slight CW tilt.
-   Reveals first; the front photo follows. */
+/* Back-right photo — DOMINANT layer. Full container height, wider, and
+   pushed 2% past the right edge so it reads as "looming behind" the
+   front photo. Lighter shadow than the front so the depth ordering
+   reads correctly (front sits above, back sits below + behind). */
 .events__photo--back {
-  width: 56%;
-  height: 88%;
-  right: 0;
+  width: 62%;
+  height: 100%;
+  right: -2%;
   top: 0;
-  transform: rotate(1.5deg);
+  transform: rotate(2deg);
   z-index: 1;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
 }
 
 @keyframes events-photo-reveal {
