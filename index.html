@@ -736,14 +736,18 @@
   <section class="testimonials" id="testimonials">
     <div class="testimonials__layout">
 
-      <!-- LEFT — gold eyebrow + huge bold black heading -->
+      <!-- LEFT — gold eyebrow + huge bold black heading.
+           Each line wrapped in a span with `white-space: nowrap` so the
+           heading is forced to EXACTLY 3 lines (no mid-word breaks). The
+           data-en/data-fr lives on each span individually so the FR
+           toggle replaces line text without flattening the structure. -->
       <div class="testimonials__intro">
         <span class="testimonials__eyebrow"
               data-en="Testimonials" data-fr="Témoignages">Testimonials</span>
-        <h2 class="testimonials__title"
-            data-en="They Chose The Roaming Agency"
-            data-fr="Ils Ont Choisi The Roaming Agency">
-          They Chose<br>The Roaming<br>Agency
+        <h2 class="testimonials__title">
+          <span class="testimonials__title-line" data-en="They Chose"  data-fr="Ils Ont Choisi">They Chose</span>
+          <span class="testimonials__title-line" data-en="The Roaming" data-fr="The Roaming">The Roaming</span>
+          <span class="testimonials__title-line" data-en="Agency"      data-fr="Agency">Agency</span>
         </h2>
       </div>
 

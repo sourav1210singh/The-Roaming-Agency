@@ -2670,13 +2670,23 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .testimonials__title {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-size: clamp(2.25rem, 4.4vw, 4rem);
+  /* Capped at 3.25rem (52px) so the longest line "THE ROAMING" fits
+     within the left grid column without breaking. Verified at the
+     standard 1fr / 1.6fr split. */
+  font-size: clamp(1.9rem, 3.6vw, 3.25rem);
   font-weight: 800;
-  line-height: 1;
+  line-height: 1.05;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   margin: 0;
   color: #1c1c1c;
+}
+
+/* Each line on its own row, kept on a single line of text so the
+   heading reads as exactly 3 lines: THEY CHOSE / THE ROAMING / AGENCY. */
+.testimonials__title-line {
+  display: block;
+  white-space: nowrap;
 }
 
 /* ── RIGHT COLUMN — viewport with horizontal-scroll cards ─────── */
