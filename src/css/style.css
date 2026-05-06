@@ -3153,64 +3153,254 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   line-height: 1.6;
 }
 
-/* === CONTACT SECTION === */
+/* === CONTACT — INFINITE-MARQUEE HEADING + 2-COL FORM ===============
+   Per client v2 brief + transcript:
+   "Let's create something extraordinary — I thought maybe this can
+    work well as an infinite loop, like this go to there and keeps
+    keeps rolling."
+   The heading is now a full-width horizontal marquee scrolling
+   right→left forever (pure CSS, no scroll dependency). Form below
+   uses a 2-column inner grid matching the mockup. */
 .contact {
-  background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-surface) 100%);
+  position: relative;
+  background: linear-gradient(180deg, #0a0a0a 0%, #1c1c1c 100%);
+  color: #ffffff;
+  padding: 0 0 clamp(4rem, 7vw, 6rem);
+  overflow: hidden;
 }
 
-.contact__grid {
+/* ── INFINITE MARQUEE HEADING ──────────────────────────────────── */
+.contact__marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: clamp(2rem, 4vw, 3rem) 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+  /* Soft edge fade so the heading blurs in/out at viewport edges
+     instead of clipping mid-letter. */
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%, #000 6%, #000 94%, transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%, #000 6%, #000 94%, transparent 100%
+  );
+}
+
+.contact__marquee-track {
+  display: flex;
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+  width: max-content;
+  /* 38s gives a slow, cinematic roll. Linear ease keeps the speed
+     constant — feels like a real news ticker, not a snap-and-pause. */
+  animation: contact-marquee-roll 38s linear infinite;
+  will-change: transform;
+}
+
+.contact__marquee-item {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: clamp(3rem, 9vw, 8.5rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.contact__marquee-bullet {
+  font-size: clamp(2rem, 5vw, 4.5rem);
+  color: #c8a560;        /* small gold accent (only one in the section) */
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+@keyframes contact-marquee-roll {
+  0%   { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+/* Honour reduced-motion — freeze the heading. */
+@media (prefers-reduced-motion: reduce) {
+  .contact__marquee-track { animation: none; }
+}
+
+/* ── LAYOUT: intro + form ──────────────────────────────────────── */
+.contact__layout {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4xl);
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  gap: clamp(2rem, 5vw, 5rem);
   align-items: start;
 }
 
+.contact__intro {
+  max-width: 32ch;
+}
+
+.contact__eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #c8a560;
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+
+.contact__lead {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.05vw, 1.1rem);
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0 0 clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.contact__details {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+.contact__details li strong {
+  display: inline-block;
+  width: 56px;
+  color: #ffffff;
+  font-weight: 600;
+}
+.contact__details a {
+  color: #c8a560;
+  transition: color 0.2s ease;
+}
+.contact__details a:hover {
+  color: #f2dca3;
+}
+
+/* ── FORM (2-col inner grid matching mockup) ─────────────────── */
 .contact__form {
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: clamp(1.5rem, 3vw, 2rem);
+}
+
+.contact__form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
+  column-gap: clamp(1rem, 2vw, 1.5rem);
+  row-gap: clamp(0.85rem, 1.5vw, 1.25rem);
+}
+
+/* Textarea spans 2 rows on the right column so it has the tall area
+   shown in the mockup. */
+.form-group--span-rows {
+  grid-row: span 2;
+}
+.form-group--span-rows textarea {
+  height: 100%;
+  min-height: 9rem;
 }
 
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: var(--space-xs);
+  gap: 0.4rem;
 }
 
 .form-group label {
-  font-size: var(--text-xs);
-  color: var(--color-gray-400);
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  color: rgba(255, 255, 255, 0.55);
 }
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-  background: var(--color-dark-card);
-  border: 1px solid var(--color-gray-800);
-  border-radius: var(--radius-sm);
-  padding: var(--space-sm) var(--space-md);
-  color: var(--color-white);
-  font-size: var(--text-sm);
-  transition: border-color var(--duration-fast);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  border-radius: 999px;          /* pill shape per mockup */
+  padding: 0.85rem 1.15rem;
+  color: #ffffff;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.form-group textarea {
+  border-radius: 18px;           /* textarea stays rounded-rect */
+  resize: vertical;
 }
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--color-gold);
-}
-
-.form-group textarea {
-  resize: vertical;
-  min-height: 80px;
+  border-color: #c8a560;
+  background: rgba(255, 255, 255, 0.07);
 }
 
 .form-group select {
   appearance: none;
   cursor: pointer;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path fill='none' stroke='%23ffffff80' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M3 5l3 3 3-3'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  padding-right: 2.5rem;
+}
+.form-group select option {
+  background: #1c1c1c;
+  color: #ffffff;
+}
+
+/* Send button — gold pill, full width of the form below the grid. */
+.contact__submit {
+  align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 1rem 2rem;
+  border: 0;
+  border-radius: 999px;
+  background: #c8a560;
+  color: #1c1c1c;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.contact__submit:hover {
+  background: #f2dca3;
+  transform: translateY(-1px);
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .contact__layout {
+    grid-template-columns: 1fr;
+  }
+  .contact__form-grid {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+  .form-group--span-rows {
+    grid-row: span 1;
+  }
 }
 
 /* === BUTTONS === */
