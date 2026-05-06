@@ -2892,9 +2892,14 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   grid-row: span 2;
 }
 
-/* === 3D GLOBE SECTION (amra.com style) === */
+/* === 3D GLOBE SECTION (amra.com style) ===
+   Per client v2: bg flipped from dark to light grey (#f0f0f0). Sphere
+   internals (solid white inner mesh + black grid lines) UNCHANGED per
+   user's explicit instruction — only the surrounding chrome adapts to
+   the new light panel. */
 .globe-section {
-  background: var(--color-dark-surface);
+  background: #f0f0f0;
+  color: #1c1c1c;
   overflow: hidden;
   min-height: 150vh;
 }
@@ -2909,6 +2914,15 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .globe-text {
   text-align: left;
+}
+
+/* Heading + subtitle on light bg — flipped from white-on-dark. The
+   gold .section__label (eyebrow "Available Worldwide") stays gold. */
+.globe-section .section__title {
+  color: #1c1c1c;
+}
+.globe-section .section__subtitle {
+  color: #414141;
 }
 
 /* Globe container — large, overflows right.
@@ -2942,29 +2956,32 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   pointer-events: none;
 }
 
-/* Floating city cards — larger, with icon like amra.com */
+/* Floating city cards — pill shape, soft shadow per client revision.
+   Cards no longer cycle in/out via JS — they stay visible permanently.
+   Front-of-globe cities show; back-of-globe cities are masked to opacity 0
+   based on the dot product between camera-forward and the city's lat/lon
+   vector (computed each frame in initGlobeAnimation). Smooth opacity
+   transition keeps the front/back swap from feeling jittery. */
 .globe-card {
   position: absolute;
   display: flex;
   align-items: center;
   gap: 12px;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   padding: 10px 20px 10px 14px;
   border-radius: 40px;
-  box-shadow: 0 6px 30px rgba(0, 0, 0, 0.2);
+  /* Reduced from 0 6px 30px rgba(0,0,0,0.2) — client said "reduce the
+     shadows… these type of shadows" in the transcript. */
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
   z-index: 10;
   pointer-events: auto;
   cursor: pointer;
   opacity: 0;
-  transform: scale(0.8) translateY(10px) translateX(0px);
-  /* Smooth pop-in / pop-out — longer opacity + scale eases for an organic
-     amra.com-style fade. Transform duration kept shorter so per-frame position
-     updates (from globe rotation) don't feel laggy. */
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.4s ease;
+  transform: scale(1) translateY(0) translateX(0);
+  transition: opacity 0.4s ease,
+              filter 0.3s ease;
 }
 
 /* Card visibility + transform handled by JS */

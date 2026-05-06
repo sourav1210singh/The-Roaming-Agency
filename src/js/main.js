@@ -836,204 +836,15 @@ function initGlobeAnimation() {
   const layout = section.querySelector('.globe-layout');
   if (layout) layout.style.cssText = 'position: sticky; top: 60px;';
 
-  // Individual-card slideshow — each card has its OWN lifecycle (pop-in, hold,
-   // pop-out) staggered against the others. At any given moment ~MAX_VISIBLE cards
-   // are on screen, but they appear/disappear one-by-one in a continuous, alive
-   // rhythm — never all-at-once. Cities drawn from a shuffled queue so every one
-   // gets its turn without repetition in a cycle.
-  const MAX_VISIBLE = 5;
-  const CARD_VISIBLE_MS = 2500; // base hold duration per card
-  const STAGGER_MS = 600;       // delay between each initial pop-in
-  const FADE_OUT_MS = 700;      // matches CSS transition — wait for fade before replacing
-  let activeIndices = new Set();
-  let cityQueue = [];
-  let slideshowRunning = false;
-  let pendingTimers = new Set();
-  let dwellTimer = null;
-
-  function shuffleArray(arr) {
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
-    return arr;
-  }
-
-  function refillQueue() {
-    // Fresh shuffled list of all city indices
-    cityQueue = shuffleArray(Array.from({ length: cardEls.length }, (_, i) => i));
-  }
-
-  function addTimer(cb, ms) {
-    const t = setTimeout(() => { pendingTimers.delete(t); cb(); }, ms);
-    pendingTimers.add(t);
-    return t;
-  }
-
-  function clearAllTimers() {
-    for (const t of pendingTimers) clearTimeout(t);
-    pendingTimers.clear();
-  }
-
-  // Front-hemisphere zones — LEFT-BIASED because the globe container is shifted
-   // right (width 160%, margin-left 12%) and its right edge gets clipped by the
-   // section overflow. So we keep right-side zones small/mild (close to center)
-   // and put most zones on the left + center columns with nice vertical spread.
-   // lonOffset sign: POSITIVE = LEFT on screen, NEGATIVE = RIGHT on screen.
-  const FRONT_ZONES = [
-    // Mild right (small lonOffset so they stay in visible area, no extremes)
-    { lat:  24, lonOffset: -14 },  // upper-right (mild)
-    { lat: -24, lonOffset: -14 },  // lower-right (mild)
-
-    // Center column — vertical variety (top, upper-mid, lower-mid, bottom)
-    { lat:  34, lonOffset:   3 },  // top-center (slight left bias)
-    { lat:  12, lonOffset:   5 },  // upper-center
-    { lat: -12, lonOffset:   5 },  // lower-center
-    { lat: -34, lonOffset:   3 },  // bottom-center
-
-    // Left column — more zones, wider lonOffset (visible side of globe)
-    { lat:  28, lonOffset:  26 },  // upper-left
-    { lat:   0, lonOffset:  34 },  // mid-left (far)
-    { lat: -28, lonOffset:  26 },  // lower-left
-    { lat:  15, lonOffset:  18 },  // upper-left-inner
-    { lat: -15, lonOffset:  18 },  // lower-left-inner
-  ];
-
-  function assignFrontPositionForIdx(idx) {
-    // 1) Prefer a zone no currently-active card occupies.
-    const usedZones = new Set();
-    for (const activeIdx of activeIndices) {
-      const c = cardEls[activeIdx];
-      if (c.dataset.zoneIndex !== undefined && c.dataset.zoneIndex !== '') {
-        usedZones.add(parseInt(c.dataset.zoneIndex, 10));
-      }
-    }
-    const availableZoneIndices = FRONT_ZONES
-      .map((_, i) => i)
-      .filter((z) => !usedZones.has(z));
-    const pickFrom = availableZoneIndices.length > 0 ? availableZoneIndices : FRONT_ZONES.map((_, i) => i);
-
-    const frontLon = 90 - currentRotY;
-    const card = cardEls[idx];
-
-    // 2) Collision rejection — try up to 5 (zone, jitter) combos, take the one
-    //    with the LARGEST minimum 3D distance to any currently-active card.
-    //    Accept early once we clear MIN_SQ_DIST. Some mild overlap is OK if
-    //    no better spot exists, but we always pick the best of the samples.
-    const MIN_SQ_DIST = 0.13; // squared distance in R units — ≈ 0.36·R (~140px at 400px sphere)
-    let best = null;
-
-    for (let attempt = 0; attempt < 5; attempt++) {
-      const zoneIdx = pickFrom[Math.floor(Math.random() * pickFrom.length)];
-      const zone = FRONT_ZONES[zoneIdx];
-      const jitLat = (Math.random() - 0.5) * 10; // ±5°
-      const jitLon = (Math.random() - 0.5) * 12; // ±6°
-      const lat = zone.lat + jitLat;
-      const lon = frontLon + zone.lonOffset + jitLon;
-      const p = project(lat, lon, currentRotY);
-
-      // Find min squared distance to any active card's projected 3D position
-      let minSq = Infinity;
-      for (const activeIdx of activeIndices) {
-        if (activeIdx === idx) continue;
-        const ac = cardEls[activeIdx];
-        const alat = parseFloat(ac.dataset.lat);
-        const alon = parseFloat(ac.dataset.lon);
-        if (Number.isNaN(alat) || Number.isNaN(alon)) continue;
-        const ap = project(alat, alon, currentRotY);
-        const dx = (p.x - ap.x) / R;
-        const dy = (p.y - ap.y) / R;
-        const sq = dx * dx + dy * dy;
-        if (sq < minSq) minSq = sq;
-      }
-      if (minSq === Infinity) minSq = 10; // no active cards — any spot is fine
-
-      if (!best || minSq > best.minSq) {
-        best = { lat, lon, zoneIdx, minSq };
-      }
-      if (minSq >= MIN_SQ_DIST) break; // comfortable spacing — stop searching
-    }
-
-    card.dataset.lat = best.lat;
-    card.dataset.lon = best.lon;
-    card.dataset.zoneIndex = String(best.zoneIdx);
-  }
-
-  function activateOneCard() {
-    if (!slideshowRunning) return;
-
-    // Pull next city from queue that isn't currently active
-    if (cityQueue.length === 0) refillQueue();
-    let idx = null;
-    for (let i = 0; i < cityQueue.length; i++) {
-      if (!activeIndices.has(cityQueue[i])) {
-        idx = cityQueue.splice(i, 1)[0];
-        break;
-      }
-    }
-    if (idx == null) {
-      refillQueue();
-      idx = cityQueue.shift();
-      if (idx == null || activeIndices.has(idx)) return;
-    }
-
-    // Place on an unused front zone and mark active — CSS transition handles fade-in
-    assignFrontPositionForIdx(idx);
-    activeIndices.add(idx);
-
-    // Schedule this card's individual fade-out after its hold duration.
-    // Random +0-800ms jitter so cards don't re-sync over time.
-    const hold = CARD_VISIBLE_MS + Math.random() * 800;
-    addTimer(() => {
-      if (!slideshowRunning) return;
-      activeIndices.delete(idx);
-      const card = cardEls[idx];
-      if (card) card.dataset.zoneIndex = '';
-      // After its fade-out completes, pop a NEW card to replace it — keeps
-      // total visible ≈ MAX_VISIBLE at all times, but transitions are
-      // individual (one fades out, one fades in — never a whole group flip).
-      addTimer(() => {
-        if (slideshowRunning) activateOneCard();
-      }, FADE_OUT_MS);
-    }, hold);
-  }
-
-  function startSlideshow() {
-    stopSlideshow(); // defensive cleanup
-    slideshowRunning = true;
-    refillQueue();
-    // Stagger MAX_VISIBLE cards in one at a time — each pops with its own fade.
-    for (let i = 0; i < MAX_VISIBLE; i++) {
-      addTimer(() => activateOneCard(), i * STAGGER_MS);
-    }
-  }
-
-  function stopSlideshow() {
-    slideshowRunning = false;
-    clearAllTimers();
-    activeIndices = new Set();
-    cardEls.forEach((c) => { c.dataset.zoneIndex = ''; });
-  }
-
-  // Start slideshow only after user dwells on globe section for >1s.
-  // Pause + clear when section leaves viewport.
-  const globeObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      const inView = entry.isIntersecting && entry.intersectionRatio > 0.25;
-      if (inView) {
-        if (!dwellTimer && !slideshowRunning) {
-          dwellTimer = setTimeout(() => {
-            startSlideshow();
-            dwellTimer = null;
-          }, 1000);
-        }
-      } else {
-        if (dwellTimer) { clearTimeout(dwellTimer); dwellTimer = null; }
-        stopSlideshow();
-      }
-    });
-  }, { threshold: [0, 0.25, 0.5, 0.75, 1] });
-  globeObserver.observe(section);
+  // Per client revision: cards no longer cycle in/out. All 14 stay at
+  // their actual lat/lon (set when the card was created from the cities
+  // array) and are visible whenever they're on the FRONT hemisphere of
+  // the rotating globe. The animate() loop below maps each card's 3D
+  // projection to a screen position every frame and only fades a card
+  // when it crosses to the back of the globe. The transcript was
+  // explicit: "locations should remain fixed (not disappear)" — so the
+  // staggered queue / FRONT_ZONES / activate-one-card lifecycle that
+  // was here before has been removed entirely.
 
   function project(lat, lon, rotY) {
     const phi = (90 - lat) * Math.PI / 180;
@@ -1066,51 +877,45 @@ function initGlobeAnimation() {
     const centerX = cw / 2;
     const centerY = ch / 2;
 
-    cardEls.forEach((card, idx) => {
+    cardEls.forEach((card) => {
       const lat = parseFloat(card.dataset.lat);
       const lon = parseFloat(card.dataset.lon);
       const p = project(lat, lon, currentRotY);
 
-      // Position card center relative to sphere center, scaled to actual sphere px radius
+      // Position card center relative to sphere center, scaled to actual
+      // sphere px radius.
       const px = centerX + (p.x / R) * sphereRadiusPx;
       const py = centerY + (p.y / R) * sphereRadiusPx;
-      const zNorm = (p.z + R) / (R * 2);
+      const zNorm = (p.z + R) / (R * 2);  // 0 = back of globe, 1 = front
 
-      // Normalized distance from sphere center in sphere-radius units (0=center, 1=edge)
+      // Normalized distance from sphere center in sphere-radius units
+      // (0 = centre, 1 = silhouette edge).
       const distFromCenter = Math.sqrt(p.x * p.x + p.y * p.y) / R;
 
-      const isActive = activeIndices.has(idx);
-
-      if (!isActive || !p.visible || zNorm <= 0.35) {
-        card.style.opacity = '0';
-        card.style.pointerEvents = 'none';
-        return;
-      }
-
-      // EDGE FADE — only kicks in when cards approach the globe silhouette.
-      // Start at 75% radius (well beyond normal front zones) so front cards stay
-      // crisp at full strength. Fully hidden by 92% — smooth 2.5x shrink at edge.
-      const edgeStart = 0.75;
-      const edgeEnd = 0.92;
+      // EDGE FADE — soften cards near the sphere rim so they don't read
+      // as "floating outside" the globe.
+      const edgeStart = 0.78;
+      const edgeEnd   = 0.94;
       const edgeFactor = distFromCenter < edgeStart
         ? 1
         : Math.max(0, 1 - (distFromCenter - edgeStart) / (edgeEnd - edgeStart));
-      // Smooth ease-out for the fade so it doesn't feel linear
       const edgeEase = edgeFactor * edgeFactor * (3 - 2 * edgeFactor);
 
-      // Depth-based scale (far back = smaller, front = bigger) combined with
-      // edge-based shrink. Front-facing cards pop at ~1.65x (amra.com style
-      // prominent badges) so they read clearly without scroll.
-      const depthScale = 0.7 + zNorm * 0.95; // 0.7 at back → 1.65 at front
-      const edgeScale = 0.4 + 0.6 * edgeEase; // 1.0 at center, 0.4 at edge
-      const cardScale = depthScale * edgeScale;
+      // FRONT/BACK OPACITY — cards on the front hemisphere stay fully
+      // visible; back-of-globe cards fade out smoothly. The transition
+      // band (0.45 → 0.55) sits right at the silhouette so a city
+      // rotating to the back fades, not snaps. Multiplied by edge fade
+      // for rim softening.
+      const frontOpacity =
+        zNorm >= 0.55 ? 1 :
+        zNorm <= 0.45 ? 0 :
+        (zNorm - 0.45) / 0.10;
+      const cardOpacity = frontOpacity * edgeEase;
 
-      // Opacity: front cards (zNorm > 0.6) are FULLY opaque, only back-side cards
-      // fade out. Multiplied by edge-fade for cards near the sphere rim.
-      const depthOpacity = zNorm >= 0.6
-        ? 1
-        : Math.max(0, (zNorm - 0.35) / 0.25);
-      const cardOpacity = depthOpacity * edgeEase;
+      // Depth-based scale — front cards larger, back cards a touch
+      // smaller. Subtle (1.0 base, +0.25 at full front) so we don't
+      // pulse the cards as the globe spins.
+      const cardScale = 0.85 + zNorm * 0.30;
 
       card.style.left = px + 'px';
       card.style.top = py + 'px';
@@ -1118,8 +923,11 @@ function initGlobeAnimation() {
       card.style.opacity = cardOpacity;
       card.style.zIndex = Math.round(p.z + R);
       card.style.pointerEvents = cardOpacity > 0.5 ? 'auto' : 'none';
-      // Blur ONLY for cards on the back side (zNorm < 0.7). Front cards stay sharp.
-      card.style.filter = zNorm >= 0.7 ? 'none' : `blur(${(0.7 - zNorm) * 4}px)`;
+      // Light blur on cards still rotating off the front side — front
+      // cards stay sharp, no blur applied at all when zNorm >= 0.7.
+      card.style.filter = zNorm >= 0.7
+        ? 'none'
+        : `blur(${(0.7 - zNorm) * 3}px)`;
     });
 
     requestAnimationFrame(animate);
