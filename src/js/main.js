@@ -40,6 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initStatsCounter();
   initBrandsMarquee();
   initEventsScroll();
+  initTestimonialsCarousel();
   // Smart-header (hide on scroll-down, show on scroll-up) lives in its own
   // standalone file `src/js/smart-header.js` so band sub-pages can load it
   // without pulling in the rest of main.js. It self-initialises on DOM ready.
@@ -1417,6 +1418,46 @@ function initHeroIntro() {
     else document.body.classList.remove('intro-complete');
     // Tagline opacity + drift handled in the animate() loop above.
   }, { passive: true });
+}
+
+
+/* ──────────────────────────────────────────────
+   TESTIMONIALS — chevron nav for the horizontal carousel
+   • Click prev/next → scroll the track by exactly one card width
+     (card + gap), with the browser's native smooth-scroll handling
+     the easing.
+   • Disable each button at the corresponding edge (so the user gets
+     visual feedback when they can't scroll further).
+   • Free wins: native scroll-snap, touch drag, keyboard arrows when
+     the track is focused — all built-in.
+   ────────────────────────────────────────────── */
+function initTestimonialsCarousel() {
+  const track = document.getElementById('testimonialsTrack');
+  const prev  = document.getElementById('testimonialsPrev');
+  const next  = document.getElementById('testimonialsNext');
+  if (!track || !prev || !next) return;
+
+  // Step = first card's width + gap. Re-measured each click in case
+  // the layout has reflowed (resize, font-load, etc).
+  const step = () => {
+    const card = track.querySelector('.testimonial-card');
+    if (!card) return 320;
+    const gap = parseFloat(getComputedStyle(track).columnGap || '0') || 0;
+    return card.offsetWidth + gap;
+  };
+
+  const update = () => {
+    const max = track.scrollWidth - track.clientWidth - 1;
+    prev.disabled = track.scrollLeft <= 0;
+    next.disabled = track.scrollLeft >= max;
+  };
+
+  prev.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+  next.addEventListener('click', () => track.scrollBy({ left:  step(), behavior: 'smooth' }));
+  track.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  // Initial state.
+  update();
 }
 
 
