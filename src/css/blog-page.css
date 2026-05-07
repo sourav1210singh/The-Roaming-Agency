@@ -1,0 +1,191 @@
+/* ============================================================================
+   BLOG PAGE — masonry grid of articles
+   ============================================================================
+   Per client mockup: light grey panel, top header (logo + nav), then a
+   masonry grid of article cards. Each card has an image, a bold sans
+   title, an em-dash divider, and an italic body excerpt. Uses CSS
+   multi-column for the masonry layout — best cross-browser support and
+   it handles variable card heights natively without JavaScript.
+   ============================================================================ */
+
+/* The page itself rides on the band-page.css style.css base for the
+   header / WhatsApp / language toggle, then adds the blog-only chrome. */
+body {
+  background: #f0f0f0;
+  color: #1c1c1c;
+}
+
+/* ── Section frame ────────────────────────────────────────────── */
+.blog {
+  padding: clamp(6rem, 10vw, 9rem) 0 clamp(4rem, 8vw, 6rem);
+  background: #f0f0f0;
+}
+
+.blog__container {
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 clamp(1.25rem, 4vw, 3rem);
+}
+
+/* ── Page header (above the grid) ────────────────────────────── */
+.blog__header {
+  max-width: 56ch;
+  margin: 0 0 clamp(2.5rem, 5vw, 4rem);
+}
+
+.blog__eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #c8a560;
+  margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
+}
+
+.blog__title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: clamp(2rem, 4.4vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 clamp(0.75rem, 1.5vw, 1.25rem);
+  color: #1c1c1c;
+}
+
+.blog__lead {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
+  line-height: 1.6;
+  color: #5a5a5a;
+  margin: 0;
+}
+
+/* ── Masonry grid (CSS multi-column) ─────────────────────────────
+   `column-count` decides how many columns; `column-gap` sets the
+   horizontal gap. Each .blog-card has `break-inside: avoid` so a
+   card never gets split between columns. The `inline-block + width
+   100%` quirk locks the card as a single layout box (some browsers
+   otherwise split content). */
+.blog__masonry {
+  column-count: 4;
+  column-gap: clamp(1rem, 2vw, 1.75rem);
+}
+
+@media (max-width: 1100px) {
+  .blog__masonry { column-count: 3; }
+}
+@media (max-width: 800px) {
+  .blog__masonry { column-count: 2; }
+}
+@media (max-width: 520px) {
+  .blog__masonry { column-count: 1; }
+}
+
+/* ── Card ─────────────────────────────────────────────────────── */
+.blog-card {
+  break-inside: avoid;
+  margin-bottom: clamp(1rem, 2vw, 1.75rem);
+  width: 100%;
+  display: inline-block;     /* keeps card as a single layout unit */
+  background: transparent;   /* per mockup — no card chrome, just spacing */
+  /* Subtle reveal — fade up slightly on first paint. Skipped under
+     reduced-motion. */
+  opacity: 0;
+  transform: translateY(12px);
+  animation: blog-card-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* Stagger reveals so the page feels alive when it loads. */
+.blog-card:nth-child(1)  { animation-delay: 0.05s; }
+.blog-card:nth-child(2)  { animation-delay: 0.10s; }
+.blog-card:nth-child(3)  { animation-delay: 0.15s; }
+.blog-card:nth-child(4)  { animation-delay: 0.20s; }
+.blog-card:nth-child(5)  { animation-delay: 0.25s; }
+.blog-card:nth-child(6)  { animation-delay: 0.30s; }
+.blog-card:nth-child(7)  { animation-delay: 0.35s; }
+.blog-card:nth-child(8)  { animation-delay: 0.40s; }
+.blog-card:nth-child(9)  { animation-delay: 0.45s; }
+.blog-card:nth-child(10) { animation-delay: 0.50s; }
+.blog-card:nth-child(11) { animation-delay: 0.55s; }
+.blog-card:nth-child(12) { animation-delay: 0.60s; }
+
+@keyframes blog-card-fade-up {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .blog-card { opacity: 1; transform: none; animation: none; }
+}
+
+.blog-card__link {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* ── Card image ──────────────────────────────────────────────── */
+.blog-card__image {
+  display: block;
+  width: 100%;
+  /* Default aspect — ~3:4 portrait. Modifier classes below tweak. */
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 14px;
+  margin-bottom: clamp(0.75rem, 1.5vw, 1.1rem);
+  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+              filter 0.4s ease;
+}
+
+.blog-card__image--tall  { aspect-ratio: 3 / 4; }   /* taller portrait */
+.blog-card__image--wide  { aspect-ratio: 16 / 10; } /* wider landscape */
+
+.blog-card__link:hover .blog-card__image {
+  transform: scale(1.02);
+  filter: brightness(0.95);
+}
+
+/* ── Card title ──────────────────────────────────────────────── */
+.blog-card__title {
+  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  font-size: clamp(1rem, 1.15vw, 1.18rem);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: #1c1c1c;
+  margin: 0 0 0.4rem;
+}
+
+/* ── Em-dash divider — the small "—" between title and excerpt */
+.blog-card__divider {
+  display: block;
+  font-size: 0.85rem;
+  color: #9a9a9a;
+  margin: 0 0 0.55rem;
+  user-select: none;
+}
+
+/* ── Excerpt body ────────────────────────────────────────────── */
+.blog-card__excerpt {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: #6a6a6a;
+  margin: 0;
+}
+
+/* ── Footer (minimal) ────────────────────────────────────────── */
+.footer__back {
+  color: #c8a560;
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.footer__back:hover { color: #f2dca3; }
+
+/* On the blog page, override the home-style hero-center title element
+   in case any global CSS keeps it absolutely positioned and breaks the
+   grid layout. The blog page doesn't use a hero-center title at all. */
+.hero-center-title { display: none !important; }

@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Roaming Agency Blog — stories, tips and reflections on luxury live music for weddings, corporate events and private celebrations.">
+  <title>Blog — The Roaming Agency</title>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+
+  <!-- Inter (Nohemi placeholder) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/band-page.css">
+  <link rel="stylesheet" href="../css/blog-page.css">
+
+  <script src="../js/smart-header.js" defer></script>
+</head>
+<body>
+
+  <!-- Page Loader -->
+  <div class="page-loader" id="pageLoader"><div class="page-loader__spinner"></div></div>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/33686621282" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Contact us on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <!-- Header — same minimal-pattern as band sub-pages -->
+  <header class="header header--scrolled" id="mainHeader">
+    <div class="header__inner">
+      <a href="../../index.html" class="logo logo--scrolled" id="mainLogo">
+        <span class="logo__text">The Roaming Agency</span>
+      </a>
+      <!-- Top-level nav (Events / Bands / DJ / FAQ / Blog / Other musical services). -->
+      <nav class="nav nav--visible" id="mainNav" aria-label="Site navigation">
+        <div class="nav__band-list" id="bandNavList">
+          <a href="../../index.html#events"   class="nav__band-link">Events</a>
+          <a href="../../index.html#chooseBand" class="nav__band-link">Bands</a>
+          <a href="dj.html"                   class="nav__band-link">DJ</a>
+          <a href="../../index.html#faq"      class="nav__band-link">FAQ</a>
+          <a href="blog.html"                 class="nav__band-link nav__band-link--active">Blog</a>
+          <a href="../../index.html#contact"  class="nav__band-link">Other Musical Services</a>
+        </div>
+      </nav>
+      <button class="lang-toggle" id="langToggle">FR</button>
+    </div>
+  </header>
+
+  <!-- ===== BLOG MASONRY GRID =====
+       Per client mockup: light grey bg, masonry layout (varying card
+       heights driven by image aspect ratios), each card has an image
+       on top + bold sans title + em-dash divider + italic body excerpt.
+       All articles below use placeholder copy as the client mockup did
+       — the agency will swap real titles/body copy + author bylines
+       once content is delivered. -->
+  <main class="blog">
+    <div class="blog__container">
+      <header class="blog__header">
+        <span class="blog__eyebrow"
+              data-en="Journal" data-fr="Journal">Journal</span>
+        <h1 class="blog__title"
+            data-en="From the stage to the page"
+            data-fr="De la scène à la page">From the stage to the page</h1>
+        <p class="blog__lead"
+           data-en="Stories, reflections and tips from a decade of soundtracking the most extraordinary celebrations along the French Riviera and beyond."
+           data-fr="Histoires, réflexions et conseils tirés d'une décennie passée à mettre en musique les célébrations les plus extraordinaires sur la Côte d'Azur et au-delà.">
+          Stories, reflections and tips from a decade of soundtracking the most extraordinary celebrations along the French Riviera and beyond.
+        </p>
+      </header>
+
+      <div class="blog__masonry">
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <img class="blog-card__image" src="../assets/images/gallery/gallery-01.jpg" alt="Wedding live band performance" loading="lazy">
+            <h2 class="blog-card__title">What a wedding feels like when music is done right</h2>
+            <span class="blog-card__divider" aria-hidden="true">—</span>
+            <p class="blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at ipsum elit. Sed iaculis leo non nunc, faucibus lorem at, imperdiet magna.</p>
+          </a>
+        </article>
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <img class="blog-card__image blog-card__image--tall" src="../assets/images/gallery/gallery-05.jpg" alt="Bride dancing with band" loading="lazy">
+            <h2 class="blog-card__title">What a wedding feels like when music is done right</h2>
+            <span class="blog-card__divider" aria-hidden="true">—</span>
+            <p class="blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at ipsum elit. Sed iaculis leo non nunc, faucibus lorem at, imperdiet magna.</p>
+          </a>
+        </article>
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <img class="blog-card__image" src="../assets/images/gallery/gallery-09.jpg" alt="Group photo of bridal party" loading="lazy">
+            <h2 class="blog-card__title">What a wedding feels like when music is done right</h2>
+            <span class="blog-card__divider" aria-hidden="true">—</span>
+            <p class="blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at ipsum elit. Sed iaculis leo non nunc, faucibus lorem at, imperdiet magna.</p>
+          </a>
+        </article>
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <img class="blog-card__image blog-card__image--wide" src="../assets/images/gallery/gallery-13.jpg" alt="Crowd dancing at reception" loading="lazy">
+            <h2 class="blog-card__title">What a wedding feels like when music is done right</h2>
+            <span class="blog-card__divider" aria-hidden="true">—</span>
+            <p class="blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at ipsum elit. Sed iaculis leo non nunc, faucibus lorem at, imperdiet magna.</p>
+          </a>
+        </article>
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <img class="blog-card__image blog-card__image--tall" src="../assets/images/gallery/gallery-17.jpg" alt="Late night dance floor" loading="lazy">
+            <h2 class="blog-card__title">What a wedding feels like when music is done right</h2>
+            <span class="blog-card__divider" aria-hidden="true">—</span>
+            <p class="blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at ipsum elit. Sed iaculis leo non nunc, faucibus lorem at, imperdiet magna.</p>
+          </a>
+        </article>
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <img class="blog-card__image" src="../assets/images/gallery/gallery-21.jpg" alt="Couple's first dance" loading="lazy">
+            <h2 class="blog-card__title">What a wedding feels like when music is done right</h2>
+            <span class="blog-card__divider" aria-hidden="true">—</span>
+            <p class="blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at ipsum elit. Sed iaculis leo non nunc, faucibus lorem at, imperdiet magna.</p>
+          </a>
+        </article>
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <img class="blog-card__image" src="../assets/images/gallery/gallery-25.jpg" alt="Saxophone solo" loading="lazy">
+            <h2 class="blog-card__title">What a wedding feels like when music is done right</h2>
+            <span class="blog-card__divider" aria-hidden="true">—</span>
+            <p class="blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at ipsum elit. Sed iaculis leo non nunc, faucibus lorem at, imperdiet magna.</p>
+          </a>
+        </article>
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <img class="blog-card__image blog-card__image--tall" src="../assets/images/gallery/gallery-03.jpg" alt="Wedding ceremony band" loading="lazy">
+            <h2 class="blog-card__title">What a wedding feels like when music is done right</h2>
+            <span class="blog-card__divider" aria-hidden="true">—</span>
+            <p class="blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at ipsum elit. Sed iaculis leo non nunc, faucibus lorem at, imperdiet magna.</p>
+          </a>
+        </article>
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <img class="blog-card__image" src="../assets/images/gallery/gallery-07.jpg" alt="Champagne toast" loading="lazy">
+            <h2 class="blog-card__title">What a wedding feels like when music is done right</h2>
+            <span class="blog-card__divider" aria-hidden="true">—</span>
+            <p class="blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at ipsum elit. Sed iaculis leo non nunc, faucibus lorem at, imperdiet magna.</p>
+          </a>
+        </article>
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <img class="blog-card__image blog-card__image--wide" src="../assets/images/gallery/gallery-11.jpg" alt="Live band rooftop" loading="lazy">
+            <h2 class="blog-card__title">What a wedding feels like when music is done right</h2>
+            <span class="blog-card__divider" aria-hidden="true">—</span>
+            <p class="blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at ipsum elit. Sed iaculis leo non nunc, faucibus lorem at, imperdiet magna.</p>
+          </a>
+        </article>
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <img class="blog-card__image" src="../assets/images/gallery/gallery-15.jpg" alt="Vintage band setup" loading="lazy">
+            <h2 class="blog-card__title">What a wedding feels like when music is done right</h2>
+            <span class="blog-card__divider" aria-hidden="true">—</span>
+            <p class="blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at ipsum elit. Sed iaculis leo non nunc, faucibus lorem at, imperdiet magna.</p>
+          </a>
+        </article>
+
+        <article class="blog-card">
+          <a href="#" class="blog-card__link">
+            <img class="blog-card__image blog-card__image--tall" src="../assets/images/gallery/gallery-19.jpg" alt="Open-air event" loading="lazy">
+            <h2 class="blog-card__title">What a wedding feels like when music is done right</h2>
+            <span class="blog-card__divider" aria-hidden="true">—</span>
+            <p class="blog-card__excerpt">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In at ipsum elit. Sed iaculis leo non nunc, faucibus lorem at, imperdiet magna.</p>
+          </a>
+        </article>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer (minimal — links back to home) -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <p>&copy; 2026 The Roaming Agency. All rights reserved.</p>
+        <a href="../../index.html" class="footer__back">← Back to homepage</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page-level scripts (loader dismiss + FR toggle).
+       Same minimal pattern as the band sub-pages — no main.js because
+       the blog page doesn't need any of the heavy section animations. -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Loader auto-dismiss.
+    const loader = document.getElementById('pageLoader');
+    if (loader) {
+      window.addEventListener('load', () => setTimeout(() => loader.classList.add('loaded'), 300));
+      setTimeout(() => loader.classList.add('loaded'), 2000);
+    }
+
+    // Bilingual EN/FR toggle — flips data-lang on <html> and rewrites
+    // textContent of every [data-en][data-fr] element.
+    const toggle = document.getElementById('langToggle');
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const root = document.documentElement;
+        const next = root.getAttribute('data-lang') === 'fr' ? 'en' : 'fr';
+        root.setAttribute('data-lang', next);
+        toggle.textContent = next === 'fr' ? 'EN' : 'FR';
+        document.querySelectorAll('[data-en][data-fr]').forEach(el => {
+          el.textContent = el.getAttribute('data-' + next);
+        });
+      });
+    }
+  });
+  </script>
+
+</body>
+</html>
