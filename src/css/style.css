@@ -825,11 +825,11 @@ body.is-header-hidden .hero-center-title {
    the reference. */
 .door-portal__frame {
   position: relative;
-  /* Per client revision: door height further reduced ~15% — feels less
-     dominant in the viewport and gives the L/R side text more breathing
-     room as they scroll up past the door's top edge. */
-  width: clamp(224px, 21vw, 352px);
-  height: clamp(354px, 58vh, 585px);
+  /* Per client tweak: width −10% (narrower), height +10% (taller) —
+     gives the door a more elongated, classical-portal proportion
+     (slimmer & taller). */
+  width: clamp(202px, 19vw, 317px);
+  height: clamp(389px, 64vh, 644px);
   background: #ffffff;
   border-radius: 8px 8px 6px 6px;
   /* Subtle frame moulding via stacked shadows. */
