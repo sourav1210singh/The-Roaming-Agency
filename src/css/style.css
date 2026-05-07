@@ -452,10 +452,15 @@ body.is-header-hidden .hero-center-title {
 .nav__list {
   display: flex;
   align-items: center;
-  gap: clamp(1rem, 2.5vw, 2.75rem);
+  /* Items right-aligned inside the nav container so the buttons sit
+     closer to the right edge / language toggle, leaving more visual
+     whitespace between the logo and the first nav item. */
+  justify-content: flex-end;
+  /* Bumped gap slightly so the bigger items breathe. */
+  gap: clamp(1.25rem, 3vw, 3rem);
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 clamp(1rem, 3vw, 3rem) 0 0;
 }
 
 .nav__item {
@@ -465,15 +470,17 @@ body.is-header-hidden .hero-center-title {
 .nav__link {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 5px;
   font-family: var(--font-body);
-  font-size: 0.875rem;
+  /* Bumped from 0.875rem → 1rem per client tweak — slightly bigger
+     for better readability and visual weight. */
+  font-size: 1rem;
   font-weight: 500;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--color-gray-400);
   white-space: nowrap;
-  padding: 8px 0;
+  padding: 10px 0;
   border-bottom: 2px solid transparent;
   transition: color 0.2s ease, border-color 0.2s ease;
   cursor: pointer;
