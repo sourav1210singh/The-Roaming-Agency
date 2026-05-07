@@ -37,16 +37,40 @@
       <a href="../../index.html" class="logo logo--scrolled" id="mainLogo">
         <span class="logo__text">The Roaming Agency</span>
       </a>
-      <!-- Top-level nav (Events / Bands / DJ / FAQ / Blog / Other musical services). -->
+      <!-- Top-level nav with dropdowns (paths relative to /src/pages/). -->
       <nav class="nav nav--visible" id="mainNav" aria-label="Site navigation">
-        <div class="nav__band-list" id="bandNavList">
-          <a href="../../index.html#events"   class="nav__band-link">Events</a>
-          <a href="../../index.html#chooseBand" class="nav__band-link">Bands</a>
-          <a href="dj.html"                   class="nav__band-link">DJ</a>
-          <a href="../../index.html#faq"      class="nav__band-link">FAQ</a>
-          <a href="blog.html"                 class="nav__band-link nav__band-link--active">Blog</a>
-          <a href="../../index.html#contact"  class="nav__band-link">Other Musical Services</a>
-        </div>
+        <ul class="nav__list">
+          <li class="nav__item nav__item--has-dropdown">
+            <a href="../../index.html#events" class="nav__link">Events</a>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="../../index.html#events">Weddings</a></li>
+              <li><a href="../../index.html#events">Corporate Events</a></li>
+              <li><a href="../../index.html#events">Private Parties</a></li>
+              <li><a href="../../index.html#events">Artistic Direction</a></li>
+            </ul>
+          </li>
+          <li class="nav__item nav__item--has-dropdown">
+            <a href="../../index.html#chooseBand" class="nav__link">Bands</a>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="the-brotherockers.html">The Brotherockers</a></li>
+              <li><a href="the-kingsmen.html">The Kingsmen</a></li>
+              <li><a href="the-peppermints.html">The Peppermints</a></li>
+              <li><a href="the-gentlemen.html">The Gentlemen</a></li>
+              <li><a href="the-serenades.html">The Serenades</a></li>
+              <li><a href="the-supersonics.html">The Supersonics</a></li>
+              <li><a href="the-rendez-vous.html">The Rendez-Vous</a></li>
+              <li><a href="cafe-creme.html">Café Crème</a></li>
+              <li><a href="why-so-serious.html">Why So Serious?</a></li>
+              <li><a href="the-blackjacks.html">The Blackjacks</a></li>
+              <li class="nav__dropdown-divider" aria-hidden="true"></li>
+              <li><a href="../../index.html#contact">Other Musical Services</a></li>
+            </ul>
+          </li>
+          <li class="nav__item"><a href="dj.html"  class="nav__link">DJ</a></li>
+          <li class="nav__item"><a href="../../index.html#faq"  class="nav__link">FAQ</a></li>
+          <li class="nav__item"><a href="blog.html" class="nav__link nav__link--active">Blog</a></li>
+          <li class="nav__item"><a href="../../index.html#contact" class="nav__link">Other Musical Services</a></li>
+        </ul>
       </nav>
       <button class="lang-toggle" id="langToggle">FR</button>
     </div>

@@ -370,6 +370,192 @@ body.is-header-hidden .hero-center-title {
   border-bottom-color: var(--color-gold);
 }
 
+/* ============================================================================
+   NAV — TOP-LEVEL CATEGORIES + DROPDOWNS
+   Per client v2 brief: top nav has 6 categories — Events ▾, Bands ▾,
+   DJ, FAQ, Blog, Other Musical Services. Events + Bands have hover
+   dropdowns (band names live inside the Bands dropdown rather than
+   in the top bar — there are too many to fit horizontally).
+   The smart-header's hide-on-scroll-down behavior wraps this nav
+   unchanged.
+   ============================================================================ */
+
+.nav__list {
+  display: flex;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 2.75rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav__item {
+  position: relative;          /* dropdown anchors here */
+}
+
+.nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-gray-400);
+  white-space: nowrap;
+  padding: 8px 0;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+}
+
+.nav__link:hover,
+.nav__link--active,
+.nav__item.is-open > .nav__link {
+  color: var(--color-gold);
+  border-bottom-color: var(--color-gold);
+}
+
+/* Caret arrow on items that have a dropdown. Pure CSS triangle. */
+.nav__item--has-dropdown > .nav__link::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 4px;
+  border-left:  4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top:   4px solid currentColor;
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+
+.nav__item.is-open > .nav__link::after {
+  transform: rotate(180deg);
+}
+
+/* ── DROPDOWN PANEL ─────────────────────────────────────────────── */
+.nav__dropdown {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(8px);
+  min-width: 220px;
+  margin: 0;
+  padding: 0.65rem 0;
+  list-style: none;
+  background: rgba(20, 20, 20, 0.96);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0.22s;
+  z-index: 100;
+}
+
+/* Tiny pointer triangle pointing UP from the dropdown to its parent. */
+.nav__dropdown::before {
+  content: '';
+  position: absolute;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 12px;
+  height: 12px;
+  background: rgba(20, 20, 20, 0.96);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Reveal: hover on parent (desktop) OR .is-open class (tap / focus). */
+.nav__item--has-dropdown:hover > .nav__dropdown,
+.nav__item.is-open > .nav__dropdown {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+  transition: opacity 0.22s ease, transform 0.22s ease, visibility 0s linear 0s;
+}
+
+.nav__dropdown li { margin: 0; }
+
+.nav__dropdown a {
+  display: block;
+  padding: 0.55rem 1.1rem;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  white-space: nowrap;
+  transition: color 0.18s ease, background-color 0.18s ease;
+}
+
+.nav__dropdown a:hover,
+.nav__dropdown a:focus-visible {
+  color: var(--color-gold);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.nav__dropdown-divider {
+  height: 1px;
+  margin: 0.4rem 1rem;
+  background: rgba(255, 255, 255, 0.10);
+  list-style: none;
+}
+
+/* ── MOBILE — accordion stack (≤ 768px) ────────────────────────── */
+@media (max-width: 768px) {
+  .nav__list {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 0;
+  }
+  .nav__item {
+    border-bottom: 1px solid var(--color-gray-800);
+  }
+  .nav__link {
+    width: 100%;
+    padding: 1rem 0;
+    justify-content: space-between;
+    font-size: 1rem;
+  }
+  .nav__dropdown {
+    position: static;
+    transform: none;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    margin: 0;
+    padding: 0;
+    /* Collapsed by default on mobile — only opens when .is-open. */
+    max-height: 0;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: max-height 0.32s ease;
+  }
+  .nav__dropdown::before { display: none; }
+  .nav__item.is-open > .nav__dropdown {
+    max-height: 600px;       /* enough to fit all 11 bands */
+    transform: none;
+  }
+  .nav__dropdown a {
+    padding: 0.7rem 1rem 0.7rem 1.5rem;
+    font-size: 0.95rem;
+  }
+}
+
 /* Language toggle */
 .lang-toggle {
   font-size: var(--text-xs);

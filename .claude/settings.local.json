@@ -59,7 +59,18 @@
       "Bash(python)",
       "Bash(python -c ' *)",
       "Bash(cp b-brand.png burgenstock.png)",
-      "Bash(rm -f \"C:\\\\Brotherockers\\\\tmp_check57.png\" \"C:\\\\Brotherockers\\\\tmp_check58.png\" \"C:\\\\Brotherockers\\\\tmp_check59.png\" \"C:\\\\Brotherockers\\\\tmp_check60.png\" \"C:\\\\Brotherockers\\\\tmp_check62.png\" \"C:\\\\Brotherockers\\\\tmp_check63.png\" \"C:\\\\Brotherockers\\\\tmp_check61.png\")"
+      "Bash(rm -f \"C:\\\\Brotherockers\\\\tmp_check57.png\" \"C:\\\\Brotherockers\\\\tmp_check58.png\" \"C:\\\\Brotherockers\\\\tmp_check59.png\" \"C:\\\\Brotherockers\\\\tmp_check60.png\" \"C:\\\\Brotherockers\\\\tmp_check62.png\" \"C:\\\\Brotherockers\\\\tmp_check63.png\" \"C:\\\\Brotherockers\\\\tmp_check61.png\")",
+      "PowerShell($src1 = \"C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\1st line-20260501T112142Z-3-001\\\\1st line\"; $src2 = \"C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\Hotels-20260501T112143Z-3-001\\\\Hotels\"; $dst = \"C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\brands\\\\v2\"; New-Item -ItemType Directory -Force -Path \"$dst\\\\row1\",\"$dst\\\\row2\" | Out-Null; Get-ChildItem $src1 -File | Where-Object { $_.Name -ne \".DS_Store\" } | Format-Table Name,Length -AutoSize)",
+      "PowerShell($dst2 = \"C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\brands\\\\v2\\\\row2\"; $renames = @{\"airelles-val-dise-re.png\"=\"airelles-val-disere.png\";\"grand-the-a-tre-de-gene-ve.webp\"=\"grand-theatre-de-geneve.webp\";\"la-re-serve-geneve.png\"=\"la-reserve-geneve.png\"}; foreach \\($k in $renames.Keys\\) { $old = Join-Path $dst2 $k; if \\(Test-Path -LiteralPath $old\\) { Rename-Item -LiteralPath $old -NewName $renames[$k] -Force } }; Get-ChildItem $dst2 | Select-Object Name | Sort-Object Name | Format-Table -AutoSize)",
+      "PowerShell(& \"C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\brands\\\\v2\\\\process-logos.ps1\")",
+      "PowerShell($row1 = Get-ChildItem 'C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\brands\\\\v2-clean\\\\row1' -File; $row2 = Get-ChildItem 'C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\brands\\\\v2-clean\\\\row2' -File; \"Row1: $\\($row1.Count\\) files\"; \"Row2: $\\($row2.Count\\) files\"; \"Total: $\\(\\($row1.Count + $row2.Count\\)\\)\")",
+      "PowerShell(Get-ChildItem 'C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\brands\\\\v2-clean\\\\row1' -File | Measure-Object | Select-Object @{n='row1';e={$_.Count}}; Get-ChildItem 'C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\brands\\\\v2-clean\\\\row2' -File | Measure-Object | Select-Object @{n='row2';e={$_.Count}}; Get-ChildItem 'C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\brands\\\\v2-clean\\\\row1\\\\orange.png','C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\brands\\\\v2-clean\\\\row2\\\\shangri-la-paris.png','C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\brands\\\\v2-clean\\\\row2\\\\fairmont-monte-carlo.png','C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\brands\\\\v2-clean\\\\row2\\\\grand-theatre-de-geneve.png' -File | Select-Object Name,Length,LastWriteTime | Format-Table -AutoSize)",
+      "WebFetch(domain:elyse-residence-dev.webflow.io)",
+      "mcp__Claude_in_Chrome__tabs_context_mcp",
+      "mcp__Claude_in_Chrome__browser_batch",
+      "mcp__Claude_in_Chrome__navigate",
+      "mcp__Claude_in_Chrome__tabs_close_mcp",
+      "Bash(gh api *)"
     ]
   }
 }

@@ -62,22 +62,50 @@
         <span class="logo__tagline" data-en="Extraordinary events deserve extraordinary music" data-fr="Des événements extraordinaires méritent une musique extraordinaire">Extraordinary events deserve extraordinary music</span>
       </a>
 
-      <!-- Navigation (hidden until scroll) -->
-      <nav class="nav" id="mainNav" aria-label="Band navigation">
-        <div class="nav__band-list" id="bandNavList">
-          <a href="src/pages/the-brotherockers.html" class="nav__band-link" data-band="brotherockers">Brotherockers</a>
-          <a href="src/pages/the-kingsmen.html" class="nav__band-link" data-band="kingsmen">Kingsmen</a>
-          <a href="src/pages/the-peppermints.html" class="nav__band-link" data-band="peppermints">Peppermints</a>
-          <a href="src/pages/the-gentlemen.html" class="nav__band-link" data-band="gentlemen">Gentlemen</a>
-          <a href="src/pages/the-serenades.html" class="nav__band-link" data-band="serenades">Serenades</a>
-          <a href="src/pages/the-supersonics.html" class="nav__band-link" data-band="supersonics">Supersonics</a>
-          <a href="src/pages/the-rendez-vous.html" class="nav__band-link" data-band="rendezvous">Rendez-Vous</a>
-          <a href="src/pages/cafe-creme.html" class="nav__band-link" data-band="cafecreme">Café Crème</a>
-          <a href="src/pages/why-so-serious.html" class="nav__band-link" data-band="whysoserious">Why So Serious?</a>
-          <a href="src/pages/the-blackjacks.html" class="nav__band-link" data-band="blackjacks">Blackjacks</a>
-          <a href="src/pages/dj.html" class="nav__band-link" data-band="dj">DJ</a>
-          <a href="src/pages/blog.html" class="nav__band-link nav__band-link--blog">Blog</a>
-        </div>
+      <!-- Navigation — top-level categories with dropdowns on Events + Bands.
+           Per client v2 brief: 6 items max horizontally, individual band
+           names live INSIDE the Bands dropdown. -->
+      <nav class="nav" id="mainNav" aria-label="Site navigation">
+        <ul class="nav__list">
+          <li class="nav__item nav__item--has-dropdown">
+            <a href="#events" class="nav__link" data-en="Events" data-fr="Événements">Events</a>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="#events" data-en="Weddings"          data-fr="Mariages">Weddings</a></li>
+              <li><a href="#events" data-en="Corporate Events"  data-fr="Événements d'Entreprise">Corporate Events</a></li>
+              <li><a href="#events" data-en="Private Parties"   data-fr="Événements Privés">Private Parties</a></li>
+              <li><a href="#events" data-en="Artistic Direction" data-fr="Direction Artistique">Artistic Direction</a></li>
+            </ul>
+          </li>
+          <li class="nav__item nav__item--has-dropdown">
+            <a href="#chooseBand" class="nav__link" data-en="Bands" data-fr="Groupes">Bands</a>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="src/pages/the-brotherockers.html">The Brotherockers</a></li>
+              <li><a href="src/pages/the-kingsmen.html">The Kingsmen</a></li>
+              <li><a href="src/pages/the-peppermints.html">The Peppermints</a></li>
+              <li><a href="src/pages/the-gentlemen.html">The Gentlemen</a></li>
+              <li><a href="src/pages/the-serenades.html">The Serenades</a></li>
+              <li><a href="src/pages/the-supersonics.html">The Supersonics</a></li>
+              <li><a href="src/pages/the-rendez-vous.html">The Rendez-Vous</a></li>
+              <li><a href="src/pages/cafe-creme.html">Café Crème</a></li>
+              <li><a href="src/pages/why-so-serious.html">Why So Serious?</a></li>
+              <li><a href="src/pages/the-blackjacks.html">The Blackjacks</a></li>
+              <li class="nav__dropdown-divider" aria-hidden="true"></li>
+              <li><a href="#contact" data-en="Other Musical Services" data-fr="Autres Services Musicaux">Other Musical Services</a></li>
+            </ul>
+          </li>
+          <li class="nav__item">
+            <a href="src/pages/dj.html" class="nav__link">DJ</a>
+          </li>
+          <li class="nav__item">
+            <a href="#faq" class="nav__link">FAQ</a>
+          </li>
+          <li class="nav__item">
+            <a href="src/pages/blog.html" class="nav__link" data-en="Blog" data-fr="Journal">Blog</a>
+          </li>
+          <li class="nav__item">
+            <a href="#contact" class="nav__link" data-en="Other Musical Services" data-fr="Autres Services">Other Musical Services</a>
+          </li>
+        </ul>
       </nav>
 
       <!-- Language toggle — always visible, single button -->

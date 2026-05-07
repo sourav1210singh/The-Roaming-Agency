@@ -41,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initBrandsMarquee();
   initEventsScroll();
   initTestimonialsCarousel();
+  initNavDropdowns();
   // Smart-header (hide on scroll-down, show on scroll-up) lives in its own
   // standalone file `src/js/smart-header.js` so band sub-pages can load it
   // without pulling in the rest of main.js. It self-initialises on DOM ready.
@@ -1240,6 +1241,70 @@ function initHeroIntro() {
     else document.body.classList.remove('intro-complete');
     // Tagline opacity + drift handled in the animate() loop above.
   }, { passive: true });
+}
+
+
+/* ──────────────────────────────────────────────
+   NAV DROPDOWNS — Events ▾ + Bands ▾
+   • Desktop hover is handled by CSS (:hover on .nav__item--has-dropdown).
+     This JS only adds CLICK / TAP / KEYBOARD support so the dropdowns
+     work on mobile + for keyboard users.
+   • Click / tap on a parent link with .nav__item--has-dropdown toggles
+     `.is-open` on the parent <li>. When open, hovering away or
+     clicking outside closes it.
+   • On viewports ≤ 768px the parent's link click is intercepted to
+     toggle the accordion instead of navigating — once the user picks
+     a sub-link inside the dropdown it navigates normally.
+   • Esc closes any open dropdown.
+   ────────────────────────────────────────────── */
+function initNavDropdowns() {
+  const items = document.querySelectorAll('.nav__item--has-dropdown');
+  if (!items.length) return;
+
+  const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+
+  const closeAll = (except) => {
+    items.forEach((it) => { if (it !== except) it.classList.remove('is-open'); });
+  };
+
+  items.forEach((item) => {
+    const link = item.querySelector(':scope > .nav__link');
+    if (!link) return;
+
+    link.addEventListener('click', (e) => {
+      // On mobile (or when user hasn't already opened it on desktop),
+      // intercept the click so we toggle instead of navigate. This lets
+      // touch users see the dropdown contents — they can then tap a
+      // specific sub-link to navigate.
+      const open = item.classList.contains('is-open');
+      if (isMobile() || !open) {
+        e.preventDefault();
+        closeAll(item);
+        item.classList.toggle('is-open');
+      }
+    });
+
+    // Keyboard: ArrowDown opens dropdown + focuses first item.
+    link.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        closeAll(item);
+        item.classList.add('is-open');
+        const first = item.querySelector('.nav__dropdown a');
+        if (first) first.focus();
+      }
+    });
+  });
+
+  // Click outside any open dropdown closes everything.
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav__item--has-dropdown')) closeAll();
+  });
+
+  // Escape closes everything.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAll();
+  });
 }
 
 
