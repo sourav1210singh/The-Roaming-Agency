@@ -3684,33 +3684,77 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   color: var(--color-gold);
 }
 
-/* === WHATSAPP BUTTON === */
+/* === WHATSAPP BUTTON ====================================================
+   Per client v2 brief: subtle, monochrome, NO green. Translucent black
+   pill (20–30% opacity) that sits cleanly over any bg via backdrop-blur.
+   White WhatsApp glyph. On HOVER the button widens from a 52px circle
+   into a pill that reveals the "Let's chat." label.
+   ========================================================================== */
 .whatsapp-btn {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
   width: 52px;
   height: 52px;
-  background: #25D366;
-  border-radius: 50%;
-  display: flex;
+  /* Pill that becomes a circle when collapsed (52 wide, 28 radius). */
+  border-radius: 28px;
+  background: rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(12px) saturate(140%);
+  -webkit-backdrop-filter: blur(12px) saturate(140%);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+  display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+  /* Lock content hard against the left edge so the icon stays put when
+     the pill widens; the label fades in on the right. */
+  padding: 0 14px;
+  overflow: hidden;
+  white-space: nowrap;
   z-index: var(--z-whatsapp);
-  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
-  transition: all var(--duration-base) var(--ease-smooth);
+  /* Transition width + bg + shadow together so the expansion feels
+     like one fluid motion. */
+  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              background-color 0.25s ease,
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
   animation: fadeInUp 0.6s var(--ease-out-expo) 2s both;
 }
 
 .whatsapp-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+  /* Auto-width via max-content lets the pill grow to fit "Let's chat."
+     plus padding. Fallback width keeps the transition smooth. */
+  width: clamp(150px, 13vw, 180px);
+  background: rgba(0, 0, 0, 0.42);
+  border-color: rgba(255, 255, 255, 0.28);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.32);
 }
 
 .whatsapp-btn svg {
-  width: 26px;
-  height: 26px;
-  fill: white;
+  width: 22px;
+  height: 22px;
+  fill: #ffffff;
+  flex-shrink: 0;
+}
+
+/* Hover label — hidden by default, fades in once the pill has started
+   expanding so the text doesn't appear cropped mid-transition. */
+.whatsapp-btn__label {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: #ffffff;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.2s ease 0.1s,
+              transform 0.25s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+}
+
+.whatsapp-btn:hover .whatsapp-btn__label {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 @keyframes fadeInUp {
