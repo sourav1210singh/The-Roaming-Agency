@@ -6,6 +6,36 @@
    Cormorant Garamond imports were removed per client v2 brief — Nohemi
    is the single typeface site-wide, weight contrast does the work. */
 
+/* === SKIP-TO-CONTENT LINK (a11y + SEO) ================================
+   First focusable element on every page. Hidden visually until it
+   receives keyboard focus, then pops into the top-left corner with
+   high-contrast styling. Lets screen-reader + keyboard users jump
+   past the header / WhatsApp / page-loader straight to <main>. */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 99999;
+  padding: 0.75rem 1.25rem;
+  background: var(--color-black);
+  color: var(--color-gold);
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: top 0.18s ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  top: 1rem;
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}
+
 /* === SUBTLE HOVER UNDERLINES (Camron Global pattern) ===================
    Per client brief: "Subtle underlines on hover, as per the reference,
    to indicate that elements are clickable." A thin 1px underline with

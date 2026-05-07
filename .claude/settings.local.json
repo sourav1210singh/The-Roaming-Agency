@@ -70,7 +70,8 @@
       "mcp__Claude_in_Chrome__browser_batch",
       "mcp__Claude_in_Chrome__navigate",
       "mcp__Claude_in_Chrome__tabs_close_mcp",
-      "Bash(gh api *)"
+      "Bash(gh api *)",
+      "PowerShell(Add-Type -AssemblyName System.Drawing; $img = [System.Drawing.Image]::FromFile\\('C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\hero-door-bg.jpg'\\); \"Actual file: $\\($img.Width\\)x$\\($img.Height\\) - $\\([math]::Round\\(\\(Get-Item 'C:\\\\Brotherockers\\\\src\\\\assets\\\\images\\\\hero-door-bg.jpg'\\).Length / 1KB\\)\\) KB\"; $img.Dispose\\(\\))"
     ]
   }
 }

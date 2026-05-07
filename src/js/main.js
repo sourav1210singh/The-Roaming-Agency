@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollReveals();
     initTextDarkening();
     initBandSelector();
-    initGlobeAnimation();
+    initGlobeLazy();
   } else {
     // Fallback: show everything without animation
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
@@ -723,6 +723,45 @@ function initBandSelector() {
   } else {
     setActive(0);
   }
+}
+
+
+/* ──────────────────────────────────────────────
+   4b. GLOBE — LAZY-LOAD WRAPPER
+   Three.js (~150 KB minified) is NOT loaded eagerly. We watch the
+   #worldwide section with an IntersectionObserver tuned to a 600px
+   "approaching" rootMargin — once the user scrolls within 600px of
+   the globe, we dynamically inject the Three.js <script> tag and
+   call the original initGlobeAnimation() once it loads.
+   Result: every other page (band sub-pages, blog, FAQ-only browsers
+   on the homepage) skips the 150 KB JS download entirely.
+   ────────────────────────────────────────────── */
+function initGlobeLazy() {
+  const section = document.getElementById('worldwide');
+  if (!section) return;
+
+  let loaded = false;
+  const load = () => {
+    if (loaded) return;
+    loaded = true;
+    const tag = document.createElement('script');
+    tag.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+    tag.onload = () => {
+      // Three.js is now available globally; run the original setup.
+      if (typeof initGlobeAnimation === 'function') initGlobeAnimation();
+    };
+    document.head.appendChild(tag);
+  };
+
+  // Approaching trigger — fire 600px before the section enters viewport
+  // so Three.js has time to download + parse before the user sees the globe.
+  const io = new IntersectionObserver((entries) => {
+    if (entries.some((e) => e.isIntersecting)) {
+      load();
+      io.disconnect();
+    }
+  }, { rootMargin: '600px 0px' });
+  io.observe(section);
 }
 
 

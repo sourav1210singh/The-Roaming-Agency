@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /.claude/
+Disallow: /.git/
+Disallow: /The-Roaming-Agency-main/
+
+Sitemap: https://theroamingagency.com/sitemap.xml

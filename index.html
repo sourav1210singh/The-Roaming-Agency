@@ -8,12 +8,95 @@
 
   <title>The Roaming Agency — Luxury Roaming Bands for Extraordinary Events</title>
 
+  <!-- Canonical + bilingual hreflang -->
+  <link rel="canonical" href="https://theroamingagency.com/">
+  <link rel="alternate" hreflang="en" href="https://theroamingagency.com/">
+  <link rel="alternate" hreflang="fr" href="https://theroamingagency.com/?lang=fr">
+  <link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/">
+
   <!-- Open Graph -->
   <meta property="og:title" content="The Roaming Agency — Luxury Roaming Bands">
   <meta property="og:description" content="Premium roaming bands for weddings, corporate events, and private parties. Based on the French Riviera, available worldwide.">
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://theroamingagency.com/">
+  <meta property="og:image" content="https://theroamingagency.com/src/assets/images/hero-door-bg.jpg">
   <meta property="og:locale" content="en_GB">
   <meta property="og:locale:alternate" content="fr_FR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Roaming Agency — Luxury Roaming Bands">
+  <meta name="twitter:description" content="Premium roaming bands for weddings, corporate events, and private parties on the French Riviera and worldwide.">
+  <meta name="twitter:image" content="https://theroamingagency.com/src/assets/images/hero-door-bg.jpg">
+
+  <!-- Robots / SEO hints -->
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="The Roaming Agency">
+  <meta name="theme-color" content="#1C1C1C">
+
+  <!-- Structured data — Organization + LocalBusiness for Google Knowledge Panel
+       and rich-result eligibility on local searches. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://theroamingagency.com/#organization",
+        "name": "The Roaming Agency",
+        "url": "https://theroamingagency.com/",
+        "logo": "https://theroamingagency.com/src/assets/images/hero-door-bg.jpg",
+        "description": "Premium roaming bands for luxury weddings, corporate events, and private parties. Based on the French Riviera, available worldwide.",
+        "areaServed": "Worldwide",
+        "knowsLanguage": ["English", "French", "Italian", "Spanish", "Portuguese"],
+        "sameAs": []
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://theroamingagency.com/#localbusiness",
+        "name": "The Roaming Agency",
+        "image": "https://theroamingagency.com/src/assets/images/hero-door-bg.jpg",
+        "url": "https://theroamingagency.com/",
+        "telephone": "+33 6 86 62 12 82",
+        "email": "contact@theroamingagency.com",
+        "priceRange": "€€€",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nice",
+          "addressRegion": "French Riviera",
+          "addressCountry": "FR"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Nice" },
+          { "@type": "City", "name": "Cannes" },
+          { "@type": "City", "name": "Monaco" },
+          { "@type": "City", "name": "St-Tropez" },
+          { "@type": "City", "name": "Paris" },
+          { "@type": "City", "name": "London" },
+          { "@type": "City", "name": "Rome" },
+          { "@type": "City", "name": "Lake Como" },
+          { "@type": "City", "name": "Barcelona" },
+          { "@type": "City", "name": "Santorini" },
+          { "@type": "City", "name": "Dubai" }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5",
+          "reviewCount": "50",
+          "bestRating": "5"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://theroamingagency.com/#website",
+        "url": "https://theroamingagency.com/",
+        "name": "The Roaming Agency",
+        "publisher": { "@id": "https://theroamingagency.com/#organization" },
+        "inLanguage": ["en", "fr"]
+      }
+    ]
+  }
+  </script>
 
   <!-- Favicon placeholder -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
@@ -25,12 +108,16 @@
   <link rel="stylesheet" href="src/css/reset.css">
   <link rel="stylesheet" href="src/css/style.css">
 
-  <!-- GSAP + ScrollTrigger -->
+  <!-- GSAP + ScrollTrigger (needed early for hero animations).
+       Three.js is NOT loaded here — main.js dynamically injects it only
+       when the user scrolls near the globe section, saving ~150 KB on
+       initial page load. -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
 </head>
 <body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
 
   <!-- ===== PAGE LOADER ===== -->
   <div class="page-loader" id="pageLoader">
@@ -134,7 +221,7 @@
          3. The existing hero section (black panel + Roaming Agency
             logo + tagline + Riviera footage) appears AFTER this section.
        Section is 200vh tall; inner is sticky for the whole runway. -->
-  <section class="door-portal" id="doorPortal">
+  <a id="main-content"></a>PLACEHOLDER_DOORPORTAL
     <div class="door-portal__sticky" id="doorPortalSticky">
 
       <!-- z:0 — Sky background with parallax (scrubbed by GSAP) +
