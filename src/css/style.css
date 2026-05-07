@@ -3685,10 +3685,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 
 /* === WHATSAPP BUTTON ====================================================
-   Per client v2 brief: subtle, monochrome, NO green. Translucent black
-   pill (20–30% opacity) that sits cleanly over any bg via backdrop-blur.
-   White WhatsApp glyph. On HOVER the button widens from a 52px circle
-   into a pill that reveals the "Let's chat." label.
+   Per client v2 brief: subtle, monochrome, NO green. The icon stays a
+   simple fixed circle — no shape morphing. On HOVER, a separate small
+   tooltip pill appears to the LEFT of the icon saying "Let's chat."
    ========================================================================== */
 .whatsapp-btn {
   position: fixed;
@@ -3696,8 +3695,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   right: 2rem;
   width: 52px;
   height: 52px;
-  /* Pill that becomes a circle when collapsed (52 wide, 28 radius). */
-  border-radius: 28px;
+  border-radius: 50%;
   background: rgba(0, 0, 0, 0.28);
   border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(12px) saturate(140%);
@@ -3706,55 +3704,65 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  /* Lock content hard against the left edge so the icon stays put when
-     the pill widens; the label fades in on the right. */
-  padding: 0 14px;
-  overflow: hidden;
-  white-space: nowrap;
   z-index: var(--z-whatsapp);
-  /* Transition width + bg + shadow together so the expansion feels
-     like one fluid motion. */
-  transition: width 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-              background-color 0.25s ease,
+  transition: background-color 0.25s ease,
               border-color 0.25s ease,
-              box-shadow 0.25s ease;
+              box-shadow 0.25s ease,
+              transform 0.25s ease;
   animation: fadeInUp 0.6s var(--ease-out-expo) 2s both;
 }
 
 .whatsapp-btn:hover {
-  /* Auto-width via max-content lets the pill grow to fit "Let's chat."
-     plus padding. Fallback width keeps the transition smooth. */
-  width: clamp(150px, 13vw, 180px);
   background: rgba(0, 0, 0, 0.42);
   border-color: rgba(255, 255, 255, 0.28);
   box-shadow: 0 6px 22px rgba(0, 0, 0, 0.32);
+  transform: scale(1.05);
 }
 
 .whatsapp-btn svg {
   width: 22px;
   height: 22px;
   fill: #ffffff;
-  flex-shrink: 0;
 }
 
-/* Hover label — hidden by default, fades in once the pill has started
-   expanding so the text doesn't appear cropped mid-transition. */
+/* Hover tooltip — separate pill to the LEFT of the button. Shows
+   "Let's chat." with a tiny right-pointing arrow tip. */
 .whatsapp-btn__label {
+  position: absolute;
+  /* Anchor to the right edge of the button area, then offset LEFT by
+     the tooltip's own width via translateX(-100%). 14px gap. */
+  right: calc(100% + 14px);
+  top: 50%;
+  transform: translateY(-50%) translateX(8px);
+  padding: 8px 14px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #ffffff;
   font-family: var(--font-body);
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 500;
   letter-spacing: 0.02em;
-  color: #ffffff;
+  white-space: nowrap;
+  border-radius: 8px;
+  pointer-events: none;
   opacity: 0;
-  transform: translateX(-4px);
-  transition: opacity 0.2s ease 0.1s,
-              transform 0.25s cubic-bezier(0.22, 1, 0.36, 1) 0.1s;
+  transition: opacity 0.22s ease, transform 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Tiny arrow pointing right (toward the WhatsApp button). */
+.whatsapp-btn__label::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: -5px;
+  transform: translateY(-50%) rotate(45deg);
+  width: 8px;
+  height: 8px;
+  background: rgba(0, 0, 0, 0.85);
 }
 
 .whatsapp-btn:hover .whatsapp-btn__label {
   opacity: 1;
-  transform: translateX(0);
+  transform: translateY(-50%) translateX(0);
 }
 
 @keyframes fadeInUp {
