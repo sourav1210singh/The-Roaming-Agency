@@ -1,52 +1,151 @@
-/* ============================================
+/* ============================================================================
    THE ROAMING AGENCY — Design Tokens
-   ============================================ */
+   ============================================================================
+   Locked v2 palette + Nohemi typography. Everything below maps to the
+   client brief:
+     • Off-whites    : #FCFCFC, #F0F0F0   (~40% of bg surface area)
+     • Dark greys    : #393939, #414141   (text + lines)
+     • Off-black     : #1C1C1C            (some sections like Our Standards)
+     • Gold          : #F2DCA3            (use < 10%, only highlights)
+     • NO pure black, NO pure white anywhere on the site.
+   Typography: Nohemi (9 weights, self-hosted). Titles play with bold/thin
+   weight contrast, paragraphs lean thinner.
+   ============================================================================ */
+
+/* ── NOHEMI FONT FACES — 9 weights, self-hosted .woff2 ─────────────── */
+@font-face {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src: url('../assets/fonts/nohemi/Nohemi-Thin.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 200;
+  font-display: swap;
+  src: url('../assets/fonts/nohemi/Nohemi-ExtraLight.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../assets/fonts/nohemi/Nohemi-Light.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/nohemi/Nohemi-Regular.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../assets/fonts/nohemi/Nohemi-Medium.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../assets/fonts/nohemi/Nohemi-SemiBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../assets/fonts/nohemi/Nohemi-Bold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 800;
+  font-display: swap;
+  src: url('../assets/fonts/nohemi/Nohemi-ExtraBold.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Nohemi';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('../assets/fonts/nohemi/Nohemi-Black.woff2') format('woff2');
+}
 
 :root {
-  /* Primary Colors */
-  --color-gold: #b28220;
-  --color-gold-light: #d4a94e;
-  --color-gold-dark: #8a6518;
+  /* ── PALETTE — locked v2 codes ──────────────────────────────────── */
 
-  /* Neutrals */
-  --color-black: #0a0a0a;
-  --color-dark: #111111;
-  --color-dark-surface: #1a1a1a;
-  --color-dark-card: #222222;
-  --color-gray-800: #2a2a2a;
-  --color-gray-600: #666666;
-  --color-gray-400: #999999;
-  --color-gray-200: #cccccc;
-  --color-white: #ffffff;
-  --color-off-white: #fafafa;
-  --color-cream: #f5f0e8;
+  /* Off-whites (≈40% of surface area) */
+  --color-white:        #FCFCFC;   /* off-white — was #ffffff (pure white banned) */
+  --color-off-white:    #FCFCFC;
+  --color-light-panel:  #F0F0F0;   /* light grey panel — used for Brands, Globe, Testimonials */
+
+  /* Dark greys (≈50% of text + lines) */
+  --color-dark-grey:    #393939;   /* main body text */
+  --color-mid-grey:     #414141;   /* lines, dividers, secondary text */
+
+  /* Off-black (≈Our Standards / Door portal panel bg) */
+  --color-black:        #1C1C1C;   /* off-black — was #0a0a0a (pure black banned) */
+  --color-dark:         #1C1C1C;   /* legacy alias */
+  --color-dark-surface: #1C1C1C;   /* legacy alias */
+  --color-dark-card:    #2a2a2a;   /* one-step lighter for card-on-dark */
+  --color-off-black:    #1C1C1C;
+
+  /* Gold accent (< 10%, highlights only — eyebrows, hover underlines) */
+  --color-gold:         #F2DCA3;
+  --color-gold-light:   #F8E9C2;
+  --color-gold-dark:    #C8A560;   /* deeper gold for hover */
+
+  /* Legacy grey scale aliases — kept so old selectors don't break,
+     but mapped onto the new palette. */
+  --color-gray-800:     #414141;
+  --color-gray-600:     #5a5a5a;
+  --color-gray-400:     #7a7a7a;
+  --color-gray-200:     #aaaaaa;
+  --color-cream:        #F0F0F0;
 
   /* Semantic */
-  --color-bg: var(--color-black);
-  --color-bg-alt: var(--color-dark);
-  --color-text: var(--color-white);
-  --color-text-muted: var(--color-gray-400);
-  --color-accent: var(--color-gold);
-  --color-accent-hover: var(--color-gold-light);
+  --color-bg:           var(--color-white);
+  --color-bg-alt:       var(--color-light-panel);
+  --color-text:         var(--color-dark-grey);
+  --color-text-muted:   var(--color-mid-grey);
+  --color-accent:       var(--color-gold);
+  --color-accent-hover: var(--color-gold-dark);
 
-  /* Typography */
-  --font-heading: 'Cinzel', Georgia, 'Times New Roman', serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-accent: 'Cormorant Garamond', Georgia, serif;
+  /* ── TYPOGRAPHY — Nohemi everywhere, weight contrast does the work ─ */
+  --font-heading:       'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  --font-body:          'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+  --font-accent:        'Nohemi', Georgia, serif;
 
-  /* Font Sizes — fluid scale */
-  --text-xs: clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
-  --text-sm: clamp(0.8rem, 0.75rem + 0.3vw, 0.9rem);
-  --text-base: clamp(0.9rem, 0.85rem + 0.35vw, 1.05rem);
-  --text-lg: clamp(1.05rem, 0.95rem + 0.5vw, 1.25rem);
-  --text-xl: clamp(1.25rem, 1.1rem + 0.75vw, 1.6rem);
-  --text-2xl: clamp(1.5rem, 1.2rem + 1.5vw, 2.2rem);
-  --text-3xl: clamp(1.8rem, 1.4rem + 2vw, 3rem);
-  --text-4xl: clamp(2.2rem, 1.6rem + 3vw, 4rem);
-  --text-5xl: clamp(2.8rem, 1.8rem + 4vw, 5.5rem);
-  --text-hero: clamp(3.5rem, 2rem + 5vw, 7rem);
+  /* Weight tokens — used as font-weight: var(--fw-thin) for clarity. */
+  --fw-thin:            100;
+  --fw-extralight:      200;
+  --fw-light:           300;
+  --fw-regular:         400;
+  --fw-medium:          500;
+  --fw-semibold:        600;
+  --fw-bold:            700;
+  --fw-extrabold:       800;
+  --fw-black:           900;
 
-  /* Spacing */
+  /* Font Sizes — fluid scale (unchanged) */
+  --text-xs:    clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
+  --text-sm:    clamp(0.8rem, 0.75rem + 0.3vw, 0.9rem);
+  --text-base:  clamp(0.9rem, 0.85rem + 0.35vw, 1.05rem);
+  --text-lg:    clamp(1.05rem, 0.95rem + 0.5vw, 1.25rem);
+  --text-xl:    clamp(1.25rem, 1.1rem + 0.75vw, 1.6rem);
+  --text-2xl:   clamp(1.5rem, 1.2rem + 1.5vw, 2.2rem);
+  --text-3xl:   clamp(1.8rem, 1.4rem + 2vw, 3rem);
+  --text-4xl:   clamp(2.2rem, 1.6rem + 3vw, 4rem);
+  --text-5xl:   clamp(2.8rem, 1.8rem + 4vw, 5.5rem);
+  --text-hero:  clamp(3.5rem, 2rem + 5vw, 7rem);
+
+  /* Spacing (unchanged) */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;
   --space-md: 1rem;
@@ -59,37 +158,38 @@
   --space-section: clamp(4rem, 3rem + 5vw, 10rem);
 
   /* Layout */
-  --container-max: 1400px;
-  --container-narrow: 900px;
+  --container-max:     1400px;
+  --container-narrow:  900px;
   --container-padding: clamp(1.25rem, 1rem + 2vw, 3rem);
-  --header-height: 80px;
+  --header-height:     80px;
 
   /* Transitions */
-  --ease-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
-  --duration-fast: 200ms;
-  --duration-base: 400ms;
-  --duration-slow: 800ms;
-  --duration-logo: 1000ms;
+  --ease-smooth:    cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ease-out-expo:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out:    cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast:  200ms;
+  --duration-base:  400ms;
+  --duration-slow:  800ms;
+  --duration-logo:  1000ms;
 
   /* Borders & Radius */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
+  --radius-sm:   4px;
+  --radius-md:   8px;
+  --radius-lg:   16px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
-  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.5);
-  --shadow-gold: 0 4px 20px rgba(178, 130, 32, 0.3);
+  /* Shadows — purely neutral, no gold tint anywhere. The glow effect
+     `--shadow-gold` was removed per brief: "Remove decorative elements:
+     gold lines used to create blocks, glows, heavy container borders." */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.18);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.20);
+  --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.25);
 
   /* Z-Index Scale */
-  --z-base: 1;
-  --z-header: 100;
-  --z-overlay: 200;
-  --z-modal: 300;
+  --z-base:     1;
+  --z-header:   100;
+  --z-overlay:  200;
+  --z-modal:    300;
   --z-whatsapp: 400;
-  --z-loader: 500;
+  --z-loader:   500;
 }

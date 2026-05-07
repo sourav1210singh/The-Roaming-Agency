@@ -2,33 +2,69 @@
    THE ROAMING AGENCY — Main Stylesheet
    ============================================ */
 
-/* Client Font — Cinzel */
-@font-face {
-  font-family: 'Cinzel';
-  src: url('../assets/fonts/Cinzel-Regular.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
+/* Nohemi font faces are loaded from variables.css. Cinzel + Inter +
+   Cormorant Garamond imports were removed per client v2 brief — Nohemi
+   is the single typeface site-wide, weight contrast does the work. */
+
+/* === SUBTLE HOVER UNDERLINES (Camron Global pattern) ===================
+   Per client brief: "Subtle underlines on hover, as per the reference,
+   to indicate that elements are clickable." A thin 1px underline with
+   a 4px offset draws in on hover for any inline link that doesn't
+   already manage its own hover state (nav links, buttons, etc are
+   excluded because they have their own affordance). */
+a {
+  text-decoration: none;
+  /* Animated underline via background-image so we get a draw-in
+     effect rather than the abrupt browser default underline. */
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 0.3s var(--ease-smooth);
 }
 
-@font-face {
-  font-family: 'Cinzel';
-  src: url('../assets/fonts/Cinzel-Bold.otf') format('opentype');
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
+a:hover {
+  background-size: 100% 1px;
 }
 
-@font-face {
-  font-family: 'Cinzel';
-  src: url('../assets/fonts/Cinzel-Black.otf') format('opentype');
-  font-weight: 900;
-  font-style: normal;
-  font-display: swap;
+/* Opt-out — nav links, buttons, brand cards, etc handle their own hover.
+   Add `data-no-underline` or these specific classes to skip the rule. */
+.nav__link,
+.nav__band-link,
+.nav a,
+.btn,
+.btn--primary,
+.btn--outline,
+.btn--secondary,
+.lang-toggle,
+.whatsapp-btn,
+.testimonial-card__gmb-link,
+.contact__details a,
+.footer a,
+.testimonials__nav,
+.brands-marquee a,
+.band-selector__item,
+.standards-scroll__card,
+.blog-card__link,
+.testimonial-card a,
+.globe-card,
+.events__cat,
+[data-no-underline] {
+  background-image: none;
+  background-size: 0;
 }
-
-/* Supporting fonts from Google */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap');
+.nav__link:hover,
+.nav__band-link:hover,
+.btn:hover,
+.lang-toggle:hover,
+.whatsapp-btn:hover,
+.testimonial-card__gmb-link:hover,
+.contact__details a:hover,
+.footer a:hover,
+.blog-card__link:hover,
+[data-no-underline]:hover {
+  background-size: 0;
+}
 
 /* === GLOBAL === */
 body {
@@ -3662,7 +3698,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .btn--primary:hover {
   background: var(--color-gold-light);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-gold);
+  /* Removed `box-shadow: var(--shadow-gold)` per brief — no gold glows. */
 }
 
 .btn--outline {
