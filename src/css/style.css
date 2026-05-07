@@ -182,32 +182,13 @@ body {
   display: none;
 }
 
-/* On CONTENT hover (text, images, headings) — DOT grows to sit just inside the
-   ring (smaller than the 40px ring), dot goes dark, ring fills white.
-   mix-blend-mode: difference turns this into a soft inverted blob over text. */
-.cursor.is-over-content .cursor__dot {
-  width: 30px;
-  height: 30px;
-  background: #0a0a0a;
-}
-
-.cursor.is-over-content .cursor__ring {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: rgba(255, 255, 255, 0.9);
-  transition: background 0.25s ease, border-color 0.25s ease;
-}
-
-/* On CLICKABLE hover — same grown dot + gold-filled ring */
+/* On HOVER over content (text, images, headings) OR clickable element:
+   per client tweak — the small dot HIDES, the outer ring stays exactly
+   as-is (same 40px size, same border, no fill, no color change).
+   Earlier version had the dot grow into a big inverted blob — removed. */
+.cursor.is-over-content .cursor__dot,
 .cursor.is-hovering .cursor__dot {
-  width: 30px;
-  height: 30px;
-  background: #0a0a0a;
-}
-
-.cursor.is-hovering .cursor__ring {
-  background: rgba(230, 190, 100, 1);
-  border-color: rgba(230, 190, 100, 1);
-  transition: background 0.25s ease, border-color 0.25s ease;
+  opacity: 0;
 }
 
 /* Click state — tiny pulse only (no size explosion) */
