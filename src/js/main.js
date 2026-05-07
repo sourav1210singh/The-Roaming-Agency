@@ -1408,31 +1408,36 @@ function initCustomCursor() {
   const label = document.getElementById('cursorLabel');
   if (!cursor || !ring || !dot) return;
 
-  let mouseX = 0, mouseY = 0;
-  let ringX = 0, ringY = 0;
-  let dotX = 0, dotY = 0;
+  // Initialise off-screen so the dot/ring don't flash at the top-left
+  // corner before the user's first mousemove. -100/-100 is well past
+  // any viewport edge.
+  let mouseX = -100, mouseY = -100;
+  let ringX = -100, ringY = -100;
 
-  // Track mouse position
+  // Track mouse position. We update the DOT here on the same frame —
+  // no lerp — so the custom dot ALWAYS sits exactly on the real
+  // pointer (per client brief: "custom cursor centers exactly on the
+  // actual pointer"). Only the trailing RING uses elastic lag.
   document.addEventListener('mousemove', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+    // translate3d → GPU + sub-pixel positioning, which removes the
+    // single-pixel "shimmer" the prior 2D translate had during fast
+    // diagonal motion.
+    dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
   });
 
-  // Smooth animation loop — dot follows instant, ring follows with lag
+  // rAF loop — only the RING runs lerp.
   function animateCursor() {
-    // Dot follows immediately
-    dotX += (mouseX - dotX) * 0.6;
-    dotY += (mouseY - dotY) * 0.6;
-    dot.style.transform = `translate(${dotX}px, ${dotY}px) translate(-50%, -50%)`;
+    // 0.18 (was 0.15) — slightly tighter elastic so the ring keeps up
+    // with the pointer better but still trails the dot for the
+    // luxury two-element feel. Brief: "smoother cursor interaction".
+    ringX += (mouseX - ringX) * 0.18;
+    ringY += (mouseY - ringY) * 0.18;
+    ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
 
-    // Ring follows with elastic lag
-    ringX += (mouseX - ringX) * 0.15;
-    ringY += (mouseY - ringY) * 0.15;
-    ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
-
-    // Label follows ring position
     if (label) {
-      label.style.transform = `translate(${ringX}px, ${ringY}px)`;
+      label.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
     }
 
     requestAnimationFrame(animateCursor);
@@ -1472,12 +1477,12 @@ function initCustomCursor() {
   document.addEventListener('mousedown', (e) => {
     mouseX = e.clientX;
     mouseY = e.clientY;
+    // Snap the ring to the real pointer on click so the elastic lag
+    // can't be visibly "frozen" while the user holds the button.
     ringX = mouseX;
     ringY = mouseY;
-    dotX = mouseX;
-    dotY = mouseY;
-    ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
-    dot.style.transform = `translate(${dotX}px, ${dotY}px) translate(-50%, -50%)`;
+    ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
+    dot.style.transform  = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
     cursor.classList.add('is-clicking');
   });
   document.addEventListener('mouseup', () => {
