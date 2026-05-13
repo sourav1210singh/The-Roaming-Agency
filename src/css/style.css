@@ -686,6 +686,10 @@ body.is-header-hidden .hero-center-title {
   z-index: 1;
 }
 
+/* Hero tagline — revision round 2 H1+H2: client wanted "thinner
+   typography" and "tighter line spacing". Weight dropped 600 -> 300
+   (Nohemi Light), line-height 1.18 -> 1.05. The text now reads as one
+   tight block rather than two airy lines. */
 .hero-intro__tagline {
   position: fixed;
   top: 50%;
@@ -697,8 +701,8 @@ body.is-header-hidden .hero-center-title {
   text-align: center;
   font-family: var(--font-heading);
   font-size: clamp(1.75rem, 4.5vw, 4rem);
-  font-weight: 600;
-  line-height: 1.18;
+  font-weight: 300;
+  line-height: 1.05;
   letter-spacing: 0.005em;
   color: #ffffff;
   z-index: 3;
@@ -709,7 +713,7 @@ body.is-header-hidden .hero-center-title {
 @media (max-width: 640px) {
   .hero-intro__tagline {
     font-size: clamp(1.4rem, 7vw, 2.4rem);
-    line-height: 1.25;
+    line-height: 1.12;
   }
 }
 
@@ -1164,12 +1168,14 @@ body.is-header-hidden .hero-center-title {
   margin-bottom: var(--space-md);
 }
 
+/* Generic section title — revision round 2 typography pass: thinner
+   weight (500 -> 300) matches the rest of the headings across the site. */
 .section__title {
   font-family: var(--font-heading);
   font-size: var(--text-4xl);
-  font-weight: 500;
+  font-weight: 300;
   line-height: 1.15;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-md);
 }
 
 .section__subtitle {
@@ -1227,28 +1233,32 @@ body.is-header-hidden .hero-center-title {
   max-width: 32rem;
 }
 
+/* Who We Are eyebrow — revision round 2 W3: reduce letter-spacing
+   (was 0.22em) + lighter weight (was 600 -> 400) for a more
+   refined high-end-fashion-magazine feel. */
 .who-we-are__label {
   display: block;
   color: #c9a85a;            /* warm gold — readable on off-white */
   font-family: var(--font-body, 'Inter', system-ui, sans-serif);
   font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.22em;
+  font-weight: 400;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  margin-bottom: clamp(1.25rem, 2vw, 2rem);
+  margin-bottom: clamp(0.85rem, 1.4vw, 1.25rem);
 }
 
-/* Modern geometric heading — 'Inter' as Nohemi placeholder. Replace
-   `Nohemi` once the licensed font is loaded. */
+/* Who We Are title — revision round 2 W1: thinner type (was 800,
+   now 300 Light) and W2: smaller bottom margin so the descriptive
+   paragraph sits closer to the title. */
 .who-we-are__title {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-weight: 800;
+  font-weight: 300;
   font-size: clamp(3rem, 6.5vw, 6.25rem);
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: #393939;
   text-transform: uppercase;
-  margin: 0 0 clamp(1.5rem, 2.5vw, 2.5rem);
+  margin: 0 0 clamp(0.85rem, 1.6vw, 1.5rem);
 }
 
 .who-we-are__copy {
@@ -1293,9 +1303,12 @@ body.is-header-hidden .hero-center-title {
   gap: 0.25rem;
 }
 
+/* Stat numbers — revision round 2 W1: thinner weight (was 800 -> 300).
+   The huge type with light weight gives the same scale impact while
+   feeling editorial rather than billboard-y. */
 .stat__number {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-weight: 800;
+  font-weight: 300;
   font-size: clamp(3.5rem, 7vw, 6.5rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
@@ -1303,12 +1316,15 @@ body.is-header-hidden .hero-center-title {
   font-variant-numeric: tabular-nums;
 }
 
+/* Stat labels — revision round 2 W4: pull label closer to its number
+   (was 0.4rem -> 0.1rem) so the pair reads as a unit, not two stacked
+   items. */
 .stat__label {
   font-family: var(--font-body, 'Inter', system-ui, sans-serif);
   font-size: clamp(0.85rem, 1vw, 1rem);
   font-weight: 400;
   color: #555555;
-  margin-top: 0.4rem;
+  margin-top: 0.1rem;
 }
 
 /* Mobile — stack stats vertically, no zig-zag */
@@ -1419,14 +1435,17 @@ body.is-header-hidden .hero-center-title {
   align-items: center;
 }
 
+/* Choose Your Band heading — revision round 2 C1: thinner type
+   (700 -> 300) + C4: smaller bottom margin so the descriptive paragraph
+   tucks closer below the heading. */
 .band-selector__heading {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   font-size: clamp(2.75rem, 5.5vw, 5rem);
-  font-weight: 700;
+  font-weight: 300;
   line-height: 1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  margin-bottom: var(--space-xl);
+  margin-bottom: var(--space-md);
   color: var(--color-white);
 }
 
@@ -1479,11 +1498,13 @@ body.is-header-hidden .hero-center-title {
   will-change: transform;
 }
 
+/* Band items — revision round 2 C1: thinner weight (500 -> 300).
+   The hover/active items still bump weight back up below. */
 .band-selector__item {
   display: block;
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   font-size: clamp(1.75rem, 3.2vw, 2.75rem);
-  font-weight: 500;
+  font-weight: 300;
   color: var(--color-white);
   padding: var(--space-sm) 0;
   cursor: pointer;
@@ -1795,14 +1816,17 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   pointer-events: auto;
 }
 
+/* Events category title — revision round 2 E5+E6: thinner weight
+   (700 -> 300) and smaller bottom margin so the subtitle sits closer.
+   The reveal animation (line-mask) still composes on top. */
 .events__cat-title {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   font-size: clamp(2.25rem, 4.5vw, 4rem);
-  font-weight: 700;
+  font-weight: 300;
   line-height: 1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  margin: 0 0 clamp(1rem, 2vw, 1.5rem);
+  margin: 0 0 clamp(0.5rem, 1vw, 0.85rem);
 }
 
 /* GSAP-SplitText-style line-mask reveal (Elyse-residence pattern).
@@ -2113,10 +2137,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   clip-path: inset(0 0 0 0);
 }
 
+/* Standards card title — revision round 2 S4 spirit: thinner weight
+   (700 -> 300) to match the rest of the typography pass. */
 .standard__title {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   font-size: clamp(1.5rem, 2.4vw, 2.25rem);
-  font-weight: 700;
+  font-weight: 300;
   letter-spacing: -0.01em;
   line-height: 1;
   text-transform: uppercase;
@@ -2124,9 +2150,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   color: #ffffff;
 }
 
+/* Standards card subtitle — revision round 2 S4: thinner type
+   (was 400 default -> 300 Light). */
 .standard__desc {
   font-family: var(--font-body);
   font-size: clamp(0.875rem, 1vw, 1rem);
+  font-weight: 300;
   line-height: 1.55;
   color: rgba(255, 255, 255, 0.78);
   margin: 0;
@@ -2793,10 +2822,13 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   will-change: transform;
 }
 
+/* Contact marquee — revision round 2 CT3: lighter weight (was 800
+   ExtraBold -> 300 Light). The huge type at light weight reads as an
+   editorial banner instead of a billboard shout. */
 .contact__marquee-item {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   font-size: clamp(3rem, 9vw, 8.5rem);
-  font-weight: 800;
+  font-weight: 300;
   line-height: 0.95;
   letter-spacing: -0.02em;
   text-transform: uppercase;
