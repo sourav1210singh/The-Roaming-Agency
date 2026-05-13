@@ -5,7 +5,7 @@
    client brief:
      • Off-whites    : #FCFCFC, #F0F0F0   (~40% of bg surface area)
      • Dark greys    : #393939, #414141   (text + lines)
-     • Off-black     : #1C1C1C            (some sections like Our Standards)
+     • Off-black     : #393939            (some sections like Our Standards)
      • Gold          : #F2DCA3            (use < 10%, only highlights)
      • NO pure black, NO pure white anywhere on the site.
    Typography: Nohemi (9 weights, self-hosted). Titles play with bold/thin
@@ -90,11 +90,11 @@
   --color-mid-grey:     #414141;   /* lines, dividers, secondary text */
 
   /* Off-black (≈Our Standards / Door portal panel bg) */
-  --color-black:        #1C1C1C;   /* off-black — was #0a0a0a (pure black banned) */
-  --color-dark:         #1C1C1C;   /* legacy alias */
-  --color-dark-surface: #1C1C1C;   /* legacy alias */
+  --color-black:        #393939;   /* off-black — was #0a0a0a (pure black banned) */
+  --color-dark:         #393939;   /* legacy alias */
+  --color-dark-surface: #393939;   /* legacy alias */
   --color-dark-card:    #2a2a2a;   /* one-step lighter for card-on-dark */
-  --color-off-black:    #1C1C1C;
+  --color-off-black:    #393939;
 
   /* Gold accent (< 10%, highlights only — eyebrows, hover underlines) */
   --color-gold:         #F2DCA3;

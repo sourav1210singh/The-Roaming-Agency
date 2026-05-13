@@ -17,6 +17,14 @@
   </url>
 
   <url>
+    <loc>https://theroamingagency.com/src/pages/faq.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/src/pages/faq.html"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/src/pages/faq.html?lang=fr"/>
+  </url>
+
+  <url>
     <loc>https://theroamingagency.com/src/pages/the-brotherockers.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>

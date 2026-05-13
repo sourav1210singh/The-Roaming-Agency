@@ -25,9 +25,5 @@ extractori_images/
 # outputs in v2-clean/ are what the site actually loads.
 src/assets/images/brands/v2-temp/
 
-# Backup of the pre-compression sky bg — git history retains older
-# versions, no need for a local backup file.
-src/assets/images/hero-door-bg.original.jpg
-
 # Generated test files / one-offs
 src/assets/images/Gemini_Generated_Image_*.png

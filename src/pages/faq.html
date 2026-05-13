@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Frequently asked questions about The Roaming Agency — roaming bands, DJ sets, set length, repertoire, travel, venue requirements and more.">
+  <title>FAQ — The Roaming Agency</title>
+
+  <link rel="canonical" href="https://theroamingagency.com/src/pages/faq.html">
+  <link rel="alternate" hreflang="en" href="https://theroamingagency.com/src/pages/faq.html">
+  <link rel="alternate" hreflang="fr" href="https://theroamingagency.com/src/pages/faq.html?lang=fr">
+
+  <meta property="og:title" content="FAQ — The Roaming Agency">
+  <meta property="og:description" content="Frequently asked questions about The Roaming Agency — roaming bands, DJ sets, repertoire, travel, venue requirements.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://theroamingagency.com/src/pages/faq.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#393939">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+
+  <link rel="stylesheet" href="../css/variables.css">
+  <link rel="stylesheet" href="../css/reset.css">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/band-page.css">
+
+  <!-- FAQ-page-specific styles. The shared .faq__question rule in
+       style.css uses off-white text (it was built for the dark homepage
+       FAQ section). This page has a light off-white body bg, so we
+       override the colours here for readability + give the page its own
+       eyebrow / title / lead / accordion treatment. -->
+  <style>
+    .faq-page {
+      padding: clamp(7rem, 12vw, 10rem) 0 clamp(4rem, 8vw, 6rem);
+      background: #FCFCFC;
+      color: #393939;
+    }
+    .faq-page .container {
+      max-width: 880px;
+      margin: 0 auto;
+      padding: 0 clamp(1.25rem, 4vw, 3rem);
+    }
+    .faq-page__header {
+      max-width: 60ch;
+      margin: 0 0 clamp(2.5rem, 5vw, 4rem);
+    }
+    .faq-page__eyebrow {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #c8a560;
+      margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
+    }
+    .faq-page__title {
+      font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+      font-size: clamp(2rem, 4.4vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      margin: 0 0 clamp(0.75rem, 1.5vw, 1.25rem);
+      color: #393939;
+    }
+    .faq-page__lead {
+      font-family: var(--font-body);
+      font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
+      line-height: 1.6;
+      color: #5a5a5a;
+      margin: 0;
+    }
+    /* Override the global .faq__* colours for the light-bg context. */
+    .faq-page .faq__list {
+      max-width: none;
+      margin: 0;
+    }
+    .faq-page .faq__item {
+      border-bottom: 1px solid rgba(57, 57, 57, 0.15);
+    }
+    .faq-page .faq__question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 0;
+      background: transparent;
+      border: 0;
+      font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
+      font-size: clamp(1rem, 1.2vw, 1.15rem);
+      font-weight: 600;
+      color: #393939;
+      text-align: left;
+      cursor: pointer;
+      transition: color 0.2s ease;
+    }
+    .faq-page .faq__question:hover { color: #c8a560; }
+    .faq-page .faq__icon {
+      font-size: 1.4rem;
+      color: #c8a560;
+      transition: transform 0.25s ease;
+      margin-left: 1rem;
+      flex-shrink: 0;
+    }
+    .faq-page .faq__item.open .faq__icon,
+    .faq-page .faq__item.is-open .faq__icon { transform: rotate(45deg); }
+    .faq-page .faq__answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+    .faq-page .faq__item.open .faq__answer,
+    .faq-page .faq__item.is-open .faq__answer {
+      max-height: 400px;
+      padding-bottom: 1.25rem;
+    }
+    .faq-page .faq__answer p {
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      color: #5a5a5a;
+      margin: 0;
+    }
+    .faq-page__cta {
+      margin-top: clamp(2.5rem, 5vw, 4rem);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: #5a5a5a;
+    }
+    .faq-page__cta a {
+      color: #c8a560;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    .faq-page__cta a:hover { color: #393939; }
+  </style>
+
+  <script src="../js/smart-header.js" defer></script>
+  <!-- Lenis smooth-scroll (revision round 2, G3). -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script src="../js/lenis-scroll.js" defer></script>
+
+  <!-- Structured data — FAQPage schema for Google rich-results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a roaming band?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A roaming band, equally known as a strolling band, is an unplugged and therefore mobile group. Musicians perform while mingling with guests throughout the venue without microphones, offering interactive performances."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How long do you play for?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The standard offering consists of 3 sets of 30 minutes each, with the possibility of spreading them out between the key stages of the event. Larger or premium events can book extended options: 4 sets of 30 minutes or 3 sets of 40 minutes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What type of music do you play?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our repertoire spans a wide variety of songs, in different languages and in all styles. We adapt performances to each unique audience and recommend trusting us musically once festivities begin, though specific titles can be requested."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Where are you based?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We live in Nice, France, on the beautiful French Riviera."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How far do you travel?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Anywhere and everywhere our music is needed!"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the volume of a roaming band?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A strolling band has no strong amplification. The concept involves bringing the music directly to the guests. The acoustic setup performs loud enough to get over 150 people dancing without DJ-level volume."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What do you need at the venue?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Being acoustic, there is no need for access to a power source. A hot meal onsite and digital content from photographers/videographers are appreciated."
+        }
+      }
+    ]
+  }
+  </script>
+</head>
+<body>
+
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- Page Loader -->
+  <div class="page-loader" id="pageLoader"><div class="page-loader__spinner"></div></div>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/33686621282" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Contact us on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="whatsapp-btn__label" data-en="Let's chat." data-fr="Discutons.">Let's chat.</span>
+  </a>
+
+  <!-- Header — site-wide nav with dropdowns -->
+  <header class="header header--scrolled" id="mainHeader">
+    <div class="header__inner">
+      <a href="../../index.html" class="logo logo--scrolled" id="mainLogo">
+        <span class="logo__text">The Roaming Agency</span>
+      </a>
+      <nav class="nav nav--visible" id="mainNav" aria-label="Site navigation">
+        <ul class="nav__list">
+          <li class="nav__item nav__item--has-dropdown">
+            <a href="../../index.html#events" class="nav__link">Events</a>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="../../index.html#events">Weddings</a></li>
+              <li><a href="../../index.html#events">Corporate Events</a></li>
+              <li><a href="../../index.html#events">Private Parties</a></li>
+              <li><a href="../../index.html#events">Artistic Direction</a></li>
+            </ul>
+          </li>
+          <li class="nav__item nav__item--has-dropdown">
+            <a href="../../index.html#chooseBand" class="nav__link">Bands</a>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="the-brotherockers.html">The Brotherockers</a></li>
+              <li><a href="the-kingsmen.html">The Kingsmen</a></li>
+              <li><a href="the-peppermints.html">The Peppermints</a></li>
+              <li><a href="the-gentlemen.html">The Gentlemen</a></li>
+              <li><a href="the-serenades.html">The Serenades</a></li>
+              <li><a href="the-supersonics.html">The Supersonics</a></li>
+              <li><a href="the-rendez-vous.html">The Rendez-Vous</a></li>
+              <li><a href="cafe-creme.html">Café Crème</a></li>
+              <li><a href="why-so-serious.html">Why So Serious?</a></li>
+              <li><a href="the-blackjacks.html">The Blackjacks</a></li>
+              <li class="nav__dropdown-divider" aria-hidden="true"></li>
+              <li><a href="../../index.html#contact">Other Musical Services</a></li>
+            </ul>
+          </li>
+          <li class="nav__item"><a href="dj.html"  class="nav__link">DJ</a></li>
+          <li class="nav__item"><a href="faq.html" class="nav__link nav__link--active">FAQ</a></li>
+          <li class="nav__item"><a href="blog.html" class="nav__link">Blog</a></li>
+          <li class="nav__item"><a href="../../index.html#contact" class="nav__link">Other Musical Services</a></li>
+        </ul>
+      </nav>
+      <button class="lang-toggle" id="langToggle">FR</button>
+    </div>
+  </header>
+
+  <!-- ===== FAQ PAGE =====
+       Per client revision: FAQ removed from homepage, lives on its own
+       page now. Reuses the same .faq accordion behaviour from the
+       homepage version. -->
+  <main class="faq-page" id="main-content">
+    <div class="container">
+      <header class="faq-page__header">
+        <span class="faq-page__eyebrow" data-en="FAQ" data-fr="FAQ">FAQ</span>
+        <h1 class="faq-page__title"
+            data-en="Frequently Asked Questions"
+            data-fr="Questions Fréquemment Posées">
+          Frequently Asked Questions
+        </h1>
+        <p class="faq-page__lead"
+           data-en="Everything you might want to know about how we work — repertoire, set lengths, travel, venue requirements and more."
+           data-fr="Tout ce que vous pourriez vouloir savoir sur notre fonctionnement — répertoire, durée des sets, déplacements, exigences techniques.">
+          Everything you might want to know about how we work — repertoire, set lengths, travel, venue requirements and more.
+        </p>
+      </header>
+
+      <div class="faq__list">
+        <div class="faq__item">
+          <button class="faq__question" data-en="What is a roaming band?" data-fr="Qu'est-ce qu'un groupe itinérant ?">What is a roaming band?<span class="faq__icon">+</span></button>
+          <div class="faq__answer"><p data-en="A roaming band, equally known as a strolling band, is an unplugged and therefore mobile group. Musicians perform while mingling with guests throughout the venue without microphones, offering interactive performances." data-fr="Un groupe itinérant, également connu sous le nom de strolling band, est un groupe acoustique et donc mobile. Les musiciens jouent tout en se mêlant aux invités dans tout le lieu sans microphones.">A roaming band, equally known as a strolling band, is an unplugged and therefore mobile group. Musicians perform while mingling with guests throughout the venue without microphones, offering interactive performances.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" data-en="How long do you play for?" data-fr="Combien de temps jouez-vous ?">How long do you play for?<span class="faq__icon">+</span></button>
+          <div class="faq__answer"><p data-en="The standard offering consists of 3 sets of 30 minutes each, with the possibility of spreading them out between the key stages of the event. Larger or premium events can book extended options: 4 sets of 30 minutes or 3 sets of 40 minutes." data-fr="L'offre standard consiste en 3 sets de 30 minutes chacun, avec la possibilité de les répartir entre les étapes clés de l'événement. Des options étendues sont disponibles pour les grands événements.">The standard offering consists of 3 sets of 30 minutes each, with the possibility of spreading them out between the key stages of the event. Larger or premium events can book extended options: 4 sets of 30 minutes or 3 sets of 40 minutes.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" data-en="What type of music do you play?" data-fr="Quel type de musique jouez-vous ?">What type of music do you play?<span class="faq__icon">+</span></button>
+          <div class="faq__answer"><p data-en="Our repertoire spans a wide variety of songs, in different languages and in all styles. We adapt performances to each unique audience and recommend trusting us musically once festivities begin, though specific titles can be requested." data-fr="Notre répertoire couvre une grande variété de chansons, dans différentes langues et dans tous les styles. Nous adaptons les performances à chaque public unique.">Our repertoire spans a wide variety of songs, in different languages and in all styles. We adapt performances to each unique audience and recommend trusting us musically once festivities begin, though specific titles can be requested.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" data-en="Where are you based?" data-fr="Où êtes-vous basés ?">Where are you based?<span class="faq__icon">+</span></button>
+          <div class="faq__answer"><p data-en="We live in Nice, France, on the beautiful French Riviera." data-fr="Nous vivons à Nice, en France, sur la magnifique Côte d'Azur.">We live in Nice, France, on the beautiful French Riviera.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" data-en="How far do you travel?" data-fr="Jusqu'où voyagez-vous ?">How far do you travel?<span class="faq__icon">+</span></button>
+          <div class="faq__answer"><p data-en="Anywhere and everywhere our music is needed!" data-fr="Partout où notre musique est nécessaire !">Anywhere and everywhere our music is needed!</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" data-en="What is the volume of a roaming band?" data-fr="Quel est le volume d'un groupe itinérant ?">What is the volume of a roaming band?<span class="faq__icon">+</span></button>
+          <div class="faq__answer"><p data-en="A strolling band has no strong amplification. The concept involves bringing the music directly to the guests. The acoustic setup performs loud enough to get over 150 people dancing without DJ-level volume." data-fr="Un strolling band n'a pas d'amplification forte. Le concept consiste à apporter la musique directement aux invités. L'acoustique permet de faire danser plus de 150 personnes sans le volume d'un DJ.">A strolling band has no strong amplification. The concept involves bringing the music directly to the guests. The acoustic setup performs loud enough to get over 150 people dancing without DJ-level volume.</p></div>
+        </div>
+        <div class="faq__item">
+          <button class="faq__question" data-en="What do you need at the venue?" data-fr="De quoi avez-vous besoin sur le lieu ?">What do you need at the venue?<span class="faq__icon">+</span></button>
+          <div class="faq__answer"><p data-en="Being acoustic, there is no need for access to a power source. A hot meal onsite and digital content from photographers/videographers are appreciated." data-fr="Étant acoustique, il n'y a pas besoin d'accès à une source d'alimentation. Un repas chaud sur place et du contenu numérique des photographes/vidéastes sont appréciés.">Being acoustic, there is no need for access to a power source. A hot meal onsite and digital content from photographers/videographers are appreciated.</p></div>
+        </div>
+      </div>
+
+      <p class="faq-page__cta">
+        <span data-en="Still got a question?" data-fr="Une autre question ?">Still got a question?</span>
+        <a href="../../index.html#contact" data-en="Get in touch →" data-fr="Contactez-nous →">Get in touch →</a>
+      </p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom">
+        <p>&copy; 2026 The Roaming Agency. All rights reserved.</p>
+        <a href="../../index.html" class="footer__back">← Back to homepage</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Page-level scripts (loader + lang toggle + FAQ accordion) -->
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Loader auto-dismiss
+    const loader = document.getElementById('pageLoader');
+    if (loader) {
+      window.addEventListener('load', () => setTimeout(() => loader.classList.add('loaded'), 300));
+      setTimeout(() => loader.classList.add('loaded'), 2000);
+    }
+
+    // FAQ accordion — click question to toggle answer
+    document.querySelectorAll('.faq__question').forEach((q) => {
+      q.addEventListener('click', () => {
+        const item = q.parentElement;
+        const isOpen = item.classList.contains('is-open');
+        // Close all
+        document.querySelectorAll('.faq__item').forEach((i) => i.classList.remove('is-open'));
+        // Open the clicked one (if it wasn't already open)
+        if (!isOpen) item.classList.add('is-open');
+      });
+    });
+
+    // FR/EN language toggle
+    const toggle = document.getElementById('langToggle');
+    if (toggle) {
+      toggle.addEventListener('click', () => {
+        const root = document.documentElement;
+        const next = root.getAttribute('data-lang') === 'fr' ? 'en' : 'fr';
+        root.setAttribute('data-lang', next);
+        toggle.textContent = next === 'fr' ? 'EN' : 'FR';
+        document.querySelectorAll('[data-en][data-fr]').forEach((el) => {
+          el.textContent = el.getAttribute('data-' + next);
+        });
+      });
+    }
+  });
+  </script>
+
+</body>
+</html>

@@ -19,7 +19,7 @@
   <meta property="og:description" content="Premium roaming bands for weddings, corporate events, and private parties. Based on the French Riviera, available worldwide.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://theroamingagency.com/">
-  <meta property="og:image" content="https://theroamingagency.com/src/assets/images/hero-door-bg.jpg">
+  <meta property="og:image" content="https://theroamingagency.com/src/assets/images/hero-banner.jpg">
   <meta property="og:locale" content="en_GB">
   <meta property="og:locale:alternate" content="fr_FR">
 
@@ -27,12 +27,12 @@
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="The Roaming Agency — Luxury Roaming Bands">
   <meta name="twitter:description" content="Premium roaming bands for weddings, corporate events, and private parties on the French Riviera and worldwide.">
-  <meta name="twitter:image" content="https://theroamingagency.com/src/assets/images/hero-door-bg.jpg">
+  <meta name="twitter:image" content="https://theroamingagency.com/src/assets/images/hero-banner.jpg">
 
   <!-- Robots / SEO hints -->
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="author" content="The Roaming Agency">
-  <meta name="theme-color" content="#1C1C1C">
+  <meta name="theme-color" content="#393939">
 
   <!-- Structured data — Organization + LocalBusiness for Google Knowledge Panel
        and rich-result eligibility on local searches. -->
@@ -45,7 +45,7 @@
         "@id": "https://theroamingagency.com/#organization",
         "name": "The Roaming Agency",
         "url": "https://theroamingagency.com/",
-        "logo": "https://theroamingagency.com/src/assets/images/hero-door-bg.jpg",
+        "logo": "https://theroamingagency.com/src/assets/images/hero-banner.jpg",
         "description": "Premium roaming bands for luxury weddings, corporate events, and private parties. Based on the French Riviera, available worldwide.",
         "areaServed": "Worldwide",
         "knowsLanguage": ["English", "French", "Italian", "Spanish", "Portuguese"],
@@ -55,7 +55,7 @@
         "@type": "LocalBusiness",
         "@id": "https://theroamingagency.com/#localbusiness",
         "name": "The Roaming Agency",
-        "image": "https://theroamingagency.com/src/assets/images/hero-door-bg.jpg",
+        "image": "https://theroamingagency.com/src/assets/images/hero-banner.jpg",
         "url": "https://theroamingagency.com/",
         "telephone": "+33 6 86 62 12 82",
         "email": "contact@theroamingagency.com",
@@ -114,6 +114,10 @@
        initial page load. -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <!-- Lenis smooth-scroll (revision round 2, G3). Loaded before our own
+       lenis-scroll.js so the global `Lenis` constructor is available. -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <script src="src/js/lenis-scroll.js" defer></script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
@@ -124,12 +128,7 @@
     <div class="page-loader__spinner"></div>
   </div>
 
-  <!-- ===== CUSTOM CURSOR ===== -->
-  <div class="cursor" id="cursor" aria-hidden="true">
-    <div class="cursor__ring" id="cursorRing"></div>
-    <div class="cursor__dot" id="cursorDot"></div>
-    <div class="cursor__label" id="cursorLabel"></div>
-  </div>
+  
 
   <!-- ===== WHATSAPP BUTTON ===== -->
   <a href="https://wa.me/33686621282" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Contact us on WhatsApp">
@@ -182,7 +181,7 @@
             <a href="src/pages/dj.html" class="nav__link">DJ</a>
           </li>
           <li class="nav__item">
-            <a href="#faq" class="nav__link">FAQ</a>
+            <a href="src/pages/faq.html" class="nav__link">FAQ</a>
           </li>
           <li class="nav__item">
             <a href="src/pages/blog.html" class="nav__link" data-en="Blog" data-fr="Journal">Blog</a>
@@ -212,148 +211,22 @@
     <span class="hero-center-title__text">The Roaming Agency</span>
   </a>
 
-  <!-- ===== DOOR PORTAL (FIRST viewport on page) =====
-       Pre-hero cinematic intro. As the user scrolls:
-         1. The L/R side text columns lift up + fade out (≤ 25%).
-         2. The door rotates open (left hinge) AND simultaneously zooms
-            larger from CENTER, so it feels like the camera is being
-            pulled through the open doorway.
-         3. The existing hero section (black panel + Roaming Agency
-            logo + tagline + Riviera footage) appears AFTER this section.
-       Section is 200vh tall; inner is sticky for the whole runway. -->
-  <section class="door-portal" id="doorPortal">
-    <a id="main-content"></a>
-    <div class="door-portal__sticky" id="doorPortalSticky">
-
-      <!-- z:0 — Sky background with parallax (scrubbed by GSAP) +
-           continuous always-on motion layers underneath the door. -->
-      <div class="door-portal__sky-wrap" id="doorSkyWrap">
-        <!-- Idle "breath" wrapper — gentle 26s scale cycle independent of
-             scroll, so the bg never feels frozen. The img inside still
-             takes its scroll-driven transform from GSAP — the two
-             transforms stack. -->
-        <div class="door-portal__sky-breath">
-          <img class="door-portal__sky" id="doorSky"
-               src="src/assets/images/hero-door-bg.jpg"
-               alt="" loading="eager" fetchpriority="high">
-        </div>
-        <!-- Warm tint for golden-hour feel. -->
-        <div class="door-portal__sky-tint"></div>
-        <!-- Two cloud drift layers at different speeds — parallax depth.
-             Pure CSS gradients shaped like wisps; mix-blend-mode: screen
-             lets them brighten the photo's clouds rather than overlay them. -->
-        <div class="door-portal__cloud-layer door-portal__cloud-layer--far"  aria-hidden="true"></div>
-        <div class="door-portal__cloud-layer door-portal__cloud-layer--near" aria-hidden="true"></div>
-        <!-- Sea shimmer — animated SVG fractalNoise overlay on the
-             water portion. Adds the constant micro-sparkle that makes
-             still water look alive. -->
-        <div class="door-portal__sea-shimmer" aria-hidden="true"></div>
-        <!-- Sun-light flicker — a soft warm radial that breathes
-             on its own at the upper-left horizon. -->
-        <div class="door-portal__sun-flare" aria-hidden="true"></div>
-        <!-- Existing scroll-driven extra cloud band (kept for parallax). -->
-        <div class="door-portal__clouds-drift" id="doorCloudsDrift"></div>
-      </div>
-
-      <!-- z:5 — Vignette darkens corners, focal point on door. -->
-      <div class="door-portal__vignette"></div>
-
-      <!-- z:8 — LEFT side text column. Lifts up + fades on early scroll. -->
-      <div class="door-portal__side door-portal__side--left" id="doorTextLeft">
-        <span class="door-portal__side-eyebrow"
-              data-en="Est. 2018 · French Riviera"
-              data-fr="Depuis 2018 · Côte d'Azur">Est. 2018 · French Riviera</span>
-        <h2 class="door-portal__side-heading"
-            data-en="Step inside the world of bespoke roaming music"
-            data-fr="Entrez dans l'univers de la musique itinérante sur mesure">
-          Step inside the world of bespoke roaming music
-        </h2>
-      </div>
-
-      <!-- z:8 — RIGHT side text column. Lifts up + fades on early scroll. -->
-      <div class="door-portal__side door-portal__side--right" id="doorTextRight">
-        <p class="door-portal__side-body"
-           data-en="Push the door open. Behind it: ten elite roaming bands ready to score every moment of your most unforgettable celebrations."
-           data-fr="Poussez la porte. Derrière elle : dix groupes itinérants d'élite prêts à mettre en musique chaque instant de vos célébrations les plus inoubliables.">
-          Push the door open. Behind it: ten elite roaming bands ready to score every moment of your most unforgettable celebrations.
-        </p>
-        <span class="door-portal__side-cue"
-              data-en="↓ Scroll to enter"
-              data-fr="↓ Faites défiler pour entrer">↓ Scroll to enter</span>
-      </div>
-
-      <!-- z:10 — Door zoom wrapper. Centre-origin scale.
-           The frame stays in place around the door. Behind the door (inside
-           the frame opening) sits the destination image — visible through
-           the gap as the door swings open. -->
-      <div class="door-portal__zoom" id="doorZoom">
-        <div class="door-portal__frame">
-
-          <!-- Behind-door destination scene — looping interactive-roaming
-               footage. Sits flush inside the frame opening; becomes visible
-               as the door rotates open. Autoplay + muted + loop + playsinline
-               so it starts on page load without a user gesture. -->
-          <div class="door-portal__inside" id="doorInside">
-            <video class="door-portal__inside-video" id="doorInsideVideo"
-                   autoplay muted loop playsinline preload="auto">
-              <source src="src/assets/videos/door-reveal.mp4" type="video/mp4">
-            </video>
-            <div class="door-portal__inside-shade"></div>
-          </div>
-
-          <!-- The actual door — left-hinged, classic white interior style.
-               .door-portal__door has preserve-3d so the side-edge sibling
-               renders perpendicular to the front face for visible thickness. -->
-          <div class="door-portal__perspective">
-            <div class="door-portal__door" id="doorPanel">
-
-              <!-- Side edge — gives the door visible THICKNESS when it
-                   swings open. Translates -Z and rotates 90deg so it sits
-                   on the left edge of the front face. -->
-              <div class="door-portal__door-edge"></div>
-
-              <!-- Front face — classic 3-panel layout: arched top panel +
-                   rectangular middle + rectangular bottom + brass knob. -->
-              <div class="door-portal__door-face">
-                <div class="door-portal__door-arch"></div>
-                <div class="door-portal__door-rect door-portal__door-rect--mid"></div>
-                <div class="door-portal__door-rect door-portal__door-rect--bottom"></div>
-                <div class="door-portal__door-knob-wrap">
-                  <div class="door-portal__door-knob"></div>
-                  <div class="door-portal__door-plate"></div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- z:20 — Top-centre warm spotlight (subtle pulse). -->
-      <div class="door-portal__spotlight" id="doorSpotlight"></div>
-
-      <!-- z:21 — Brief white-out flash at full open + zoom. -->
-      <div class="door-portal__flash" id="doorFlash"></div>
-
-      <!-- z:22 — Floating dust particles. -->
-      <div class="door-portal__particles" aria-hidden="true">
-        <span class="door-portal__particle door-portal__particle--a"></span>
-        <span class="door-portal__particle door-portal__particle--b"></span>
-        <span class="door-portal__particle door-portal__particle--c"></span>
-      </div>
-
-      <!-- z:23 — Film grain. -->
-      <div class="door-portal__grain" aria-hidden="true"></div>
-    </div>
-  </section>
+  <!-- ===== DOOR PORTAL REMOVED (revision round 2, item 1.1) =====
+       Client direction: drop the pre-hero door intro entirely — start the
+       page on the hero stack so visitors land directly on the brand video
+       and tagline. All door-portal HTML, CSS, JS (initDoorPortal) and the
+       door-reveal.mp4 / hero-door-bg.jpg assets have been removed.
+       The #main-content anchor target (for the skip-link) now lives on
+       the hero stack below. -->
 
 
-  <!-- ===== HERO STACK (RESTORED — appears AFTER the door portal) =====
+  <!-- ===== HERO STACK (now the first section on the page) =====
        Original sticky black panel + sliding video + tagline. The user
        lands here once they've passed through the door. The existing
        initHeroIntro() drives the logo dock, header chrome reveal, and
        tagline pin/drift — all unchanged. -->
   <div class="hero-stack" id="heroStack">
+    <a id="main-content"></a>
 
     <!-- Black panel — sticky, z:1 (deepest) -->
     <section class="hero-intro" id="heroIntro"></section>
@@ -1007,12 +880,13 @@
     </div>
   </section>
 
-  <!-- ===== PHOTO GALLERY ===== -->
-  <section class="section" id="gallery">
+  <!-- ===== PHOTO GALLERY =====
+       Per client revision: title removed entirely. Photos sit on a
+       dark background and speak for themselves. They keep a subtle
+       hover-zoom for visual feedback but are NOT clickable (no link
+       wrapper, default cursor — not a pointer). -->
+  <section class="section gallery-section" id="gallery">
     <div class="container">
-      <span class="section__label reveal" data-en="Gallery" data-fr="Galerie">Gallery</span>
-      <h2 class="section__title reveal" data-en="Moments That Matter" data-fr="Des Moments Qui Comptent">Moments That Matter</h2>
-
       <div class="gallery gallery--masonry reveal">
         <div class="gallery__item gallery__item--tall">
           <img src="src/assets/images/gallery/gallery-01.jpg" alt="Live performance at luxury event" loading="lazy">
@@ -1054,44 +928,11 @@
     </div>
   </section>
 
-  <!-- ===== FAQ ===== -->
-  <section class="section section--dark" id="faq" style="padding: var(--space-3xl) 0;">
-    <div class="container">
-      <span class="section__label reveal" data-en="FAQ" data-fr="FAQ">FAQ</span>
-      <h2 class="section__title reveal" data-en="Frequently Asked Questions" data-fr="Questions Fréquemment Posées">Frequently Asked Questions</h2>
-
-      <div class="faq__list reveal">
-        <div class="faq__item">
-          <button class="faq__question" data-en="What is a roaming band?" data-fr="Qu'est-ce qu'un groupe itinérant ?">What is a roaming band?<span class="faq__icon">+</span></button>
-          <div class="faq__answer"><p data-en="A roaming band, equally known as a strolling band, is an unplugged and therefore mobile group. Musicians perform while mingling with guests throughout the venue without microphones, offering interactive performances." data-fr="Un groupe itinérant, également connu sous le nom de strolling band, est un groupe acoustique et donc mobile. Les musiciens jouent tout en se mêlant aux invités dans tout le lieu sans microphones.">A roaming band, equally known as a strolling band, is an unplugged and therefore mobile group. Musicians perform while mingling with guests throughout the venue without microphones, offering interactive performances.</p></div>
-        </div>
-        <div class="faq__item">
-          <button class="faq__question" data-en="How long do you play for?" data-fr="Combien de temps jouez-vous ?">How long do you play for?<span class="faq__icon">+</span></button>
-          <div class="faq__answer"><p data-en="The standard offering consists of 3 sets of 30 minutes each, with the possibility of spreading them out between the key stages of the event. Larger or premium events can book extended options: 4 sets of 30 minutes or 3 sets of 40 minutes." data-fr="L'offre standard consiste en 3 sets de 30 minutes chacun, avec la possibilité de les répartir entre les étapes clés de l'événement. Des options étendues sont disponibles pour les grands événements.">The standard offering consists of 3 sets of 30 minutes each, with the possibility of spreading them out between the key stages of the event. Larger or premium events can book extended options: 4 sets of 30 minutes or 3 sets of 40 minutes.</p></div>
-        </div>
-        <div class="faq__item">
-          <button class="faq__question" data-en="What type of music do you play?" data-fr="Quel type de musique jouez-vous ?">What type of music do you play?<span class="faq__icon">+</span></button>
-          <div class="faq__answer"><p data-en="Our repertoire spans a wide variety of songs, in different languages and in all styles. We adapt performances to each unique audience and recommend trusting us musically once festivities begin, though specific titles can be requested." data-fr="Notre répertoire couvre une grande variété de chansons, dans différentes langues et dans tous les styles. Nous adaptons les performances à chaque public unique.">Our repertoire spans a wide variety of songs, in different languages and in all styles. We adapt performances to each unique audience and recommend trusting us musically once festivities begin, though specific titles can be requested.</p></div>
-        </div>
-        <div class="faq__item">
-          <button class="faq__question" data-en="Where are you based?" data-fr="Où êtes-vous basés ?">Where are you based?<span class="faq__icon">+</span></button>
-          <div class="faq__answer"><p data-en="We live in Nice, France, on the beautiful French Riviera." data-fr="Nous vivons à Nice, en France, sur la magnifique Côte d'Azur.">We live in Nice, France, on the beautiful French Riviera.</p></div>
-        </div>
-        <div class="faq__item">
-          <button class="faq__question" data-en="How far do you travel?" data-fr="Jusqu'où voyagez-vous ?">How far do you travel?<span class="faq__icon">+</span></button>
-          <div class="faq__answer"><p data-en="Anywhere and everywhere our music is needed!" data-fr="Partout où notre musique est nécessaire !">Anywhere and everywhere our music is needed!</p></div>
-        </div>
-        <div class="faq__item">
-          <button class="faq__question" data-en="What is the volume of a roaming band?" data-fr="Quel est le volume d'un groupe itinérant ?">What is the volume of a roaming band?<span class="faq__icon">+</span></button>
-          <div class="faq__answer"><p data-en="A strolling band has no strong amplification. The concept involves bringing the music directly to the guests. The acoustic setup performs loud enough to get over 150 people dancing without DJ-level volume." data-fr="Un strolling band n'a pas d'amplification forte. Le concept consiste à apporter la musique directement aux invités. L'acoustique permet de faire danser plus de 150 personnes sans le volume d'un DJ.">A strolling band has no strong amplification. The concept involves bringing the music directly to the guests. The acoustic setup performs loud enough to get over 150 people dancing without DJ-level volume.</p></div>
-        </div>
-        <div class="faq__item">
-          <button class="faq__question" data-en="What do you need at the venue?" data-fr="De quoi avez-vous besoin sur le lieu ?">What do you need at the venue?<span class="faq__icon">+</span></button>
-          <div class="faq__answer"><p data-en="Being acoustic, there is no need for access to a power source. A hot meal onsite and digital content from photographers/videographers are appreciated." data-fr="Étant acoustique, il n'y a pas besoin d'accès à une source d'alimentation. Un repas chaud sur place et du contenu numérique des photographes/vidéastes sont appréciés.">Being acoustic, there is no need for access to a power source. A hot meal onsite and digital content from photographers/videographers are appreciated.</p></div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- ===== FAQ moved to dedicated page (revision round 2, item 1.2) =====
+       Client asked for FAQ as its own page rather than a homepage section,
+       so the full Q&A list now lives at /src/pages/faq.html with its own
+       FAQPage JSON-LD schema for rich-result eligibility. The nav link
+       points there directly. -->
 
   <!-- ===== CONTACT =====
        Per client v2 brief + transcript:
@@ -1239,7 +1080,7 @@
             <a href="#" class="footer__link" data-en="Weddings" data-fr="Mariages">Weddings</a>
             <a href="#" class="footer__link" data-en="Corporate" data-fr="Entreprises">Corporate</a>
             <a href="#" class="footer__link" data-en="Private Parties" data-fr="Événements Privés">Private Parties</a>
-            <a href="#faq" class="footer__link">FAQ</a>
+            <a href="src/pages/faq.html" class="footer__link">FAQ</a>
             <a href="#contact" class="footer__link" data-en="Contact" data-fr="Contact">Contact</a>
           </div>
         </div>

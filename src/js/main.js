@@ -35,8 +35,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initContactForm();
   initStandardsScroll();
   initHeroIntro();
-  initDoorPortal();
-  initCustomCursor();
+  // initDoorPortal() removed in revision round 2 — the pre-hero door
+  // intro section was dropped per client direction. See item 1.1.
   initStatsCounter();
   initBrandsMarquee();
   initEventsScroll();
@@ -144,135 +144,13 @@ function initEventsScroll() {
 
 
 /* ──────────────────────────────────────────────
-   DOOR PORTAL — pre-hero cinematic intro
-   Sequence (all driven by scroll-progress through #doorPortal):
-     0.00 → 0.22  LEFT text scrolls up smoothly + fades out (it's
-                  vertically centered, drifts up by 180px)
-     0.25 → 0.45  RIGHT text (anchored at BOTTOM) scrolls up + fades
-                  (drifts up by 220px because it starts further down)
-     0.48 → 0.95  Door rotates 0 → -85° GRADUALLY (linear, OUTWARD)
-                  Negative rotateY = swing toward camera, hinge on left.
-     0.70 → 0.97  Door zooms larger from CENTRE (scale 1 → 4×)
-     0.92 → 0.97  Door fades out (we're "through" it)
-     0.96 → 0.99  White-out flash (emerging into daylight)
-     0.00 → 1.00  Sky parallax + cloud drift + spotlight intensify
-   The phases NEVER overlap — left text fully exits before right
-   begins, right fully exits before door opens. Sequential, not
-   simultaneous. Each element gets its own moment.
+   DOOR PORTAL — pre-hero cinematic intro (REMOVED)
+   Revision round 2, item 1.1 — client asked for the pre-hero door
+   intro to be removed entirely. The section, its CSS (~500 lines),
+   the hero-door-bg.jpg / door-reveal.mp4 assets, and this function
+   have all been deleted so the page starts directly on the hero stack.
    ────────────────────────────────────────────── */
-function initDoorPortal() {
-  if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined') return;
-  const section = document.getElementById('doorPortal');
-  const sky     = document.getElementById('doorSky');
-  const clouds  = document.getElementById('doorCloudsDrift');
-  const zoom    = document.getElementById('doorZoom');
-  const door    = document.getElementById('doorPanel');
-  const left    = document.getElementById('doorTextLeft');
-  const right   = document.getElementById('doorTextRight');
-  const spot    = document.getElementById('doorSpotlight');
-  const flash   = document.getElementById('doorFlash');
-  if (!section || !door) return;
 
-  gsap.set(door,  { rotateY: 0, transformOrigin: 'left center' });
-  gsap.set(zoom,  { scale: 1, transformOrigin: 'center center' });
-  gsap.set([left, right], { opacity: 1, y: 0 });
-  gsap.set(flash, { opacity: 0 });
-
-  const tl = gsap.timeline({
-    defaults: { duration: 1, ease: 'none' },
-    scrollTrigger: {
-      trigger: section,
-      start: 'top top',
-      end: 'bottom bottom',
-      scrub: 1.2,
-    }
-  });
-
-  // ── Sky parallax / cloud-drift on scroll: REMOVED per client.
-  // The bg image was zooming + shifting on scroll which (a) caused a
-  // black gap to appear on the right edge as the image translated -X
-  // and (b) felt like an unwanted on-scroll zoom. The IDLE breath
-  // (CSS keyframe on .door-portal__sky-breath, 26s loop) and the
-  // continuous cloud drift keyframes are kept so the bg still feels
-  // alive — just not driven by scroll position.
-
-  // ── LEFT text — y travel and opacity SPLIT so the text scrolls
-  // visibly all the way up before fading (was fading half-way before).
-  // y: 0 → -500px linear over 0.00 → 0.22 (smooth scroll-up feel)
-  // opacity: 1 → 0 only over the LAST 0.04 of that travel, when the
-  // element is already past the viewport top edge.
-  if (left) {
-    tl.fromTo(left,
-      { y: 0 },
-      { y: -500, duration: 0.22, ease: 'none' },
-      0
-    );
-    tl.fromTo(left,
-      { opacity: 1 },
-      { opacity: 0, duration: 0.04, ease: 'power2.in' },
-      0.18
-    );
-  }
-
-  // ── RIGHT text — same pattern but bigger travel because it's
-  // anchored at the BOTTOM of the viewport, so it has further to go
-  // before exiting. 0.03 calm beat between left's end (0.22) and
-  // right's start (0.25) — never overlapping.
-  if (right) {
-    tl.fromTo(right,
-      { y: 0 },
-      { y: -700, duration: 0.20, ease: 'none' },
-      0.25
-    );
-    tl.fromTo(right,
-      { opacity: 1 },
-      { opacity: 0, duration: 0.04, ease: 'power2.in' },
-      0.41
-    );
-  }
-
-  // ── Door rotation 0 → -85° (0.48 → 0.95, duration 0.47, LINEAR) ──
-  // Door doesn't move while text is still on screen. Starts only
-  // after right text has fully cleared at 0.45. Linear ease so the
-  // door opens at constant pace — feels like a real door pushed open.
-  tl.fromTo(door,
-    { rotateY: 0 },
-    { rotateY: -85, duration: 0.47, ease: 'none' },
-    0.48
-  );
-
-  // ── Door zoom from centre (0.70 → 0.97, duration 0.27) ───────────
-  // Kicks in once the door is mostly open so the zoom amplifies the
-  // through-the-doorway feeling rather than masking the rotation.
-  if (zoom) {
-    tl.fromTo(zoom,
-      { scale: 1 },
-      { scale: 4, duration: 0.27, ease: 'power2.in' },
-      0.70
-    );
-  }
-
-  // ── Door fades out 0.92 → 0.97 ───────────────────────────────────
-  tl.to(door,
-    { opacity: 0, duration: 0.05 },
-    0.92
-  );
-
-  // ── Spotlight intensifies 0 → 0.6 ────────────────────────────────
-  if (spot) {
-    tl.fromTo(spot,
-      { opacity: 0.4 },
-      { opacity: 1.0, duration: 0.6 },
-      0
-    );
-  }
-
-  // ── White-out flash 0.96 → 0.99 ──────────────────────────────────
-  if (flash) {
-    tl.to(flash, { opacity: 1, duration: 0.02, ease: 'power2.in'  }, 0.96);
-    tl.to(flash, { opacity: 0, duration: 0.03, ease: 'power2.out' }, 0.97);
-  }
-}
 
 
 /* ──────────────────────────────────────────────
@@ -1302,8 +1180,33 @@ function initNavDropdowns() {
 
   const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
+  // Per-item hover-out timers — revision round 2 N5. The dropdown used
+  // to close the instant the cursor left the parent <li>, which made it
+  // very easy for the user to lose the panel while moving toward an item.
+  // We now arm a 220ms timer on mouseleave; if the cursor re-enters the
+  // item (parent OR dropdown) before it fires, we cancel. This gives a
+  // generous grace period without making the panel feel sticky.
+  const closeTimers = new WeakMap();
+  const CLOSE_DELAY = 220;
+
   const closeAll = (except) => {
     items.forEach((it) => { if (it !== except) it.classList.remove('is-open'); });
+  };
+
+  const armClose = (item) => {
+    // Hover-driven close — only fires on desktop. Mobile uses tap-toggle.
+    if (isMobile()) return;
+    cancelClose(item);
+    const t = setTimeout(() => {
+      item.classList.remove('is-open');
+      closeTimers.delete(item);
+    }, CLOSE_DELAY);
+    closeTimers.set(item, t);
+  };
+
+  const cancelClose = (item) => {
+    const t = closeTimers.get(item);
+    if (t) { clearTimeout(t); closeTimers.delete(item); }
   };
 
   items.forEach((item) => {
@@ -1321,6 +1224,21 @@ function initNavDropdowns() {
         closeAll(item);
         item.classList.toggle('is-open');
       }
+    });
+
+    // Desktop hover behaviour. Opening is still driven by the CSS :hover
+    // selector (so non-JS users get the dropdown too), but JS adds the
+    // `is-open` class on enter so the `is-open > .nav__link::before`
+    // selector keeps the underline expanded while the panel is showing.
+    item.addEventListener('mouseenter', () => {
+      if (isMobile()) return;
+      cancelClose(item);
+      closeAll(item);
+      item.classList.add('is-open');
+    });
+
+    item.addEventListener('mouseleave', () => {
+      armClose(item);
     });
 
     // Keyboard: ArrowDown opens dropdown + focuses first item.
@@ -1432,110 +1350,11 @@ function initStandardsScroll() {
 }
 
 
-/* ──────────────────────────────────────────────
-   11. CUSTOM LUXURY CURSOR
-   Outer ring elastic-follows, inner dot instant-follows,
-   auto-invert via mix-blend-mode, premium hover states
-   ────────────────────────────────────────────── */
-function initCustomCursor() {
-  // Skip on touch devices
-  if (window.matchMedia('(hover: none), (pointer: coarse)').matches) return;
-
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('cursorRing');
-  const dot = document.getElementById('cursorDot');
-  const label = document.getElementById('cursorLabel');
-  if (!cursor || !ring || !dot) return;
-
-  // Initialise off-screen so the dot/ring don't flash at the top-left
-  // corner before the user's first mousemove. -100/-100 is well past
-  // any viewport edge.
-  let mouseX = -100, mouseY = -100;
-  let ringX = -100, ringY = -100;
-
-  // Track mouse position. We update the DOT here on the same frame —
-  // no lerp — so the custom dot ALWAYS sits exactly on the real
-  // pointer (per client brief: "custom cursor centers exactly on the
-  // actual pointer"). Only the trailing RING uses elastic lag.
-  document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    // translate3d → GPU + sub-pixel positioning, which removes the
-    // single-pixel "shimmer" the prior 2D translate had during fast
-    // diagonal motion.
-    dot.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-  });
-
-  // rAF loop — only the RING runs lerp.
-  function animateCursor() {
-    // 0.18 (was 0.15) — slightly tighter elastic so the ring keeps up
-    // with the pointer better but still trails the dot for the
-    // luxury two-element feel. Brief: "smoother cursor interaction".
-    ringX += (mouseX - ringX) * 0.18;
-    ringY += (mouseY - ringY) * 0.18;
-    ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
-
-    if (label) {
-      label.style.transform = `translate3d(${ringX}px, ${ringY}px, 0)`;
-    }
-
-    requestAnimationFrame(animateCursor);
-  }
-  requestAnimationFrame(animateCursor);
-
-  // === HOVER STATE: clickable elements (gold ring + dot grows) ===
-  const clickableSelector = 'a, button, .band-selector__item, [role="button"], .globe-card, .standards-scroll__card, .standard-card, .faq__question, .lang-toggle, .nav__band-link, .whatsapp-btn';
-
-  // Text/image selectors — dot grows but stays white (neutral)
-  const contentSelector = 'h1, h2, h3, h4, h5, h6, p, span, li, blockquote, img, figure, .section__title, .section__subtitle, .section__label';
-
-  document.addEventListener('mouseover', (e) => {
-    if (e.target.closest(clickableSelector)) {
-      cursor.classList.add('is-hovering');
-      cursor.classList.remove('is-over-content');
-    } else if (e.target.matches(contentSelector) || e.target.closest('p, h1, h2, h3, h4, h5, h6, li, blockquote')) {
-      cursor.classList.add('is-over-content');
-    }
-  });
-
-  document.addEventListener('mouseout', (e) => {
-    if (e.target.closest(clickableSelector)) {
-      cursor.classList.remove('is-hovering');
-    }
-    if (e.target.matches(contentSelector) || e.target.closest('p, h1, h2, h3, h4, h5, h6, li, blockquote')) {
-      cursor.classList.remove('is-over-content');
-    }
-  });
-
-  // === CLICK state (quick pulse) ===
-  // On mousedown we snap the ring to the current pointer position so the
-  // elastic lag can't be "frozen" visible while the user holds the button.
-  // Without this the human micro-movement during a physical click leaves the
-  // ring a handful of pixels behind the dot, and it stays visibly offset
-  // because mousemove briefly pauses while the click is processed.
-  document.addEventListener('mousedown', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    // Snap the ring to the real pointer on click so the elastic lag
-    // can't be visibly "frozen" while the user holds the button.
-    ringX = mouseX;
-    ringY = mouseY;
-    ring.style.transform = `translate3d(${ringX}px, ${ringY}px, 0) translate(-50%, -50%)`;
-    dot.style.transform  = `translate3d(${mouseX}px, ${mouseY}px, 0) translate(-50%, -50%)`;
-    cursor.classList.add('is-clicking');
-  });
-  document.addEventListener('mouseup', () => {
-    cursor.classList.remove('is-clicking');
-  });
-
-  // Hide cursor when mouse leaves window
-  document.addEventListener('mouseleave', () => {
-    cursor.style.opacity = '0';
-  });
-  document.addEventListener('mouseenter', () => {
-    cursor.style.opacity = '1';
-  });
-}
+/* Custom-luxury-cursor removed in revision round 2 per client:
+   "I'd personally remove the custom cursor and keep a normal one
+   so it feels smoother." The browser's native cursor now handles
+   all hover states — buttons + links get the natural pointer-hand
+   cursor via the browser's defaults, no JS overhead. */
 
 
 function initContactForm() {
