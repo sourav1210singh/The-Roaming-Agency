@@ -1382,7 +1382,13 @@ body.is-header-hidden .hero-center-title {
   inset: 0;
 }
 
+/* Revision round 2 C3: client wants the bg photos behind the band
+   selector to be BLACK AND WHITE. grayscale(1) desaturates them
+   completely; the existing dark overlay above keeps contrast for the
+   white band names + heading. */
 .band-selector__bg-image {
+  filter: grayscale(1);
+
   position: absolute;
   inset: 0;
   background-size: cover;
@@ -1390,9 +1396,11 @@ body.is-header-hidden .hero-center-title {
   opacity: 0;
   transition: opacity 0.8s var(--ease-smooth);
   /* Subtle Ken Burns zoom while a band is active — matches the cinematic
-     feel without distracting from the list selection. */
+     feel without distracting from the list selection.
+     Revision round 2 C3: client wants the bg photos fully B&W — so
+     grayscale(1) on the active state too, not just 0.4. */
   transform: scale(1.04);
-  filter: grayscale(0.4) brightness(0.85);
+  filter: grayscale(1) brightness(0.85);
 }
 
 /* Both `.is-active` (new) and legacy `.active` keep working. */
@@ -1421,10 +1429,17 @@ body.is-header-hidden .hero-center-title {
   padding: 0 var(--container-padding);
 }
 
+/* Revision round 2 C6: the heading + paragraph in the left column
+   must sit at a FIXED vertical position — they don't drift as the
+   right-column band list scrolls through 11 entries. Switching from
+   `align-items: center` to `align-items: start` anchors the left
+   column to the top of the sticky viewport; the padding-top below
+   centres them visually at the same offset on every band. */
 .band-selector__inner {
   max-width: var(--container-max);
   margin: 0 auto;
   width: 100%;
+  height: 100%;
   /* Match the global --container-padding so the band selector's
      content (heading + list) aligns with every other section's
      left/right edge. */
@@ -1432,7 +1447,14 @@ body.is-header-hidden .hero-center-title {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-4xl);
-  align-items: center;
+  align-items: start;
+}
+
+/* Anchor the heading block (.band-selector__intro): sits at a consistent
+   top offset (~ 28vh) so the title + paragraph land in the same visual
+   slot regardless of which band the right column has rotated to. */
+.band-selector__intro {
+  padding-top: clamp(20vh, 28vh, 32vh);
 }
 
 /* Choose Your Band heading — revision round 2 C1: thinner type
@@ -1492,9 +1514,10 @@ body.is-header-hidden .hero-center-title {
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* JS sets translateY in pixels via inline style; the smooth transition
-     here makes click-jumps glide while scroll-driven updates feel direct. */
-  transition: transform 0.6s var(--ease-out-expo);
+  /* Revision round 2 C5: smoother motion. Was 0.6s ease-out-expo
+     (snappy with overshoot) — longer 0.95s cubic-bezier(0.22, 1, 0.36, 1)
+     for a glide-into-place feel between bands. */
+  transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
   will-change: transform;
 }
 
@@ -1558,8 +1581,9 @@ body.is-header-hidden .hero-center-title {
   --marquee-speed-row1-hover: 110s; /* row 1 on hover (very slow read) */
   --marquee-speed-row2-hover: 70s;  /* row 2 on hover (proportional) */
   padding: clamp(2.5rem, 5vw, 4rem) 0;
-  /* Pure white panel per client revision — was #f0f0f0 light grey. */
-  background: #ffffff;
+  /* Revision round 2 B2: client asked for a grey background block to
+     visually separate this section (like the mockup) — was #ffffff. */
+  background: #f0f0f0;
   /* No border-top / border-bottom — divider lines removed per brief. */
   overflow: hidden;
 }
@@ -1626,18 +1650,17 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 
 .brands-marquee__item {
-  /* UNIFORM CELL SIZING — every logo, regardless of its natural aspect
-     (wide wordmark vs square crest), gets the same fixed cell. The logo
-     inside is constrained to a percentage of the cell so they all read
-     at equal optical weight on the row. Per client revision:
-     "ek size m sahi lagega" — uniform size makes the row look right. */
+  /* UNIFORM CELL SIZING — every logo, regardless of its natural aspect,
+     gets the same fixed cell. Revision round 2 B1: client asked for the
+     icons to be "much smaller" — cell shrunk from 180–220 × 80–96 to
+     120–150 × 50–60. */
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(180px, 14vw, 220px);
-  height: clamp(80px, 6vw, 96px);
-  padding: 0 clamp(1rem, 2vw, 1.5rem);
+  width: clamp(120px, 10vw, 150px);
+  height: clamp(50px, 4.2vw, 60px);
+  padding: 0 clamp(0.75rem, 1.5vw, 1.25rem);
 }
 
 .brands-marquee__logo {
@@ -1742,13 +1765,15 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   text-align: center;
 }
 
-/* Mixed-weight title — "EVENTS" bold, "We Serve" lighter, per mockup. */
+/* Mixed-weight title — "EVENTS" bold, "We Serve" lighter, per mockup.
+   Revision round 2 E1: pull "WE SERVE" closer to "EVENTS" (was 0.4ch,
+   now 0.1ch) so the phrase reads tight. */
 .events__title--bold {
   font-weight: 800;
 }
 .events__title--light {
   font-weight: 300;
-  margin-left: 0.4ch;
+  margin-left: 0.1ch;
 }
 
 .events__layout {
@@ -1892,7 +1917,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   justify-content: center;
 }
 
+/* Revision round 2 E3: photo stack exposes --cursor-x / --cursor-y
+   CSS vars updated by main.js on mousemove. The active photos pick up
+   the offset via translate() below for a cursor-following parallax. */
 .events__photo-stack {
+  --cursor-x: 0px;
+  --cursor-y: 0px;
   position: relative;
   width: 100%;
   height: clamp(360px, 60vh, 600px);
@@ -1930,12 +1960,14 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
    Shifted right by 5% so it visibly OVERLAPS the back rather than
    sitting beside it. Deeper shadow than the back so it reads as the
    foreground layer (closer to the camera). */
+/* Revision round 2 E2: photos no rotation (was rotate(-3deg)). The
+   layered overlap still gives depth via z-index + shifted positioning;
+   the tilt is gone. */
 .events__photo--front {
   width: 48%;
   height: 70%;
   left: 5%;
   bottom: 5%;
-  transform: rotate(-3deg);
   z-index: 2;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
 }
@@ -1944,19 +1976,23 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
    pushed 2% past the right edge so it reads as "looming behind" the
    front photo. Lighter shadow than the front so the depth ordering
    reads correctly (front sits above, back sits below + behind). */
+/* Revision round 2 E2: photos no rotation (was rotate(2deg)). */
 .events__photo--back {
   width: 62%;
   height: 100%;
   right: -2%;
   top: 0;
-  transform: rotate(2deg);
   z-index: 1;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
 }
 
+/* Revision round 2 E4: curtain opens TOP → BOTTOM only, not centre-out.
+   Was inset(45% 0% 45% 0%) (both top + bottom edges sliding to meet);
+   now inset(100% 0% 0% 0%) — fully clipped from the top, sliding down
+   to reveal. The single-direction sweep reads cleaner. */
 @keyframes events-photo-reveal {
   0% {
-    clip-path: inset(45% 0% 45% 0%);
+    clip-path: inset(100% 0% 0% 0%);
     filter: brightness(0.35);
   }
   100% {
@@ -1972,6 +2008,19 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 .events__photo-set.is-active .events__photo--front {
   animation: events-photo-reveal 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.32s forwards;
+}
+
+/* Revision round 2 E3: cursor-follow parallax on the active photo set.
+   Front photo drifts more (foreground = more parallax) than back photo.
+   The translate stacks with the clip-path animation above — different
+   properties so no conflict. */
+.events__photo-set.is-active .events__photo--front {
+  translate: calc(var(--cursor-x) * 1.0) calc(var(--cursor-y) * 1.0);
+  transition: translate 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.events__photo-set.is-active .events__photo--back {
+  translate: calc(var(--cursor-x) * 0.55) calc(var(--cursor-y) * 0.55);
+  transition: translate 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── DECORATIVE HORIZONTAL STRIPES ──
@@ -2080,7 +2129,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   margin: 0 0 clamp(3rem, 7vw, 6rem);
 }
 
-.standards__title--light { font-weight: 300; margin-right: 0.4ch; }
+/* Revision round 2 S1: pull "OUR" closer to "STANDARDS" (was 0.4ch,
+   now 0.1ch) so the two words read as a tight phrase, not separated. */
+.standards__title--light { font-weight: 300; margin-right: 0.1ch; }
 .standards__title--bold  { font-weight: 800; }
 
 /* 3-COLUMN ZIGZAG GRID — middle column nudged down. */
@@ -2112,12 +2163,15 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   margin: 0;
 }
 
-/* Thin vertical accent — sits to the left of the title baseline,
-   roughly the height of the title. Stays still during the reveal. */
+/* Revision round 2 S2: the vertical accent line previously stopped at
+   roughly title-height. Per mockup it should run the full vertical span
+   of the card — from the title's cap-height all the way down to the
+   end of the description. Stretching it via align-self + height:100%
+   in the grid row achieves that. */
 .standard__line {
   display: block;
   width: 1px;
-  height: clamp(2.5rem, 5vw, 3.5rem);
+  align-self: stretch;
   background: rgba(255, 255, 255, 0.55);
   margin-top: 0.4em;
   flex-shrink: 0;
