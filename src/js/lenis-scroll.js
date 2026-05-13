@@ -47,12 +47,21 @@
     // CDN not loaded — bail silently.
     if (typeof window.Lenis === 'undefined') return;
 
+    /* Tuning notes (revision round 2 G3 follow-up):
+       The first pass used duration: 1.1s with a long-tail exponential
+       easing — but in QA the client reported scroll "lag". The 1+ sec
+       settle meant each wheel tick took ~1s to come to rest, which
+       reads as sluggish even though framerate is fine. New values aim
+       for "snappy luxury" — the smooth glide is preserved but each
+       wheel tick lands in ~600ms with a cubic ease-out tail. wheel
+       multiplier nudged up slightly so a single notch covers more
+       distance, matching the user's mental model of native scroll. */
     const lenis = new window.Lenis({
-      duration: 1.1,                    // sec to settle — slightly above the default 1.2 for an unrushed feel
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 0.6,
+      easing: (t) => 1 - Math.pow(1 - t, 3),   // cubic ease-out — clean, no overshoot
       smoothWheel: true,
-      smoothTouch: false,               // never on touch (we already bail on mobile)
-      wheelMultiplier: 1.0,
+      smoothTouch: false,
+      wheelMultiplier: 1.15,
       touchMultiplier: 2,
     });
 
