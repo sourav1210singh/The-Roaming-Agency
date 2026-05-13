@@ -63,17 +63,143 @@ document.addEventListener('DOMContentLoaded', () => {
    runtime treatment is needed.
    ────────────────────────────────────────────── */
 function initBrandsMarquee() {
+  /* Revision round 2 follow-up: the previous CSS-keyframe approach
+     drove the marquee with `animation-duration: var(--marquee-speed-…)`,
+     and toggled the duration on row hover (60s -> 110s) and on
+     body.is-scrolling (60s -> 22s). Problem: when CSS animation duration
+     changes mid-animation, the browser RESNAPS the track's transform to
+     a position based on the new duration percentage — producing a
+     ~2000px visible JUMP on hover-in / hover-out. The hovered logo
+     would literally vanish and a different logo would appear in its
+     place. Fix: take the marquee off CSS animation entirely and drive
+     it with a JS RAF loop that interpolates VELOCITY between target
+     speeds — duration changes become smooth glides, no jump. */
+  const wrapper = document.querySelector('.brands-marquee');
+  if (!wrapper) return;
+  const tracks = wrapper.querySelectorAll('.brands-marquee__track');
+  if (!tracks.length) return;
+
+  // Tell CSS to disable its keyframe animation on this element. The
+  // matching rule .brands-marquee--js-driven .brands-marquee__track
+  // sets `animation: none` so the JS-driven transform has no
+  // competing source of truth.
+  wrapper.classList.add('brands-marquee--js-driven');
+
+  // Per-track state. Each track has its own scroll position + velocity.
+  // halfWidth is the width of one duplicate set; the loop wraps when
+  // x exceeds it, producing a seamless infinite scroll.
+  const states = Array.from(tracks).map((track, idx) => {
+    const isReverse = track.closest('.brands-marquee__row--reverse') != null;
+    return {
+      track,
+      isReverse,
+      x: 0,
+      // Velocities in pixels per second. Row 2 (reverse) defaults a
+      // bit faster to roughly match the visual pace of row 1 (its track
+      // is shorter so a higher px/s keeps the perceived speed even).
+      // Idle (default), hover (slowed), scrolling (sped up).
+      idleVel:     isReverse ? 38 : 28,
+      hoverVel:    isReverse ? 14 : 10,
+      scrollVel:   isReverse ? 130 : 95,
+      currentVel:  isReverse ? 38 : 28,
+      targetVel:   isReverse ? 38 : 28,
+      halfWidth:   0,
+      hovered:     false,
+    };
+  });
+
+  // Measure halfWidth on every track. The track contains duplicated
+  // logo content (set A + set A again), so the loop wraps at
+  // scrollWidth / 2 to seamlessly restart. Recompute on resize.
+  const measureAll = () => {
+    states.forEach(s => {
+      s.halfWidth = s.track.scrollWidth / 2;
+    });
+  };
+  measureAll();
+  // First measurement may catch the row before logos finish loading.
+  // Re-measure after each img loads.
+  wrapper.querySelectorAll('img').forEach(img => {
+    if (!img.complete) img.addEventListener('load', measureAll, { once: true });
+  });
+  window.addEventListener('resize', measureAll);
+
+  // Reverse rows start with track translated by -halfWidth so the
+  // first wrap takes them to 0 — keeps the perceived scroll direction
+  // consistent for both rows.
+  states.forEach(s => {
+    if (s.isReverse) s.x = s.halfWidth || 0;
+  });
+
+  // Hover handlers per row. On mouseenter, target velocity drops to
+  // hoverVel; on mouseleave it goes back. The currentVel lerp below
+  // smooths the transition so no instant snap is ever visible.
+  states.forEach(s => {
+    const row = s.track.closest('.brands-marquee__row');
+    if (!row) return;
+    row.addEventListener('mouseenter', () => {
+      s.hovered = true;
+      s.targetVel = s.hoverVel;
+    });
+    row.addEventListener('mouseleave', () => {
+      s.hovered = false;
+      // Don't override scrolling state — picked up next frame.
+      s.targetVel = isPageScrolling ? s.scrollVel : s.idleVel;
+    });
+  });
+
+  // Page-scroll state mirrors the old body.is-scrolling concept but
+  // here we just set a boolean that the RAF loop reads. Idle timer
+  // matches the original 250ms idle to keep the same feel.
+  let isPageScrolling = false;
   let scrollIdleTimer = null;
-  const onScroll = () => {
-    if (!document.body.classList.contains('is-scrolling')) {
-      document.body.classList.add('is-scrolling');
-    }
+  window.addEventListener('scroll', () => {
+    isPageScrolling = true;
+    states.forEach(s => {
+      if (!s.hovered) s.targetVel = s.scrollVel;
+    });
     clearTimeout(scrollIdleTimer);
     scrollIdleTimer = setTimeout(() => {
-      document.body.classList.remove('is-scrolling');
+      isPageScrolling = false;
+      states.forEach(s => {
+        if (!s.hovered) s.targetVel = s.idleVel;
+      });
     }, 250);
+  }, { passive: true });
+
+  // Reduced-motion: don't auto-scroll. Park each track at x=0.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    states.forEach(s => {
+      s.targetVel = 0;
+      s.currentVel = 0;
+      s.track.style.transform = 'translate3d(0, 0, 0)';
+    });
+    return;
+  }
+
+  // RAF loop. dt converted to seconds so velocity stays in px/sec.
+  // Velocity-smoothing lerp factor 0.035 settles in roughly ~600ms
+  // (enough to feel deliberate but not laggy).
+  let last = performance.now();
+  const SMOOTHING = 0.035;
+  const tick = (now) => {
+    const dt = Math.min(0.05, (now - last) / 1000); // clamp huge dt after tab-switch
+    last = now;
+    for (const s of states) {
+      if (!s.halfWidth) continue;
+      s.currentVel += (s.targetVel - s.currentVel) * SMOOTHING;
+      if (s.isReverse) {
+        s.x -= s.currentVel * dt;
+        if (s.x <= 0) s.x += s.halfWidth;
+      } else {
+        s.x += s.currentVel * dt;
+        if (s.x >= s.halfWidth) s.x -= s.halfWidth;
+      }
+      s.track.style.transform = `translate3d(${-s.x}px, 0, 0)`;
+    }
+    requestAnimationFrame(tick);
   };
-  window.addEventListener('scroll', onScroll, { passive: true });
+  requestAnimationFrame(tick);
 }
 
 

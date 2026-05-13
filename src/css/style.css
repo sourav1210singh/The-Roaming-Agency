@@ -1581,9 +1581,10 @@ body.is-header-hidden .hero-center-title {
   --marquee-speed-row1-hover: 110s; /* row 1 on hover (very slow read) */
   --marquee-speed-row2-hover: 70s;  /* row 2 on hover (proportional) */
   padding: clamp(2.5rem, 5vw, 4rem) 0;
-  /* Revision round 2 B2: client asked for a grey background block to
-     visually separate this section (like the mockup) — was #ffffff. */
-  background: #f0f0f0;
+  /* Revision round 2 B2 + follow-up: client asked for a grey background
+     block; original swap #ffffff -> #f0f0f0 was too close to the body
+     bg, so nudged one shade darker -> #e6e6e6 for clearer separation. */
+  background: #e6e6e6;
   /* No border-top / border-bottom — divider lines removed per brief. */
   overflow: hidden;
 }
@@ -1618,9 +1619,22 @@ body.is-header-hidden .hero-center-title {
   align-items: center;
   width: max-content;
   /* Idle base — slow. Each row pulls its own variable so the
-     pixels-per-second feel matches between rows of different widths. */
+     pixels-per-second feel matches between rows of different widths.
+     CSS animation only runs when JS hasn't taken over (see the
+     `.brands-marquee--js-driven` override below). */
   animation: brands-marquee-scroll var(--marquee-speed-row1) linear infinite;
   will-change: transform;
+}
+
+/* When initBrandsMarquee() takes over (which is the default — JS just
+   has to be reachable), the CSS keyframe animation is disabled and the
+   inline `transform` style set each frame by RAF becomes the only
+   source of truth. This eliminates the duration-change snap issue
+   completely: velocity is interpolated frame-by-frame, no more
+   ~2000px jumps on hover-in / hover-out. */
+.brands-marquee--js-driven .brands-marquee__track,
+.brands-marquee--js-driven .brands-marquee__row--reverse .brands-marquee__track {
+  animation: none !important;
 }
 
 /* Row 2 — same animation, reversed direction + its own duration. */
