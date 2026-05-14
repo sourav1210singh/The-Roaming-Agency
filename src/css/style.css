@@ -2134,10 +2134,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .standards {
   background: #393939;
   color: #ffffff;
-  /* Client tweak: compact the section so it fits in a single 100%
-     desktop viewport (was 4-7rem block padding which pushed the
-     bottom row off-screen at 1080p). */
-  padding-block: clamp(2.5rem, 5vw, 4rem);
+  /* Client tweak (round 2): a touch more breathing room than the
+     first compact pass — section still fits the viewport but feels
+     less tight at the edges. Range now 2.5-5rem (was 2.5-4rem). */
+  padding-block: clamp(2.5rem, 5vw, 5rem);
 }
 
 .standards__inner {
@@ -2148,14 +2148,15 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .standards__title {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  /* Compact-mode: title shrunk slightly + bottom margin tightened so
-     the 2-row grid below can fit in viewport at 100% desktop. */
+  /* Compact-mode (round 2): title size unchanged from prior compact
+     pass, bottom margin nudged from 1.75-3.5rem to 2-4rem so the
+     title→grid gap reads a bit more deliberate. */
   font-size: clamp(2.25rem, 5vw, 4.5rem);
   line-height: 1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   text-align: center;
-  margin: 0 0 clamp(1.75rem, 4vw, 3.5rem);
+  margin: 0 0 clamp(2rem, 4vw, 4rem);
 }
 
 /* Revision round 2 S1: pull "OUR" closer to "STANDARDS" (was 0.4ch,
@@ -2164,20 +2165,21 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .standards__title--bold  { font-weight: 800; }
 
 /* 3-COLUMN ZIGZAG GRID — middle column nudged down.
-   Compact-mode: row-gap tightened so the two rows pack closer. */
+   Compact-mode (round 2): row-gap and zigzag offset both slightly
+   relaxed from the tightest compact pass. */
 .standards__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: clamp(2rem, 5vw, 5rem);
-  row-gap: clamp(1.5rem, 3.5vw, 2.75rem);
+  row-gap: clamp(1.75rem, 4vw, 4rem);
   max-width: 1100px;
   margin: 0 auto;
 }
 
-/* Middle column drops by less so the brick rhythm still reads but
-   doesn't push the second row off-screen at 100% desktop view. */
+/* Middle column zigzag offset — 2-4rem range for a slightly more
+   noticeable brick stagger while still keeping the grid within view. */
 .standards__grid > .standard:nth-child(3n+2) {
-  margin-top: clamp(1.5rem, 3.5vw, 3rem);
+  margin-top: clamp(2rem, 4vw, 4rem);
 }
 
 /* ── Single standard ──────────────────────────────────────────────
