@@ -1295,7 +1295,16 @@ body.is-header-hidden .hero-center-title {
 .stat--top-right    { grid-column: 2; grid-row: 1; }
 .stat--mid-left     { grid-column: 1; grid-row: 2; }
 .stat--mid-right    { grid-column: 2; grid-row: 3; }
-.stat--bottom-left  { grid-column: 1; grid-row: 4; }
+/* "6 Languages" — revision round 2 follow-up: shifted slightly right
+   and up from the original bottom-left position so it lifts toward the
+   centre column and reads tighter with the "10+ Bands & Artists" cell
+   above it rather than sitting flush at the bottom edge. */
+.stat--bottom-left  {
+  grid-column: 1;
+  grid-row: 4;
+  margin-left: clamp(2rem, 6vw, 6rem);
+  margin-top: clamp(-3rem, -4vw, -2rem);
+}
 
 .stat {
   display: flex;
