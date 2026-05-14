@@ -1950,7 +1950,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   --cursor-y: 0px;
   position: relative;
   width: 100%;
-  height: clamp(360px, 60vh, 600px);
+  /* Revision round 2 follow-up: photos are now 2:1 LANDSCAPE rectangles
+     (twice as wide as tall) instead of the previous portrait crop.
+     Container height shrunk to match — two landscape photos stacked
+     with overlap fit comfortably here without dead space. */
+  height: clamp(240px, 36vw, 440px);
   z-index: 2;
 }
 
@@ -1981,31 +1985,32 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   will-change: clip-path, filter;
 }
 
-/* Front-left photo — sits ON TOP of the back photo's left edge.
-   Shifted right by 5% so it visibly OVERLAPS the back rather than
-   sitting beside it. Deeper shadow than the back so it reads as the
-   foreground layer (closer to the camera). */
-/* Revision round 2 E2: photos no rotation (was rotate(-3deg)). The
-   layered overlap still gives depth via z-index + shifted positioning;
-   the tilt is gone. */
+/* Revision round 2 follow-up: BOTH photos are now 2:1 LANDSCAPE
+   rectangles (width : height = 2 : 1). aspect-ratio property forces
+   the shape regardless of the source image — combined with object-fit:
+   cover above, the JPGs get cropped to fit the wide ratio cleanly.
+   Layout: back photo sits top-right (dominant), front photo sits
+   bottom-left, overlapping the back's lower-left corner for depth. */
+
+/* Front-left photo — overlaps the back's lower-left corner.
+   Revision round 2 E2: no rotation. */
 .events__photo--front {
-  width: 48%;
-  height: 70%;
-  left: 5%;
-  bottom: 5%;
+  width: 60%;
+  aspect-ratio: 2 / 1;   /* HEIGHT auto-derived = width / 2 */
+  height: auto;
+  left: 0;
+  bottom: 0;
   z-index: 2;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
 }
 
-/* Back-right photo — DOMINANT layer. Full container height, wider, and
-   pushed 2% past the right edge so it reads as "looming behind" the
-   front photo. Lighter shadow than the front so the depth ordering
-   reads correctly (front sits above, back sits below + behind). */
-/* Revision round 2 E2: photos no rotation (was rotate(2deg)). */
+/* Back-right photo — DOMINANT layer, sits top-right.
+   Revision round 2 E2: no rotation. */
 .events__photo--back {
-  width: 62%;
-  height: 100%;
-  right: -2%;
+  width: 78%;
+  aspect-ratio: 2 / 1;   /* HEIGHT auto-derived = width / 2 */
+  height: auto;
+  right: 0;
   top: 0;
   z-index: 1;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
