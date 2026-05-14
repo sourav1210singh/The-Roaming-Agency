@@ -284,13 +284,9 @@ function initEventsScroll() {
       });
       // Negative bg swap on odd indexes.
       sticky.classList.toggle('is-negative', idx % 2 === 1);
-      // Restart the decorative-stripes keyframe by removing the
-      // class, forcing a reflow, then re-adding it — without the
-      // reflow the browser collapses both class mutations into one
-      // tick and the keyframe never re-fires.
-      sticky.classList.remove('is-stripes-active');
-      void sticky.offsetWidth;
-      sticky.classList.add('is-stripes-active');
+      // Decorative stripes (is-stripes-active class trigger) removed
+      // per client — see corresponding CSS deletion. The reveal effect
+      // is now driven entirely by the photo curtain animation.
     }
   };
 

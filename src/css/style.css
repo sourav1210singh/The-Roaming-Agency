@@ -2084,48 +2084,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   transition: translate 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ── DECORATIVE HORIZONTAL STRIPES ──
-   Five thin lines tucked at the bottom-right of the right column,
-   sitting BEHIND the photos (z-index: 1 vs photo-stack z:2). Each
-   line draws in from right edge → left as the section enters,
-   staggered. Pure visual flair — purely decorative. */
-.events__decoration {
-  position: absolute;
-  right: 0;
-  bottom: 8%;
-  width: 60%;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  z-index: 1;
-  pointer-events: none;
-}
-
-.events__deco-line {
-  display: block;
-  height: 1px;
-  background: var(--events-text);
-  opacity: 0.25;
-  transform-origin: right center;
-  transform: scaleX(0);
-  transition: background-color 0.6s ease, opacity 0.6s ease;
-}
-
-@keyframes events-deco-draw {
-  0%   { transform: scaleX(0); }
-  100% { transform: scaleX(1); }
-}
-
-/* Trigger draw whenever the events sticky has just had its is-active
-   state set; we restart by attaching the animation to .events__sticky
-   when the active idx changes — see below. */
-.events__sticky.is-stripes-active .events__deco-line {
-  animation: events-deco-draw 1.2s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
-}
-.events__sticky.is-stripes-active .events__deco-line:nth-child(2) { animation-delay: 0.08s; }
-.events__sticky.is-stripes-active .events__deco-line:nth-child(3) { animation-delay: 0.16s; }
-.events__sticky.is-stripes-active .events__deco-line:nth-child(4) { animation-delay: 0.24s; }
-.events__sticky.is-stripes-active .events__deco-line:nth-child(5) { animation-delay: 0.32s; }
+/* Decorative horizontal stripes block removed per client — five thin
+   lines used to draw in from right to left behind the photo stack on
+   each category change, but the client found them distracting and
+   serving no real purpose. All related selectors, the keyframe, and
+   the JS class toggle (is-stripes-active) have been stripped too. */
 
 /* On the negative (dark) variant, soften the shadow so it doesn't
    clip awkwardly against the black bg. */
