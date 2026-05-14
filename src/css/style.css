@@ -1985,21 +1985,17 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 
 /* Front-left photo — film-poster TALL portrait (3:5 ratio). Sits at
-   left:6%, bottom:5%; both width-% AND a max-height cap so the photo
-   never overflows the container vertically (max-height + aspect-ratio
-   makes the width shrink automatically on extreme viewports — the
-   shape stays 3:5). Its right edge overlaps the back photo's left
-   edge for the layered foreground feel.
-   Client tweak: smaller front photo + shifted right (was width 48%
-   left 0; now width 40% left 6%). Both width and height shrink
-   together because aspect-ratio: 3/5 is held constant — height
-   auto-derives from the new width. */
+   left:30%, bottom:5%; smaller now (width 30% from 40%) and shifted
+   noticeably to the right so a CLEAR chunk of its right portion sits
+   on top of the back photo's left portion — proper layered overlap
+   instead of a sliver. Both width and height shrink together because
+   aspect-ratio: 3/5 stays constant. */
 .events__photo--front {
-  width: 40%;
+  width: 30%;
   aspect-ratio: 3 / 5;
   height: auto;
-  max-height: 75%;
-  left: 6%;
+  max-height: 60%;
+  left: 30%;
   bottom: 5%;
   z-index: 2;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
