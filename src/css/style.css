@@ -1589,10 +1589,13 @@ body.is-header-hidden .hero-center-title {
   --marquee-speed-row2-active: 14s; /* row 2 while page is scrolling */
   --marquee-speed-row1-hover: 110s; /* row 1 on hover (very slow read) */
   --marquee-speed-row2-hover: 70s;  /* row 2 on hover (proportional) */
-  padding: clamp(2.5rem, 5vw, 4rem) 0;
-  /* Revision round 2 B2 + follow-up: client asked for a grey background
-     block; original swap #ffffff -> #f0f0f0 was too close to the body
-     bg, so nudged one shade darker -> #e6e6e6 for clearer separation. */
+  /* Client tweak: section vertical padding reduced 20% (was clamp
+     2.5-4rem, now 2-3.2rem) so the overall strip shrinks ~20% in
+     height. Combined with the 40% smaller logo cells below this
+     gives a notably more compact brand band. */
+  padding: clamp(2rem, 4vw, 3.2rem) 0;
+  /* Revision round 2 B2 + follow-up: grey background block, one shade
+     darker than #f0f0f0 to read as a distinct panel against the body. */
   background: #e6e6e6;
   /* No border-top / border-bottom — divider lines removed per brief. */
   overflow: hidden;
@@ -1674,16 +1677,16 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .brands-marquee__item {
   /* UNIFORM CELL SIZING — every logo, regardless of its natural aspect,
-     gets the same fixed cell. Revision round 2 B1: client asked for the
-     icons to be "much smaller" — cell shrunk from 180–220 × 80–96 to
-     120–150 × 50–60. */
+     gets the same fixed cell. Client tweak: cells reduced ~40% from
+     the previous 120-150 × 50-60 pass — now 72-90 × 30-36 — so each
+     logo reads as a more refined accent rather than a busy strip. */
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(120px, 10vw, 150px);
-  height: clamp(50px, 4.2vw, 60px);
-  padding: 0 clamp(0.75rem, 1.5vw, 1.25rem);
+  width: clamp(72px, 6vw, 90px);
+  height: clamp(30px, 2.5vw, 36px);
+  padding: 0 clamp(0.5rem, 1vw, 0.85rem);
 }
 
 .brands-marquee__logo {
