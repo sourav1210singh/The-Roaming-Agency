@@ -2178,20 +2178,26 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 /* ── Single standard ──────────────────────────────────────────────
    Layout: thin vertical line on the left, then reveal column with
    title + description. The line is always visible; the reveal column
-   has an animated clip-path that uncovers the text rightward. */
+   has an animated clip-path that uncovers the text rightward.
+   Client tweak: `align-self: start` so each standard cell sizes to
+   its OWN content height (not stretched to match the tallest sibling
+   in the row). With this, .standard__line's align-self:stretch fills
+   only this standard's actual title+desc height — lines no longer
+   over-extend past short paragraphs to match a taller neighbour. */
 .standard {
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr;
   gap: clamp(0.75rem, 1.5vw, 1.25rem);
   margin: 0;
+  align-self: start;
 }
 
-/* Revision round 2 S2: the vertical accent line previously stopped at
-   roughly title-height. Per mockup it should run the full vertical span
-   of the card — from the title's cap-height all the way down to the
-   end of the description. Stretching it via align-self + height:100%
-   in the grid row achieves that. */
+/* Revision round 2 S2 + follow-up: the vertical accent line stretches
+   to fill the standard cell's height. Combined with .standard's
+   `align-self: start` above, the cell is now exactly as tall as its
+   title + description block — so the line matches that height
+   precisely. No more lines hanging past the end of short paragraphs. */
 .standard__line {
   display: block;
   width: 1px;
