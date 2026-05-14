@@ -1975,11 +1975,16 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   border-radius: 14px;
   object-fit: cover;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
-  /* Default state for INACTIVE photo-sets: photo fully clipped to a
-     thin horizontal slot in the middle, dimmed. When the set becomes
-     active, the keyframe below scrubs the clip + brightness back to
-     full — produces the Elyse "letterbox unfurls into rectangle" feel. */
-  clip-path: inset(45% 0% 45% 0%);
+  /* Client tweak: default state for INACTIVE photo-sets is now FULLY
+     hidden from the top (was a centre letterbox slot that briefly
+     flashed during the fade-in before the curtain animation kicked
+     in). With the default matching the top-down animation's 0% state,
+     there's no visible jump when a set becomes active and the curtain
+     reveal starts. Both invisible-from-top and invisible-from-bottom
+     render as nothing visually, so this also doesn't conflict with
+     the reverse-direction (bottom-up) keyframe — both invisible end
+     states look the same. */
+  clip-path: inset(100% 0% 0% 0%);
   filter: brightness(0.35);
   will-change: clip-path, filter;
 }
@@ -2025,28 +2030,41 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
 }
 
-/* Client tweak: curtain opens TOP -> BOTTOM only (no centre-out).
-   Was inset(45% 0% 45% 0%) (top + bottom edges sliding inward to meet
-   in the middle); now inset(100% 0% 0% 0%) — fully clipped from the
-   top, sliding down to reveal. Single-direction sweep reads cleaner. */
-@keyframes events-photo-reveal {
-  0% {
-    clip-path: inset(100% 0% 0% 0%);
-    filter: brightness(0.35);
-  }
-  100% {
-    clip-path: inset(0% 0% 0% 0%);
-    filter: brightness(1);
-  }
+/* Two curtain keyframes — direction matches scroll direction so the
+   reveal feels like a polythin/film being peeled away in the same
+   direction the user is scrolling.
+     • -down: top edge clipped to 0%, peels downward (user scrolls DOWN
+              -> new photo reveals top-to-bottom)
+     • -up:   bottom edge clipped to 0%, peels upward (user scrolls UP
+              -> new photo reveals bottom-to-top) */
+@keyframes events-photo-reveal-down {
+  0%   { clip-path: inset(100% 0% 0% 0%); filter: brightness(0.35); }
+  100% { clip-path: inset(0%   0% 0% 0%); filter: brightness(1);    }
+}
+@keyframes events-photo-reveal-up {
+  0%   { clip-path: inset(0% 0% 100% 0%); filter: brightness(0.35); }
+  100% { clip-path: inset(0% 0% 0%   0%); filter: brightness(1);    }
 }
 
-/* When the set becomes active, both photos animate to full —
-   staggered so back enters first, then front follows. */
+/* Default direction = scroll-down (top->bottom curtain). Both photos
+   animate, staggered so back enters first then front follows. */
 .events__photo-set.is-active .events__photo--back {
-  animation: events-photo-reveal 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.1s forwards;
+  animation: events-photo-reveal-down 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.1s forwards;
 }
 .events__photo-set.is-active .events__photo--front {
-  animation: events-photo-reveal 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.32s forwards;
+  animation: events-photo-reveal-down 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.32s forwards;
+}
+
+/* When JS marks the active set as `--reveal-up` (scrolling UP), swap
+   to the bottom-up keyframe. Class is set BEFORE `.is-active` in the
+   JS path with a forced reflow, so this rule takes effect on the
+   first frame the active class lands — no flash, no wrong-direction
+   start. */
+.events__photo-set.is-active.events__photo-set--reveal-up .events__photo--back {
+  animation: events-photo-reveal-up 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.1s forwards;
+}
+.events__photo-set.is-active.events__photo-set--reveal-up .events__photo--front {
+  animation: events-photo-reveal-up 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.32s forwards;
 }
 
 /* Client tweak (Option A): cursor-follow parallax on the active

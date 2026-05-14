@@ -229,6 +229,11 @@ function initEventsScroll() {
   const N = cats.length; // 4 categories
   let lastIdx = -1;
   let raf = 0;
+  // Client tweak: track scroll direction so the curtain reveal goes
+  // in the same direction the user is scrolling. Default 'down' on
+  // first activation (no direction info yet).
+  let lastScrollY = window.scrollY;
+  let scrollDir = 'down';
 
   const update = () => {
     raf = 0;
@@ -236,6 +241,13 @@ function initEventsScroll() {
     const total = section.offsetHeight - window.innerHeight;
     if (total <= 0) return;
     const progress = Math.max(0, Math.min(1, -rect.top / total));
+
+    // Detect scroll direction. Small dead zone (0.5px) so noise from
+    // touchpad / lenis doesn't keep flipping the value on stillness.
+    const currentY = window.scrollY;
+    if (currentY > lastScrollY + 0.5) scrollDir = 'down';
+    else if (currentY < lastScrollY - 0.5) scrollDir = 'up';
+    lastScrollY = currentY;
 
     // Active category — split runway evenly between N stops.
     const idx = Math.max(0, Math.min(N - 1, Math.floor(progress * N)));
@@ -248,7 +260,28 @@ function initEventsScroll() {
     if (idx !== lastIdx) {
       lastIdx = idx;
       cats.forEach((c, i) => c.classList.toggle('is-active', i === idx));
-      photoSets.forEach((p, i) => p.classList.toggle('is-active', i === idx));
+      // Photo sets: apply the direction class FIRST (with a forced
+      // reflow to ensure CSS animations re-trigger), then `.is-active`.
+      // This way the curtain keyframe selected (down vs up) is correct
+      // on the very first frame the animation runs — no wrong-direction
+      // flash. Sets that aren't active strip all classes.
+      photoSets.forEach((p, i) => {
+        if (i === idx) {
+          // Remove old state, force reflow, set new direction + active.
+          p.classList.remove('is-active',
+                             'events__photo-set--reveal-up',
+                             'events__photo-set--reveal-down');
+          void p.offsetWidth; // reflow so the keyframe can re-fire
+          p.classList.add(scrollDir === 'up'
+            ? 'events__photo-set--reveal-up'
+            : 'events__photo-set--reveal-down');
+          p.classList.add('is-active');
+        } else {
+          p.classList.remove('is-active',
+                             'events__photo-set--reveal-up',
+                             'events__photo-set--reveal-down');
+        }
+      });
       // Negative bg swap on odd indexes.
       sticky.classList.toggle('is-negative', idx % 2 === 1);
       // Restart the decorative-stripes keyframe by removing the
