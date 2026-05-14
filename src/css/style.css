@@ -1950,11 +1950,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   --cursor-y: 0px;
   position: relative;
   width: 100%;
-  /* Revision round 2 follow-up: photos are now 2:1 LANDSCAPE rectangles
-     (twice as wide as tall) instead of the previous portrait crop.
-     Container height shrunk to match — two landscape photos stacked
-     with overlap fit comfortably here without dead space. */
-  height: clamp(240px, 36vw, 440px);
+  /* Revision round 2 follow-up (flipped): photos are now 1:2 PORTRAIT
+     rectangles (twice as TALL as wide). Container height grown to
+     fit the taller back photo + an overlapping front photo. */
+  height: clamp(380px, 56vw, 620px);
   z-index: 2;
 }
 
@@ -1985,18 +1984,17 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   will-change: clip-path, filter;
 }
 
-/* Revision round 2 follow-up: BOTH photos are now 2:1 LANDSCAPE
-   rectangles (width : height = 2 : 1). aspect-ratio property forces
-   the shape regardless of the source image — combined with object-fit:
-   cover above, the JPGs get cropped to fit the wide ratio cleanly.
-   Layout: back photo sits top-right (dominant), front photo sits
-   bottom-left, overlapping the back's lower-left corner for depth. */
+/* Revision round 2 follow-up (flipped): BOTH photos are now 1:2
+   PORTRAIT rectangles (width : height = 1 : 2 — twice as tall as
+   wide). aspect-ratio forces the shape; object-fit: cover crops the
+   source JPGs to fit cleanly. Layout: back photo sits top-right
+   (dominant + taller), front photo overlaps bottom-left. */
 
 /* Front-left photo — overlaps the back's lower-left corner.
    Revision round 2 E2: no rotation. */
 .events__photo--front {
-  width: 60%;
-  aspect-ratio: 2 / 1;   /* HEIGHT auto-derived = width / 2 */
+  width: 38%;
+  aspect-ratio: 1 / 2;   /* HEIGHT auto-derived = width × 2 */
   height: auto;
   left: 0;
   bottom: 0;
@@ -2007,8 +2005,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 /* Back-right photo — DOMINANT layer, sits top-right.
    Revision round 2 E2: no rotation. */
 .events__photo--back {
-  width: 78%;
-  aspect-ratio: 2 / 1;   /* HEIGHT auto-derived = width / 2 */
+  width: 46%;
+  aspect-ratio: 1 / 2;   /* HEIGHT auto-derived = width × 2 */
   height: auto;
   right: 0;
   top: 0;
