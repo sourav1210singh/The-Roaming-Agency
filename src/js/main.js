@@ -266,52 +266,6 @@ function initEventsScroll() {
   }, { passive: true });
   window.addEventListener('resize', update);
   update();
-
-  /* Revision round 2 E3: image transition follows cursor.
-     While the cursor moves within the events section, the active photo
-     pair drifts in the same direction as the cursor (a subtle parallax
-     pull). Scroll still drives which CATEGORY is active; the cursor
-     adds a follow-along motion on top so the photos "feel alive" rather
-     than statically swapping in. */
-  const photoStack = sticky.querySelector('.events__photo-stack');
-  if (photoStack) {
-    let cursorRaf = 0;
-    let targetX = 0, targetY = 0;
-    let currentX = 0, currentY = 0;
-    const MAX_OFFSET = 18; // px the photos can drift in either direction
-
-    const lerp = (a, b, t) => a + (b - a) * t;
-
-    const tick = () => {
-      currentX = lerp(currentX, targetX, 0.08);
-      currentY = lerp(currentY, targetY, 0.08);
-      photoStack.style.setProperty('--cursor-x', currentX.toFixed(2) + 'px');
-      photoStack.style.setProperty('--cursor-y', currentY.toFixed(2) + 'px');
-      // Keep ticking while we haven't reached the target — cheap idle bail.
-      if (Math.abs(currentX - targetX) > 0.05 || Math.abs(currentY - targetY) > 0.05) {
-        cursorRaf = requestAnimationFrame(tick);
-      } else {
-        cursorRaf = 0;
-      }
-    };
-
-    sticky.addEventListener('mousemove', (e) => {
-      const rect = sticky.getBoundingClientRect();
-      // Normalise cursor to [-1, 1] relative to centre.
-      const nx = ((e.clientX - rect.left) / rect.width)  * 2 - 1;
-      const ny = ((e.clientY - rect.top)  / rect.height) * 2 - 1;
-      targetX = nx * MAX_OFFSET;
-      targetY = ny * MAX_OFFSET;
-      if (!cursorRaf) cursorRaf = requestAnimationFrame(tick);
-    });
-
-    // Return to centre when the cursor leaves the section.
-    sticky.addEventListener('mouseleave', () => {
-      targetX = 0;
-      targetY = 0;
-      if (!cursorRaf) cursorRaf = requestAnimationFrame(tick);
-    });
-  }
 }
 
 
