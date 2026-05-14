@@ -1771,10 +1771,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   display: flex;
   flex-direction: column;
   /* Client tweak: horizontal whitespace kept generous. Vertical
-     padding mildly reduced (2-4.5rem -> 1.5-3.5rem) so the heading
-     and the photo stack pack closer to the viewport edges. Not
-     squished — just a touch less air top/bottom. */
-  padding-block: clamp(1.5rem, 4vw, 3.5rem);
+     padding split — TOP needs to clear the fixed site header (~73px)
+     so the "EVENTS WE SERVE" title doesn't get hidden underneath it
+     while the section is pinned. BOTTOM stays mildly compact. */
+  padding-top: clamp(5rem, 7vw, 6.5rem);
+  padding-bottom: clamp(1.5rem, 4vw, 3.5rem);
   padding-inline: clamp(2.5rem, 6vw, 7rem);
   overflow: hidden;
 }
