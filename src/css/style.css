@@ -1985,32 +1985,36 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 
 /* Front-left photo — film-poster TALL portrait (3:5 ratio). Sits at
-   left:5%, bottom:5%; height is derived from aspect-ratio + width so
-   the photo is always twice-ish as tall as it is wide regardless of
-   viewport. Its right edge overlaps the back photo's left edge for
-   the layered foreground feel — z-index:2 keeps it on top.
+   left:0, bottom:5%; both width-% AND a max-height cap so the photo
+   never overflows the container vertically (max-height + aspect-ratio
+   makes the width shrink automatically on extreme viewports — the
+   shape stays 3:5). Its right edge overlaps the back photo's left
+   edge for the layered foreground feel.
    Client tweak: no rotation (mockup match). */
 .events__photo--front {
   width: 48%;
   aspect-ratio: 3 / 5;
   height: auto;
-  left: 5%;
+  max-height: 85%;
+  left: 0;
   bottom: 5%;
   z-index: 2;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
 }
 
 /* Back-right photo — DOMINANT TALL portrait (3:5 ratio), bigger than
-   the front. Sits at right:-2%, top:0 so it nudges past the right
-   edge of the column for the "looming behind" look. Lighter shadow
-   so the depth ordering reads (front above + closer, back below +
-   behind). Height auto-derived from width via aspect-ratio.
+   the front. Width 55% (was 62% which overflowed the column when
+   combined with `right:-2%`); right:0 (was -2% causing horizontal
+   clip past the section edge); max-height caps vertical growth on
+   wide viewports so it never gets clipped by the sticky's
+   overflow:hidden.
    Client tweak: no rotation (mockup match). */
 .events__photo--back {
-  width: 62%;
+  width: 55%;
   aspect-ratio: 3 / 5;
   height: auto;
-  right: -2%;
+  max-height: 100%;
+  right: 0;
   top: 0;
   z-index: 1;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
