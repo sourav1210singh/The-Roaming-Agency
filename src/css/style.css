@@ -1770,11 +1770,13 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   transition: background-color 0.6s ease, color 0.6s ease;
   display: flex;
   flex-direction: column;
-  /* Horizontal padding aligned to --container-padding so the Events
-     left/right edges match every other section. Vertical padding
+  /* Revision round 2 follow-up: client asked for more horizontal
+     breathing room than the global --container-padding (max 3rem ~ 48px)
+     gives. Bumped to clamp(2rem, 6vw, 7rem) — 32px on mobile, ~80px on
+     a 1280px desktop, capped at 112px on ultra-wide. Vertical padding
      kept generous because the heading + photo stack need air. */
   padding-block: clamp(2rem, 5vw, 4.5rem);
-  padding-inline: var(--container-padding);
+  padding-inline: clamp(2rem, 6vw, 7rem);
   overflow: hidden;
 }
 
