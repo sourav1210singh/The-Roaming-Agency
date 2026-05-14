@@ -2543,9 +2543,21 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 /* Per client revision: title removed; section background goes dark
    so the photos pop. Photos are visual-only — cursor stays default
    (not pointer) so users know they aren't clickable. */
+/* Client tweak: panel-reveal scroll choreography for the Gallery →
+   Get In Touch → Footer transition.
+   • Gallery pins (position: sticky; top: 0) when its top edge hits
+     the viewport top — z-index:1 keeps it at the base layer.
+   • .contact and .footer (z-index:2 set below) scroll up OVER the
+     pinned gallery as the user keeps scrolling, like a panel rising
+     from below to cover the gallery.
+   • Both already have solid backgrounds so the gallery doesn't
+     bleed through during the cover. */
 .gallery-section {
   background: #393939;
   padding-block: clamp(3rem, 6vw, 5rem);
+  position: sticky;
+  top: 0;
+  z-index: 1;
 }
 
 .gallery {
@@ -2882,6 +2894,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   color: #ffffff;
   padding: 0 0 clamp(4rem, 7vw, 6rem);
   overflow: hidden;
+  /* Scroll-reveal: rise OVER the pinned Gallery as user scrolls. */
+  z-index: 2;
 }
 
 /* ── INFINITE MARQUEE HEADING ──────────────────────────────────── */
@@ -3278,6 +3292,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   background: var(--color-black);
   border-top: 1px solid var(--color-gray-800);
   padding: var(--space-4xl) 0 var(--space-2xl);
+  /* Scroll-reveal: same overlay layer as .contact so the pinned
+     Gallery stays beneath as the footer scrolls past. */
+  position: relative;
+  z-index: 2;
 }
 
 .footer__grid {
