@@ -1770,11 +1770,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   transition: background-color 0.6s ease, color 0.6s ease;
   display: flex;
   flex-direction: column;
-  /* Client tweak: horizontal whitespace bumped — vertical padding
-     unchanged. Horizontal grows from max 5rem (80px) to max 7rem
-     (112px) on wide screens, with a higher floor too so mobile gets
-     more air. */
-  padding-block: clamp(2rem, 5vw, 4.5rem);
+  /* Client tweak: horizontal whitespace kept generous. Vertical
+     padding mildly reduced (2-4.5rem -> 1.5-3.5rem) so the heading
+     and the photo stack pack closer to the viewport edges. Not
+     squished — just a touch less air top/bottom. */
+  padding-block: clamp(1.5rem, 4vw, 3.5rem);
   padding-inline: clamp(2.5rem, 6vw, 7rem);
   overflow: hidden;
 }
@@ -1785,7 +1785,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   line-height: 1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  margin: 0 0 clamp(2rem, 5vw, 4rem);
+  /* Client tweak: title bottom margin trimmed (2-4rem -> 1.5-3rem)
+     so the photo stack rises a touch closer to the heading. */
+  margin: 0 0 clamp(1.5rem, 4vw, 3rem);
   text-align: center;
 }
 
