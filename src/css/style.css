@@ -2134,7 +2134,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .standards {
   background: #393939;
   color: #ffffff;
-  padding-block: clamp(4rem, 9vw, 7rem);
+  /* Client tweak: compact the section so it fits in a single 100%
+     desktop viewport (was 4-7rem block padding which pushed the
+     bottom row off-screen at 1080p). */
+  padding-block: clamp(2.5rem, 5vw, 4rem);
 }
 
 .standards__inner {
@@ -2145,12 +2148,14 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .standards__title {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-size: clamp(2.75rem, 6.5vw, 5.75rem);
+  /* Compact-mode: title shrunk slightly + bottom margin tightened so
+     the 2-row grid below can fit in viewport at 100% desktop. */
+  font-size: clamp(2.25rem, 5vw, 4.5rem);
   line-height: 1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
   text-align: center;
-  margin: 0 0 clamp(3rem, 7vw, 6rem);
+  margin: 0 0 clamp(1.75rem, 4vw, 3.5rem);
 }
 
 /* Revision round 2 S1: pull "OUR" closer to "STANDARDS" (was 0.4ch,
@@ -2158,21 +2163,21 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .standards__title--light { font-weight: 300; margin-right: 0.1ch; }
 .standards__title--bold  { font-weight: 800; }
 
-/* 3-COLUMN ZIGZAG GRID — middle column nudged down. */
+/* 3-COLUMN ZIGZAG GRID — middle column nudged down.
+   Compact-mode: row-gap tightened so the two rows pack closer. */
 .standards__grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   column-gap: clamp(2rem, 5vw, 5rem);
-  row-gap: clamp(2.5rem, 6vw, 5rem);
+  row-gap: clamp(1.5rem, 3.5vw, 2.75rem);
   max-width: 1100px;
   margin: 0 auto;
 }
 
-/* Middle column drops by ~50% of a row so each row reads as a brick
-   stagger. Selector targets the 2nd, 5th items (every 3rd starting
-   at 2). */
+/* Middle column drops by less so the brick rhythm still reads but
+   doesn't push the second row off-screen at 100% desktop view. */
 .standards__grid > .standard:nth-child(3n+2) {
-  margin-top: clamp(3rem, 6vw, 5.5rem);
+  margin-top: clamp(1.5rem, 3.5vw, 3rem);
 }
 
 /* ── Single standard ──────────────────────────────────────────────
