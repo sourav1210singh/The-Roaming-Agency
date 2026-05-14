@@ -1784,13 +1784,14 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   text-align: center;
 }
 
-/* Mixed-weight title — "EVENTS" bold, "We Serve" lighter, per mockup. */
+/* Mixed-weight title — "EVENTS" bold, "We Serve" lighter, per mockup.
+   Client tweak: pull "WE SERVE" closer to "EVENTS" (0.4ch -> 0.1ch). */
 .events__title--bold {
   font-weight: 800;
 }
 .events__title--light {
   font-weight: 300;
-  margin-left: 0.4ch;
+  margin-left: 0.1ch;
 }
 
 .events__layout {
@@ -1858,14 +1859,18 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   pointer-events: auto;
 }
 
+/* Category title (WEDDINGS / CORPORATE / …) — client tweak:
+   font-weight 700 -> 300 (thinner) and bottom margin tightened so
+   the subtitle sits closer beneath. The reveal line-mask animation
+   composes on top unchanged. */
 .events__cat-title {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   font-size: clamp(2.25rem, 4.5vw, 4rem);
-  font-weight: 700;
+  font-weight: 300;
   line-height: 1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  margin: 0 0 clamp(1rem, 2vw, 1.5rem);
+  margin: 0 0 clamp(0.5rem, 1vw, 0.85rem);
 }
 
 /* GSAP-SplitText-style line-mask reveal (Elyse-residence pattern).
@@ -1931,7 +1936,14 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   justify-content: center;
 }
 
+/* Client tweak: --cursor-x / --cursor-y CSS vars are updated by
+   initEventsScroll's mousemove handler (see main.js). The active
+   photos pick those up via translate() below for the cursor-follow
+   parallax feel. Initialised to 0 so the photos sit centred until
+   the user moves the mouse over the section. */
 .events__photo-stack {
+  --cursor-x: 0px;
+  --cursor-y: 0px;
   position: relative;
   width: 100%;
   height: clamp(360px, 60vh, 600px);
@@ -1968,13 +1980,13 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 /* Front-left photo — sits ON TOP of the back photo's left edge.
    Shifted right by 5% so it visibly OVERLAPS the back rather than
    sitting beside it. Deeper shadow than the back so it reads as the
-   foreground layer (closer to the camera). */
+   foreground layer (closer to the camera).
+   Client tweak: no rotation (mockup match). */
 .events__photo--front {
   width: 48%;
   height: 70%;
   left: 5%;
   bottom: 5%;
-  transform: rotate(-3deg);
   z-index: 2;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
 }
@@ -1982,20 +1994,24 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 /* Back-right photo — DOMINANT layer. Full container height, wider, and
    pushed 2% past the right edge so it reads as "looming behind" the
    front photo. Lighter shadow than the front so the depth ordering
-   reads correctly (front sits above, back sits below + behind). */
+   reads correctly (front sits above, back sits below + behind).
+   Client tweak: no rotation (mockup match). */
 .events__photo--back {
   width: 62%;
   height: 100%;
   right: -2%;
   top: 0;
-  transform: rotate(2deg);
   z-index: 1;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
 }
 
+/* Client tweak: curtain opens TOP -> BOTTOM only (no centre-out).
+   Was inset(45% 0% 45% 0%) (top + bottom edges sliding inward to meet
+   in the middle); now inset(100% 0% 0% 0%) — fully clipped from the
+   top, sliding down to reveal. Single-direction sweep reads cleaner. */
 @keyframes events-photo-reveal {
   0% {
-    clip-path: inset(45% 0% 45% 0%);
+    clip-path: inset(100% 0% 0% 0%);
     filter: brightness(0.35);
   }
   100% {
@@ -2011,6 +2027,23 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 .events__photo-set.is-active .events__photo--front {
   animation: events-photo-reveal 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.32s forwards;
+}
+
+/* Client tweak (Option A): cursor-follow parallax on the active
+   photo pair. The active photos pick up the --cursor-x / --cursor-y
+   offset (set per-frame by JS rAF in initEventsScroll) via the
+   individual `translate` CSS property — separate from `transform`
+   so it composes with the existing clip-path / box-shadow without
+   conflict. Front photo drifts at 1.0x (foreground = more parallax),
+   back photo drifts at 0.55x for depth illusion. The transition on
+   `translate` smooths sub-frame cursor jitter into a fluid drift. */
+.events__photo-set.is-active .events__photo--front {
+  translate: calc(var(--cursor-x) * 1.0) calc(var(--cursor-y) * 1.0);
+  transition: translate 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.events__photo-set.is-active .events__photo--back {
+  translate: calc(var(--cursor-x) * 0.55) calc(var(--cursor-y) * 0.55);
+  transition: translate 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* ── DECORATIVE HORIZONTAL STRIPES ──

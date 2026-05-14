@@ -266,6 +266,50 @@ function initEventsScroll() {
   }, { passive: true });
   window.addEventListener('resize', update);
   update();
+
+  /* Client tweak (Option A): cursor-follow parallax on the active photo
+     pair. Scroll still drives WHICH category is active (scroll-driven
+     cycling above). On top of that, while the cursor moves within the
+     events section, both photos drift gently in the cursor's direction
+     to make the imagery feel alive. Front photo drifts more than back
+     (foreground gets more parallax = depth illusion). Lerp toward
+     target offset each rAF tick for smooth motion; idle when settled
+     so the RAF loop bails when there's no work. */
+  const photoStack = sticky.querySelector('.events__photo-stack');
+  if (photoStack) {
+    let cursorRaf = 0;
+    let targetX = 0, targetY = 0;
+    let currentX = 0, currentY = 0;
+    const MAX_OFFSET = 18;
+    const lerp = (a, b, t) => a + (b - a) * t;
+
+    const tick = () => {
+      currentX = lerp(currentX, targetX, 0.08);
+      currentY = lerp(currentY, targetY, 0.08);
+      photoStack.style.setProperty('--cursor-x', currentX.toFixed(2) + 'px');
+      photoStack.style.setProperty('--cursor-y', currentY.toFixed(2) + 'px');
+      if (Math.abs(currentX - targetX) > 0.05 || Math.abs(currentY - targetY) > 0.05) {
+        cursorRaf = requestAnimationFrame(tick);
+      } else {
+        cursorRaf = 0;
+      }
+    };
+
+    sticky.addEventListener('mousemove', (e) => {
+      const rect = sticky.getBoundingClientRect();
+      const nx = ((e.clientX - rect.left) / rect.width)  * 2 - 1; // -1..+1
+      const ny = ((e.clientY - rect.top)  / rect.height) * 2 - 1; // -1..+1
+      targetX = nx * MAX_OFFSET;
+      targetY = ny * MAX_OFFSET;
+      if (!cursorRaf) cursorRaf = requestAnimationFrame(tick);
+    });
+
+    sticky.addEventListener('mouseleave', () => {
+      targetX = 0;
+      targetY = 0;
+      if (!cursorRaf) cursorRaf = requestAnimationFrame(tick);
+    });
+  }
 }
 
 
