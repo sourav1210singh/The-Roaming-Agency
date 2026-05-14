@@ -185,11 +185,14 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.20);
   --shadow-lg: 0 8px 30px rgba(0, 0, 0, 0.25);
 
-  /* Z-Index Scale */
+  /* Z-Index Scale. Loader must be ABOVE the hero-center-title (z:900)
+     so on reload-at-deep-scroll the title's initial-frame flash is
+     never visible — loader covers everything until JS settles the
+     final logo position. */
   --z-base:     1;
   --z-header:   100;
   --z-overlay:  200;
   --z-modal:    300;
   --z-whatsapp: 400;
-  --z-loader:   500;
+  --z-loader:   9999;
 }

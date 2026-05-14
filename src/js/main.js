@@ -1347,6 +1347,29 @@ function initHeroIntro() {
 
     requestAnimationFrame(animate);
   }
+
+  // === scroll-progress computer (shared init + scroll handler) ===
+  // Computes the 0→1 progress through the hero stack and returns it.
+  // Used to seed targetRaw + currentRaw on PAGE LOAD (so a refresh at
+  // deep scroll doesn't show the center-logo flash for a few frames
+  // before the lerp catches up), and to update targetRaw on every
+  // subsequent scroll event.
+  function computeProgress() {
+    const tracker = stack || section;
+    const rect = tracker.getBoundingClientRect();
+    const trackable = (tracker.offsetHeight || window.innerHeight * 2) - window.innerHeight;
+    const scrolled = -rect.top;
+    return Math.max(0, Math.min(1, scrolled / trackable));
+  }
+
+  // Seed both raw values from the CURRENT scroll position before
+  // kicking off the RAF loop. On a refresh-at-deep-scroll, this puts
+  // the hero-center-title directly at its docked position on the very
+  // first frame — no centre flash, no lerp animation from 0.
+  targetRaw  = computeProgress();
+  currentRaw = targetRaw;
+  if (targetRaw > 0.6) document.body.classList.add('intro-complete');
+
   requestAnimationFrame(animate);
 
   // === SCROLL LISTENER — maps scrollY across the heroIntro height ===
@@ -1354,18 +1377,8 @@ function initHeroIntro() {
   // the logo is docked and `body.intro-complete` is set so other parts
   // of the site (smart-header, etc.) know the intro is over.
   window.addEventListener('scroll', () => {
-    // Use the .hero-stack wrapper (which is 2vh tall — pin period) so the
-    // animation completes exactly when the video has finished sliding up
-    // and fully covered the black panel. Falls back to the inner section
-    // if the wrapper isn't present.
-    const tracker = stack || section;
-    const rect = tracker.getBoundingClientRect();
-    const trackable = (tracker.offsetHeight || window.innerHeight * 2) - window.innerHeight;
-    const scrolled = -rect.top;
-    const rawProgress = Math.max(0, Math.min(1, scrolled / trackable));
-    targetRaw = rawProgress;
-
-    if (rawProgress > 0.6) document.body.classList.add('intro-complete');
+    targetRaw = computeProgress();
+    if (targetRaw > 0.6) document.body.classList.add('intro-complete');
     else document.body.classList.remove('intro-complete');
     // Tagline opacity + drift handled in the animate() loop above.
   }, { passive: true });
