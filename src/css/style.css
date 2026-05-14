@@ -2888,10 +2888,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: clamp(2rem, 4vw, 3rem) 0;
+  /* Client tweak: marquee block halved — vertical padding cut from
+     2-3rem to 1-1.5rem so the row hugs the heading more tightly. */
+  padding: clamp(1rem, 2vw, 1.5rem) 0;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  margin-bottom: clamp(3rem, 6vw, 5rem);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
   /* Soft edge fade so the heading blurs in/out at viewport edges
      instead of clipping mid-letter. */
   -webkit-mask-image: linear-gradient(
@@ -2915,12 +2917,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   will-change: transform;
 }
 
-/* Contact marquee — revision round 2 CT3: lighter weight (was 800
-   ExtraBold -> 300 Light). The huge type at light weight reads as an
-   editorial banner instead of a billboard shout. */
+/* Contact marquee — CT3 lighter weight (was 800 -> 300). Client
+   follow-up: font-size halved (was 3-8.5rem) so the marquee row reads
+   as a refined editorial banner rather than dominating the viewport. */
 .contact__marquee-item {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-size: clamp(3rem, 9vw, 8.5rem);
+  font-size: clamp(1.5rem, 4.5vw, 4.25rem);
   font-weight: 300;
   line-height: 0.95;
   letter-spacing: -0.02em;
@@ -2930,8 +2932,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   flex-shrink: 0;
 }
 
+/* Bullet shrunk proportionally so it still reads as an accent dot. */
 .contact__marquee-bullet {
-  font-size: clamp(2rem, 5vw, 4.5rem);
+  font-size: clamp(1rem, 2.5vw, 2.25rem);
   color: #c8a560;        /* small gold accent (only one in the section) */
   line-height: 1;
   flex-shrink: 0;
