@@ -1984,19 +1984,25 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   will-change: clip-path, filter;
 }
 
-/* Front-left photo — film-poster TALL portrait (3:5 ratio). Sits at
-   left:30%, bottom:5%; smaller now (width 30% from 40%) and shifted
-   noticeably to the right so a CLEAR chunk of its right portion sits
-   on top of the back photo's left portion — proper layered overlap
-   instead of a sliver. Both width and height shrink together because
-   aspect-ratio: 3/5 stays constant. */
+/* Front-left photo — film-poster TALL portrait (3:5 ratio).
+   Client iteration (Option C):
+   • Size ~15% smaller than the 258×430 baseline -> width 34%
+     (~219px at 1500-viewport, height auto-derives ~365px at 3:5)
+   • Position: left:19% (~121px from stack-left at 1500-viewport) so
+     the front photo sits LEFT enough that its right portion overlaps
+     back's left by ~50px
+   • Vertical: top:50% + transform translateY(-50%) centers the front
+     photo against the back photo (back is top:0 height:100% so its
+     vertical centre matches container centre) — equal space above
+     and below the overlap zone, not bottom-heavy like before. */
 .events__photo--front {
-  width: 30%;
+  width: 34%;
   aspect-ratio: 3 / 5;
   height: auto;
-  max-height: 60%;
-  left: 30%;
-  bottom: 5%;
+  max-height: 70%;
+  left: 19%;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 2;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
 }
