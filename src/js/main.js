@@ -42,6 +42,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initEventsScroll();
   initTestimonialsCarousel();
   initNavDropdowns();
+  initGalleryReveal();
   // Smart-header (hide on scroll-down, show on scroll-up) lives in its own
   // standalone file `src/js/smart-header.js` so band sub-pages can load it
   // without pulling in the rest of main.js. It self-initialises on DOM ready.
@@ -62,6 +63,88 @@ document.addEventListener('DOMContentLoaded', () => {
    PNGs in v2-clean/ are already pure-black on transparent, so no
    runtime treatment is needed.
    ────────────────────────────────────────────── */
+
+
+/* ──────────────────────────────────────────────
+   GALLERY REVEAL — scroll-driven internal gallery scroll + panel reveal
+   Per client request (Option D of the gallery-cutoff fix):
+   • The gallery contains 12 masonry photos and is naturally TALLER
+     than the viewport. Plain sticky-top:0 would pin the gallery before
+     the user could see the bottom photos, hiding them behind the
+     incoming contact panel.
+   • Fix: keep the section sticky 100vh tall with overflow:hidden, but
+     wrap the gallery content in a `.gallery-track` element that we
+     translate UPWARD as the user scrolls. The outer `.gallery-pin-stack`
+     gets a tall computed height = (gallery content height + 1 viewport)
+     so the sticky has enough scroll runway for two phases:
+       Phase 1: translateY goes from 0 -> -(galleryHeight - 100vh).
+                User sees ALL 12 photos pass by inside the sticky frame.
+       Phase 2: translateY stays at its max. Gallery holds at "last
+                frame". Contact (margin-top: -100vh + z-index:2) rises
+                over the pinned gallery from the viewport bottom to top.
+   ────────────────────────────────────────────── */
+function initGalleryReveal() {
+  const stack    = document.getElementById('galleryPinStack');
+  const section  = document.querySelector('.gallery-section');
+  const track    = document.getElementById('galleryTrack');
+  const masonry  = track && track.querySelector('.gallery');
+  if (!stack || !section || !track || !masonry) return;
+
+  let vh, contentHeight, internalScroll, pinDuration, raf = 0;
+
+  function measure() {
+    vh = window.innerHeight;
+    // Measure the masonry's own content height + the section's vertical
+    // padding so the track has room to fully expose the last photo row.
+    const cs = getComputedStyle(section);
+    const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+    contentHeight = masonry.scrollHeight + padY;
+    // How many px we need to translate to fully expose the bottom.
+    // If the gallery already fits in 1 viewport, internalScroll = 0
+    // and Phase 1 collapses to nothing — Phase 2 (panel reveal) is
+    // the only phase. Either way, the contract is the same.
+    internalScroll = Math.max(0, contentHeight - vh);
+    // Pin runs for: internal scroll + 1 viewport (the panel reveal).
+    pinDuration = internalScroll + vh;
+    // Sticky's pin range = stack.offsetHeight - vh. We want that to
+    // equal pinDuration, so stack.offsetHeight = pinDuration + vh.
+    stack.style.height = (pinDuration + vh) + 'px';
+  }
+
+  function update() {
+    raf = 0;
+    const rect = stack.getBoundingClientRect();
+    const max  = stack.offsetHeight - vh;
+    if (max <= 0) return;
+    // How far through the pin range we are (0 to 1).
+    const progress = Math.max(0, Math.min(1, -rect.top / max));
+    // Phase 1 ends at internalScroll / pinDuration of the progress.
+    const phase1End = internalScroll / pinDuration;
+    let translateY;
+    if (phase1End <= 0 || progress >= phase1End) {
+      translateY = internalScroll;     // Phase 2 — hold at last frame
+    } else {
+      const p1 = progress / phase1End; // 0 to 1 within Phase 1
+      translateY = p1 * internalScroll;
+    }
+    track.style.transform = 'translate3d(0, ' + (-translateY) + 'px, 0)';
+  }
+
+  function onScroll() {
+    if (!raf) raf = requestAnimationFrame(update);
+  }
+
+  measure();
+  update();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', () => { measure(); update(); });
+  // Re-measure once each lazy image lands — masonry height can grow.
+  masonry.querySelectorAll('img').forEach(img => {
+    if (!img.complete) img.addEventListener('load', () => { measure(); update(); }, { once: true });
+  });
+}
+
+
 function initBrandsMarquee() {
   /* Revision round 2 follow-up: the previous CSS-keyframe approach
      drove the marquee with `animation-duration: var(--marquee-speed-…)`,

@@ -2543,21 +2543,37 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 /* Per client revision: title removed; section background goes dark
    so the photos pop. Photos are visual-only — cursor stays default
    (not pointer) so users know they aren't clickable. */
-/* Client tweak: panel-reveal scroll choreography for the Gallery →
-   Get In Touch → Footer transition.
-   • Gallery pins (position: sticky; top: 0) when its top edge hits
-     the viewport top — z-index:1 keeps it at the base layer.
-   • .contact and .footer (z-index:2 set below) scroll up OVER the
-     pinned gallery as the user keeps scrolling, like a panel rising
-     from below to cover the gallery.
-   • Both already have solid backgrounds so the gallery doesn't
-     bleed through during the cover. */
+/* Client tweak (Option D): panel-reveal with internal gallery scroll.
+   • .gallery-pin-stack is the OUTER wrapper. JS sets its height to
+     (galleryContentHeight + 1 viewport) so the sticky has enough
+     scroll runway for BOTH phases:
+       Phase 1: gallery content translates upward inside the sticky
+                frame — user sees all 12 photos scroll past inside.
+       Phase 2: gallery holds at its "last frame", contact + footer
+                (z-index:2 below) rise over the pinned gallery from
+                the bottom of the viewport.
+   • .gallery-section is sticky 100vh tall with overflow:hidden so
+     only one viewport of the gallery content shows at a time and
+     the rest is masked.
+   • .gallery-track is the element JS translates each frame. */
+.gallery-pin-stack {
+  position: relative;
+  /* Height set by JS in initGalleryReveal() based on actual content. */
+}
+
 .gallery-section {
   background: #393939;
   padding-block: clamp(3rem, 6vw, 5rem);
   position: sticky;
   top: 0;
+  height: 100vh;
+  overflow: hidden;
   z-index: 1;
+}
+
+.gallery-track {
+  position: relative;
+  will-change: transform;
 }
 
 .gallery {
@@ -2894,8 +2910,14 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   color: #ffffff;
   padding: 0 0 clamp(4rem, 7vw, 6rem);
   overflow: hidden;
-  /* Scroll-reveal: rise OVER the pinned Gallery as user scrolls. */
+  /* Scroll-reveal Option D: rise OVER the pinned Gallery's final
+     viewport-worth of scroll. The negative margin-top of -100vh
+     shifts contact's natural document position UP by one viewport
+     so it overlaps the LAST viewport of gallery-pin-stack — that's
+     phase 2 of the reveal (gallery already showed all photos via
+     internal scroll, now holds at last frame while contact rises). */
   z-index: 2;
+  margin-top: -100vh;
 }
 
 /* ── INFINITE MARQUEE HEADING ──────────────────────────────────── */

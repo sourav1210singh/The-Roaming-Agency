@@ -873,51 +873,62 @@
 
   <!-- ===== PHOTO GALLERY =====
        Per client revision: title removed entirely. Photos sit on a
-       dark background and speak for themselves. They keep a subtle
-       hover-zoom for visual feedback but are NOT clickable (no link
-       wrapper, default cursor — not a pointer). -->
-  <section class="section gallery-section" id="gallery">
-    <div class="container">
-      <div class="gallery gallery--masonry reveal">
-        <div class="gallery__item gallery__item--tall">
-          <img src="src/assets/images/gallery/gallery-01.jpg" alt="Live performance at luxury event" loading="lazy">
-        </div>
-        <div class="gallery__item">
-          <img src="src/assets/images/gallery/gallery-03.jpg" alt="Roaming band at wedding" loading="lazy">
-        </div>
-        <div class="gallery__item">
-          <img src="src/assets/images/gallery/gallery-05.jpg" alt="Band performing at corporate event" loading="lazy">
-        </div>
-        <div class="gallery__item">
-          <img src="src/assets/images/gallery/gallery-07.jpg" alt="Musicians mingling with guests" loading="lazy">
-        </div>
-        <div class="gallery__item gallery__item--tall">
-          <img src="src/assets/images/gallery/gallery-09.jpg" alt="Interactive musical performance" loading="lazy">
-        </div>
-        <div class="gallery__item">
-          <img src="src/assets/images/gallery/gallery-11.jpg" alt="Acoustic performance at villa" loading="lazy">
-        </div>
-        <div class="gallery__item">
-          <img src="src/assets/images/gallery/gallery-13.jpg" alt="Band at French Riviera event" loading="lazy">
-        </div>
-        <div class="gallery__item">
-          <img src="src/assets/images/gallery/gallery-15.jpg" alt="Live music at destination wedding" loading="lazy">
-        </div>
-        <div class="gallery__item">
-          <img src="src/assets/images/gallery/gallery-17.jpg" alt="Musicians performing at gala" loading="lazy">
-        </div>
-        <div class="gallery__item gallery__item--tall">
-          <img src="src/assets/images/gallery/gallery-19.jpg" alt="Roaming band at sunset event" loading="lazy">
-        </div>
-        <div class="gallery__item">
-          <img src="src/assets/images/gallery/gallery-21.jpg" alt="Band entertaining guests" loading="lazy">
-        </div>
-        <div class="gallery__item">
-          <img src="src/assets/images/gallery/gallery-23.jpg" alt="Live performance at luxury venue" loading="lazy">
+       dark background and speak for themselves.
+       Client tweak (Option D): outer .gallery-pin-stack provides a
+       tall scroll runway (= gallery content height + 1 viewport).
+       Inner .gallery-section is sticky 100vh tall with overflow:hidden,
+       so it pins for the entire runway. .gallery-track inside the
+       section is translated upward by JS (initGalleryReveal in
+       main.js) so the user sees ALL the masonry photos scroll past
+       internally, then for the final viewport-worth of scroll the
+       gallery stays at its "last frame" while the contact + footer
+       panel rises over it. -->
+  <div class="gallery-pin-stack" id="galleryPinStack">
+    <section class="section gallery-section" id="gallery">
+      <div class="container">
+        <div class="gallery-track" id="galleryTrack">
+          <div class="gallery gallery--masonry reveal">
+            <div class="gallery__item gallery__item--tall">
+              <img src="src/assets/images/gallery/gallery-01.jpg" alt="Live performance at luxury event" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-03.jpg" alt="Roaming band at wedding" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-05.jpg" alt="Band performing at corporate event" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-07.jpg" alt="Musicians mingling with guests" loading="lazy">
+            </div>
+            <div class="gallery__item gallery__item--tall">
+              <img src="src/assets/images/gallery/gallery-09.jpg" alt="Interactive musical performance" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-11.jpg" alt="Acoustic performance at villa" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-13.jpg" alt="Band at French Riviera event" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-15.jpg" alt="Live music at destination wedding" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-17.jpg" alt="Musicians performing at gala" loading="lazy">
+            </div>
+            <div class="gallery__item gallery__item--tall">
+              <img src="src/assets/images/gallery/gallery-19.jpg" alt="Roaming band at sunset event" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-21.jpg" alt="Band entertaining guests" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-23.jpg" alt="Live performance at luxury venue" loading="lazy">
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
+  </div>
 
   <!-- ===== FAQ moved to dedicated page (revision round 2, item 1.2) =====
        Client asked for FAQ as its own page rather than a homepage section,
