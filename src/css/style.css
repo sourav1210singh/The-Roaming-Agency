@@ -1950,10 +1950,14 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   --cursor-y: 0px;
   position: relative;
   width: 100%;
-  /* Revision round 2 follow-up (flipped): photos are now 1:2 PORTRAIT
-     rectangles (twice as TALL as wide). Container height grown to
-     fit the taller back photo + an overlapping front photo. */
-  height: clamp(380px, 56vw, 620px);
+  /* Revision round 2 follow-up (Elyse-residence reference): the right
+     column holds a BIG dominant portrait photo (4:5 ratio) that fills
+     the column, plus a SMALL overlapping photo (5:6 portrait) that
+     extends LEFT outside the column edge to overlap the big one.
+     The container's height comes from the big photo's aspect-ratio
+     so we don't have to hard-code it for each viewport. */
+  aspect-ratio: 4 / 5;
+  max-height: clamp(420px, 72vh, 660px);
   z-index: 2;
 }
 
@@ -1984,34 +1988,41 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   will-change: clip-path, filter;
 }
 
-/* Revision round 2 follow-up (flipped): BOTH photos are now 1:2
-   PORTRAIT rectangles (width : height = 1 : 2 — twice as tall as
-   wide). aspect-ratio forces the shape; object-fit: cover crops the
-   source JPGs to fit cleanly. Layout: back photo sits top-right
-   (dominant + taller), front photo overlaps bottom-left. */
+/* Elyse-residence reference layout:
+   • BACK photo = big dominant (4:5 portrait), fills the right column
+     edge-to-edge — equivalent of .amenities-images-big in the
+     reference (width:100%, height:100%, sits flush right).
+   • FRONT photo = smaller overlap (5:6 portrait), positioned absolute
+     with negative `left` so it extends OUTSIDE the column on the left
+     and overlaps the back's left edge — equivalent of
+     .amenities-images-small (left: -14.88rem in the reference).
+   Both retain the clip-path reveal + cursor-follow parallax from the
+   E3/E4 work above. */
 
-/* Front-left photo — overlaps the back's lower-left corner.
+/* Front-left photo — small overlap on the back's left edge.
    Revision round 2 E2: no rotation. */
 .events__photo--front {
-  width: 38%;
-  aspect-ratio: 1 / 2;   /* HEIGHT auto-derived = width × 2 */
+  width: 62%;
+  aspect-ratio: 5 / 6;
   height: auto;
-  left: 0;
-  bottom: 0;
+  top: 50%;
+  /* Negative left pulls the front photo OUTSIDE the column on the left
+     so it overlaps the back's left edge — that's the Elyse pattern. */
+  left: -18%;
+  transform: translateY(-50%);
   z-index: 2;
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
 }
 
-/* Back-right photo — DOMINANT layer, sits top-right.
+/* Back-right photo — DOMINANT layer, fills container.
    Revision round 2 E2: no rotation. */
 .events__photo--back {
-  width: 46%;
-  aspect-ratio: 1 / 2;   /* HEIGHT auto-derived = width × 2 */
-  height: auto;
+  width: 100%;
+  height: 100%;
   right: 0;
   top: 0;
   z-index: 1;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.2);
 }
 
 /* Revision round 2 E4: curtain opens TOP → BOTTOM only, not centre-out.
