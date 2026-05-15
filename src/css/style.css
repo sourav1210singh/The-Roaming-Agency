@@ -1295,7 +1295,14 @@ body.is-header-hidden .hero-center-title {
   align-items: end;
 }
 
-.stat--top-right    { grid-column: 2; grid-row: 1; }
+/* "+10 Years of experience" — client tweak: shifted left from the
+   far right so it doesn't hug the section edge. margin-right pushes
+   it inward; margin-left negative pulls the cell start leftward. */
+.stat--top-right    {
+  grid-column: 2;
+  grid-row: 1;
+  margin-left: clamp(-5rem, -4vw, -2rem);
+}
 .stat--mid-left     { grid-column: 1; grid-row: 2; }
 .stat--mid-right    { grid-column: 2; grid-row: 3; }
 /* "6 Languages" — revision round 2 follow-up: shifted slightly right
@@ -1326,6 +1333,18 @@ body.is-header-hidden .hero-center-title {
   letter-spacing: -0.04em;
   color: #393939;
   font-variant-numeric: tabular-nums;
+}
+
+/* The +/- signs are wrapped in this span by initStatsCounter so we can
+   render them ~40% smaller than the digits — they read as accents on
+   the number rather than competing with it. vertical-align: super
+   shifts the sign up slightly to sit at the digit cap-height. */
+.stat__number-sign {
+  font-size: 0.6em;
+  vertical-align: super;
+  font-weight: 300;
+  letter-spacing: 0;
+  /* The sign doesn't need tabular-num spacing — let it sit tight. */
 }
 
 /* Stat labels — revision round 2 W4: pull label closer to its number

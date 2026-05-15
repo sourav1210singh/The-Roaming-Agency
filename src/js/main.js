@@ -480,10 +480,15 @@ function initStatsCounter() {
     const start = performance.now();
     const ease = (t) => 1 - Math.pow(1 - t, 3); // ease-out-cubic
 
+    // Helper: wrap +/- signs in a span so CSS can size them down.
+    // Client tweak — the "+" should read ~40% smaller than the digits
+    // (sized in CSS as .stat__number-sign font-size: 0.6em).
+    const wrapSign = (s) => s ? '<span class="stat__number-sign">' + s + '</span>' : '';
+
     const tick = (now) => {
       const t = Math.min(1, (now - start) / duration);
       const value = Math.round(target * ease(t));
-      el.textContent = `${prefix}${value}${suffix}`;
+      el.innerHTML = wrapSign(prefix) + value + wrapSign(suffix);
       if (t < 1) requestAnimationFrame(tick);
     };
     requestAnimationFrame(tick);
