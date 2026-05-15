@@ -208,10 +208,90 @@
   background: var(--color-dark-card);
 }
 
-/* === BAND STANDARDS === */
+/* === BAND STANDARDS ===
+   Band pages use the legacy .standards > .standard-card markup.
+   Globally `.standards` is just a bare dark block and `.standard-card`
+   is `display: revert` (unstyled) — that's why this section looked
+   odd. The rules below are scoped under `.band-standards` so they
+   give the band pages a proper luxury card grid WITHOUT touching the
+   homepage's redesigned `.standards__grid`/`.standard__*` section. */
 .band-standards {
   padding: var(--space-section) 0;
   background: var(--color-dark);
+}
+
+.band-standards .standards {
+  background: transparent;
+  padding-block: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.band-standards .standard-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-2xl) var(--space-xl);
+  background: var(--color-dark-card);
+  border: 1px solid var(--color-gray-800);
+  border-radius: var(--radius-md);
+  transition: border-color var(--duration-base) var(--ease-smooth),
+              transform var(--duration-base) var(--ease-smooth),
+              background var(--duration-base) var(--ease-smooth);
+}
+
+.band-standards .standard-card:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-4px);
+  background: #313131;
+}
+
+.band-standards .standard-card__title {
+  position: relative;
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  padding-top: var(--space-md);
+  margin: 0;
+}
+
+/* Short gold rule above each title — picks up the gold-line motif
+   used across the site for a quiet luxury cue. */
+.band-standards .standard-card__title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 34px;
+  height: 2px;
+  background: var(--color-gold);
+}
+
+.band-standards .standard-card__desc {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--color-gray-200);
+  margin: 0;
+}
+
+@media (max-width: 1024px) {
+  .band-standards .standards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .band-standards .standards {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* === BAND EVENTS === */
