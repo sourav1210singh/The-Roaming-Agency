@@ -2006,10 +2006,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   --cursor-y: 0px;
   position: relative;
   width: 100%;
-  /* Client tweak: stack height bumped slightly (55vh -> 56vh, min
-     400 -> 420) so the back photo's derived height (~443px at the
-     new width target) has room to fit. */
-  height: clamp(420px, 56vh, 580px);
+  /* Client tweak: stack height target 468px at the 1500×800 ref
+     viewport (468 / 800 = 58.5vh), clamped 420–580px. */
+  height: clamp(420px, 58.5vh, 580px);
   z-index: 2;
 }
 
@@ -2056,11 +2055,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      (less of it sits on top of back).
    • top 50% + translateY -50% -> vertically centered against back */
 .events__photo--front {
-  /* Client tweak: width 170px at 1500×800 viewport (= 26.4% of
-     stack's 644px width). Height auto-derives from aspect-ratio 3/5. */
-  width: 26.4%;
-  aspect-ratio: 3 / 5;
-  height: auto;
+  /* Client tweak: 145×283px at 1500×800 viewport (stack 644×468).
+     width 145/644 = 22.52%, height 283/468 = 60.47%. */
+  width: 22.52%;
+  height: 60.47%;
   left: var(--front-left, 28%);
   /* Same vertical anchor as back so the pair shifts up together
      and both photos stay vertically centred relative to each other. */
@@ -2081,12 +2079,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
    • top: 50% + translateY -50% -> vertically centred in the stack
      since back is no longer 100% tall. */
 .events__photo--back {
-  /* Client tweak: width 266px at 1500×800 viewport (= 41.3% of
-     stack's 644px width). Height auto-derives from aspect-ratio 3/5
-     to ~443px — fits within the 56vh-tall stack. */
-  width: 41.3%;
-  aspect-ratio: 3 / 5;
-  height: auto;
+  /* Client tweak: 240×443px at 1500×800 viewport (stack 644×468).
+     width 240/644 = 37.27%, height 443/468 = 94.66%. */
+  width: 37.27%;
+  height: 94.66%;
   right: 15%;
   top: 45%;
   transform: translateY(-50%);
