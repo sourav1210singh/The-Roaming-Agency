@@ -1,0 +1,85 @@
+/* ============================================================================
+   SCROLL-SMOOTHNESS TEST LAYER  —  loaded ONLY by scroll-test.html
+   ----------------------------------------------------------------------------
+   Goal: make section-to-section scrolling feel buttery (high perceived
+   FPS, no "block-y" stutter) WITHOUT touching index.html or any of the
+   shared CSS. Everything here is additive overrides scoped via the
+   <body> so it can't leak into the live site (the live site never
+   loads this file).
+
+   Techniques:
+   1. content-visibility:auto on the big sections — the browser SKIPS
+      layout + paint for sections that are off-screen, so each scroll
+      frame has far less work to do. contain-intrinsic-size gives the
+      skipped section a placeholder height so the scrollbar doesn't
+      jump as sections enter/leave the render budget.
+   2. GPU compositing hints on the scroll-driven / sticky elements so
+      their transforms run on the compositor thread, not the main
+      thread (main-thread work = dropped frames during scroll).
+   3. A subtle scroll-behavior fallback + overscroll containment.
+   ============================================================================ */
+
+/* ── 1. content-visibility: skip offscreen section render ────────────
+   Applied to the heavy stacked sections. The intrinsic-size values are
+   rough "this section is about this tall" hints so the page height
+   stays stable while a section is render-skipped. They don't need to
+   be exact — just close enough that the scrollbar doesn't lurch. */
+.who-we-are,
+.brands-marquee,
+.testimonials,
+.standards,
+.gallery-pin-stack,
+.contact {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 900px;
+}
+
+/* The events + choose-band sections are very tall (multi-viewport
+   sticky runways). Give them a taller intrinsic size so the skip
+   placeholder matches their real footprint better. */
+#events {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 400vh;
+}
+#chooseBand {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 500vh;
+}
+#worldwide {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 150vh;
+}
+
+/* ── 2. GPU compositing for the scroll-driven movers ──────────────────
+   Promote the elements main.js mutates every scroll frame to their own
+   compositor layer so the transform/clip updates don't trigger
+   main-thread paint. translateZ(0) forces the layer; will-change tells
+   the browser to keep it promoted. */
+.events__photo-stack,
+.events__photo,
+.band-selector__list,
+.band-selector__bg-image,
+.gallery-track,
+.hero-intro__tagline,
+.hero-center-title,
+.contact__marquee-track,
+.brands-marquee__track {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* ── 3. Scroll containment ────────────────────────────────────────────
+   overscroll-behavior:none stops the scroll "chaining"/bounce that can
+   make the page feel like it stutters at section boundaries. */
+html {
+  overscroll-behavior-y: none;
+}
+
+/* Native smooth-scroll as a fallback for anchor jumps (Lenis handles
+   wheel; this only affects in-page #anchor clicks if Lenis is absent). */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}

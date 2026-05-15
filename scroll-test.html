@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="The Roaming Agency — Premium roaming bands for luxury weddings, corporate events, and private parties across Europe. Based on the French Riviera, available worldwide.">
+  <meta name="keywords" content="luxury wedding band, roaming band French Riviera, live music agency, strolling band, destination wedding music">
+
+  <title>The Roaming Agency — Luxury Roaming Bands for Extraordinary Events</title>
+
+  <!-- Canonical + bilingual hreflang -->
+  <link rel="canonical" href="https://theroamingagency.com/">
+  <link rel="alternate" hreflang="en" href="https://theroamingagency.com/">
+  <link rel="alternate" hreflang="fr" href="https://theroamingagency.com/?lang=fr">
+  <link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="The Roaming Agency — Luxury Roaming Bands">
+  <meta property="og:description" content="Premium roaming bands for weddings, corporate events, and private parties. Based on the French Riviera, available worldwide.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://theroamingagency.com/">
+  <meta property="og:image" content="https://theroamingagency.com/src/assets/images/hero-banner.jpg">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:locale:alternate" content="fr_FR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Roaming Agency — Luxury Roaming Bands">
+  <meta name="twitter:description" content="Premium roaming bands for weddings, corporate events, and private parties on the French Riviera and worldwide.">
+  <meta name="twitter:image" content="https://theroamingagency.com/src/assets/images/hero-banner.jpg">
+
+  <!-- Robots / SEO hints -->
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="author" content="The Roaming Agency">
+  <meta name="theme-color" content="#393939">
+
+  <!-- Structured data — Organization + LocalBusiness for Google Knowledge Panel
+       and rich-result eligibility on local searches. -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://theroamingagency.com/#organization",
+        "name": "The Roaming Agency",
+        "url": "https://theroamingagency.com/",
+        "logo": "https://theroamingagency.com/src/assets/images/hero-banner.jpg",
+        "description": "Premium roaming bands for luxury weddings, corporate events, and private parties. Based on the French Riviera, available worldwide.",
+        "areaServed": "Worldwide",
+        "knowsLanguage": ["English", "French", "Italian", "Spanish", "Portuguese"],
+        "sameAs": []
+      },
+      {
+        "@type": "LocalBusiness",
+        "@id": "https://theroamingagency.com/#localbusiness",
+        "name": "The Roaming Agency",
+        "image": "https://theroamingagency.com/src/assets/images/hero-banner.jpg",
+        "url": "https://theroamingagency.com/",
+        "telephone": "+33 6 86 62 12 82",
+        "email": "contact@theroamingagency.com",
+        "priceRange": "€€€",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Nice",
+          "addressRegion": "French Riviera",
+          "addressCountry": "FR"
+        },
+        "areaServed": [
+          { "@type": "City", "name": "Nice" },
+          { "@type": "City", "name": "Cannes" },
+          { "@type": "City", "name": "Monaco" },
+          { "@type": "City", "name": "St-Tropez" },
+          { "@type": "City", "name": "Paris" },
+          { "@type": "City", "name": "London" },
+          { "@type": "City", "name": "Rome" },
+          { "@type": "City", "name": "Lake Como" },
+          { "@type": "City", "name": "Barcelona" },
+          { "@type": "City", "name": "Santorini" },
+          { "@type": "City", "name": "Dubai" }
+        ],
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5",
+          "reviewCount": "50",
+          "bestRating": "5"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://theroamingagency.com/#website",
+        "url": "https://theroamingagency.com/",
+        "name": "The Roaming Agency",
+        "publisher": { "@id": "https://theroamingagency.com/#organization" },
+        "inLanguage": ["en", "fr"]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Favicon placeholder -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+
+  <!-- Stylesheets — Nohemi (self-hosted, all 9 weights) is loaded inside
+       variables.css via @font-face. The Google Fonts Inter link was
+       removed once the licensed Nohemi files arrived. -->
+  <link rel="stylesheet" href="src/css/variables.css">
+  <link rel="stylesheet" href="src/css/reset.css">
+  <link rel="stylesheet" href="src/css/style.css">
+
+  <!-- ======================================================================
+       SCROLL-SMOOTHNESS TEST PAGE ONLY — NOT loaded on the live homepage.
+       This page is an isolated sandbox to test scroll-smoothness fixes:
+       1. scroll-smooth-test.css — content-visibility + GPU compositing hints
+       2. Lenis smooth-scroll CDN  — interpolated wheel scrolling
+       3. scroll-smooth-test.js    — tuned Lenis init + GSAP ticker sync
+       index.html is completely untouched.
+       ====================================================================== -->
+  <link rel="stylesheet" href="src/css/scroll-smooth-test.css">
+
+  <!-- GSAP + ScrollTrigger (needed early for hero animations). -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <!-- Lenis smooth-scroll (test page only) -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+
+  <!-- ===== PAGE LOADER ===== -->
+  <div class="page-loader" id="pageLoader">
+    <div class="page-loader__spinner"></div>
+  </div>
+
+  
+
+  <!-- ===== WHATSAPP BUTTON ===== -->
+  <a href="https://wa.me/33686621282" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Contact us on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="whatsapp-btn__label" data-en="Let's chat." data-fr="Discutons.">Let's chat.</span>
+  
+  </a>
+
+  <!-- ===== HEADER ===== -->
+  <header class="header" id="mainHeader">
+    <div class="header__inner">
+      <!-- Logo -->
+      <a href="/" class="logo logo--hero" id="mainLogo">
+        <span class="logo__text">The Roaming Agency</span>
+        <span class="logo__tagline" data-en="Extraordinary events deserve extraordinary music" data-fr="Des événements extraordinaires méritent une musique extraordinaire">Extraordinary events deserve extraordinary music</span>
+      </a>
+
+      <!-- Navigation — top-level categories with dropdowns on Events + Bands.
+           Per client v2 brief: 6 items max horizontally, individual band
+           names live INSIDE the Bands dropdown. -->
+      <nav class="nav" id="mainNav" aria-label="Site navigation">
+        <ul class="nav__list">
+          <li class="nav__item nav__item--has-dropdown">
+            <a href="#events" class="nav__link" data-en="Events" data-fr="Événements">Events</a>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="#events" data-en="Weddings"          data-fr="Mariages">Weddings</a></li>
+              <li><a href="#events" data-en="Corporate Events"  data-fr="Événements d'Entreprise">Corporate Events</a></li>
+              <li><a href="#events" data-en="Private Parties"   data-fr="Événements Privés">Private Parties</a></li>
+              <li><a href="#events" data-en="Artistic Direction" data-fr="Direction Artistique">Artistic Direction</a></li>
+            </ul>
+          </li>
+          <li class="nav__item nav__item--has-dropdown">
+            <a href="#chooseBand" class="nav__link" data-en="Bands" data-fr="Groupes">Bands</a>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="src/pages/the-brotherockers.html">The Brotherockers</a></li>
+              <li><a href="src/pages/the-kingsmen.html">The Kingsmen</a></li>
+              <li><a href="src/pages/the-peppermints.html">The Peppermints</a></li>
+              <li><a href="src/pages/the-gentlemen.html">The Gentlemen</a></li>
+              <li><a href="src/pages/the-serenades.html">The Serenades</a></li>
+              <li><a href="src/pages/the-supersonics.html">The Supersonics</a></li>
+              <li><a href="src/pages/the-rendez-vous.html">The Rendez-Vous</a></li>
+              <li><a href="src/pages/cafe-creme.html">Café Crème</a></li>
+              <li><a href="src/pages/why-so-serious.html">Why So Serious?</a></li>
+              <li><a href="src/pages/the-blackjacks.html">The Blackjacks</a></li>
+              <li class="nav__dropdown-divider" aria-hidden="true"></li>
+              <li><a href="#contact" data-en="Other Musical Services" data-fr="Autres Services Musicaux">Other Musical Services</a></li>
+            </ul>
+          </li>
+          <li class="nav__item">
+            <a href="src/pages/dj.html" class="nav__link">DJ</a>
+          </li>
+          <li class="nav__item">
+            <a href="src/pages/faq.html" class="nav__link">FAQ</a>
+          </li>
+          <li class="nav__item">
+            <a href="src/pages/blog.html" class="nav__link" data-en="Blog" data-fr="Journal">Blog</a>
+          </li>
+          <li class="nav__item">
+            <a href="#contact" class="nav__link" data-en="Other Musical Services" data-fr="Autres Services">Other Musical Services</a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Language toggle — always visible, single button -->
+      <button class="lang-toggle lang-toggle--fixed" id="langToggleFixed" aria-label="Switch language">FR</button>
+
+      <!-- Mobile hamburger -->
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ===== HERO TITLE / LOGO =====
+       Single fixed element. Sits center-top on the black hero intro
+       initially, then travels to the header's top-left logo slot as
+       the user scrolls. JS in initHeroIntro() drives the position +
+       font-size each frame from the scroll progress. -->
+  <a href="/" class="hero-center-title" id="heroCenterTitle">
+    <span class="hero-center-title__text">The Roaming Agency</span>
+  </a>
+
+  <!-- ===== DOOR PORTAL REMOVED (revision round 2, item 1.1) =====
+       Client direction: drop the pre-hero door intro entirely — start the
+       page on the hero stack so visitors land directly on the brand video
+       and tagline. All door-portal HTML, CSS, JS (initDoorPortal) and the
+       door-reveal.mp4 / hero-door-bg.jpg assets have been removed.
+       The #main-content anchor target (for the skip-link) now lives on
+       the hero stack below. -->
+
+
+  <!-- ===== HERO STACK (now the first section on the page) =====
+       Original sticky black panel + sliding video + tagline. The user
+       lands here once they've passed through the door. The existing
+       initHeroIntro() drives the logo dock, header chrome reveal, and
+       tagline pin/drift — all unchanged. -->
+  <div class="hero-stack" id="heroStack">
+    <a id="main-content"></a>
+
+    <!-- Black panel — sticky, z:1 (deepest) -->
+    <section class="hero-intro" id="heroIntro"></section>
+
+    <!-- Riviera footage. z:2 — slides up OVER the sticky black panel. -->
+    <section class="hero-video" id="heroVideo">
+      <video class="hero-video__media" autoplay muted loop playsinline preload="auto">
+        <source src="src/assets/videos/hero.mp4" type="video/mp4">
+      </video>
+    </section>
+
+    <!-- Tagline overlay — pinned via position: fixed, JS drifts it up. -->
+    <h1 class="hero-intro__tagline" id="heroTagline"
+        data-en="Bespoke musical solutions<br>for exclusive events worldwide"
+        data-fr="Solutions musicales sur mesure<br>pour événements exclusifs à travers le monde">
+      Bespoke musical solutions<br>for exclusive events worldwide
+    </h1>
+  </div>
+
+  <!-- ===== WHO WE ARE =====
+       New light-on-white treatment per client brief. Text on the LEFT,
+       four animated counter stats arranged in a staggered zig-zag on
+       the RIGHT. The paragraph keeps the scroll-driven word-darkening
+       effect. Copy is a placeholder — final text comes from Pier. -->
+  <section class="section who-we-are" id="whoWeAre">
+    <div class="container who-we-are__grid">
+
+      <!-- LEFT — eyebrow + title + paragraph -->
+      <div class="who-we-are__intro">
+        <span class="section__label who-we-are__label reveal"
+              data-en="Who We Are" data-fr="Qui Sommes-Nous">Who We Are</span>
+        <!-- Per client direction: replaced the stacked text title
+             with the brand-mark logo image (custom decorative R that
+             standard fonts couldn't match). Keeping <h2> for semantic
+             structure and SEO — the image sits inside it with the
+             alt text carrying the brand name. -->
+        <h2 class="section__title who-we-are__title reveal">
+          <img class="who-we-are__title-img"
+               src="src/assets/images/the-roaming-agency-title-2x.png"
+               alt="The Roaming Agency"
+               width="670" height="373"
+               loading="lazy">
+        </h2>
+        <p class="section__subtitle who-we-are__copy reveal"
+           data-en="Based on the French Riviera, available worldwide. Composed of international musicians fluent in French, English, Italian, Spanish, and Portuguese. The Roaming Agency transforms your drinks, dinners and celebrations into unforgettable memories."
+           data-fr="Basés sur la Côte d'Azur, disponibles dans le monde entier. Composés de musiciens internationaux maîtrisant le français, l'anglais, l'italien, l'espagnol et le portugais, The Roaming Agency transforme vos cocktails, dîners et célébrations en souvenirs inoubliables.">
+          Based on the French Riviera, available worldwide. Composed of international musicians fluent in French, English, Italian, Spanish, and Portuguese. The Roaming Agency transforms your drinks, dinners and celebrations into unforgettable memories.
+        </p>
+      </div>
+
+      <!-- RIGHT — staggered stat grid with animated counters -->
+      <div class="who-we-are__stats">
+        <div class="stat stat--top-right">
+          <span class="stat__number" data-count="10" data-prefix="+">+0</span>
+          <span class="stat__label" data-en="Years of experience" data-fr="Années d'expérience">Years of experience</span>
+        </div>
+        <div class="stat stat--mid-left">
+          <span class="stat__number" data-count="600" data-suffix="+">0</span>
+          <span class="stat__label" data-en="High-End Events" data-fr="Événements Haut de Gamme">High-End Events</span>
+        </div>
+        <div class="stat stat--mid-right">
+          <span class="stat__number" data-count="10" data-suffix="+">0</span>
+          <span class="stat__label" data-en="Bands & Artists" data-fr="Groupes & Artistes">Bands & Artists</span>
+        </div>
+        <div class="stat stat--bottom-left">
+          <span class="stat__number" data-count="6">0</span>
+          <span class="stat__label" data-en="Languages" data-fr="Langues">Languages</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ===== BRAND LOGOS — TWO-ROW MARQUEE =====
+       Per client v2:
+       • Row 1 scrolls LEFT — main brand set delivered by client
+         (src/assets/images/brands/v2/row1/*).
+       • Row 2 scrolls RIGHT — hotel set
+         (src/assets/images/brands/v2/row2/*).
+       • Default speed = fast, hover slows down (so users get a closer look
+         when they reach for the logos), motion outside the section stays
+         lively. No divider lines, no diamond dots. Logos render solid black
+         opacity (filter applied per-image only where needed).
+       • Each track is duplicated inline so the translate(-50%) loop seams. -->
+  <section class="brands-marquee" id="brandsMarquee" aria-label="Brands we have performed for">
+
+    <!-- Row 1 — scrolls LEFT -->
+    <div class="brands-marquee__row">
+      <div class="brands-marquee__track">
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/louis-vuitton.png" alt="Louis Vuitton" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/dior.png" alt="Dior" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/chanel.png" alt="Chanel" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/cartier.png" alt="Cartier" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/bulgari.png" alt="Bulgari" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/fendi.png" alt="Fendi" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/lacoste.png" alt="Lacoste" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/hublot.png" alt="Hublot" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/patek-philippe.png" alt="Patek Philippe" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/panerai.png" alt="Panerai" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/adler-joalliers.png" alt="Adler Joalliers" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/guerlain.png" alt="Guerlain" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/loreal.png" alt="L'Oréal" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/la-mer.png" alt="La Mer" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/edmond-de-rothschild.png" alt="Edmond de Rothschild" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/festival-de-cannes.png" alt="Festival de Cannes" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/superyacht-awards.png" alt="Superyacht Awards" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/ritz-carlton-yacht.png" alt="Ritz-Carlton Yacht" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/f1.png" alt="Formula 1" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/amg.png" alt="AMG" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/orange.png" alt="Orange" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/netflix.png" alt="Netflix" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/swissroc.png" alt="Swissroc" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/orkla.png" alt="Orkla" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/veolia.png" alt="Veolia" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="AstraZeneca" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/novartis.png" alt="Novartis" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="PokerStars" class="brands-marquee__logo"></span>
+        <!-- Loop duplicate -->
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/louis-vuitton.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/dior.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/chanel.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/cartier.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/bulgari.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/fendi.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/lacoste.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/hublot.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/patek-philippe.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/panerai.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/adler-joalliers.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/guerlain.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/loreal.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/la-mer.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/edmond-de-rothschild.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/festival-de-cannes.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/superyacht-awards.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/ritz-carlton-yacht.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/f1.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/amg.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/orange.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/netflix.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/swissroc.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/orkla.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/veolia.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/novartis.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="" class="brands-marquee__logo"></span>
+      </div>
+    </div>
+
+    <!-- Row 2 — scrolls RIGHT. Hotels set per client Drive. -->
+    <div class="brands-marquee__row brands-marquee__row--reverse">
+      <div class="brands-marquee__track">
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/burgenstock.png" alt="Bürgenstock" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/ultima-gstaad.png" alt="Ultima Gstaad" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/gstaad-palace.png" alt="Gstaad Palace" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/cheval-blanc-courchevel.png" alt="Cheval Blanc Courchevel" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/lana-courchevel.png" alt="Lana Courchevel" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/kaila-courchevel.png" alt="Kaila Courchevel" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/chalet-des-pierres-courchevel.png" alt="Chalet des Pierres Courchevel" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="Airelles Val d'Isère" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/majestic-cannes.png" alt="Majestic Cannes" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/martinez-cannes.png" alt="Martinez Cannes" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="Fairmont Monte-Carlo" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/monte-carlo-bay.png" alt="Monte-Carlo Bay" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/hotel-de-paris-st-tropez.png" alt="Hôtel de Paris St-Tropez" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="Shangri-La Paris" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/la-reserve-geneve.png" alt="La Réserve Genève" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/grand-theatre-de-geneve.png" alt="Grand Théâtre de Genève" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/vitznauerhof-hotel.png" alt="Vitznauerhof" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="Grand Hotel Tremezzo" class="brands-marquee__logo"></span>
+        <!-- Loop duplicate -->
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/burgenstock.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/ultima-gstaad.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/gstaad-palace.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/cheval-blanc-courchevel.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/lana-courchevel.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/kaila-courchevel.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/chalet-des-pierres-courchevel.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/majestic-cannes.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/martinez-cannes.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/monte-carlo-bay.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/hotel-de-paris-st-tropez.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/la-reserve-geneve.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/grand-theatre-de-geneve.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/vitznauerhof-hotel.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="" class="brands-marquee__logo"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== EVENTS WE SERVE =====
+       Per client v2 brief + transcript:
+       • Frame, title, layout STAY FIXED while user scrolls — sticky outer
+         provides ~400vh of scroll runway, sticky inner is pinned for that
+         whole stretch.
+       • Content cycles through 4 categories on scroll; bg colour swaps
+         negative-style between white and black on alternate categories
+         so the section doesn't feel like one long white wedding planner
+         page.
+       • Left column: a thin vertical line that fills 0→100% as the user
+         scrolls the section, plus the active category's title + desc.
+       • Right column: TWO staggered photos per category (one front-left,
+         one back-right) — overlapping like in the mockup.
+       • The 4 categories: Weddings, Corporate Events, Private Parties,
+         and Artistic Direction (NEW per brief). -->
+  <section class="events" id="events">
+    <div class="events__sticky">
+
+      <!-- Big mixed-weight heading that stays in place -->
+      <h2 class="events__title">
+        <span class="events__title--bold" data-en="Events" data-fr="Événements">Events</span>
+        <span class="events__title--light" data-en="We Serve" data-fr="Nous Servons">We Serve</span>
+      </h2>
+
+      <div class="events__layout">
+
+        <!-- LEFT: progress line + stacked categories. Each .events__cat
+             sits in the same absolute position; only the active one is
+             visible. -->
+        <div class="events__left">
+          <div class="events__progress-line">
+            <div class="events__progress-fill" id="eventsProgressFill"></div>
+          </div>
+          <div class="events__cat-stack" id="eventsCatStack">
+            <!-- Per-category title is wrapped in word-by-word "line-mask"
+                 spans (Elyse-residence pattern). Each .events__cat-mask is
+                 overflow:hidden; the inner .events__cat-text starts at
+                 translateY(110%). When the parent .events__cat gets
+                 .is-active, a CSS keyframe rises each text inside its
+                 mask one after the other (staggered via animation-delay). -->
+            <article class="events__cat is-active" data-idx="0">
+              <h3 class="events__cat-title">
+                <span class="events__cat-mask"><span class="events__cat-text" data-en="Weddings" data-fr="Mariages">Weddings</span></span>
+              </h3>
+              <p class="events__cat-desc"
+                 data-en="Make your special day unforgettable with a roaming band that mingles with your guests, creating magical moments without barriers."
+                 data-fr="Rendez votre jour spécial inoubliable avec un groupe itinérant qui se mêle à vos invités, créant des moments magiques sans barrières.">
+                Make your special day unforgettable with a roaming band that mingles with your guests, creating magical moments without barriers.
+              </p>
+            </article>
+            <article class="events__cat" data-idx="1">
+              <h3 class="events__cat-title">
+                <span class="events__cat-mask"><span class="events__cat-text" data-en="Corporate" data-fr="Événements">Corporate</span></span>
+                <span class="events__cat-mask"><span class="events__cat-text" data-en="Events" data-fr="d'Entreprise">Events</span></span>
+              </h3>
+              <p class="events__cat-desc"
+                 data-en="Elevate your gatherings with world-class live entertainment — from cocktail receptions to gala dinners, we set the perfect tone for every moment."
+                 data-fr="Élevez vos rassemblements avec un divertissement live de classe mondiale — du cocktail au dîner de gala, nous donnons le ton parfait à chaque instant.">
+                Elevate your gatherings with world-class live entertainment — from cocktail receptions to gala dinners, we set the perfect tone for every moment.
+              </p>
+            </article>
+            <article class="events__cat" data-idx="2">
+              <h3 class="events__cat-title">
+                <span class="events__cat-mask"><span class="events__cat-text" data-en="Private" data-fr="Événements">Private</span></span>
+                <span class="events__cat-mask"><span class="events__cat-text" data-en="Parties" data-fr="Privés">Parties</span></span>
+              </h3>
+              <p class="events__cat-desc"
+                 data-en="Birthdays, anniversaries, exclusive celebrations — our bands bring energy, elegance, and an experience your guests will never forget."
+                 data-fr="Anniversaires, célébrations exclusives — nos groupes apportent énergie, élégance et une expérience inoubliable pour vos invités.">
+                Birthdays, anniversaries, exclusive celebrations — our bands bring energy, elegance, and an experience your guests will never forget.
+              </p>
+            </article>
+            <article class="events__cat" data-idx="3">
+              <h3 class="events__cat-title">
+                <span class="events__cat-mask"><span class="events__cat-text" data-en="Artistic" data-fr="Direction">Artistic</span></span>
+                <span class="events__cat-mask"><span class="events__cat-text" data-en="Direction" data-fr="Artistique">Direction</span></span>
+              </h3>
+              <p class="events__cat-desc"
+                 data-en="Tailored programming, song selection, and event flow — we curate every musical moment so it lands on the right beat with the room's energy."
+                 data-fr="Programmation sur-mesure, sélection musicale et déroulé d'événement — nous orchestrons chaque moment pour qu'il vibre à l'unisson avec l'énergie de la salle.">
+                Tailored programming, song selection, and event flow — we curate every musical moment so it lands on the right beat with the room's energy.
+              </p>
+            </article>
+          </div>
+        </div>
+
+        <!-- RIGHT: 2-photo stacked stagger per category.
+             Decorative horizontal stripes removed per client — they
+             served no purpose and visually competed with the photo
+             stack during scroll. -->
+        <div class="events__right">
+          <div class="events__photo-stack" id="eventsPhotoStack">
+            <div class="events__photo-set is-active" data-idx="0">
+              <img src="src/assets/images/events/event-01.jpg" alt="Wedding band" class="events__photo events__photo--front">
+              <img src="src/assets/images/events/event-02.jpg" alt="Wedding celebration" class="events__photo events__photo--back">
+            </div>
+            <div class="events__photo-set" data-idx="1">
+              <img src="src/assets/images/events/event-03.jpg" alt="Corporate live entertainment" class="events__photo events__photo--front">
+              <img src="src/assets/images/events/event-04.jpg" alt="Corporate gala" class="events__photo events__photo--back">
+            </div>
+            <div class="events__photo-set" data-idx="2">
+              <img src="src/assets/images/events/event-05.jpg" alt="Private party band" class="events__photo events__photo--front">
+              <img src="src/assets/images/events/event-06.jpg" alt="Birthday celebration" class="events__photo events__photo--back">
+            </div>
+            <div class="events__photo-set" data-idx="3">
+              <img src="src/assets/images/events/event-04.jpg" alt="Artistic direction setup" class="events__photo events__photo--front">
+              <img src="src/assets/images/events/event-01.jpg" alt="Curated performance" class="events__photo events__photo--back">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CHOOSE YOUR BAND =====
+       Per client v2: section is PINNED while the user scrolls; only the
+       right-hand band list translates upward, swapping the centred band
+       (gold) and crossfading the matching B&W background image. The
+       `.band-selector__sticky` inner is what stays fixed in the viewport.
+       Active-state line + dot indicator removed — gold colour alone
+       signals selection. Inspired by https://www.weavy.ai/. -->
+  <section class="band-selector" id="chooseBand">
+    <div class="band-selector__sticky">
+
+      <!-- Crossfading B&W background stack -->
+      <div class="band-selector__bg">
+        <div class="band-selector__bg-image is-active" data-band="brotherockers" style="background-image: url('src/assets/images/bands/brotherockers-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="kingsmen"     style="background-image: url('src/assets/images/bands/kingsmen-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="peppermints"  style="background-image: url('src/assets/images/bands/peppermints-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="gentlemen"    style="background-image: url('src/assets/images/bands/gentlemen-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="serenades"    style="background-image: url('src/assets/images/bands/serenades-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="supersonics"  style="background-image: url('src/assets/images/bands/supersonics-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="rendezvous"   style="background-image: url('src/assets/images/bands/rendezvous-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="cafecreme"    style="background-image: url('src/assets/images/bands/cafecreme-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="whysoserious" style="background-image: url('src/assets/images/bands/whysoserious-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="blackjacks"   style="background-image: url('src/assets/images/bands/blackjacks-bg.jpg');"></div>
+        <div class="band-selector__bg-image" data-band="dj"           style="background-image: url('src/assets/images/bands/dj-bg.jpg');"></div>
+        <div class="band-selector__bg-overlay"></div>
+      </div>
+
+      <div class="band-selector__content">
+        <div class="band-selector__inner">
+
+          <!-- Left column — heading + active band description -->
+          <div class="band-selector__intro">
+            <h2 class="band-selector__heading">
+              <span data-en="Choose" data-fr="Choisissez">Choose</span><br>
+              <span data-en="Your Band" data-fr="Votre Groupe">Your Band</span>
+            </h2>
+            <p class="band-selector__desc" id="bandDesc"
+               data-en="Based on the French Riviera, available worldwide. Composed of international musicians fluent in French, English, Italian, Spanish, and Portuguese, The Brotherockers transform your drinks and dinners into unforgettable memories."
+               data-fr="Basés sur la Côte d'Azur, disponibles dans le monde entier. Composés de musiciens internationaux, les Brotherockers transforment vos cocktails et dîners en souvenirs inoubliables.">
+              Based on the French Riviera, available worldwide. Composed of international musicians fluent in French, English, Italian, Spanish, and Portuguese, The Brotherockers transform your drinks and dinners into unforgettable memories.
+            </p>
+          </div>
+
+          <!-- Right column — viewport-windowed list. JS translates this
+               vertically so the active item sits at the centre of the
+               sticky frame. Click still navigates to the band page. -->
+          <div class="band-selector__viewport">
+            <div class="band-selector__list" id="bandList">
+              <a class="band-selector__item is-active" data-band="brotherockers" href="src/pages/the-brotherockers.html">The Brotherockers</a>
+              <a class="band-selector__item" data-band="kingsmen"     href="src/pages/the-kingsmen.html">The Kingsmen</a>
+              <a class="band-selector__item" data-band="peppermints"  href="src/pages/the-peppermints.html">The Peppermints</a>
+              <a class="band-selector__item" data-band="gentlemen"    href="src/pages/the-gentlemen.html">The Gentlemen</a>
+              <a class="band-selector__item" data-band="serenades"    href="src/pages/the-serenades.html">The Serenades</a>
+              <a class="band-selector__item" data-band="supersonics"  href="src/pages/the-supersonics.html">The Supersonics</a>
+              <a class="band-selector__item" data-band="rendezvous"   href="src/pages/the-rendez-vous.html">The Rendez-Vous</a>
+              <a class="band-selector__item" data-band="cafecreme"    href="src/pages/cafe-creme.html">Café Crème</a>
+              <a class="band-selector__item" data-band="whysoserious" href="src/pages/why-so-serious.html">Why So Serious?</a>
+              <a class="band-selector__item" data-band="blackjacks"   href="src/pages/the-blackjacks.html">The Blackjacks</a>
+              <a class="band-selector__item" data-band="dj"           href="src/pages/dj.html">DJ</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ===== AVAILABLE WORLDWIDE (amra.com style 3D globe) ===== -->
+  <section class="section globe-section" id="worldwide">
+    <div class="container">
+      <div class="globe-layout">
+        <div class="globe-text">
+          <!-- Revision round 2 M1: AVAILABLE WORLDWIDE eyebrow removed
+               per client direction — its meaning is now folded into the
+               subtitle text below ("…and available worldwide"). -->
+          <h2 class="section__title reveal" data-en="Performing Across Europe's Most Beautiful Celebrations" data-fr="Présents dans les Plus Belles Célébrations d'Europe">Performing Across Europe's Most Beautiful Celebrations</h2>
+          <p class="section__subtitle reveal" data-en="Based on the French Riviera and available worldwide, our bands travel wherever the music is needed." data-fr="Basés sur la Côte d'Azur et disponibles dans le monde entier, nos groupes se déplacent partout où la musique est nécessaire.">Based on the French Riviera and available worldwide, our bands travel wherever the music is needed.</p>
+        </div>
+        <!-- Globe: Three.js canvas + JS-positioned cards -->
+        <div class="globe-container" id="globeContainer">
+          <canvas id="globeCanvas" class="globe-canvas"></canvas>
+          <div class="globe-cards" id="globeCards"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== OUR STANDARDS =====
+       Per client v2 brief:
+       • NO IMAGES — they didn't add value to each category
+       • Mixed-weight heading: "OUR" thin + "STANDARDS" bold
+       • 6 standards in a 3-column ZIGZAG grid (middle column offset down)
+       • Each item has a thin vertical line stub on the left, then bold
+         uppercase title, then description
+       • As the user scrolls, each item reveals one-by-one — text emerges
+         from BEHIND the vertical line and slides RIGHTWARD via animated
+         clip-path. The line stays put; the text "uncovers" itself.
+       • IntersectionObserver in main.js triggers `.is-revealed` per item. -->
+  <section class="standards" id="standards">
+    <div class="standards__inner">
+      <h2 class="standards__title">
+        <span class="standards__title--light" data-en="Our"        data-fr="Nos">Our</span>
+        <span class="standards__title--bold"  data-en="Standards"  data-fr="Standards">Standards</span>
+      </h2>
+
+      <div class="standards__grid">
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title" data-en="Custom" data-fr="Sur Mesure">Custom</h3>
+            <p class="standard__desc"
+               data-en="Because every event is unique, we deliver a tailor-made performance designed to meet your specific needs."
+               data-fr="Parce que chaque événement est unique, nous offrons une performance sur mesure adaptée à vos besoins.">
+              Because every event is unique, we deliver a tailor-made performance designed to meet your specific needs.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title" data-en="Immersive" data-fr="Immersif">Immersive</h3>
+            <p class="standard__desc"
+               data-en="No mics, no barriers. Our bands are fully mobile, inviting guests to take part in a unique musical experience."
+               data-fr="Pas de micros, pas de barrières. Nos groupes sont entièrement mobiles et invitent vos invités à participer.">
+              No mics, no barriers. Our bands are fully mobile, inviting guests to take part in a unique musical experience.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title" data-en="International" data-fr="International">International</h3>
+            <p class="standard__desc"
+               data-en="Fluent in five languages and performing in six, the band offers a versatile repertoire that engages all audiences."
+               data-fr="Maîtrise de cinq langues et répertoire en six : nos groupes captivent les publics du monde entier.">
+              Fluent in five languages and performing in six, the band offers a versatile repertoire that engages all audiences.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title" data-en="Reliable" data-fr="Fiabilité">Reliable</h3>
+            <p class="standard__desc"
+               data-en="The Brotherockers take their mission seriously: punctuality, professionalism, attention to detail; nothing is left up to chance."
+               data-fr="Ponctualité, professionnalisme, attention aux détails — rien n'est laissé au hasard.">
+              The Brotherockers take their mission seriously: punctuality, professionalism, attention to detail; nothing is left up to chance.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title" data-en="Savoir-Faire" data-fr="Savoir-Faire">Savoir-Faire</h3>
+            <p class="standard__desc"
+               data-en="The right song at the right time. The guys' expert control of the mood will take your guests from base to summit. A night (or day) they will never forget."
+               data-fr="La bonne chanson au bon moment. Une maîtrise experte de l'ambiance qui emmène vos invités au sommet — une soirée (ou journée) inoubliable.">
+              The right song at the right time. The guys' expert control of the mood will take your guests from base to summit. A night (or day) they will never forget.
+            </p>
+          </div>
+        </article>
+
+        <article class="standard">
+          <span class="standard__line" aria-hidden="true"></span>
+          <div class="standard__reveal">
+            <h3 class="standard__title" data-en="Passion" data-fr="Passion">Passion</h3>
+            <p class="standard__desc"
+               data-en="These gentlemen's love for the art shows not only in their explosive live energy, but also in the years spent mastering their instruments."
+               data-fr="L'amour de l'art transparaît dans leur énergie scénique et dans les années passées à maîtriser leurs instruments.">
+              These gentlemen's love for the art shows not only in their explosive live energy, but also in the years spent mastering their instruments.
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS =====
+       Per client v2 brief: "this is one of the few places where I introduce
+       the gold text… we want to keep gold usage to a minimum, only small
+       accents when truly necessary." So gold ONLY on the eyebrow label;
+       heading is bold black, body grey, the "See all reviews" link is
+       Google-blue. Light panel bg #f0f0f0.
+       Layout: 2-col grid — heading column on the left, horizontal-scroll
+       carousel on the right with a chevron nav button. -->
+  <section class="testimonials" id="testimonials">
+    <div class="testimonials__layout">
+
+      <!-- LEFT — gold eyebrow + huge bold black heading.
+           Each line wrapped in a span with `white-space: nowrap` so the
+           heading is forced to EXACTLY 3 lines (no mid-word breaks). The
+           data-en/data-fr lives on each span individually so the FR
+           toggle replaces line text without flattening the structure. -->
+      <div class="testimonials__intro">
+        <span class="testimonials__eyebrow"
+              data-en="Testimonials" data-fr="Témoignages">Testimonials</span>
+        <h2 class="testimonials__title">
+          <span class="testimonials__title-line" data-en="They Chose"  data-fr="Ils Ont Choisi">They Chose</span>
+          <span class="testimonials__title-line" data-en="The Roaming" data-fr="The Roaming">The Roaming</span>
+          <span class="testimonials__title-line" data-en="Agency"      data-fr="Agency">Agency</span>
+        </h2>
+      </div>
+
+      <!-- RIGHT — viewport with horizontal-scrolling cards + nav arrow -->
+      <div class="testimonials__viewport">
+        <div class="testimonials__track" id="testimonialsTrack">
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__inner">
+              <div>
+                <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-card__text">"An absolutely incredible experience. The band was the highlight of our wedding. Every single guest was on the dance floor!"</p>
+              </div>
+              <div>
+                <div class="testimonial-card__author">Sarah &amp; James</div>
+                <div class="testimonial-card__source">
+                  <span class="testimonial-card__g-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+                    </svg>
+                  </span>
+                  Google Review — The Brotherockers
+                </div>
+                <a href="https://g.page/r/CZ12mswnNpzREBM/review" target="_blank" rel="noopener" class="testimonial-card__gmb-link">See all reviews →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__inner">
+              <div>
+                <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-card__text">"The Serenades brought such a magical atmosphere to our event in Saint-Tropez. Professional, talented, and so much fun!"</p>
+              </div>
+              <div>
+                <div class="testimonial-card__author">Marie &amp; Luc</div>
+                <div class="testimonial-card__source">
+                  <span class="testimonial-card__g-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+                    </svg>
+                  </span>
+                  Google Review — The Serenades
+                </div>
+                <a href="https://g.page/r/CWLBTCA6lESaEAE/review" target="_blank" rel="noopener" class="testimonial-card__gmb-link">See all reviews →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__inner">
+              <div>
+                <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-card__text">"We hired The Peppermints for our corporate event and they exceeded all expectations. The energy was contagious!"</p>
+              </div>
+              <div>
+                <div class="testimonial-card__author">David R.</div>
+                <div class="testimonial-card__source">
+                  <span class="testimonial-card__g-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+                    </svg>
+                  </span>
+                  Google Review — The Peppermints
+                </div>
+                <a href="https://g.page/r/CTm2b06c0xVlEAE/review" target="_blank" rel="noopener" class="testimonial-card__gmb-link">See all reviews →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__inner">
+              <div>
+                <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-card__text">"The Gentlemen made our Riviera wedding unforgettable. The blend of French and Latin music was perfect for our international guests."</p>
+              </div>
+              <div>
+                <div class="testimonial-card__author">Elena &amp; Marco</div>
+                <div class="testimonial-card__source">
+                  <span class="testimonial-card__g-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+                    </svg>
+                  </span>
+                  Google Review — The Gentlemen
+                </div>
+                <a href="https://g.page/r/CcD5uKbGy3P-EAE/review" target="_blank" rel="noopener" class="testimonial-card__gmb-link">See all reviews →</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="testimonial-card">
+            <div class="testimonial-card__inner">
+              <div>
+                <div class="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                <p class="testimonial-card__text">"Incredible energy from start to finish. The Supersonics had everyone dancing. Would book again in a heartbeat!"</p>
+              </div>
+              <div>
+                <div class="testimonial-card__author">Tom &amp; Charlotte</div>
+                <div class="testimonial-card__source">
+                  <span class="testimonial-card__g-icon" aria-hidden="true">
+                    <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                      <path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/>
+                      <path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/>
+                      <path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238A11.91 11.91 0 0124 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/>
+                      <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
+                    </svg>
+                  </span>
+                  Google Review — The Supersonics
+                </div>
+                <a href="https://g.page/r/CVP7CAc_FJ4jEBM/review" target="_blank" rel="noopener" class="testimonial-card__gmb-link">See all reviews →</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Chevron buttons. JS scrolls the track by one card width. -->
+        <button class="testimonials__nav testimonials__nav--prev" id="testimonialsPrev" aria-label="Previous review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="15 18 9 12 15 6"/>
+          </svg>
+        </button>
+        <button class="testimonials__nav testimonials__nav--next" id="testimonialsNext" aria-label="Next review">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <polyline points="9 18 15 12 9 6"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PHOTO GALLERY =====
+       Per client revision: title removed entirely. Photos sit on a
+       dark background and speak for themselves.
+       Client tweak (Option D): outer .gallery-pin-stack provides a
+       tall scroll runway (= gallery content height + 1 viewport).
+       Inner .gallery-section is sticky 100vh tall with overflow:hidden,
+       so it pins for the entire runway. .gallery-track inside the
+       section is translated upward by JS (initGalleryReveal in
+       main.js) so the user sees ALL the masonry photos scroll past
+       internally, then for the final viewport-worth of scroll the
+       gallery stays at its "last frame" while the contact + footer
+       panel rises over it. -->
+  <div class="gallery-pin-stack" id="galleryPinStack">
+    <section class="section gallery-section" id="gallery">
+      <div class="container">
+        <div class="gallery-track" id="galleryTrack">
+          <div class="gallery gallery--masonry reveal">
+            <div class="gallery__item gallery__item--tall">
+              <img src="src/assets/images/gallery/gallery-01.jpg" alt="Live performance at luxury event" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-03.jpg" alt="Roaming band at wedding" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-05.jpg" alt="Band performing at corporate event" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-07.jpg" alt="Musicians mingling with guests" loading="lazy">
+            </div>
+            <div class="gallery__item gallery__item--tall">
+              <img src="src/assets/images/gallery/gallery-09.jpg" alt="Interactive musical performance" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-11.jpg" alt="Acoustic performance at villa" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-13.jpg" alt="Band at French Riviera event" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-15.jpg" alt="Live music at destination wedding" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-17.jpg" alt="Musicians performing at gala" loading="lazy">
+            </div>
+            <div class="gallery__item gallery__item--tall">
+              <img src="src/assets/images/gallery/gallery-19.jpg" alt="Roaming band at sunset event" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-21.jpg" alt="Band entertaining guests" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="src/assets/images/gallery/gallery-23.jpg" alt="Live performance at luxury venue" loading="lazy">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ===== FAQ moved to dedicated page (revision round 2, item 1.2) =====
+       Client asked for FAQ as its own page rather than a homepage section,
+       so the full Q&A list now lives at /src/pages/faq.html with its own
+       FAQPage JSON-LD schema for rich-result eligibility. The nav link
+       points there directly. -->
+
+  <!-- ===== CONTACT =====
+       Per client v2 brief + transcript:
+       "Let's create something extraordinary — I thought maybe this can
+        work well as an infinite loop, like this go to there and keeps
+        keeps rolling."
+       So the heading is now an INFINITE-LOOP MARQUEE that rolls right→left
+       continuously, never stops. Pure CSS animation — no scroll dependency.
+       Below it: two-column form layout matching the mockup. -->
+  <section class="contact" id="contact">
+
+    <!-- ── INFINITE LOOP HEADING (right → left, never stops) ── -->
+    <div class="contact__marquee" aria-label="Let's create something extraordinary"
+         data-en-content="Let's Create Something Extraordinary"
+         data-fr-content="Créons Quelque Chose d'Extraordinaire">
+      <div class="contact__marquee-track" id="contactMarqueeTrack">
+        <!-- 6× repeats of "Heading + bullet" — duplicated inline so the
+             translateX(-50%) loop seams perfectly. JS will substitute
+             the FR text via the data-attributes when the toggle fires. -->
+        <span class="contact__marquee-item" data-en="Let's Create Something Extraordinary" data-fr="Créons Quelque Chose d'Extraordinaire">Let's Create Something Extraordinary</span>
+        <span class="contact__marquee-bullet" aria-hidden="true">●</span>
+        <span class="contact__marquee-item" data-en="Let's Create Something Extraordinary" data-fr="Créons Quelque Chose d'Extraordinaire">Let's Create Something Extraordinary</span>
+        <span class="contact__marquee-bullet" aria-hidden="true">●</span>
+        <span class="contact__marquee-item" data-en="Let's Create Something Extraordinary" data-fr="Créons Quelque Chose d'Extraordinaire">Let's Create Something Extraordinary</span>
+        <span class="contact__marquee-bullet" aria-hidden="true">●</span>
+        <!-- Loop duplicate -->
+        <span class="contact__marquee-item" aria-hidden="true">Let's Create Something Extraordinary</span>
+        <span class="contact__marquee-bullet" aria-hidden="true">●</span>
+        <span class="contact__marquee-item" aria-hidden="true">Let's Create Something Extraordinary</span>
+        <span class="contact__marquee-bullet" aria-hidden="true">●</span>
+        <span class="contact__marquee-item" aria-hidden="true">Let's Create Something Extraordinary</span>
+        <span class="contact__marquee-bullet" aria-hidden="true">●</span>
+      </div>
+    </div>
+
+    <!-- ── 2-column form layout ── -->
+    <div class="contact__layout">
+
+      <!-- Left column: eyebrow + body + contact details -->
+      <div class="contact__intro">
+        <span class="contact__eyebrow" data-en="Get In Touch" data-fr="Contactez-Nous">Get In Touch</span>
+        <p class="contact__lead"
+           data-en="Ready to make your event unforgettable? Tell us about your vision and we'll craft the perfect musical experience."
+           data-fr="Prêt à rendre votre événement inoubliable ? Parlez-nous de votre vision et nous créerons l'expérience musicale parfaite.">
+          Ready to make your event unforgettable? Tell us about your vision and we'll craft the perfect musical experience.
+        </p>
+        <ul class="contact__details">
+          <li><strong>Email:</strong> <a href="mailto:contact@theroamingagency.com">contact@theroamingagency.com</a></li>
+          <li><strong>Phone:</strong> <a href="tel:+33686621282">+33 6 86 62 12 82</a></li>
+          <li><strong>Base:</strong> <span data-en="Nice, French Riviera" data-fr="Nice, Côte d'Azur">Nice, French Riviera</span></li>
+        </ul>
+      </div>
+
+      <!-- Right column: form in its own 2-col grid (mockup layout) -->
+      <form class="contact__form" id="contactForm" action="#" method="POST">
+        <div class="contact__form-grid">
+          <div class="form-group">
+            <label for="name" data-en="Your Name" data-fr="Votre Nom">Your Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="budget" data-en="Budget Range" data-fr="Fourchette de Budget">Budget Range</label>
+            <select id="budget" name="budget">
+              <option value="" data-en="Select..." data-fr="Sélectionner...">Select...</option>
+              <option value="under2500">&lt; €2,500</option>
+              <option value="2500-5000">€2,500 — €5,000</option>
+              <option value="5000-10000">€5,000 — €10,000</option>
+              <option value="over10000">&gt; €10,000</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="email" data-en="Email Address" data-fr="Adresse Email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group form-group--span-rows">
+            <label for="message" data-en="Tell Us About Your Event" data-fr="Parlez-Nous de Votre Événement">Tell Us About Your Event</label>
+            <textarea id="message" name="message" rows="6"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="eventDate" data-en="Event Date" data-fr="Date de l'Événement">Event Date</label>
+            <input type="date" id="eventDate" name="eventDate">
+          </div>
+          <div class="form-group">
+            <label for="eventType" data-en="Type of Event" data-fr="Type d'Événement">Type of Event</label>
+            <select id="eventType" name="eventType">
+              <option value="" data-en="Select..." data-fr="Sélectionner...">Select...</option>
+              <option value="wedding" data-en="Wedding" data-fr="Mariage">Wedding</option>
+              <option value="corporate" data-en="Corporate Event" data-fr="Événement d'Entreprise">Corporate Event</option>
+              <option value="party" data-en="Private Party" data-fr="Événement Privé">Private Party</option>
+              <option value="other" data-en="Other" data-fr="Autre">Other</option>
+            </select>
+          </div>
+        </div>
+        <button type="submit" class="contact__submit" data-en="Send Inquiry" data-fr="Envoyer la Demande">Send Inquiry</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer" id="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__brand-name">The Roaming Agency</div>
+          <p class="footer__brand-tagline" data-en="We create memories" data-fr="Nous créons des souvenirs">We create memories</p>
+          <div class="footer__social" style="margin-top: var(--space-lg);">
+            <a href="https://instagram.com/theroamingagency" target="_blank" class="footer__social-link" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://facebook.com/thebrotherockers" target="_blank" class="footer__social-link" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="https://youtube.com/@thebrotherockers" target="_blank" class="footer__social-link" aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.6C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__heading" data-en="Bands" data-fr="Groupes">Bands</h4>
+          <div class="footer__links">
+            <a href="src/pages/the-brotherockers.html" class="footer__link">The Brotherockers</a>
+            <a href="src/pages/the-kingsmen.html" class="footer__link">The Kingsmen</a>
+            <a href="src/pages/the-peppermints.html" class="footer__link">The Peppermints</a>
+            <a href="src/pages/the-gentlemen.html" class="footer__link">The Gentlemen</a>
+            <a href="src/pages/the-serenades.html" class="footer__link">The Serenades</a>
+            <a href="src/pages/the-supersonics.html" class="footer__link">The Supersonics</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__heading">&nbsp;</h4>
+          <div class="footer__links">
+            <a href="src/pages/the-rendez-vous.html" class="footer__link">The Rendez-Vous</a>
+            <a href="src/pages/cafe-creme.html" class="footer__link">Café Crème</a>
+            <a href="src/pages/why-so-serious.html" class="footer__link">Why So Serious?</a>
+            <a href="src/pages/the-blackjacks.html" class="footer__link">The Blackjacks</a>
+            <a href="src/pages/dj.html" class="footer__link">DJ</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__heading" data-en="Events" data-fr="Événements">Events</h4>
+          <div class="footer__links">
+            <a href="#" class="footer__link" data-en="Weddings" data-fr="Mariages">Weddings</a>
+            <a href="#" class="footer__link" data-en="Corporate" data-fr="Entreprises">Corporate</a>
+            <a href="#" class="footer__link" data-en="Private Parties" data-fr="Événements Privés">Private Parties</a>
+            <a href="src/pages/faq.html" class="footer__link">FAQ</a>
+            <a href="#contact" class="footer__link" data-en="Contact" data-fr="Contact">Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>© 2026 The Roaming Agency. All rights reserved.</span>
+        <span>Based in Nice, French Riviera — Available Worldwide</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== MAIN JS =====
+       Loaded with `defer` so it executes AFTER gsap + ScrollTrigger
+       (also deferred above) and before DOMContentLoaded fires. Without
+       defer, main.js could run before the GSAP scripts and skip
+       initTextDarkening + other gsap-dependent setups, which broke
+       the scroll word-darken effect on Vercel under slow CDN loads. -->
+  <script src="src/js/main.js" defer></script>
+  <!-- Smart header — hide on scroll-down, reveal on scroll-up. Standalone
+       so band sub-pages can also include it without pulling in main.js. -->
+  <script src="src/js/smart-header.js" defer></script>
+  <!-- TEST-PAGE-ONLY scroll smoothness layer. Loaded LAST so it can
+       wrap/observe everything main.js set up. -->
+  <script src="src/js/scroll-smooth-test.js" defer></script>
+</body>
+</html>
