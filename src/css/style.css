@@ -2057,11 +2057,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      (less of it sits on top of back).
    • top 50% + translateY -50% -> vertically centered against back */
 .events__photo--front {
-  /* Horizontal-only +5%: height stays 59% of stack (273px @ ref),
-     width set explicitly to 26.7% of stack width (~172px) instead of
-     deriving from 3/5. Ratio is now ~0.63 (was 0.60). */
+  /* Horizontal-only widen (two +5% passes): height stays 59% of stack
+     (273px @ ref), width set explicitly to 28.0% of stack width
+     (~180px) instead of deriving from 3/5. Ratio is now ~0.66. */
   height: 59%;
-  width: 26.7%;
+  width: 28.0%;
   left: var(--front-left, 28%);
   /* Same vertical anchor as back so the pair shifts up together
      and both photos stay vertically centred relative to each other.
@@ -2083,11 +2083,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
    • top: 50% + translateY -50% -> vertically centred in the stack
      since back is no longer 100% tall. */
 .events__photo--back {
-  /* Horizontal-only +5%: height stays 95% of stack (439px @ ref),
-     width set explicitly to 42.9% of stack width (~276px) instead of
-     deriving from 3/5. Ratio is now ~0.63 (was 0.60). */
+  /* Horizontal-only widen (two +5% passes): height stays 95% of stack
+     (439px @ ref), width set explicitly to 45.0% of stack width
+     (~290px) instead of deriving from 3/5. Ratio is now ~0.66. */
   height: 95%;
-  width: 42.9%;
+  width: 45.0%;
   right: 15%;
   top: 40%;
   transform: translateY(-50%);
