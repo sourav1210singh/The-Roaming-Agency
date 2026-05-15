@@ -2007,9 +2007,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   --cursor-y: 0px;
   position: relative;
   width: 100%;
-  /* Client tweak: stack height target 440px at the 1500×800 ref
-     viewport (440 / 800 = 55vh), clamped 420–580px. */
-  height: clamp(420px, 55vh, 580px);
+  /* Client tweak: image section scaled +5%. Stack height target now
+     462px at the 1500×800 ref (462 / 800 = 57.75vh), clamped
+     441–609px. Both photos are height-driven so they grow +5% too. */
+  height: clamp(441px, 57.75vh, 609px);
   z-index: 2;
 }
 
