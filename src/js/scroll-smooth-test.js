@@ -31,21 +31,21 @@
       return;
     }
 
+    // For WHEEL scrolling Lenis uses `lerp` (per-frame interpolation
+    // toward target). The previous lerp:0.12 felt laggy on BIG wheel
+    // inputs — a far target took ~0.7s of 12%/frame steps to reach,
+    // which reads as "scroll, pause, catch-up". Raised to 0.2 so the
+    // catch-up is roughly 2x faster (still smooth, much less delay).
+    // `wheelMultiplier` lowered so one big wheel notch doesn't fling
+    // the target so far in the first place. Live-tunable below via the
+    // [ / ] keys so the perfect value can be found by feel.
     const lenis = new window.Lenis({
-      // 0.85s settle — long enough to feel smooth, short enough to feel
-      // responsive (the 1.1s in the reverted attempt felt sluggish).
       duration: 0.85,
-      // Cubic ease-out: quick start, gentle stop, NO long tail.
       easing: (t) => 1 - Math.pow(1 - t, 3),
       smoothWheel: true,
-      // Never smooth touch — native momentum scroll is already great
-      // and Lenis-on-touch introduces lag.
       syncTouch: false,
-      wheelMultiplier: 1.0,
-      // lerp is the per-frame interpolation factor. 0.12 is a good
-      // middle: lower = floatier, higher = snappier. We expose it on
-      // window so it can be live-tuned from the console during testing.
-      lerp: 0.12,
+      wheelMultiplier: 0.9,
+      lerp: 0.2,
     });
 
     window.lenis = lenis;
@@ -93,18 +93,32 @@
     }
     requestAnimationFrame(fpsLoop);
 
-    // Press `f` to hide/show the meter; `l` to toggle Lenis on/off so
-    // you can A/B the smooth vs native feel on the same page.
+    // Keyboard controls for live A/B tuning on the test page:
+    //   f          hide / show the FPS meter
+    //   l          toggle Lenis on/off (native vs smooth, same page)
+    //   r          reset the min-FPS tracker
+    //   ]          lerp +0.02  (snappier, less catch-up delay)
+    //   [          lerp -0.02  (floatier, smoother but more delay)
+    //   1 / 2 / 3  jump straight to lerp 0.12 / 0.20 / 0.30 presets
+    function setLerp(v) {
+      v = Math.max(0.05, Math.min(0.6, Math.round(v * 100) / 100));
+      lenis.options.lerp = v;
+    }
     window.addEventListener('keydown', (e) => {
       if (e.key === 'f') meter.style.display = meter.style.display === 'none' ? 'block' : 'none';
       if (e.key === 'l') {
         if (lenis.isStopped) { lenis.start(); meter.style.color = '#0f0'; }
         else { lenis.stop(); meter.style.color = '#f80'; }
       }
-      if (e.key === 'r') { minFps = 999; } // reset the min-FPS tracker
+      if (e.key === 'r') { minFps = 999; }
+      if (e.key === ']') setLerp(lenis.options.lerp + 0.02);
+      if (e.key === '[') setLerp(lenis.options.lerp - 0.02);
+      if (e.key === '1') setLerp(0.12);
+      if (e.key === '2') setLerp(0.20);
+      if (e.key === '3') setLerp(0.30);
     });
 
-    console.log('[scroll-test] Lenis smooth-scroll active. Keys: f=meter l=toggle-lenis r=reset-minFPS');
+    console.log('[scroll-test] Lenis active. Keys:  f=meter  l=toggle-lenis  r=reset-minFPS  [=lerp- ]=lerp+  1/2/3=lerp presets(0.12/0.20/0.30). Current lerp shown in the top-left meter.');
   }
 
   if (document.readyState === 'loading') {
