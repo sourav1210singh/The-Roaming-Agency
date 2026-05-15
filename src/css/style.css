@@ -1774,10 +1774,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   display: flex;
   flex-direction: column;
   /* Client tweak: horizontal whitespace kept generous. Vertical
-     padding split — TOP needs to clear the fixed site header (~73px)
-     so the "EVENTS WE SERVE" title doesn't get hidden underneath it
-     while the section is pinned. BOTTOM stays mildly compact. */
-  padding-top: clamp(5rem, 7vw, 6.5rem);
+     padding split — TOP needs to clear the fixed site header (~73px),
+     so 5rem (80px) is the floor. MAX tightened to 5.5rem (was
+     6.5rem) so at wider viewports we don't gobble extra space the
+     photo stack needs. BOTTOM stays mildly compact. */
+  padding-top: clamp(5rem, 5.5vw, 5.5rem);
   padding-bottom: clamp(1.5rem, 4vw, 3.5rem);
   padding-inline: clamp(2.5rem, 6vw, 7rem);
   overflow: hidden;
@@ -1950,16 +1951,20 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 /* Client tweak: --cursor-x / --cursor-y CSS vars are updated by
    initEventsScroll's mousemove handler (see main.js). The active
    photos pick those up via translate() below for the cursor-follow
-   parallax feel. Initialised to 0 so the photos sit centred until
-   the user moves the mouse over the section.
-   Container height grown slightly so the new 3:5 portrait photos
-   (taller than the previous half-fixed-height crop) fit cleanly. */
+   parallax feel.
+   Container height reduced from 420-640 to 360-500 + 50vh cap so
+   the photo stack stays within the sticky's available vertical
+   space (sticky 100vh minus padding-top + padding-bottom + title
+   block ~ 240-260px on most viewports). At 1500×800 the previous
+   65vh value (520px) overflowed the 496px available area by 24px,
+   clipping the photos' bottom. New 50vh = 400px clears every common
+   laptop/desktop viewport cleanly. */
 .events__photo-stack {
   --cursor-x: 0px;
   --cursor-y: 0px;
   position: relative;
   width: 100%;
-  height: clamp(420px, 65vh, 640px);
+  height: clamp(360px, 50vh, 500px);
   z-index: 2;
 }
 
@@ -1996,40 +2001,42 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 
 /* Front-left photo — film-poster TALL portrait (3:5 ratio).
-   Client iteration (Option C):
-   • Size ~15% smaller than the 258×430 baseline -> width 34%
-     (~219px at 1500-viewport, height auto-derives ~365px at 3:5)
-   • Position: left:19% (~121px from stack-left at 1500-viewport) so
-     the front photo sits LEFT enough that its right portion overlaps
-     back's left by ~50px
-   • Vertical: top:50% + transform translateY(-50%) centers the front
-     photo against the back photo (back is top:0 height:100% so its
-     vertical centre matches container centre) — equal space above
-     and below the overlap zone, not bottom-heavy like before. */
+   HEIGHT-driven sizing: height comes from a % of the stack, width
+   auto-derives from aspect-ratio 3/5. This way the 3:5 portrait
+   shape is GUARANTEED at every viewport — the previous width-%
+   + max-height combo had a CSS edge case where max-height would
+   cap the height while leaving the explicit width unchanged,
+   producing wrong ratios (0.78 instead of 0.60).
+   • height: 56% of stack -> at stack max 500px = 280px tall
+   • width auto -> 280 × 3/5 = 168px wide
+   • left: var(--front-left) -> JS sets this in px per frame so the
+     front's right edge overlaps back's left edge by ~50px regardless
+     of viewport (back is height-driven so its width can't be predicted
+     in CSS purely as a % of stack-width).
+   • top 50% + translateY -50% -> vertically centered against back */
 .events__photo--front {
-  width: 34%;
+  height: 56%;
+  width: auto;
   aspect-ratio: 3 / 5;
-  height: auto;
-  max-height: 70%;
-  left: 19%;
+  left: var(--front-left, 28%);
   top: 50%;
   transform: translateY(-50%);
   z-index: 2;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
 }
 
-/* Back-right photo — DOMINANT TALL portrait (3:5 ratio), bigger than
-   the front. Width 55% (was 62% which overflowed the column when
-   combined with `right:-2%`); right:0 (was -2% causing horizontal
-   clip past the section edge); max-height caps vertical growth on
-   wide viewports so it never gets clipped by the sticky's
-   overflow:hidden.
-   Client tweak: no rotation (mockup match). */
+/* Back-right photo — DOMINANT TALL portrait (3:5 ratio).
+   HEIGHT-driven sizing (same reason as front) so the 3:5 shape is
+   guaranteed at every viewport.
+   • height: 100% of stack -> fills full stack height
+   • width auto -> stack-height × 3/5 (so at 500-tall stack, back
+     is 300 wide)
+   • right: 0 -> hugs the right edge of the stack
+   • Client tweak: no rotation (mockup match). */
 .events__photo--back {
-  width: 55%;
+  height: 100%;
+  width: auto;
   aspect-ratio: 3 / 5;
-  height: auto;
-  max-height: 100%;
   right: 0;
   top: 0;
   z-index: 1;

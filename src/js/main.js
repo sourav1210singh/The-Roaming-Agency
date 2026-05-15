@@ -379,6 +379,30 @@ function initEventsScroll() {
   window.addEventListener('resize', update);
   update();
 
+  /* Client tweak (overlap positioner): the photo widths are now
+     height-driven (height-%, aspect-ratio 3/5, width auto) so the 3:5
+     portrait shape is guaranteed at every viewport. But that breaks
+     the CSS-only overlap calc — front's `left:%` is relative to stack
+     WIDTH while photo widths come from stack HEIGHT. Use JS to set
+     front's `left` in pixels so its right edge overlaps back's left
+     edge by ~50px regardless of viewport. Re-run on resize / scroll
+     direction change. */
+  function positionFront() {
+    const stack = sticky.querySelector('.events__photo-stack');
+    const back  = stack && stack.querySelector('.events__photo--back');
+    const front = stack && stack.querySelector('.events__photo--front');
+    if (!stack || !back || !front) return;
+    const sw = stack.offsetWidth;
+    const bw = back.offsetWidth;
+    const fw = front.offsetWidth;
+    const OVERLAP = 50; // px — front-right sits 50px past back-left
+    const backLeftPx  = sw - bw;
+    const frontLeftPx = backLeftPx - fw + OVERLAP;
+    stack.style.setProperty('--front-left', frontLeftPx + 'px');
+  }
+  positionFront();
+  window.addEventListener('resize', positionFront);
+
   /* Client tweak (Option A): cursor-follow parallax on the active photo
      pair. Scroll still drives WHICH category is active (scroll-driven
      cycling above). On top of that, while the cursor moves within the
