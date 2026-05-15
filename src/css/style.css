@@ -2006,19 +2006,15 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 /* Front-left photo — film-poster TALL portrait (3:5 ratio).
    HEIGHT-driven sizing: height comes from a % of the stack, width
    auto-derives from aspect-ratio 3/5. This way the 3:5 portrait
-   shape is GUARANTEED at every viewport — the previous width-%
-   + max-height combo had a CSS edge case where max-height would
-   cap the height while leaving the explicit width unchanged,
-   producing wrong ratios (0.78 instead of 0.60).
-   • height: 56% of stack -> at stack max 500px = 280px tall
-   • width auto -> 280 × 3/5 = 168px wide
-   • left: var(--front-left) -> JS sets this in px per frame so the
-     front's right edge overlaps back's left edge by ~50px regardless
-     of viewport (back is height-driven so its width can't be predicted
-     in CSS purely as a % of stack-width).
+   shape is GUARANTEED at every viewport.
+   • height: 59% (client tweak +5% from previous 56%)
+   • left: var(--front-left) -> JS sets in px per frame; the OVERLAP
+     constant in initEventsScroll's positionFront() also tuned down
+     from 50 -> 25, which shifts the front a touch further left
+     (less of it sits on top of back).
    • top 50% + translateY -50% -> vertically centered against back */
 .events__photo--front {
-  height: 56%;
+  height: 59%;
   width: auto;
   aspect-ratio: 3 / 5;
   left: var(--front-left, 28%);

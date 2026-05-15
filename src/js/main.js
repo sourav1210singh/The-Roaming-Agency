@@ -393,9 +393,11 @@ function initEventsScroll() {
     const front = stack && stack.querySelector('.events__photo--front');
     if (!stack || !back || !front) return;
     const fw = front.offsetWidth;
-    const OVERLAP = 50; // px — front-right sits 50px past back-left
-    // Use back's actual offsetLeft (works whether back is at right:0,
-    // right:8%, or any other position).
+    // Client tweak: OVERLAP reduced 50 -> 25 px so the front sits a
+    // touch further left and a smaller portion of it sits on top of
+    // the back. Combined with front-size +5% the visual is a slightly
+    // bigger foreground photo with less back-coverage.
+    const OVERLAP = 25;
     const backLeftPx  = back.offsetLeft;
     const frontLeftPx = backLeftPx - fw + OVERLAP;
     stack.style.setProperty('--front-left', frontLeftPx + 'px');
