@@ -1174,23 +1174,28 @@ function initGlobeAnimation() {
   }
   requestAnimationFrame(animate);
 
-  /* Revision round 2 M2+M3: previously the globe rotation was driven
-     by SCROLL (scroll progress mapped to -120° → +120°), which made
-     the markers drift across the screen as the user scrolled past
-     this section — visually noisy. Per client direction we removed
-     that scroll listener entirely; rotation is now driven by HOVER:
-     the cursor X position over the globe container linearly maps to
-     -75° → +75° rotation. When the cursor leaves, the globe eases
-     back to its idle angle (-30°) so it never sits at a frozen
-     awkward orientation. */
+  /* Globe rotation driven by cursor X over the container.
+     Client tweak round 2:
+     • HOVER_RANGE 75 -> 180 so a full mouse sweep from one edge to
+       the other rotates the globe a FULL 360° — every location card
+       (front + back hemisphere) becomes visible at some cursor
+       position. Previously the 150° total range showed only the
+       front half; back-hemisphere cards never appeared.
+     • Sign flipped (`- nx * HOVER_RANGE` instead of `+ nx * HOVER_RANGE`)
+       so the rotation DIRECTION matches mouse motion: moving the cursor
+       LEFT now scrolls the globe surface LEFT (clockwise from top view),
+       moving RIGHT scrolls surface RIGHT (anticlockwise). Before, the
+       direction was inverted ("steering wheel" model) which felt
+       unnatural for a flat 2D-to-3D mapping.
+     On mouseleave, the globe eases back to the idle angle (-30°). */
   const IDLE_ROT = -30;
-  const HOVER_RANGE = 75; // ± degrees from idle as cursor sweeps L↔R
+  const HOVER_RANGE = 180; // ± degrees -> full 360° coverage end-to-end
 
   container.addEventListener('mousemove', (e) => {
     const rect = container.getBoundingClientRect();
     // Normalise cursor X to [-1, 1] across the container.
     const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    targetRotY = IDLE_ROT + nx * HOVER_RANGE;
+    targetRotY = IDLE_ROT - nx * HOVER_RANGE;
   });
 
   container.addEventListener('mouseleave', () => {
