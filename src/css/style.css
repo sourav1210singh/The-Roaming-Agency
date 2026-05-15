@@ -1265,15 +1265,22 @@ body.is-header-hidden .hero-center-title {
   margin: 0 0 clamp(0.85rem, 1.6vw, 1.5rem);
 }
 
-/* The brand-mark image inside the title <h2>. Responsive width with
-   a max so it doesn't overgrow on wide screens; height auto-scales
-   to preserve the source aspect ratio. */
+/* The brand-mark image inside the title <h2>. Source PNG is only
+   142x79 — capping max-width close to ~1.4× of natural width keeps
+   the upscale modest so the image stays reasonably crisp. The image-
+   rendering hints below ask the browser to use smooth bilinear-ish
+   interpolation rather than nearest-neighbour (default for PNG when
+   the browser thinks it might be pixel-art). Use a higher-res source
+   to fully resolve the blur. */
 .who-we-are__title-img {
   display: block;
   width: 100%;
-  max-width: 320px;
+  max-width: 200px;
   height: auto;
   object-fit: contain;
+  image-rendering: auto;
+  image-rendering: smooth;
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .who-we-are__copy {
