@@ -312,6 +312,8 @@ function initEventsScroll() {
   const N = cats.length; // 4 categories
   let lastIdx = -1;
   let raf = 0;
+  let transitionSeq = 0; // bumped each category change; guards settle()
+  let settleTimer = 0;   // collapses to a single visible layer post-peel
   // Client tweak: track scroll direction so the curtain reveal goes
   // in the same direction the user is scrolling. Default 'down' on
   // first activation (no direction info yet).
@@ -342,42 +344,55 @@ function initEventsScroll() {
 
     if (idx !== lastIdx) {
       const goingDown = idx > lastIdx; // lastIdx === -1 on first run -> down
+      const seq = ++transitionSeq;     // token: a superseded settle is a no-op
+      clearTimeout(settleTimer);
       cats.forEach((c, i) => c.classList.toggle('is-active', i === idx));
 
-      /* Paper + polythin layering (Option A on scroll-up):
-         • i < idx          -> settled "paper" base, fully revealed
-         • i === idx, DOWN  -> NEW top layer peels IN over the paper
-                               (no .is-revealed so it starts from the
-                               hidden default = keyframe 0%, no flash)
-         • i === idx, UP    -> previously-revealed base, just exposed
-         • i === lastIdx,UP -> the set we just left peels OFF the top,
-                               exposing the set beneath (keeps
-                               .is-revealed so it starts full = no flash)
-         • otherwise        -> ahead / not visited -> hidden default */
-      photoSets.forEach((p, i) => {
-        p.classList.remove('is-entering', 'is-exiting', 'is-current');
-        if (i < idx) {
-          p.classList.add('is-revealed');
-        } else if (i === idx) {
-          p.classList.add('is-current');
-          if (goingDown) {
-            p.classList.remove('is-revealed');
-            void p.offsetWidth; // reflow so the peel-in keyframe re-fires
-            p.classList.add('is-entering');
-          } else {
-            p.classList.add('is-revealed');
-          }
-        } else if (!goingDown && i === lastIdx) {
-          p.classList.add('is-revealed');
-          void p.offsetWidth; // reflow so the peel-off keyframe re-fires
-          p.classList.add('is-exiting');
-        } else {
-          p.classList.remove('is-revealed');
-        }
+      /* Paper + polythin (Option A): during the peel show only TWO
+         layers — the incoming/current set, and the set we were just
+         on as the "paper" underneath. Every other set is hidden. When
+         the peel finishes, settle() collapses to ONLY the current set
+         so at rest there is exactly one image — nothing behind it to
+         leak out when the hover-parallax nudges the top photo. */
+      photoSets.forEach((p) => {
+        p.classList.remove('is-entering', 'is-exiting', 'is-current', 'is-revealed');
       });
+
+      if (goingDown) {
+        const base = photoSets[lastIdx];      // undefined on first run
+        if (base) base.classList.add('is-revealed');   // paper underneath
+        const inc = photoSets[idx];
+        inc.classList.add('is-current');
+        void inc.offsetWidth;                 // reflow so peel-in re-fires
+        inc.classList.add('is-entering');     // new image peels IN on top
+      } else {
+        const leaving = photoSets[lastIdx];   // on top -> peels OFF
+        const exposed = photoSets[idx];       // paper revealed beneath
+        exposed.classList.add('is-revealed', 'is-current');
+        if (leaving) {
+          leaving.classList.add('is-revealed');
+          void leaving.offsetWidth;           // reflow so peel-off re-fires
+          leaving.classList.add('is-exiting');
+        }
+      }
 
       // Negative bg swap on odd indexes.
       sticky.classList.toggle('is-negative', idx % 2 === 1);
+
+      /* Collapse to a single layer once the peel is over. Longest
+         animation ≈ entering front (0.32s delay + 1.05s) ≈ 1.37s; a
+         guarded 1.5s timer is simpler and interruption-safe vs
+         juggling staggered animationend across two elements. The seq
+         check makes any superseded timer a no-op. Hiding the covered
+         base is invisible — the full top image already occludes it. */
+      settleTimer = setTimeout(() => {
+        if (seq !== transitionSeq) return;
+        photoSets.forEach((p, i) => {
+          p.classList.remove('is-entering', 'is-exiting', 'is-current', 'is-revealed');
+          if (i === idx) p.classList.add('is-revealed', 'is-current');
+        });
+      }, 1500);
+
       lastIdx = idx;
     }
   };
