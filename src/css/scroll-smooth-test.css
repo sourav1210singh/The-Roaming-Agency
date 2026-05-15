@@ -83,3 +83,30 @@ html {
     scroll-behavior: smooth;
   }
 }
+
+/* ── G2 STRICT-ALIGNMENT TRIAL (TEST PAGE ONLY) ───────────────────────
+   Client G2: "Left and right margins aligned across all sections so
+   every text block / graphic starts at the same position."
+
+   The live homepage already does this everywhere EXCEPT the Events
+   section, which uses a wider bespoke inset
+   (padding-inline: clamp(2.5rem, 6vw, 7rem)) so its content starts
+   further in than every other section on wide screens.
+
+   This override (loaded only by scroll-test.html — index.html never
+   loads this file) makes Events use the SAME container metrics as
+   .container / .header__inner: full-bleed sticky bg kept, but the
+   inner title + layout are capped to --container-max and use the
+   global --container-padding gutter, so the Events text/graphics line
+   up exactly with Who We Are, Standards, Testimonials, Contact, etc.
+   Compare against the live homepage to A/B the alignment. */
+.events__sticky {
+  padding-inline: 0;
+}
+.events__title,
+.events__layout {
+  width: 100%;
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-padding);
+}
