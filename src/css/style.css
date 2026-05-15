@@ -1964,7 +1964,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   --cursor-y: 0px;
   position: relative;
   width: 100%;
-  height: clamp(360px, 50vh, 500px);
+  /* Client tweak: stack bumped a notch (50vh -> 55vh, max 500 -> 560)
+     so the photos read bigger. Still leaves comfortable room in the
+     sticky section's available vertical space. */
+  height: clamp(400px, 55vh, 560px);
   z-index: 2;
 }
 
@@ -2029,15 +2032,15 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
    HEIGHT-driven sizing (same reason as front) so the 3:5 shape is
    guaranteed at every viewport.
    • height: 100% of stack -> fills full stack height
-   • width auto -> stack-height × 3/5 (so at 500-tall stack, back
-     is 300 wide)
-   • right: 0 -> hugs the right edge of the stack
-   • Client tweak: no rotation (mockup match). */
+   • width auto -> stack-height × 3/5
+   • right: 8% -> shifted LEFT 8% of stack width from the right edge.
+     Pulls the whole photo pair away from the right edge and closer
+     to the text column on the left (client tweak — was right:0). */
 .events__photo--back {
   height: 100%;
   width: auto;
   aspect-ratio: 3 / 5;
-  right: 0;
+  right: 8%;
   top: 0;
   z-index: 1;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);

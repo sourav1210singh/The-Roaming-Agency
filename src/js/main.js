@@ -392,11 +392,11 @@ function initEventsScroll() {
     const back  = stack && stack.querySelector('.events__photo--back');
     const front = stack && stack.querySelector('.events__photo--front');
     if (!stack || !back || !front) return;
-    const sw = stack.offsetWidth;
-    const bw = back.offsetWidth;
     const fw = front.offsetWidth;
     const OVERLAP = 50; // px — front-right sits 50px past back-left
-    const backLeftPx  = sw - bw;
+    // Use back's actual offsetLeft (works whether back is at right:0,
+    // right:8%, or any other position).
+    const backLeftPx  = back.offsetLeft;
     const frontLeftPx = backLeftPx - fw + OVERLAP;
     stack.style.setProperty('--front-left', frontLeftPx + 'px');
   }
