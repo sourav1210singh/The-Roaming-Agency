@@ -2041,16 +2041,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   border-radius: 14px;
   object-fit: cover;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
-  /* Client tweak: default state for INACTIVE photo-sets is now FULLY
-     hidden from the top (was a centre letterbox slot that briefly
-     flashed during the fade-in before the curtain animation kicked
-     in). With the default matching the top-down animation's 0% state,
-     there's no visible jump when a set becomes active and the curtain
-     reveal starts. Both invisible-from-top and invisible-from-bottom
-     render as nothing visually, so this also doesn't conflict with
-     the reverse-direction (bottom-up) keyframe — both invisible end
-     states look the same. */
-  clip-path: inset(100% 0% 0% 0%);
+  /* Hidden default for not-yet-revealed sets. inset(0 0 100% 0) =
+     zero-height rect pinned at the TOP, matching the wipe-in
+     keyframe's 0% exactly (image grows top -> bottom) so there's no
+     flash when a set starts entering. */
+  clip-path: inset(0% 0% 100% 0%);
   filter: brightness(0.35);
   will-change: clip-path, filter;
 }
@@ -2104,18 +2099,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
 }
 
-/* Two curtain keyframes — direction matches scroll direction so the
-   reveal feels like a polythin/film being peeled away in the same
-   direction the user is scrolling.
-     • -down: top edge clipped to 0%, peels downward (user scrolls DOWN
-              -> new photo reveals top-to-bottom)
-     • -up:   bottom edge clipped to 0%, peels upward (user scrolls UP
-              -> new photo reveals bottom-to-top) */
+/* Curtain wipe — ALWAYS top -> bottom, regardless of scroll direction
+   (per client: the image change must read uper-se-niche both ways).
+   wipe-in: a zero-height rect pinned at the TOP grows downward
+   (bottom inset 100% -> 0) so the new image unrolls over the paper
+   from top to bottom. */
 @keyframes events-photo-reveal-down {
-  0%   { clip-path: inset(100% 0% 0% 0%); filter: brightness(0.35); }
-  100% { clip-path: inset(0%   0% 0% 0%); filter: brightness(1);    }
-}
-@keyframes events-photo-reveal-up {
   0%   { clip-path: inset(0% 0% 100% 0%); filter: brightness(0.35); }
   100% { clip-path: inset(0% 0% 0%   0%); filter: brightness(1);    }
 }
@@ -2143,17 +2132,18 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   animation: events-photo-reveal-down 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.32s forwards;
 }
 
-/* Peel-OFF = mirror of reveal-up: the image leaves bottom-upward and
-   dims as it lifts away, like polythin being pulled off the paper. */
-@keyframes events-photo-peeloff-up {
-  0%   { clip-path: inset(0% 0% 0%   0%); filter: brightness(1);    }
-  100% { clip-path: inset(0% 0% 100% 0%); filter: brightness(0.35); }
+/* Peel-OFF — also top -> bottom: the top image's top edge slides
+   DOWN (top inset 0 -> 100%), dimming as it lifts off, exposing the
+   still-revealed paper beneath from the top downward. */
+@keyframes events-photo-peeloff-down {
+  0%   { clip-path: inset(0%   0% 0% 0%); filter: brightness(1);    }
+  100% { clip-path: inset(100% 0% 0% 0%); filter: brightness(0.35); }
 }
 .events__photo-set.is-exiting .events__photo--front {
-  animation: events-photo-peeloff-up 0.95s cubic-bezier(0.65, 0.05, 0.36, 1) 0s forwards;
+  animation: events-photo-peeloff-down 0.95s cubic-bezier(0.65, 0.05, 0.36, 1) 0s forwards;
 }
 .events__photo-set.is-exiting .events__photo--back {
-  animation: events-photo-peeloff-up 0.95s cubic-bezier(0.65, 0.05, 0.36, 1) 0.18s forwards;
+  animation: events-photo-peeloff-down 0.95s cubic-bezier(0.65, 0.05, 0.36, 1) 0.18s forwards;
 }
 
 /* Client tweak (Option A): cursor-follow parallax on the active
