@@ -1249,8 +1249,11 @@ body.is-header-hidden .hero-center-title {
   margin-bottom: clamp(0.85rem, 1.4vw, 1.25rem);
 }
 
-/* Who We Are title — client tweak: shrunk a notch (was 3-6.25rem,
-   now 2.25-4.5rem) so it doesn't dominate the left column. */
+/* Who We Are title — wraps a brand-mark image now (client tweak).
+   The old text-only styles (font-size, weight, etc.) are kept for the
+   case where text falls back, but the inner <img> below handles the
+   actual visual. Bottom margin still applies so paragraph spacing
+   stays consistent. */
 .who-we-are__title {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   font-weight: 300;
@@ -1260,6 +1263,17 @@ body.is-header-hidden .hero-center-title {
   color: #393939;
   text-transform: uppercase;
   margin: 0 0 clamp(0.85rem, 1.6vw, 1.5rem);
+}
+
+/* The brand-mark image inside the title <h2>. Responsive width with
+   a max so it doesn't overgrow on wide screens; height auto-scales
+   to preserve the source aspect ratio. */
+.who-we-are__title-img {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  object-fit: contain;
 }
 
 .who-we-are__copy {

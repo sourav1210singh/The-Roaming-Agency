@@ -254,9 +254,18 @@
       <div class="who-we-are__intro">
         <span class="section__label who-we-are__label reveal"
               data-en="Who We Are" data-fr="Qui Sommes-Nous">Who We Are</span>
-        <h2 class="section__title who-we-are__title reveal"
-            data-en="The<br>Roaming<br>Agency"
-            data-fr="The<br>Roaming<br>Agency">The<br>Roaming<br>Agency</h2>
+        <!-- Per client direction: replaced the stacked text title
+             with the brand-mark logo image (custom decorative R that
+             standard fonts couldn't match). Keeping <h2> for semantic
+             structure and SEO — the image sits inside it with the
+             alt text carrying the brand name. -->
+        <h2 class="section__title who-we-are__title reveal">
+          <img class="who-we-are__title-img"
+               src="src/assets/images/the-roaming-agency-title.webp"
+               alt="The Roaming Agency"
+               width="320" height="320"
+               loading="lazy">
+        </h2>
         <p class="section__subtitle who-we-are__copy reveal"
            data-en="Based on the French Riviera, available worldwide. Composed of international musicians fluent in French, English, Italian, Spanish, and Portuguese. The Roaming Agency transforms your drinks, dinners and celebrations into unforgettable memories."
            data-fr="Basés sur la Côte d'Azur, disponibles dans le monde entier. Composés de musiciens internationaux maîtrisant le français, l'anglais, l'italien, l'espagnol et le portugais, The Roaming Agency transforme vos cocktails, dîners et célébrations en souvenirs inoubliables.">
