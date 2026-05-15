@@ -2099,9 +2099,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
 }
 
-/* Curtain wipe — ALWAYS top -> bottom, regardless of scroll direction
-   (per client: the image change must read uper-se-niche both ways).
-   wipe-in: a zero-height rect pinned at the TOP grows downward
+/* Direction-aware wipe (per client: image change follows scroll dir).
+   Scroll DOWN -> peel IN top->bottom (this keyframe, used by
+   .is-entering). A zero-height rect pinned at the TOP grows downward
    (bottom inset 100% -> 0) so the new image unrolls over the paper
    from top to bottom. */
 @keyframes events-photo-reveal-down {
@@ -2132,18 +2132,21 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   animation: events-photo-reveal-down 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.32s forwards;
 }
 
-/* Peel-OFF — also top -> bottom: the top image's top edge slides
-   DOWN (top inset 0 -> 100%), dimming as it lifts off, exposing the
-   still-revealed paper beneath from the top downward. */
-@keyframes events-photo-peeloff-down {
-  0%   { clip-path: inset(0%   0% 0% 0%); filter: brightness(1);    }
-  100% { clip-path: inset(100% 0% 0% 0%); filter: brightness(0.35); }
+/* Scroll UP -> peel OFF bottom->top (used by .is-exiting, which JS
+   only sets on scroll-up). The bottom edge slides UP (bottom inset
+   0 -> 100%), dimming as it lifts off, so the leaving image vanishes
+   bottom-to-top and the paper beneath is exposed niche-se-uper. End
+   state inset(0 0 100% 0) === the hidden default, so the post-peel
+   collapse is perfectly continuous (no flash). */
+@keyframes events-photo-peeloff-up {
+  0%   { clip-path: inset(0% 0% 0%   0%); filter: brightness(1);    }
+  100% { clip-path: inset(0% 0% 100% 0%); filter: brightness(0.35); }
 }
 .events__photo-set.is-exiting .events__photo--front {
-  animation: events-photo-peeloff-down 0.95s cubic-bezier(0.65, 0.05, 0.36, 1) 0s forwards;
+  animation: events-photo-peeloff-up 0.95s cubic-bezier(0.65, 0.05, 0.36, 1) 0s forwards;
 }
 .events__photo-set.is-exiting .events__photo--back {
-  animation: events-photo-peeloff-down 0.95s cubic-bezier(0.65, 0.05, 0.36, 1) 0.18s forwards;
+  animation: events-photo-peeloff-up 0.95s cubic-bezier(0.65, 0.05, 0.36, 1) 0.18s forwards;
 }
 
 /* Client tweak (Option A): cursor-follow parallax on the active
