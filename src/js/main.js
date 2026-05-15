@@ -1174,32 +1174,55 @@ function initGlobeAnimation() {
   }
   requestAnimationFrame(animate);
 
-  /* Globe rotation driven by cursor X over the container.
-     Client tweak round 2:
-     • HOVER_RANGE 75 -> 180 so a full mouse sweep from one edge to
-       the other rotates the globe a FULL 360° — every location card
-       (front + back hemisphere) becomes visible at some cursor
-       position. Previously the 150° total range showed only the
-       front half; back-hemisphere cards never appeared.
-     • Sign flipped (`- nx * HOVER_RANGE` instead of `+ nx * HOVER_RANGE`)
-       so the rotation DIRECTION matches mouse motion: moving the cursor
-       LEFT now scrolls the globe surface LEFT (clockwise from top view),
-       moving RIGHT scrolls surface RIGHT (anticlockwise). Before, the
-       direction was inverted ("steering wheel" model) which felt
-       unnatural for a flat 2D-to-3D mapping.
-     On mouseleave, the globe eases back to the idle angle (-30°). */
-  const IDLE_ROT = -30;
-  const HOVER_RANGE = 180; // ± degrees -> full 360° coverage end-to-end
+  /* Globe rotation — DELTA-driven (drag-to-rotate feel).
+     Client tweak round 3:
+       Previous round used ABSOLUTE cursor-X -> rotation mapping with
+       a fixed ±180° range and a snap-back-to-idle on mouseleave. Two
+       problems with that model:
+         1. Mouse never quite reached container edges in practice (the
+            visible sphere is ~81% of container width), so true full
+            360° was rare.
+         2. Mouseleave forced the globe back to -30° idle, losing the
+            user's rotation work — felt unnatural.
+       New model: each mousemove computes the cursor's pixel DELTA
+       since the last frame and adds proportional rotation. This means:
+         • Continuous mouse motion in one direction keeps rotating
+           the globe indefinitely (no 360° cap — user can spin past
+           and past).
+         • Mouse LEFT motion -> surface scrolls LEFT (mouse direction
+           matches surface direction).
+         • Mouseleave does NOT reset rotation — globe holds whatever
+           angle the cursor last left it at.
+         • Mouse re-entering the container resumes deltas from the new
+           position with no snap. */
+  let lastMouseX = null;
+  const SENSITIVITY = 0.7; // degrees of rotation per pixel of cursor movement
+
+  container.addEventListener('mouseenter', (e) => {
+    // Seed lastMouseX so the first move computes a clean 0 delta
+    // from the entry point — no jump.
+    lastMouseX = e.clientX;
+  });
 
   container.addEventListener('mousemove', (e) => {
-    const rect = container.getBoundingClientRect();
-    // Normalise cursor X to [-1, 1] across the container.
-    const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-    targetRotY = IDLE_ROT - nx * HOVER_RANGE;
+    if (lastMouseX === null) lastMouseX = e.clientX;
+    const dx = e.clientX - lastMouseX;
+    // Direction mapping (THREE.js right-handed coords):
+    //   rotation.y INCREASING -> globe's +X side rotates toward -Z
+    //     (into the screen) -> visible surface scrolls LEFT
+    //   rotation.y DECREASING -> visible surface scrolls RIGHT
+    // User wants mouse direction to MATCH surface direction:
+    //   Mouse LEFT  (dx<0) -> surface scroll LEFT  -> rotation.y INCREASE
+    //   Mouse RIGHT (dx>0) -> surface scroll RIGHT -> rotation.y DECREASE
+    // Hence the MINUS:
+    targetRotY -= dx * SENSITIVITY;
+    lastMouseX = e.clientX;
   });
 
   container.addEventListener('mouseleave', () => {
-    targetRotY = IDLE_ROT;
+    // Reset the delta tracker but DON'T touch targetRotY — globe holds
+    // its last position. The next mouseenter will re-seed lastMouseX.
+    lastMouseX = null;
   });
 }
 
