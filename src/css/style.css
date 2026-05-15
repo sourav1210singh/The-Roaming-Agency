@@ -2650,12 +2650,22 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 
 /* Heading + subtitle on light bg — flipped from white-on-dark. The
-   gold .section__label (eyebrow "Available Worldwide") stays gold. */
+   gold .section__label (eyebrow "Available Worldwide") stays gold.
+   Client tweak: vertical compactness for the long heading. Was
+   line-height:1.15 + text-4xl which wrapped to 5 spacey lines covering
+   nearly the full viewport. Tightened: smaller font, line-height 1.0,
+   shorter bottom margin so the heading block doesn't dominate. */
 .globe-section .section__title {
   color: #393939;
+  font-size: clamp(2rem, 3.5vw, 3rem);
+  line-height: 1.0;
+  margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
 }
 .globe-section .section__subtitle {
   color: #414141;
+  /* Tighter line-height for the subtitle too so its 2-3 lines stack
+     closer instead of feeling airy. */
+  line-height: 1.45;
 }
 
 /* Globe container — Client tweak: was width:160% + max-width:1080px
