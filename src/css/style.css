@@ -1295,13 +1295,14 @@ body.is-header-hidden .hero-center-title {
   align-items: end;
 }
 
-/* "+10 Years of experience" — client tweak: shifted left from the
-   far right so it doesn't hug the section edge. margin-right pushes
-   it inward; margin-left negative pulls the cell start leftward. */
+/* "+10 Years of experience" — client tweak round 2: nudged BACK to
+   the right (was margin-left: -5rem to -2rem which was too aggressive).
+   Now -3rem to -1rem so the cell still sits slightly inset from the
+   right edge but not as far in. */
 .stat--top-right    {
   grid-column: 2;
   grid-row: 1;
-  margin-left: clamp(-5rem, -4vw, -2rem);
+  margin-left: clamp(-3rem, -2vw, -1rem);
 }
 .stat--mid-left     { grid-column: 1; grid-row: 2; }
 .stat--mid-right    { grid-column: 2; grid-row: 3; }
@@ -1324,11 +1325,12 @@ body.is-header-hidden .hero-center-title {
 
 /* Stat numbers — revision round 2 W1: thinner weight (was 800 -> 300).
    The huge type with light weight gives the same scale impact while
-   feeling editorial rather than billboard-y. */
+   feeling editorial rather than billboard-y.
+   Client tweak: font-size reduced 10% (was 3.5-6.5rem -> 3.15-5.85rem). */
 .stat__number {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   font-weight: 300;
-  font-size: clamp(3.5rem, 7vw, 6.5rem);
+  font-size: clamp(3.15rem, 6.3vw, 5.85rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
   color: #393939;
@@ -1337,14 +1339,14 @@ body.is-header-hidden .hero-center-title {
 
 /* The +/- signs are wrapped in this span by initStatsCounter so we can
    render them ~40% smaller than the digits — they read as accents on
-   the number rather than competing with it. vertical-align: super
-   shifts the sign up slightly to sit at the digit cap-height. */
+   the number rather than competing with it.
+   Client tweak: vertical-align: middle so the sign sits at the VERTICAL
+   CENTRE of the digit (was `super` which placed it at the top). */
 .stat__number-sign {
   font-size: 0.6em;
-  vertical-align: super;
+  vertical-align: middle;
   font-weight: 300;
   letter-spacing: 0;
-  /* The sign doesn't need tabular-num spacing — let it sit tight. */
 }
 
 /* Stat labels — revision round 2 W4: pull label closer to its number
