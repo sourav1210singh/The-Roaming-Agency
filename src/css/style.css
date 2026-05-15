@@ -1265,17 +1265,14 @@ body.is-header-hidden .hero-center-title {
   margin: 0 0 clamp(0.85rem, 1.6vw, 1.5rem);
 }
 
-/* The brand-mark image inside the title <h2>. Source PNG is only
-   142x79 — capping max-width close to ~1.4× of natural width keeps
-   the upscale modest so the image stays reasonably crisp. The image-
-   rendering hints below ask the browser to use smooth bilinear-ish
-   interpolation rather than nearest-neighbour (default for PNG when
-   the browser thinks it might be pixel-art). Use a higher-res source
-   to fully resolve the blur. */
+/* The brand-mark image inside the title <h2>. Source PNG is now
+   852x474 (6× the original 142x79, re-sharpened twice via PIL's
+   UnsharpMask), so even at retina-doubled display widths the browser
+   only DOWNSCALES — always crisp, no upscale blur. */
 .who-we-are__title-img {
   display: block;
   width: 100%;
-  max-width: 200px;
+  max-width: 280px;
   height: auto;
   object-fit: contain;
   image-rendering: auto;
@@ -1285,13 +1282,13 @@ body.is-header-hidden .hero-center-title {
 
 .who-we-are__copy {
   font-family: var(--font-body, 'Inter', system-ui, sans-serif);
-  /* Copy size kept the same but max-width tightened so the paragraph
-     reads as a comfortable column rather than spanning the full half. */
   font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
   font-weight: 400;
   line-height: 1.6;
   color: #393939;
-  max-width: 28rem;
+  /* Client tweak: column tightened (28rem -> 20rem) so the paragraph
+     wraps to ~7 lines instead of 5 — feels more editorial. */
+  max-width: 20rem;
 }
 
 /* The word-by-word darkening effect: words start partially transparent
