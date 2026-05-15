@@ -2017,13 +2017,22 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .events__photo-set {
   position: absolute;
   inset: 0;
-  opacity: 0;
-  transition: opacity 0.4s ease;
   pointer-events: none;
+  /* Paper + polythin model: visited sets stay visible as the base;
+     show/hide is driven entirely by each photo's clip-path, not
+     opacity, so the old image never disappears underneath. */
 }
 
-.events__photo-set.is-active {
-  opacity: 1;
+/* z-index by category index so a higher category always stacks ON TOP
+   of the lower one — the new image peels over the old "paper", and on
+   scroll-up the top set peels off to expose the one beneath. */
+.events__photo-set[data-idx="0"] { z-index: 1; }
+.events__photo-set[data-idx="1"] { z-index: 2; }
+.events__photo-set[data-idx="2"] { z-index: 3; }
+.events__photo-set[data-idx="3"] { z-index: 4; }
+
+/* Current (topmost) set gets pointer events + the cursor parallax. */
+.events__photo-set.is-current {
   pointer-events: auto;
 }
 
@@ -2111,25 +2120,40 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   100% { clip-path: inset(0% 0% 0%   0%); filter: brightness(1);    }
 }
 
-/* Default direction = scroll-down (top->bottom curtain). Both photos
-   animate, staggered so back enters first then front follows. */
-.events__photo-set.is-active .events__photo--back {
+/* ── Paper + polythin layering ─────────────────────────────────────
+   • Settled "paper" base (.is-revealed): every set at/below the
+     current category stays fully shown underneath — static, no anim.
+   • Entering (scroll DOWN): the new top set peels IN over the paper
+     with the reveal-down curtain (back first, then front). It has NO
+     .is-revealed so its pre-animation state is the hidden default
+     (matches the keyframe 0%) — no flash. `forwards` holds it full.
+   • Exiting (scroll UP, Option A): the set just left is on top and
+     peels OFF, exposing the previous (still-revealed) set below. It
+     KEEPS .is-revealed so the pre-animation state is full (matches
+     peel-off 0%) — no flash; the animation `forwards` ends hidden. */
+.events__photo-set.is-revealed .events__photo {
+  clip-path: inset(0% 0% 0% 0%);
+  filter: brightness(1);
+}
+
+.events__photo-set.is-entering .events__photo--back {
   animation: events-photo-reveal-down 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.1s forwards;
 }
-.events__photo-set.is-active .events__photo--front {
+.events__photo-set.is-entering .events__photo--front {
   animation: events-photo-reveal-down 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.32s forwards;
 }
 
-/* When JS marks the active set as `--reveal-up` (scrolling UP), swap
-   to the bottom-up keyframe. Class is set BEFORE `.is-active` in the
-   JS path with a forced reflow, so this rule takes effect on the
-   first frame the active class lands — no flash, no wrong-direction
-   start. */
-.events__photo-set.is-active.events__photo-set--reveal-up .events__photo--back {
-  animation: events-photo-reveal-up 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.1s forwards;
+/* Peel-OFF = mirror of reveal-up: the image leaves bottom-upward and
+   dims as it lifts away, like polythin being pulled off the paper. */
+@keyframes events-photo-peeloff-up {
+  0%   { clip-path: inset(0% 0% 0%   0%); filter: brightness(1);    }
+  100% { clip-path: inset(0% 0% 100% 0%); filter: brightness(0.35); }
 }
-.events__photo-set.is-active.events__photo-set--reveal-up .events__photo--front {
-  animation: events-photo-reveal-up 1.05s cubic-bezier(0.65, 0.05, 0.36, 1) 0.32s forwards;
+.events__photo-set.is-exiting .events__photo--front {
+  animation: events-photo-peeloff-up 0.95s cubic-bezier(0.65, 0.05, 0.36, 1) 0s forwards;
+}
+.events__photo-set.is-exiting .events__photo--back {
+  animation: events-photo-peeloff-up 0.95s cubic-bezier(0.65, 0.05, 0.36, 1) 0.18s forwards;
 }
 
 /* Client tweak (Option A): cursor-follow parallax on the active
@@ -2140,11 +2164,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
    conflict. Front photo drifts at 1.0x (foreground = more parallax),
    back photo drifts at 0.55x for depth illusion. The transition on
    `translate` smooths sub-frame cursor jitter into a fluid drift. */
-.events__photo-set.is-active .events__photo--front {
+.events__photo-set.is-current .events__photo--front {
   translate: calc(var(--cursor-x) * 1.0) calc(var(--cursor-y) * 1.0);
   transition: translate 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.events__photo-set.is-active .events__photo--back {
+.events__photo-set.is-current .events__photo--back {
   translate: calc(var(--cursor-x) * 0.55) calc(var(--cursor-y) * 0.55);
   transition: translate 0.18s cubic-bezier(0.22, 1, 0.36, 1);
 }

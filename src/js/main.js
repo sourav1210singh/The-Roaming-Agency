@@ -341,35 +341,44 @@ function initEventsScroll() {
     }
 
     if (idx !== lastIdx) {
-      lastIdx = idx;
+      const goingDown = idx > lastIdx; // lastIdx === -1 on first run -> down
       cats.forEach((c, i) => c.classList.toggle('is-active', i === idx));
-      // Photo sets: apply the direction class FIRST (with a forced
-      // reflow to ensure CSS animations re-trigger), then `.is-active`.
-      // This way the curtain keyframe selected (down vs up) is correct
-      // on the very first frame the animation runs — no wrong-direction
-      // flash. Sets that aren't active strip all classes.
+
+      /* Paper + polythin layering (Option A on scroll-up):
+         • i < idx          -> settled "paper" base, fully revealed
+         • i === idx, DOWN  -> NEW top layer peels IN over the paper
+                               (no .is-revealed so it starts from the
+                               hidden default = keyframe 0%, no flash)
+         • i === idx, UP    -> previously-revealed base, just exposed
+         • i === lastIdx,UP -> the set we just left peels OFF the top,
+                               exposing the set beneath (keeps
+                               .is-revealed so it starts full = no flash)
+         • otherwise        -> ahead / not visited -> hidden default */
       photoSets.forEach((p, i) => {
-        if (i === idx) {
-          // Remove old state, force reflow, set new direction + active.
-          p.classList.remove('is-active',
-                             'events__photo-set--reveal-up',
-                             'events__photo-set--reveal-down');
-          void p.offsetWidth; // reflow so the keyframe can re-fire
-          p.classList.add(scrollDir === 'up'
-            ? 'events__photo-set--reveal-up'
-            : 'events__photo-set--reveal-down');
-          p.classList.add('is-active');
+        p.classList.remove('is-entering', 'is-exiting', 'is-current');
+        if (i < idx) {
+          p.classList.add('is-revealed');
+        } else if (i === idx) {
+          p.classList.add('is-current');
+          if (goingDown) {
+            p.classList.remove('is-revealed');
+            void p.offsetWidth; // reflow so the peel-in keyframe re-fires
+            p.classList.add('is-entering');
+          } else {
+            p.classList.add('is-revealed');
+          }
+        } else if (!goingDown && i === lastIdx) {
+          p.classList.add('is-revealed');
+          void p.offsetWidth; // reflow so the peel-off keyframe re-fires
+          p.classList.add('is-exiting');
         } else {
-          p.classList.remove('is-active',
-                             'events__photo-set--reveal-up',
-                             'events__photo-set--reveal-down');
+          p.classList.remove('is-revealed');
         }
       });
+
       // Negative bg swap on odd indexes.
       sticky.classList.toggle('is-negative', idx % 2 === 1);
-      // Decorative stripes (is-stripes-active class trigger) removed
-      // per client — see corresponding CSS deletion. The reveal effect
-      // is now driven entirely by the photo curtain animation.
+      lastIdx = idx;
     }
   };
 
