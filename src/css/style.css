@@ -2658,16 +2658,18 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   color: #414141;
 }
 
-/* Globe container — large, overflows right.
-   Tilt 10deg clockwise (north pole → right, south pole → left) for a subtle
-   "earth-axis" feel like real planetary illustrations. */
+/* Globe container — Client tweak: was width:160% + max-width:1080px
+   (intentionally overflowed the right column relying on the section's
+   overflow:hidden to clip). User reported globe was being CUT on the
+   right. Now width:100% (fits inside its column, no overflow + no
+   right-side clip) and max-width reduced 1080 -> 864 (-20% per client).
+   Tilt 10deg clockwise (north pole → right, south pole → left) for a
+   subtle "earth-axis" feel. */
 .globe-container {
   position: relative;
-  width: 160%;
-  max-width: 1080px;
-  /* Per client revision — pull the globe back toward the centre of the
-     layout (was margin-left: 12%, sitting too far right). */
-  margin-left: -4%;
+  width: 100%;
+  max-width: 864px;
+  margin-left: 0;
   perspective: 1200px;
   transform: rotate(10deg);
   transform-origin: center center;
