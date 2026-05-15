@@ -31,14 +31,18 @@
       return;
     }
 
-    // For WHEEL scrolling Lenis uses `lerp` (per-frame interpolation
-    // toward target). The previous lerp:0.12 felt laggy on BIG wheel
-    // inputs — a far target took ~0.7s of 12%/frame steps to reach,
-    // which reads as "scroll, pause, catch-up". Raised to 0.2 so the
-    // catch-up is roughly 2x faster (still smooth, much less delay).
-    // `wheelMultiplier` lowered so one big wheel notch doesn't fling
-    // the target so far in the first place. Live-tunable below via the
-    // [ / ] keys so the perfect value can be found by feel.
+    // KEY INSIGHT: smooth-scroll interpolation (Lenis) ALWAYS adds some
+    // input-to-motion delay — that's its nature. The user wants the
+    // page to move EXACTLY with the wheel (zero delay) AND feel smooth.
+    // Those are only compatible if NATIVE scroll runs at a solid 60fps
+    // (no dropped frames = smooth, and native = zero delay + 1:1 wheel).
+    //
+    // So this test page now DEFAULTS TO LENIS OFF. The smoothness comes
+    // purely from the performance layer in scroll-smooth-test.css
+    // (content-visibility skips offscreen render, GPU compositing keeps
+    // the scroll-driven transforms off the main thread). Native scroll
+    // stays instant + 1:1 with the wheel — no catch-up, no section
+    // overshoot. Press `l` to switch Lenis ON and A/B the two feels.
     const lenis = new window.Lenis({
       duration: 0.85,
       easing: (t) => 1 - Math.pow(1 - t, 3),
@@ -47,14 +51,16 @@
       wheelMultiplier: 0.9,
       lerp: 0.2,
     });
+    // Start STOPPED — native scroll is the default experience.
+    lenis.stop();
 
     window.lenis = lenis;
     window.__lenisTest = lenis; // explicit handle for the test harness
 
-    // Drive Lenis from the GSAP ticker so there's ONE rAF for the whole
-    // page and ScrollTrigger.update() runs in lockstep with the smoothed
-    // scroll position — keeps the sticky pins (Choose Your Band, Events,
-    // Gallery panel-reveal) accurate.
+    // Drive Lenis from the GSAP ticker (only actually moves the page
+    // when lenis is .start()-ed via the `l` key). ScrollTrigger.update
+    // is bound to BOTH lenis scroll and the native scroll event so the
+    // sticky pins stay accurate in either mode.
     if (typeof window.gsap !== 'undefined' && typeof window.ScrollTrigger !== 'undefined') {
       lenis.on('scroll', window.ScrollTrigger.update);
       window.gsap.ticker.add((time) => {
@@ -84,9 +90,13 @@
       if (now - last >= 500) {
         fps = Math.round((frames * 1000) / (now - last));
         if (fps < minFps) minFps = fps;
+        const mode = lenis.isStopped ? 'NATIVE (instant, 0 delay)'
+                                     : 'LENIS smooth (lerp ' + lenis.options.lerp + ')';
+        meter.style.color = lenis.isStopped ? '#4ad' : '#0f0';
         meter.textContent =
           'FPS ' + fps + '  (min ' + minFps + ')\n' +
-          'Lenis ' + (lenis ? 'ON' : 'off') + '  lerp ' + lenis.options.lerp;
+          'MODE: ' + mode + '\n' +
+          'press  L = toggle mode';
         frames = 0; last = now;
       }
       requestAnimationFrame(fpsLoop);
