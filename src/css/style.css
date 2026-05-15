@@ -1828,7 +1828,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .events__title {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-size: clamp(2.5rem, 7vw, 6rem);
+  /* Client tweak: title trimmed a touch (6rem -> 5.25rem on desktop). */
+  font-size: clamp(2.25rem, 6vw, 5.25rem);
   line-height: 1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -2062,8 +2063,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   aspect-ratio: 3 / 5;
   left: var(--front-left, 28%);
   /* Same vertical anchor as back so the pair shifts up together
-     and both photos stay vertically centred relative to each other. */
-  top: 45%;
+     and both photos stay vertically centred relative to each other.
+     Client tweak: nudged up a touch (45% -> 40%). */
+  top: 40%;
   transform: translateY(-50%);
   z-index: 2;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
@@ -2086,7 +2088,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   width: auto;
   aspect-ratio: 3 / 5;
   right: 15%;
-  top: 45%;
+  top: 40%;
   transform: translateY(-50%);
   z-index: 1;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
