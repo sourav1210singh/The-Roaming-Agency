@@ -746,13 +746,26 @@ function initTextDarkening() {
     },
   });
 
-  // Force ScrollTrigger to recalculate positions once the rest of the page
-  // (intro-zoom 600vh section, fonts, etc.) has settled. Fixes cases where
-  // the trigger starts/end were measured against an incomplete layout and
-  // the animation never fires when the section scrolls into view.
-  setTimeout(() => {
+  // Force ScrollTrigger to recalculate positions once the page has
+  // settled. Three refresh hooks for robustness across environments
+  // (Vercel CDN can be slower than localhost, so the 400ms fallback
+  // wasn't always enough — images still loading shifted section
+  // positions after the trigger was created):
+  //   1. setTimeout(400ms): early best-effort
+  //   2. window.load: AFTER every image + font has loaded — most reliable
+  //   3. fonts.ready: AFTER custom fonts (Nohemi) have rendered
+  const refresh = () => {
     if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
-  }, 400);
+  };
+  setTimeout(refresh, 400);
+  if (document.readyState === 'complete') {
+    refresh();
+  } else {
+    window.addEventListener('load', refresh, { once: true });
+  }
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(refresh).catch(() => {});
+  }
 }
 
 

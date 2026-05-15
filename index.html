@@ -1095,8 +1095,13 @@
     </div>
   </footer>
 
-  <!-- ===== MAIN JS ===== -->
-  <script src="src/js/main.js"></script>
+  <!-- ===== MAIN JS =====
+       Loaded with `defer` so it executes AFTER gsap + ScrollTrigger
+       (also deferred above) and before DOMContentLoaded fires. Without
+       defer, main.js could run before the GSAP scripts and skip
+       initTextDarkening + other gsap-dependent setups, which broke
+       the scroll word-darken effect on Vercel under slow CDN loads. -->
+  <script src="src/js/main.js" defer></script>
   <!-- Smart header — hide on scroll-down, reveal on scroll-up. Standalone
        so band sub-pages can also include it without pulling in main.js. -->
   <script src="src/js/smart-header.js" defer></script>

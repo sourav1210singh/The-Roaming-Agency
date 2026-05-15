@@ -1202,7 +1202,9 @@ body.is-header-hidden .hero-center-title {
 .who-we-are {
   background-color: #f0f0f0; /* off-white per palette spec */
   color: #393939;            /* dark grey body text */
-  padding-block: clamp(5rem, 9vw, 8rem);
+  /* Client tweak: vertical padding trimmed (5-8rem -> 3.5-6rem) so
+     the section feels less airy. */
+  padding-block: clamp(3.5rem, 7vw, 6rem);
   /* Aligns left/right edges of inner content with every other
      section (Standards, Contact, Brands marquee track, etc). */
   padding-inline: var(--container-padding);
@@ -1247,13 +1249,12 @@ body.is-header-hidden .hero-center-title {
   margin-bottom: clamp(0.85rem, 1.4vw, 1.25rem);
 }
 
-/* Who We Are title — revision round 2 W1: thinner type (was 800,
-   now 300 Light) and W2: smaller bottom margin so the descriptive
-   paragraph sits closer to the title. */
+/* Who We Are title — client tweak: shrunk a notch (was 3-6.25rem,
+   now 2.25-4.5rem) so it doesn't dominate the left column. */
 .who-we-are__title {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   font-weight: 300;
-  font-size: clamp(3rem, 6.5vw, 6.25rem);
+  font-size: clamp(2.25rem, 4.8vw, 4.5rem);
   line-height: 0.95;
   letter-spacing: -0.02em;
   color: #393939;
@@ -1263,11 +1264,13 @@ body.is-header-hidden .hero-center-title {
 
 .who-we-are__copy {
   font-family: var(--font-body, 'Inter', system-ui, sans-serif);
-  font-size: clamp(1rem, 1.1vw, 1.125rem);
+  /* Copy size kept the same but max-width tightened so the paragraph
+     reads as a comfortable column rather than spanning the full half. */
+  font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
   font-weight: 400;
-  line-height: 1.65;
+  line-height: 1.6;
   color: #393939;
-  max-width: 30rem;
+  max-width: 28rem;
 }
 
 /* The word-by-word darkening effect: words start partially transparent
