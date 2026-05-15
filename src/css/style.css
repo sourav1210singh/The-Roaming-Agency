@@ -2031,17 +2031,20 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 /* Back-right photo — DOMINANT TALL portrait (3:5 ratio).
    HEIGHT-driven sizing (same reason as front) so the 3:5 shape is
    guaranteed at every viewport.
-   • height: 100% of stack -> fills full stack height
-   • width auto -> stack-height × 3/5
-   • right: 8% -> shifted LEFT 8% of stack width from the right edge.
-     Pulls the whole photo pair away from the right edge and closer
-     to the text column on the left (client tweak — was right:0). */
+   • height: 95% of stack -> 5% smaller than full stack (client tweak)
+   • width auto -> (stack-height × 0.95) × 3/5
+   • right: 15% -> shifted LEFT further from the right edge; pulls
+     the whole pair more toward the text column. The JS positionFront
+     auto-recomputes front's left to keep the 50px overlap.
+   • top: 50% + translateY -50% -> vertically centred in the stack
+     since back is no longer 100% tall. */
 .events__photo--back {
-  height: 100%;
+  height: 95%;
   width: auto;
   aspect-ratio: 3 / 5;
-  right: 8%;
-  top: 0;
+  right: 15%;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 1;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
 }
