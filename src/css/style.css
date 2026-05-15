@@ -2006,10 +2006,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   --cursor-y: 0px;
   position: relative;
   width: 100%;
-  /* Client tweak: stack bumped a notch (50vh -> 55vh, max 500 -> 560)
-     so the photos read bigger. Still leaves comfortable room in the
-     sticky section's available vertical space. */
-  height: clamp(400px, 55vh, 560px);
+  /* Client tweak: stack height bumped slightly (55vh -> 56vh, min
+     400 -> 420) so the back photo's derived height (~443px at the
+     new width target) has room to fit. */
+  height: clamp(420px, 56vh, 580px);
   z-index: 2;
 }
 
@@ -2056,13 +2056,14 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      (less of it sits on top of back).
    • top 50% + translateY -50% -> vertically centered against back */
 .events__photo--front {
-  height: 59%;
-  width: auto;
+  /* Client tweak: width 170px at 1500×800 viewport (= 26.4% of
+     stack's 644px width). Height auto-derives from aspect-ratio 3/5. */
+  width: 26.4%;
   aspect-ratio: 3 / 5;
+  height: auto;
   left: var(--front-left, 28%);
-  /* Client tweak: matched back's top:45% so the pair shifts up
-     together and the vertical centring between front + back stays
-     correct (both centred on the same y = 45% of stack). */
+  /* Same vertical anchor as back so the pair shifts up together
+     and both photos stay vertically centred relative to each other. */
   top: 45%;
   transform: translateY(-50%);
   z-index: 2;
@@ -2080,12 +2081,13 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
    • top: 50% + translateY -50% -> vertically centred in the stack
      since back is no longer 100% tall. */
 .events__photo--back {
-  height: 95%;
-  width: auto;
+  /* Client tweak: width 266px at 1500×800 viewport (= 41.3% of
+     stack's 644px width). Height auto-derives from aspect-ratio 3/5
+     to ~443px — fits within the 56vh-tall stack. */
+  width: 41.3%;
   aspect-ratio: 3 / 5;
+  height: auto;
   right: 15%;
-  /* Client tweak: pair shifted up 5% — top 50% -> 45% on both photos
-     so the whole composition sits a touch higher in the stack. */
   top: 45%;
   transform: translateY(-50%);
   z-index: 1;
