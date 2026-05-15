@@ -2639,7 +2639,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .globe-layout {
   display: grid;
-  grid-template-columns: 0.4fr 0.6fr;
+  /* Client tweak: right column widened (0.6fr -> 0.67fr) so the globe
+     gets ~10% more room. Text column trimmed slightly (0.4fr -> 0.33fr)
+     to compensate; with the recent compact title this still has enough
+     space for the heading + subtitle. */
+  grid-template-columns: 0.33fr 0.67fr;
   gap: var(--space-2xl);
   align-items: center;
   min-height: 90vh;
@@ -2668,17 +2672,17 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   line-height: 1.45;
 }
 
-/* Globe container — Client tweak: was width:160% + max-width:1080px
-   (intentionally overflowed the right column relying on the section's
-   overflow:hidden to clip). User reported globe was being CUT on the
-   right. Now width:100% (fits inside its column, no overflow + no
-   right-side clip) and max-width reduced 1080 -> 864 (-20% per client).
-   Tilt 10deg clockwise (north pole → right, south pole → left) for a
-   subtle "earth-axis" feel. */
+/* Globe container — Client tweak history:
+   • Was width:160% + max-width:1080px (intentionally overflowed right
+     column, relied on section's overflow:hidden to clip).
+   • Switched to width:100% + max-width:864 (-20%) so globe fully
+     visible (no right-edge clipping).
+   • Bumped max-width 864 -> 950 (+10%) per latest client tweak —
+     slightly larger sphere while still fitting inside the column. */
 .globe-container {
   position: relative;
   width: 100%;
-  max-width: 864px;
+  max-width: 950px;
   margin-left: 0;
   perspective: 1200px;
   transform: rotate(10deg);
