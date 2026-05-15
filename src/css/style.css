@@ -2018,7 +2018,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   width: auto;
   aspect-ratio: 3 / 5;
   left: var(--front-left, 28%);
-  top: 50%;
+  /* Client tweak: matched back's top:45% so the pair shifts up
+     together and the vertical centring between front + back stays
+     correct (both centred on the same y = 45% of stack). */
+  top: 45%;
   transform: translateY(-50%);
   z-index: 2;
   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
@@ -2039,7 +2042,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   width: auto;
   aspect-ratio: 3 / 5;
   right: 15%;
-  top: 50%;
+  /* Client tweak: pair shifted up 5% — top 50% -> 45% on both photos
+     so the whole composition sits a touch higher in the stack. */
+  top: 45%;
   transform: translateY(-50%);
   z-index: 1;
   box-shadow: 0 18px 45px rgba(0, 0, 0, 0.16);
