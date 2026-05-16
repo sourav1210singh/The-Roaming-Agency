@@ -99,6 +99,9 @@ a:hover {
 /* === GLOBAL === */
 body {
   font-family: var(--font-body);
+  /* 3rd draft typography system: Paragraphs = Light. Base weight is
+     Light; titles/subtitles/eyebrows set their own heavier weights. */
+  font-weight: var(--fw-light);
   background-color: var(--color-bg);
   color: var(--color-text);
   overflow-x: hidden;
@@ -1159,29 +1162,32 @@ body.is-header-hidden .hero-center-title {
   background-color: var(--color-dark-surface);
 }
 
+/* 3rd draft typography: gold eyebrow = Semibold, character spacing a
+   little closer (0.2em -> 0.12em). */
 .section__label {
   font-family: var(--font-accent);
   font-size: var(--text-sm);
+  font-weight: var(--fw-semibold);
   color: var(--color-gold);
   text-transform: uppercase;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.12em;
   margin-bottom: var(--space-md);
 }
 
-/* Generic section title — revision round 2 typography pass: thinner
-   weight (500 -> 300) matches the rest of the headings across the site. */
+/* 3rd draft typography: Titles = Medium. */
 .section__title {
   font-family: var(--font-heading);
   font-size: var(--text-4xl);
-  font-weight: 300;
+  font-weight: var(--fw-medium);
   line-height: 1.15;
   margin-bottom: var(--space-md);
 }
 
+/* 3rd draft typography: Subtitles = Normal. */
 .section__subtitle {
   font-family: var(--font-accent);
   font-size: var(--text-lg);
-  font-weight: 300;
+  font-weight: var(--fw-regular);
   color: var(--color-gray-400);
   max-width: 600px;
   line-height: 1.7;
@@ -1514,7 +1520,7 @@ body.is-header-hidden .hero-center-title {
 .band-selector__heading {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   font-size: clamp(2.75rem, 5.5vw, 5rem);
-  font-weight: 300;
+  font-weight: var(--fw-medium); /* 3rd draft: "Choose your band" title = Medium */
   line-height: 1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -2435,7 +2441,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      within the left grid column without breaking. Verified at the
      standard 1fr / 1.6fr split. */
   font-size: clamp(1.9rem, 3.6vw, 3.25rem);
-  font-weight: 800;
+  font-weight: var(--fw-medium); /* 3rd draft: "They Chose" title = Medium */
   line-height: 1.05;
   letter-spacing: -0.02em;
   text-transform: uppercase;
