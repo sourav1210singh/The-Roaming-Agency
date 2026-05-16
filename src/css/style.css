@@ -2456,7 +2456,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .testimonials__layout {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding-left: var(--container-padding);
+  /* 3rd draft / G2: contain BOTH sides on the same gutter as every
+     other section (was padding-left only — the carousel bled off the
+     right edge and broke the shared left/right alignment). */
+  padding-inline: var(--container-padding);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
   /* 3rd draft: testimonials sit closer to the title (was 2-4.5rem). */
@@ -2518,10 +2521,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   scroll-behavior: smooth;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  /* 3rd draft / G2: no extra right bleed — the layout gutter now
+     contains the carousel on both sides like every other section. */
   padding: 1.5rem 0;
-  /* Right padding so the LAST card has breathing room past the
-     viewport edge before clipping. */
-  padding-right: clamp(2rem, 5vw, 5rem);
 }
 .testimonials__track::-webkit-scrollbar { display: none; }
 

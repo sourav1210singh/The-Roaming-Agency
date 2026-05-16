@@ -165,7 +165,10 @@
   /* Layout */
   --container-max:     1400px;
   --container-narrow:  900px;
-  --container-padding: clamp(1.25rem, 1rem + 2vw, 3rem);
+  /* 3rd draft / G2: roomier side gutter to match the Canva mock's
+     airier margins. One token -> every section moves together so all
+     text/graphics keep the same left/right start. (was 1.25/2vw/3rem) */
+  --container-padding: clamp(1.5rem, 1rem + 3vw, 5rem);
   --header-height:     80px;
 
   /* Transitions */
