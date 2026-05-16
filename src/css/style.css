@@ -1661,11 +1661,15 @@ body.is-header-hidden .hero-center-title {
      2.5-4rem, now 2-3.2rem) so the overall strip shrinks ~20% in
      height. Combined with the 40% smaller logo cells below this
      gives a notably more compact brand band. */
-  padding: clamp(2rem, 4vw, 3.2rem) 0;
-  /* 3rd draft: the client's mock shows the Trusted By strip as a
-     light, blended band (not a darker grey block) — soften to the
-     same off-white as the Who We Are panel. */
-  background: #f0f0f0;
+  /* 3rd draft / G2: Trusted By must line up with every other section.
+     Contain it to the SAME --container-max + --container-padding
+     gutter (was full-bleed edge-to-edge) and drop the panel bg — the
+     mock shows logos on the page within the margins, no grey block.
+     overflow:hidden keeps the marquee clipping at the gutter edges. */
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding: clamp(2rem, 4vw, 3.2rem) var(--container-padding);
+  background: transparent;
   /* No border-top / border-bottom — divider lines removed per brief. */
   overflow: hidden;
 }
