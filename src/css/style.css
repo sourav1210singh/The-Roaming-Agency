@@ -3350,6 +3350,13 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   /* Removed `box-shadow: var(--shadow-gold)` per brief — no gold glows. */
 }
 
+/* 3rd draft: spacing for the extra in-section "Get in Touch" CTAs
+   (Who We Are, Globe, end-of-contact). */
+.section-cta {
+  align-self: flex-start;
+  margin-top: clamp(1.25rem, 2.5vw, 2rem);
+}
+
 .btn--outline {
   background: transparent;
   color: var(--color-gold);
