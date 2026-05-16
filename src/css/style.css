@@ -3368,13 +3368,17 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   margin-top: clamp(1.25rem, 2.5vw, 2rem);
   /* 3rd draft client spec (Canva inspector): Nohemi Regular, 20px /
      22px line-height, -0.3px tracking, near-white #FCFCFC label on a
-     deeper gold so the light text stays readable (matches the mock). */
+     deeper gold so the light text stays readable (matches the mock).
+     SHAPE: a fully-rounded pill/capsule (was a 4px rectangle) with
+     the mock's roomier padding — that's the structure in the mock. */
   background: var(--color-gold-dark);
   color: #FCFCFC;
   font-weight: var(--fw-regular);
   font-size: 20px;
   line-height: 22px;
   letter-spacing: -0.3px;
+  border-radius: var(--radius-full);
+  padding: 0.95rem 2.4rem;
 }
 .section-cta:hover {
   background: var(--color-gold);
