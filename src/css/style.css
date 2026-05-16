@@ -2179,8 +2179,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
               0 0 0 1px rgba(255, 255, 255, 0.06);
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 900px) {
+/* ── RESPONSIVE ──
+   Responsive (Phase 2): extended 900 -> 1024 so the 400vh pinned
+   Events choreography also collapses to a clean static stack on
+   tablets/iPads, not just phones (per client: simplify <=1024). */
+@media (max-width: 1024px) {
   .events {
     height: auto;
   }
@@ -3514,6 +3517,67 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   .footer__grid {
     grid-template-columns: 1fr 1fr;
     gap: var(--space-2xl);
+  }
+}
+
+/* ── RESPONSIVE Phase 2: collapse heavy scroll choreography <=1024 ────
+   Per client: phones + tablets get a clean normal-scroll experience
+   instead of the desktop pin/zoom. The matching JS inits (Gallery,
+   Choose-Your-Band) early-return on <=1024 so they don't set the
+   inline pin heights / transforms that would fight these rules.
+   Desktop (>1024) is completely untouched. */
+@media (max-width: 1024px) {
+
+  /* Gallery: kill the JS pin-stack. Becomes a normal scrolling
+     masonry (its own 768/480 grid rules still apply below). */
+  .gallery-pin-stack {
+    height: auto !important;
+  }
+  .gallery-section {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+  .gallery-track {
+    transform: none !important;
+  }
+
+  /* Choose Your Band: drop the 500vh runway + the single-row mask so
+     every band shows as a normal centred list. JS no longer drives
+     the bg crossfade, so hide the B&W stack and let the section's
+     own black background read cleanly behind the names. */
+  .band-selector {
+    height: auto;
+  }
+  .band-selector__sticky {
+    position: relative;
+    height: auto;
+  }
+  .band-selector__content {
+    height: auto;
+  }
+  .band-selector__viewport {
+    height: auto;
+    overflow: visible;
+    -webkit-mask: none;
+    mask: none;
+  }
+  .band-selector__list {
+    transform: none !important;
+  }
+  .band-selector__bg-image {
+    display: none;
+  }
+
+  /* Safety net: never let scroll-reveal content stay hidden on a
+     collapsed mobile layout, and kill any horizontal overflow. */
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  html,
+  body {
+    overflow-x: hidden;
   }
 }
 

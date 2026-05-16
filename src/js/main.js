@@ -84,6 +84,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 over the pinned gallery from the viewport bottom to top.
    ────────────────────────────────────────────── */
 function initGalleryReveal() {
+  // Phase 2 (responsive): on phones/tablets the gallery is a normal
+  // scrolling masonry — skip the JS pin so it can't set the inline
+  // pin height / track transform that the <=1024 CSS overrides.
+  if (window.matchMedia('(max-width: 1024px)').matches) return;
   const stack    = document.getElementById('galleryPinStack');
   const section  = document.querySelector('.gallery-section');
   const track    = document.getElementById('galleryTrack');
@@ -803,6 +807,10 @@ function initTextDarkening() {
    "Choose Your Band" — dynamic background + text
    ────────────────────────────────────────────── */
 function initBandSelector() {
+  // Phase 2 (responsive): on phones/tablets the 500vh sticky runway is
+  // collapsed to a plain centred list via CSS. The band rows are real
+  // <a href> links so navigation still works without this scroll JS.
+  if (window.matchMedia('(max-width: 1024px)').matches) return;
   const items = document.querySelectorAll('.band-selector__item');
   const bgImages = document.querySelectorAll('.band-selector__bg-image');
   const descEl = document.getElementById('bandDesc');
