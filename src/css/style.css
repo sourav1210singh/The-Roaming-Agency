@@ -1250,8 +1250,9 @@ body.is-header-hidden .hero-center-title {
   color: #c9a85a;            /* warm gold — readable on off-white */
   font-family: var(--font-body, 'Inter', system-ui, sans-serif);
   font-size: 0.85rem;
-  font-weight: 400;
-  letter-spacing: 0.12em;
+  /* 3rd draft: gold eyebrow Semibold + character spacing a bit closer. */
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   margin-bottom: clamp(0.85rem, 1.4vw, 1.25rem);
 }
@@ -1345,7 +1346,10 @@ body.is-header-hidden .hero-center-title {
 .stat {
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  /* 3rd draft: number and subtitle closer + centered as one unit. */
+  align-items: center;
+  text-align: center;
+  gap: 0;
 }
 
 /* Stat numbers — revision round 2 W1: thinner weight (was 800 -> 300).
@@ -1354,7 +1358,7 @@ body.is-header-hidden .hero-center-title {
    Client tweak: font-size reduced 10% (was 3.5-6.5rem -> 3.15-5.85rem). */
 .stat__number {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-weight: 300;
+  font-weight: var(--fw-regular); /* 3rd draft: numbers in Normal weight */
   font-size: clamp(3.15rem, 6.3vw, 5.85rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
@@ -1370,7 +1374,7 @@ body.is-header-hidden .hero-center-title {
 .stat__number-sign {
   font-size: 0.6em;
   vertical-align: middle;
-  font-weight: 300;
+  font-weight: var(--fw-regular); /* 3rd draft: match Normal-weight numbers */
   letter-spacing: 0;
 }
 
@@ -1380,9 +1384,9 @@ body.is-header-hidden .hero-center-title {
 .stat__label {
   font-family: var(--font-body, 'Inter', system-ui, sans-serif);
   font-size: clamp(0.85rem, 1vw, 1rem);
-  font-weight: 400;
+  font-weight: var(--fw-regular);
   color: #555555;
-  margin-top: 0.1rem;
+  margin-top: 0; /* 3rd draft: tucked right under the number */
 }
 
 /* Mobile — stack stats vertically, no zig-zag */
@@ -1650,6 +1654,23 @@ body.is-header-hidden .hero-center-title {
   overflow: hidden;
 }
 
+/* 3rd draft: "Trusted By" label above the logo rows. Same size as the
+   "Who We Are" eyebrow, uppercase, centred; "Trusted" bold + "By"
+   regular (the <strong> carries the bold half). */
+.brands-marquee__label {
+  margin: 0 0 clamp(1.25rem, 2.4vw, 2rem);
+  text-align: center;
+  font-family: var(--font-body, 'Inter', system-ui, sans-serif);
+  font-size: 0.85rem;
+  font-weight: var(--fw-regular);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #2A2A2A;
+}
+.brands-marquee__label-strong {
+  font-weight: var(--fw-bold);
+}
+
 .brands-marquee__row {
   display: flex;
   overflow: hidden;
@@ -1733,8 +1754,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: clamp(72px, 6vw, 90px);
-  height: clamp(30px, 2.5vw, 36px);
+  /* 3rd draft: brand cells a little bigger (~5%). */
+  width: clamp(76px, 6.3vw, 95px);
+  height: clamp(32px, 2.6vw, 38px);
   padding: 0 clamp(0.5rem, 1vw, 0.85rem);
 }
 
