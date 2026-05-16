@@ -133,6 +133,11 @@
   --fw-extrabold:       800;
   --fw-black:           900;
 
+  /* 3rd draft: ONE standardized paragraph size site-wide (= the
+     "Events We Serve" body text). Applied to every paragraph except
+     Our Standards, which the client wants kept slightly smaller. */
+  --text-body:  clamp(0.95rem, 1.1vw, 1.125rem);
+
   /* Font Sizes — fluid scale (unchanged) */
   --text-xs:    clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
   --text-sm:    clamp(0.8rem, 0.75rem + 0.3vw, 0.9rem);

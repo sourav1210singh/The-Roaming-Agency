@@ -1288,8 +1288,8 @@ body.is-header-hidden .hero-center-title {
 
 .who-we-are__copy {
   font-family: var(--font-body, 'Inter', system-ui, sans-serif);
-  font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
-  font-weight: 400;
+  font-size: var(--text-body); /* 3rd draft: standardized paragraph size */
+  font-weight: var(--fw-light); /* 3rd draft: Paragraphs = Light */
   line-height: 1.6;
   color: #2A2A2A;
   /* Client tweak: column tightened (28rem -> 20rem) so the paragraph
@@ -1536,7 +1536,7 @@ body.is-header-hidden .hero-center-title {
 
 .band-selector__desc {
   font-family: var(--font-accent);
-  font-size: var(--text-lg);
+  font-size: var(--text-body); /* 3rd draft: standardized paragraph size */
   color: var(--color-gray-200);
   line-height: 1.7;
   max-width: 500px;
@@ -1971,7 +1971,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 
 .events__cat-desc {
-  font-size: clamp(0.95rem, 1.1vw, 1.125rem);
+  font-size: var(--text-body); /* 3rd draft: this IS the reference paragraph size */
   line-height: 1.6;
   max-width: 32em;
   margin: 0;
