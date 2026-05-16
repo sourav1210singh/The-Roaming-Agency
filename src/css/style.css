@@ -703,9 +703,10 @@ body.is-header-hidden .hero-center-title {
   margin: 0;
   text-align: center;
   font-family: var(--font-heading);
-  font-size: clamp(1.75rem, 4.5vw, 4rem);
-  font-weight: 300;
-  line-height: 1.05;
+  /* 3rd draft: a little smaller (mockup reference) + Medium weight. */
+  font-size: clamp(1.5rem, 3.6vw, 3.25rem);
+  font-weight: var(--fw-medium);
+  line-height: 1.1;
   letter-spacing: 0.005em;
   color: #ffffff;
   z-index: 3;
@@ -715,8 +716,8 @@ body.is-header-hidden .hero-center-title {
 
 @media (max-width: 640px) {
   .hero-intro__tagline {
-    font-size: clamp(1.4rem, 7vw, 2.4rem);
-    line-height: 1.12;
+    font-size: clamp(1.25rem, 6.2vw, 2.1rem);
+    line-height: 1.15;
   }
 }
 
