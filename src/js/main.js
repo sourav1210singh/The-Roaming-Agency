@@ -1195,6 +1195,12 @@ function initGlobeAnimation() {
 
   let currentRotY = -30;
   let targetRotY = -30;
+  /* 3rd draft: the city photos/buttons must NOT rotate with the globe
+     (they "slipped away" — orbiting out from under the cursor so you
+     could never click one). Their screen position is now locked to a
+     FIXED projection angle, so the wireframe still spins smoothly
+     (client likes that) while the location cards stay put + clickable. */
+  const CARD_ROT = -30;
 
   function animate() {
     currentRotY += (targetRotY - currentRotY) * 0.12;
@@ -1218,7 +1224,9 @@ function initGlobeAnimation() {
     cardEls.forEach((card) => {
       const lat = parseFloat(card.dataset.lat);
       const lon = parseFloat(card.dataset.lon);
-      const p = project(lat, lon, currentRotY);
+      // Fixed angle (NOT currentRotY) so cards stay put while the
+      // wireframe globe rotates behind them — clickable, not "rotated".
+      const p = project(lat, lon, CARD_ROT);
 
       // Position card center relative to sphere center, scaled to actual
       // sphere px radius.
