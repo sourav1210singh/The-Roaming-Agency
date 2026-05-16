@@ -409,13 +409,30 @@
   font-size: var(--text-lg);
 }
 
-/* === RESPONSIVE === */
+/* === RESPONSIVE ===
+   Phase 3: on phones + tablets (<=1024) the band-intro stops being a
+   tall image with an absolutely-positioned overlay card (which was
+   awkward at 769-1024 and depended on a JS `.visible` toggle to even
+   show). It becomes a normal shorter image followed by a static,
+   always-visible description card. Desktop (>1024) is untouched. */
 @media (max-width: 1024px) {
+  .band-intro {
+    min-height: 0;
+    overflow: visible;
+  }
+  .band-intro__image-wrap {
+    height: 52vh;
+  }
   .band-intro__text-box {
-    right: var(--space-xl);
-    left: var(--space-xl);
+    position: relative;
+    bottom: auto;
+    right: auto;
+    left: auto;
     max-width: none;
-    bottom: var(--space-xl);
+    margin: var(--space-xl) var(--container-padding);
+    opacity: 1;
+    transform: none;
+    background: var(--color-dark-card);
   }
 
   .band-gallery__grid {
@@ -437,22 +454,15 @@
     font-size: var(--text-3xl);
   }
 
+  .band-intro__image-wrap {
+    height: 42vh;
+  }
+
   .band-gallery__grid {
     grid-template-columns: 1fr;
   }
 
   .band-gallery__item--wide {
     grid-column: span 1;
-  }
-
-  .band-intro__text-box {
-    position: relative;
-    bottom: auto;
-    right: auto;
-    left: auto;
-    margin: var(--space-xl) var(--container-padding);
-    opacity: 1;
-    transform: none;
-    background: var(--color-dark-card);
   }
 }
