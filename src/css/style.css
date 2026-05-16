@@ -1245,14 +1245,17 @@ body.is-header-hidden .hero-center-title {
 /* Who We Are eyebrow — revision round 2 W3: reduce letter-spacing
    (was 0.22em) + lighter weight (was 600 -> 400) for a more
    refined high-end-fashion-magazine feel. */
+/* 3rd draft: EXACT spec from the client's Canva inspector —
+   Nohemi Semi-bold, 20px / 22px line-height, -0.3px tracking,
+   colour #DEC37C. */
 .who-we-are__label {
   display: block;
-  color: #c9a85a;            /* warm gold — readable on off-white */
+  color: #DEC37C;
   font-family: var(--font-body, 'Inter', system-ui, sans-serif);
-  font-size: 0.85rem;
-  /* 3rd draft: gold eyebrow Semibold + character spacing a bit closer. */
+  font-size: 20px;
+  line-height: 22px;
   font-weight: var(--fw-semibold);
-  letter-spacing: 0.1em;
+  letter-spacing: -0.3px;
   text-transform: uppercase;
   margin-bottom: clamp(0.85rem, 1.4vw, 1.25rem);
 }
@@ -1291,19 +1294,21 @@ body.is-header-hidden .hero-center-title {
 .who-we-are__copy {
   font-family: var(--font-body, 'Inter', system-ui, sans-serif);
   font-size: var(--text-body); /* 3rd draft: standardized paragraph size */
-  font-weight: var(--fw-light); /* 3rd draft: Paragraphs = Light */
+  font-weight: var(--fw-light); /* 3rd draft: Paragraphs = Light (client spec) */
   line-height: 1.6;
-  color: #2A2A2A;
+  color: #BDBDBD; /* 3rd draft: exact client Canva colour for this copy */
   /* Client tweak: column tightened (28rem -> 20rem) so the paragraph
      wraps to ~7 lines instead of 5 — feels more editorial. */
   max-width: 20rem;
 }
 
-/* The word-by-word darkening effect: words start partially transparent
-   and brighten as the user scrolls. Color is now driven by the parent
-   (currentColor) so dark-bg + light-bg sections both work correctly. */
+/* 3rd draft: the client's mock shows this paragraph as ONE uniform
+   Light #BDBDBD block — no word-by-word scroll fade (that fade was
+   the marked problem). Force every word fully opaque so the JS
+   darken-word wrapping renders as a single even-toned paragraph. */
 .who-we-are__copy .darken-word {
   color: currentColor;
+  opacity: 1 !important;
 }
 
 /* — Right column — staggered zig-zag stat grid —
@@ -1358,10 +1363,14 @@ body.is-header-hidden .hero-center-title {
    Client tweak: font-size reduced 10% (was 3.5-6.5rem -> 3.15-5.85rem). */
 .stat__number {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-weight: var(--fw-regular); /* 3rd draft: numbers in Normal weight */
-  font-size: clamp(3.15rem, 6.3vw, 5.85rem);
-  line-height: 0.95;
-  letter-spacing: -0.04em;
+  /* 3rd draft client spec: Nohemi Regular, ~113px / 126px line-height,
+     ~-5.4px tracking. Size reaches ~112px (7rem) on desktop. Colour
+     kept #2A2A2A (the client's global "use #2A2A2A" note overrides the
+     mock's #393939 — visually identical). */
+  font-weight: var(--fw-regular);
+  font-size: clamp(3.5rem, 7.5vw, 7rem);
+  line-height: 1.1;
+  letter-spacing: -0.045em;
   color: #2A2A2A;
   font-variant-numeric: tabular-nums;
 }
@@ -3357,6 +3366,19 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .section-cta {
   align-self: flex-start;
   margin-top: clamp(1.25rem, 2.5vw, 2rem);
+  /* 3rd draft client spec (Canva inspector): Nohemi Regular, 20px /
+     22px line-height, -0.3px tracking, near-white #FCFCFC label on a
+     deeper gold so the light text stays readable (matches the mock). */
+  background: var(--color-gold-dark);
+  color: #FCFCFC;
+  font-weight: var(--fw-regular);
+  font-size: 20px;
+  line-height: 22px;
+  letter-spacing: -0.3px;
+}
+.section-cta:hover {
+  background: var(--color-gold);
+  color: #FCFCFC;
 }
 
 .btn--outline {
