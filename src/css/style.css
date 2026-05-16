@@ -1912,7 +1912,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .events__progress-line {
   flex-shrink: 0;
   width: 2px;
-  height: 70%;
+  /* 3rd draft: line shorter — roughly the height of the title +
+     subtitle block (covers the longest one), not 70% of the column. */
+  height: clamp(8.5rem, 22vh, 13rem);
   background: var(--events-line-track);
   position: relative;
   align-self: center;
@@ -2009,7 +2011,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .events__cat-desc {
   font-size: var(--text-body); /* 3rd draft: this IS the reference paragraph size */
   line-height: 1.6;
-  max-width: 32em;
+  /* 3rd draft: text block width ~= the title width so the copy
+     doesn't run too long (was 32em). */
+  max-width: 20rem;
   margin: 0;
   opacity: 0;
   transform: translateY(14px);
@@ -2107,7 +2111,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      (273px @ ref), width set explicitly to 28.0% of stack width
      (~180px) instead of deriving from 3/5. Ratio is now ~0.66. */
   height: 59%;
-  width: 28.0%;
+  width: 31%; /* 3rd draft: photos a bit wider (better use of space) */
   left: var(--front-left, 28%);
   /* Same vertical anchor as back so the pair shifts up together
      and both photos stay vertically centred relative to each other.
@@ -2133,7 +2137,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      (439px @ ref), width set explicitly to 45.0% of stack width
      (~290px) instead of deriving from 3/5. Ratio is now ~0.66. */
   height: 95%;
-  width: 45.0%;
+  width: 49%; /* 3rd draft: photos a bit wider (better use of space) */
   right: 15%;
   top: 40%;
   transform: translateY(-50%);
