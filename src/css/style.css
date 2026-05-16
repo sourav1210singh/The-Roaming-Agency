@@ -1296,19 +1296,20 @@ body.is-header-hidden .hero-center-title {
   font-size: var(--text-body); /* 3rd draft: standardized paragraph size */
   font-weight: var(--fw-light); /* 3rd draft: Paragraphs = Light (client spec) */
   line-height: 1.6;
-  color: #BDBDBD; /* 3rd draft: exact client Canva colour for this copy */
+  /* Dark so the word-by-word scroll-darken animation (restored per
+     client) ends readable: words start faint (opacity 0.18 -> looks
+     ~#BDBDBD) and darken to solid #2A2A2A as the user scrolls. */
+  color: #2A2A2A;
   /* Client tweak: column tightened (28rem -> 20rem) so the paragraph
      wraps to ~7 lines instead of 5 — feels more editorial. */
   max-width: 20rem;
 }
 
-/* 3rd draft: the client's mock shows this paragraph as ONE uniform
-   Light #BDBDBD block — no word-by-word scroll fade (that fade was
-   the marked problem). Force every word fully opaque so the JS
-   darken-word wrapping renders as a single even-toned paragraph. */
+/* Word-by-word darkening (restored per client): each word starts
+   faint and brightens to full as the user scrolls. Colour is driven
+   by the parent (currentColor) so it works on light + dark bg. */
 .who-we-are__copy .darken-word {
   color: currentColor;
-  opacity: 1 !important;
 }
 
 /* — Right column — staggered zig-zag stat grid —
@@ -1322,7 +1323,9 @@ body.is-header-hidden .hero-center-title {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(4, auto);
-  gap: clamp(1.5rem, 3vw, 3rem) clamp(1.5rem, 4vw, 4rem);
+  /* 3rd draft: vertical space between the numbers reduced (row-gap
+     was 1.5-3rem). Column gap kept for the zig-zag. */
+  gap: clamp(0.25rem, 1vw, 1rem) clamp(1.5rem, 4vw, 4rem);
   align-items: end;
 }
 
