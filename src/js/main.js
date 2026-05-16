@@ -976,6 +976,12 @@ function initGlobeLazy() {
   const section = document.getElementById('worldwide');
   if (!section) return;
 
+  // Phase 4 (responsive/perf): never download or run the ~150 KB
+  // Three.js WebGL globe on phones/tablets — it's the biggest perf /
+  // battery cost on low-end Android. The <=1024 CSS hides the empty
+  // canvas so the section reads as clean "Available Worldwide" text.
+  if (window.matchMedia('(max-width: 1024px)').matches) return;
+
   let loaded = false;
   const load = () => {
     if (loaded) return;

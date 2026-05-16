@@ -2902,10 +2902,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
     margin: 0 auto;
   }
 
+  /* Phase 4: Three.js is not loaded on <=1024 (perf), so the canvas
+     would be an empty box — hide it; the section stands cleanly on
+     its "Available Worldwide" text alone. */
   .globe-container {
-    width: 100%;
-    max-width: 550px;
-    margin: 0 auto;
+    display: none;
   }
 }
 
