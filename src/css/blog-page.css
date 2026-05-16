@@ -12,7 +12,7 @@
    header / WhatsApp / language toggle, then adds the blog-only chrome. */
 body {
   background: #f0f0f0;
-  color: #393939;
+  color: #2A2A2A;
 }
 
 /* ── Section frame ────────────────────────────────────────────── */
@@ -51,7 +51,7 @@ body {
   line-height: 1.05;
   letter-spacing: -0.02em;
   margin: 0 0 clamp(0.75rem, 1.5vw, 1.25rem);
-  color: #393939;
+  color: #2A2A2A;
 }
 
 .blog__lead {
@@ -154,7 +154,7 @@ body {
   font-weight: 700;
   line-height: 1.25;
   letter-spacing: -0.01em;
-  color: #393939;
+  color: #2A2A2A;
   margin: 0 0 0.4rem;
 }
 

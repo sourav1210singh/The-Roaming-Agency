@@ -4,8 +4,8 @@
    Locked v2 palette + Nohemi typography. Everything below maps to the
    client brief:
      • Off-whites    : #FCFCFC, #F0F0F0   (~40% of bg surface area)
-     • Dark greys    : #393939, #414141   (text + lines)
-     • Off-black     : #393939            (some sections like Our Standards)
+     • Dark greys    : #2A2A2A, #414141   (text + lines)
+     • Off-black     : #2A2A2A            (some sections like Our Standards)
      • Gold          : #F2DCA3            (use < 10%, only highlights)
      • NO pure black, NO pure white anywhere on the site.
    Typography: Nohemi (9 weights, self-hosted). Titles play with bold/thin
@@ -86,15 +86,15 @@
   --color-light-panel:  #F0F0F0;   /* light grey panel — used for Brands, Globe, Testimonials */
 
   /* Dark greys (≈50% of text + lines) */
-  --color-dark-grey:    #393939;   /* main body text */
+  --color-dark-grey:    #2A2A2A;   /* main body text */
   --color-mid-grey:     #414141;   /* lines, dividers, secondary text */
 
   /* Off-black (≈Our Standards / Door portal panel bg) */
-  --color-black:        #393939;   /* off-black — was #0a0a0a (pure black banned) */
-  --color-dark:         #393939;   /* legacy alias */
-  --color-dark-surface: #393939;   /* legacy alias */
-  --color-dark-card:    #2a2a2a;   /* one-step lighter for card-on-dark */
-  --color-off-black:    #393939;
+  --color-black:        #2A2A2A;   /* off-black — was #0a0a0a (pure black banned) */
+  --color-dark:         #2A2A2A;   /* legacy alias */
+  --color-dark-surface: #2A2A2A;   /* legacy alias */
+  --color-dark-card:    #232323;   /* darker than the #2A2A2A bg so cards still read */
+  --color-off-black:    #2A2A2A;
 
   /* Gold accent (< 10%, highlights only — eyebrows, hover underlines) */
   --color-gold:         #F2DCA3;
