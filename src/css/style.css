@@ -2716,9 +2716,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   gap: var(--space-sm);
 }
 
+/* 3rd draft: gallery made smaller / denser (reference: the compact
+   "Weddings New" blog-card grid) — was minmax(300px) / 250px rows. */
 .gallery--masonry {
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  grid-auto-rows: 250px;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-auto-rows: 170px;
 }
 
 .gallery__item {
