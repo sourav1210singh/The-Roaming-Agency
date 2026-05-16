@@ -1662,11 +1662,19 @@ body.is-header-hidden .hero-center-title {
      height. Combined with the 40% smaller logo cells below this
      gives a notably more compact brand band. */
   padding: clamp(2rem, 4vw, 3.2rem) 0;
-  /* Revision round 2 B2 + follow-up: grey background block, one shade
-     darker than #f0f0f0 to read as a distinct panel against the body. */
-  background: #e6e6e6;
+  /* 3rd draft: the client's mock shows the Trusted By strip as a
+     light, blended band (not a darker grey block) — soften to the
+     same off-white as the Who We Are panel. */
+  background: #f0f0f0;
   /* No border-top / border-bottom — divider lines removed per brief. */
   overflow: hidden;
+}
+
+/* 3rd draft: the client's mock uses a SINGLE row of logos, not the
+   two-row opposite-scroll marquee. Hide the reverse (2nd) row so it
+   reads as one clean line like the mock. */
+.brands-marquee__row--reverse {
+  display: none;
 }
 
 /* 3rd draft: "Trusted By" label above the logo rows. Same size as the
