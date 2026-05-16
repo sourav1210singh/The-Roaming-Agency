@@ -3025,7 +3025,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
    uses a 2-column inner grid matching the mockup. */
 .contact {
   position: relative;
-  background: linear-gradient(180deg, #0a0a0a 0%, #2A2A2A 100%);
+  /* 3rd draft: "take out the gradient of the final part of the page". */
+  background: #2A2A2A;
   color: #ffffff;
   padding: 0 0 clamp(4rem, 7vw, 6rem);
   overflow: hidden;

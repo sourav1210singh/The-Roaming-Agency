@@ -25,6 +25,11 @@
 
     const TOP_SHOW_THRESHOLD = 100; // always visible within the first 100px
     const DELTA_MIN = 6;            // ignore micro-scrolls
+    // 3rd draft: don't pop the bar back on the FIRST small up-scroll —
+    // only after a deliberate amount of upward scrolling (~2 notches),
+    // so a quick up-correction to re-read something doesn't cover it.
+    const REVEAL_AFTER = 150;       // px of cumulative up-scroll to reveal
+    let upAccum = 0;
     // Homepage hero is a stack (sticky black panel + video that slides up).
     // We track the OUTER wrapper so smart-header stays dormant during the
     // entire intro pin period. Fallbacks for older markup names.
@@ -51,6 +56,7 @@
 
       // Always reveal in the top zone
       if (currentY < TOP_SHOW_THRESHOLD) {
+        upAccum = 0;
         setHidden(false);
         lastY = currentY;
         return;
@@ -60,6 +66,7 @@
       if (heroIntro) {
         const rect = heroIntro.getBoundingClientRect();
         if (rect.bottom > 0) {
+          upAccum = 0;
           setHidden(false);
           lastY = currentY;
           return;
@@ -70,11 +77,15 @@
       if (Math.abs(diff) < DELTA_MIN) return;
 
       if (diff > 0) {
-        // Scrolling DOWN → hide both header + body-tied overlays
+        // Scrolling DOWN → hide. Reset the accumulator so a later
+        // small up-correction doesn't instantly re-show the bar.
+        upAccum = 0;
         setHidden(true);
       } else {
-        // Scrolling UP → show
-        setHidden(false);
+        // Scrolling UP → only reveal after a deliberate amount of
+        // upward scroll. Small corrective ups keep the bar hidden.
+        upAccum += -diff;
+        if (upAccum >= REVEAL_AFTER) setHidden(false);
       }
       lastY = currentY;
     }
