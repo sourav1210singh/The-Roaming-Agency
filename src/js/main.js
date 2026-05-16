@@ -324,6 +324,19 @@ function initEventsScroll() {
   let lastScrollY = window.scrollY;
   let scrollDir = 'down';
 
+  // 3rd draft C5/C6: on desktop the photo category follows the CURSOR
+  // moving across the section (not scroll). Non-linear boundaries — the
+  // first segment is short so Weddings -> Corporate flips with very
+  // little cursor travel ("a bit faster, without dragging so much").
+  // (<=1024 stays the collapsed static stack from the responsive pass.)
+  const isDesktop = () => window.matchMedia('(min-width: 1025px)').matches;
+  function idxFromCursorX(cx) {
+    if (cx < 0.15) return 0;   // Weddings — short, quick to leave
+    if (cx < 0.45) return 1;   // Corporate Events
+    if (cx < 0.72) return 2;   // Private Parties
+    return 3;                  // Artistic Direction
+  }
+
   const update = () => {
     raf = 0;
     const rect = section.getBoundingClientRect();
@@ -338,14 +351,24 @@ function initEventsScroll() {
     else if (currentY < lastScrollY - 0.5) scrollDir = 'up';
     lastScrollY = currentY;
 
-    // Active category — split runway evenly between N stops.
-    const idx = Math.max(0, Math.min(N - 1, Math.floor(progress * N)));
-
-    // Progress line — fills 0→100% over the whole section.
+    // Progress line — fills 0→100% over the whole section as you
+    // scroll (kept on every viewport).
     if (progressFill) {
       progressFill.style.setProperty('--events-progress', progress.toFixed(4));
     }
 
+    // 3rd draft: on desktop the category is cursor-driven (see the
+    // mousemove handler below); scroll only fills the line. On <=1024
+    // (collapsed/touch) keep the original scroll-driven swap.
+    if (!isDesktop()) {
+      setCategory(Math.max(0, Math.min(N - 1, Math.floor(progress * N))));
+    }
+  };
+
+  /* Apply a category index — the paper+polythin peel. Shared by the
+     scroll path (<=1024) and the cursor path (desktop). */
+  function setCategory(idx) {
+    idx = Math.max(0, Math.min(N - 1, idx));
     if (idx !== lastIdx) {
       const goingDown = idx > lastIdx; // lastIdx === -1 on first run -> down
       const seq = ++transitionSeq;     // token: a superseded settle is a no-op
@@ -399,13 +422,32 @@ function initEventsScroll() {
 
       lastIdx = idx;
     }
-  };
+  }
 
   window.addEventListener('scroll', () => {
     if (!raf) raf = requestAnimationFrame(update);
   }, { passive: true });
   window.addEventListener('resize', update);
   update();
+  // Default category so the section never starts blank (on desktop
+  // before the first cursor move; on <=1024 it's the static stack).
+  setCategory(0);
+
+  // 3rd draft C5/C6: desktop category follows the cursor across the
+  // section. rAF-throttled; ignored while the section is off-screen.
+  let mRaf = 0, mX = 0;
+  section.addEventListener('mousemove', (e) => {
+    if (!isDesktop()) return;
+    mX = e.clientX;
+    if (mRaf) return;
+    mRaf = requestAnimationFrame(() => {
+      mRaf = 0;
+      const r = section.getBoundingClientRect();
+      if (r.width <= 0 || r.bottom < 0 || r.top > window.innerHeight) return;
+      const cx = Math.max(0, Math.min(1, (mX - r.left) / r.width));
+      setCategory(idxFromCursorX(cx));
+    });
+  }, { passive: true });
 
   /* Client tweak (overlap positioner): the photo widths are now
      height-driven (height-%, aspect-ratio 3/5, width auto) so the 3:5
