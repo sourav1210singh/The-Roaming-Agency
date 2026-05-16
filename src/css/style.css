@@ -2459,7 +2459,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   padding-left: var(--container-padding);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
-  gap: clamp(2rem, 5vw, 4.5rem);
+  /* 3rd draft: testimonials sit closer to the title (was 2-4.5rem). */
+  gap: clamp(1.5rem, 3.5vw, 3rem);
   align-items: center;
 }
 
@@ -2472,10 +2473,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   display: block;
   font-family: var(--font-body);
   font-size: 0.75rem;
-  letter-spacing: 0.18em;
+  /* 3rd draft: gold text Semibold, spacing closer, sits nearer the title. */
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   color: #c8a560;            /* the gold accent */
-  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  margin-bottom: clamp(0.6rem, 1.2vw, 1rem);
 }
 
 .testimonials__title {
@@ -2524,7 +2527,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 /* ── Card ────────────────────────────────────────────────────── */
 .testimonial-card {
-  flex: 0 0 clamp(280px, 28vw, 360px);
+  /* 3rd draft: narrower so 3 cards fit on screen (was 280-360px). */
+  flex: 0 0 clamp(220px, 19vw, 270px);
   scroll-snap-align: start;
   position: relative;
   background: #ffffff;
