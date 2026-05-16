@@ -1529,7 +1529,8 @@ body.is-header-hidden .hero-center-title {
   line-height: 1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  margin-bottom: var(--space-md);
+  /* 3rd draft: reduce the gap between the title and the paragraph. */
+  margin-bottom: var(--space-sm);
   color: var(--color-white);
 }
 
@@ -1588,8 +1589,10 @@ body.is-header-hidden .hero-center-title {
 .band-selector__item {
   display: block;
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
-  font-weight: 300;
+  /* 3rd draft: band names larger (mockup), Medium weight, ALL CAPS. */
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
   color: var(--color-white);
   padding: var(--space-sm) 0;
   cursor: pointer;
