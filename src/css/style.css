@@ -1561,7 +1561,7 @@ body.is-header-hidden .hero-center-title {
   font-weight: var(--fw-regular);
   color: var(--color-gray-200);
   line-height: 1.7;
-  max-width: 340px;
+  max-width: 400px;
 }
 
 /* Right column — viewport masks the list to a single band-row tall.
@@ -1608,7 +1608,7 @@ body.is-header-hidden .hero-center-title {
   /* 3rd draft client spec (Canva inspector): Nohemi Medium, ~69px /
      97px line-height, 0 tracking, ALL CAPS. One line per band — never
      wrap "THE BROTHEROCKERS" to two rows. */
-  font-size: clamp(2.6rem, 5.2vw, 4.3rem);
+  font-size: clamp(2.45rem, 4.95vw, 4.1rem); /* 3rd draft: -5% */
   font-weight: var(--fw-medium);
   line-height: 1.4;
   text-transform: uppercase;
