@@ -1559,9 +1559,10 @@ body.is-header-hidden .hero-center-title {
   /* 3rd draft: a bit bolder than the body Light, and a narrower
      column (was 500px) so it sits tight under the title. */
   font-weight: var(--fw-regular);
-  color: var(--color-gray-200);
+  color: #FFFFFF; /* 3rd draft: text under title = white */
   line-height: 1.7;
-  max-width: 400px;
+  /* 3rd draft: a bit more horizontal room for the title/desc block. */
+  max-width: 460px;
 }
 
 /* Right column — viewport masks the list to a single band-row tall.
@@ -1613,7 +1614,7 @@ body.is-header-hidden .hero-center-title {
   line-height: 1.4;
   text-transform: uppercase;
   white-space: nowrap;
-  color: var(--color-white);
+  color: #FFFFFF; /* 3rd draft: band name colour */
   padding: var(--space-sm) 0;
   cursor: pointer;
   text-decoration: none;
@@ -1624,16 +1625,15 @@ body.is-header-hidden .hero-center-title {
               opacity var(--duration-base) var(--ease-smooth);
 }
 
+/* 3rd draft: hover + selected = gold #F2DCA3. */
 .band-selector__item:hover {
   opacity: 0.6;
-  color: var(--color-white);
+  color: #F2DCA3;
 }
 
-/* Active state per client: gold colour ONLY — no border-line, no dot,
-   no padding shift. */
 .band-selector__item.is-active,
 .band-selector__item.active {
-  color: var(--color-gold);
+  color: #F2DCA3;
   opacity: 1;
 }
 
