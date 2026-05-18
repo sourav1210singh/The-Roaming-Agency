@@ -2770,30 +2770,31 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   gap: var(--space-sm);
 }
 
-/* 3rd draft: fixed 7-image collage so the section is COMPLETELY
-   filled — no empty cells. 4 cols x 3 rows = 12 tracks, 7 areas
-   that perfectly tile (a = big 2x2, e = tall, f = wide). Images
-   object-fit:cover so each cell is fully filled (cropped, no gaps). */
-/* 6 photos are PORTRAIT + 1 is landscape, so the collage is built
-   from portrait-shaped cells (1 col x 2 rows) — matches the images,
-   minimal cropping. The landscape one (item 6) gets the wide 2x2
-   cell. 4 cols x 4 rows = 16 tracks, perfectly tiled, zero gaps. */
+/* 3rd draft: client-reference collage — LEFT (2 stacked) · CENTER
+   (1 big tall + 2 small) · RIGHT (2 stacked). 6 cols x 4 rows = 24
+   tracks, 7 areas that perfectly tile (zero gaps). Row height kept
+   compact so all 7 are visible at once on desktop (no scroll). */
 .gallery--masonry {
-  grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: clamp(135px, 13.5vw, 195px);
+  grid-template-columns: repeat(6, 1fr);
+  grid-auto-rows: clamp(110px, 11.5vw, 178px);
   grid-template-areas:
-    "a b c d"
-    "a b c d"
-    "e f g g"
-    "e f g g";
+    "l1 l1 c  c  r1 r1"
+    "l1 l1 c  c  r1 r1"
+    "l2 l2 c  c  r2 r2"
+    "l2 l2 s1 s2 r2 r2";
 }
-.gallery--masonry .gallery__item:nth-child(1) { grid-area: a; }
-.gallery--masonry .gallery__item:nth-child(2) { grid-area: b; }
-.gallery--masonry .gallery__item:nth-child(3) { grid-area: c; }
-.gallery--masonry .gallery__item:nth-child(4) { grid-area: d; }
-.gallery--masonry .gallery__item:nth-child(5) { grid-area: e; }
-.gallery--masonry .gallery__item:nth-child(6) { grid-area: g; } /* landscape -> wide */
-.gallery--masonry .gallery__item:nth-child(7) { grid-area: f; }
+/* center hero (tall portrait) */
+.gallery--masonry .gallery__item:nth-child(1) { grid-area: c; }
+/* left stacked */
+.gallery--masonry .gallery__item:nth-child(2) { grid-area: l2; }
+/* right stacked */
+.gallery--masonry .gallery__item:nth-child(3) { grid-area: r1; }
+.gallery--masonry .gallery__item:nth-child(4) { grid-area: r2; }
+/* center small pair */
+.gallery--masonry .gallery__item:nth-child(5) { grid-area: s1; }
+/* left top — the landscape photo fits the wide stacked cell */
+.gallery--masonry .gallery__item:nth-child(6) { grid-area: l1; }
+.gallery--masonry .gallery__item:nth-child(7) { grid-area: s2; }
 
 .gallery__item {
   position: relative;
