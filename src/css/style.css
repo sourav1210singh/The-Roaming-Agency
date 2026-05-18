@@ -1326,7 +1326,9 @@ body.is-header-hidden .hero-center-title {
   /* 3rd draft: row-gap opened back up — the tight gap + negative
      margins had clustered the cells. Generous vertical breathing
      room; column gap unchanged for the zig-zag. */
-  gap: clamp(1.5rem, 3.5vw, 3.5rem) clamp(1.5rem, 4vw, 4rem);
+  /* 3rd draft: row-gap -60% (was 1.5-3.5rem) — less vertical space
+     between the stat cells. Column gap unchanged for the zig-zag. */
+  gap: clamp(0.6rem, 1.4vw, 1.4rem) clamp(1.5rem, 4vw, 4rem);
   align-items: end;
 }
 
