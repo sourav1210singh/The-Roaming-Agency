@@ -314,140 +314,92 @@ function initEventsScroll() {
   if (!sticky || !cats.length) return;
 
   const N = cats.length; // 4 categories
-  let lastIdx = -1;
   let raf = 0;
-  let transitionSeq = 0; // bumped each category change; guards settle()
-  let settleTimer = 0;   // collapses to a single visible layer post-peel
-  // Client tweak: track scroll direction so the curtain reveal goes
-  // in the same direction the user is scrolling. Default 'down' on
-  // first activation (no direction info yet).
-  let lastScrollY = window.scrollY;
-  let scrollDir = 'down';
-
-  // 3rd draft C5/C6: on desktop the photo category follows the CURSOR
-  // moving across the section (not scroll). Non-linear boundaries — the
-  // first segment is short so Weddings -> Corporate flips with very
-  // little cursor travel ("a bit faster, without dragging so much").
-  // (<=1024 stays the collapsed static stack from the responsive pass.)
+  // <=1024 stays the collapsed static stack from the responsive pass.
   const isDesktop = () => window.matchMedia('(min-width: 1025px)').matches;
-  function idxFromCursorX(cx) {
-    if (cx < 0.15) return 0;   // Weddings — short, quick to leave
-    if (cx < 0.45) return 1;   // Corporate Events
-    if (cx < 0.72) return 2;   // Private Parties
-    return 3;                  // Artistic Direction
+
+  // Clear a set's scrub inline styles + state classes.
+  function resetSet(p) {
+    p.classList.remove('is-entering', 'is-exiting', 'is-current', 'is-revealed');
+    p.querySelectorAll('.events__photo').forEach((el) => {
+      el.style.clipPath = '';
+      el.style.filter = '';
+    });
   }
 
+  /* SCROLL-SCRUBBED transition (client 3rd-draft refinement):
+     The image change is NOT a one-shot peel per scroll step — it is
+     tied frame-by-frame to scroll position. `progress` (0→1 over the
+     section runway) maps across the N categories; the NEXT image peels
+     OVER the current one proportionally to how far the user scrolled
+     into that segment. Stop scrolling → the peel freezes exactly
+     there; scroll back → it reverses. Cursor no longer changes the
+     category (only the parallax drift below). Desktop only; <=1024
+     shows a single static category from the responsive collapse. */
   const update = () => {
     raf = 0;
     const rect = section.getBoundingClientRect();
-    const total = section.offsetHeight - window.innerHeight;
-    if (total <= 0) return;
-    const progress = Math.max(0, Math.min(1, -rect.top / total));
 
-    // Detect scroll direction. Small dead zone (0.5px) so noise from
-    // touchpad / lenis doesn't keep flipping the value on stillness.
-    const currentY = window.scrollY;
-    if (currentY > lastScrollY + 0.5) scrollDir = 'down';
-    else if (currentY < lastScrollY - 0.5) scrollDir = 'up';
-    lastScrollY = currentY;
-
-    // Progress line — fills 0→100% over the whole section as you
-    // scroll (kept on every viewport).
+    // Progress line follows scroll on every viewport.
+    const totalLine = section.offsetHeight - window.innerHeight;
+    const progress = totalLine > 0
+      ? Math.max(0, Math.min(1, -rect.top / totalLine))
+      : 0;
     if (progressFill) {
       progressFill.style.setProperty('--events-progress', progress.toFixed(4));
     }
 
-    // 3rd draft: on desktop the category is cursor-driven (see the
-    // mousemove handler below); scroll only fills the line. On <=1024
-    // (collapsed/touch) keep the original scroll-driven swap.
     if (!isDesktop()) {
-      setCategory(Math.max(0, Math.min(N - 1, Math.floor(progress * N))));
-    }
-  };
-
-  /* Apply a category index — the paper+polythin peel. Shared by the
-     scroll path (<=1024) and the cursor path (desktop). */
-  function setCategory(idx) {
-    idx = Math.max(0, Math.min(N - 1, idx));
-    if (idx !== lastIdx) {
-      const goingDown = idx > lastIdx; // lastIdx === -1 on first run -> down
-      const seq = ++transitionSeq;     // token: a superseded settle is a no-op
-      clearTimeout(settleTimer);
-      cats.forEach((c, i) => c.classList.toggle('is-active', i === idx));
-
-      /* Paper + polythin (Option A): during the peel show only TWO
-         layers — the incoming/current set, and the set we were just
-         on as the "paper" underneath. Every other set is hidden. When
-         the peel finishes, settle() collapses to ONLY the current set
-         so at rest there is exactly one image — nothing behind it to
-         leak out when the hover-parallax nudges the top photo. */
-      photoSets.forEach((p) => {
-        p.classList.remove('is-entering', 'is-exiting', 'is-current', 'is-revealed');
+      // Collapsed/touch: one static category, no scrub.
+      photoSets.forEach((p, i) => {
+        resetSet(p);
+        if (i === 0) { p.classList.add('is-revealed', 'is-current'); }
       });
-
-      if (goingDown) {
-        const base = photoSets[lastIdx];      // undefined on first run
-        if (base) base.classList.add('is-revealed');   // paper underneath
-        const inc = photoSets[idx];
-        inc.classList.add('is-current');
-        void inc.offsetWidth;                 // reflow so peel-in re-fires
-        inc.classList.add('is-entering');     // new image peels IN on top
-      } else {
-        const leaving = photoSets[lastIdx];   // on top -> peels OFF
-        const exposed = photoSets[idx];       // paper revealed beneath
-        exposed.classList.add('is-revealed', 'is-current');
-        if (leaving) {
-          leaving.classList.add('is-revealed');
-          void leaving.offsetWidth;           // reflow so peel-off re-fires
-          leaving.classList.add('is-exiting');
-        }
-      }
-
-      // Negative bg swap on odd indexes.
-      sticky.classList.toggle('is-negative', idx % 2 === 1);
-
-      /* Collapse to a single layer once the peel is over. Longest
-         animation ≈ entering front (0.32s delay + 1.05s) ≈ 1.37s; a
-         guarded 1.5s timer is simpler and interruption-safe vs
-         juggling staggered animationend across two elements. The seq
-         check makes any superseded timer a no-op. Hiding the covered
-         base is invisible — the full top image already occludes it. */
-      settleTimer = setTimeout(() => {
-        if (seq !== transitionSeq) return;
-        photoSets.forEach((p, i) => {
-          p.classList.remove('is-entering', 'is-exiting', 'is-current', 'is-revealed');
-          if (i === idx) p.classList.add('is-revealed', 'is-current');
-        });
-      }, 1500);
-
-      lastIdx = idx;
+      cats.forEach((c, i) => c.classList.toggle('is-active', i === 0));
+      return;
     }
-  }
+
+    // Map scroll across the N categories. pos 0..(N-1):
+    //   idx  = base ("paper") category, fully shown underneath
+    //   frac = 0..1 peel progress of the NEXT image over the base.
+    const pos     = progress * (N - 1);
+    const idx     = Math.min(Math.floor(pos), N - 1);
+    const hasNext = idx < N - 1;
+    const frac    = hasNext ? (pos - idx) : 0;
+
+    photoSets.forEach(resetSet);
+    const base = photoSets[idx];
+    const top  = hasNext ? photoSets[idx + 1] : null;
+
+    if (top && frac > 0.002) {
+      // Base stays fully visible as the "paper"; the next image peels
+      // over it top→bottom, scrubbed by `frac`. Slight stagger so the
+      // back photo leads the front.
+      base.classList.add('is-revealed');
+      const fBack  = frac;
+      const fFront = Math.max(0, Math.min(1, (frac - 0.12) / 0.88));
+      top.classList.add('is-current');
+      top.querySelectorAll('.events__photo').forEach((el) => {
+        const f = el.classList.contains('events__photo--front') ? fFront : fBack;
+        el.style.clipPath = 'inset(0% 0% ' + ((1 - f) * 100).toFixed(2) + '% 0%)';
+        el.style.filter   = 'brightness(' + (0.35 + 0.65 * f).toFixed(3) + ')';
+      });
+    } else {
+      // Segment edge / last category: a single full image.
+      base.classList.add('is-revealed', 'is-current');
+    }
+
+    // Category text + negative-bg flip follow the dominant image.
+    const activeIdx = (hasNext && frac >= 0.5) ? idx + 1 : idx;
+    cats.forEach((c, i) => c.classList.toggle('is-active', i === activeIdx));
+    sticky.classList.toggle('is-negative', activeIdx % 2 === 1);
+  };
 
   window.addEventListener('scroll', () => {
     if (!raf) raf = requestAnimationFrame(update);
   }, { passive: true });
   window.addEventListener('resize', update);
   update();
-  // Default category so the section never starts blank (on desktop
-  // before the first cursor move; on <=1024 it's the static stack).
-  setCategory(0);
-
-  // 3rd draft C5/C6: desktop category follows the cursor across the
-  // section. rAF-throttled; ignored while the section is off-screen.
-  let mRaf = 0, mX = 0;
-  section.addEventListener('mousemove', (e) => {
-    if (!isDesktop()) return;
-    mX = e.clientX;
-    if (mRaf) return;
-    mRaf = requestAnimationFrame(() => {
-      mRaf = 0;
-      const r = section.getBoundingClientRect();
-      if (r.width <= 0 || r.bottom < 0 || r.top > window.innerHeight) return;
-      const cx = Math.max(0, Math.min(1, (mX - r.left) / r.width));
-      setCategory(idxFromCursorX(cx));
-    });
-  }, { passive: true });
 
   /* Client tweak (overlap positioner): the photo widths are now
      height-driven (height-%, aspect-ratio 3/5, width auto) so the 3:5
