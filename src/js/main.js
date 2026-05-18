@@ -327,42 +327,14 @@ function initEventsScroll() {
     });
   }
 
-  /* SCROLL-SCRUBBED transition (client 3rd-draft refinement):
-     The image change is NOT a one-shot peel per scroll step — it is
-     tied frame-by-frame to scroll position. `progress` (0→1 over the
-     section runway) maps across the N categories; the NEXT image peels
-     OVER the current one proportionally to how far the user scrolled
-     into that segment. Stop scrolling → the peel freezes exactly
-     there; scroll back → it reverses. Cursor no longer changes the
-     category (only the parallax drift below). Desktop only; <=1024
-     shows a single static category from the responsive collapse. */
-  const update = () => {
-    raf = 0;
-    const rect = section.getBoundingClientRect();
+  let targetPos  = 0;      // scroll-derived target (0..N-1)
+  let currentPos = 0;      // eased value actually rendered
+  let scrubRaf   = 0;
+  const SCRUB_EASE = 0.13; // lower = smoother / floatier peel
 
-    // Progress line follows scroll on every viewport.
-    const totalLine = section.offsetHeight - window.innerHeight;
-    const progress = totalLine > 0
-      ? Math.max(0, Math.min(1, -rect.top / totalLine))
-      : 0;
-    if (progressFill) {
-      progressFill.style.setProperty('--events-progress', progress.toFixed(4));
-    }
-
-    if (!isDesktop()) {
-      // Collapsed/touch: one static category, no scrub.
-      photoSets.forEach((p, i) => {
-        resetSet(p);
-        if (i === 0) { p.classList.add('is-revealed', 'is-current'); }
-      });
-      cats.forEach((c, i) => c.classList.toggle('is-active', i === 0));
-      return;
-    }
-
-    // Map scroll across the N categories. pos 0..(N-1):
-    //   idx  = base ("paper") category, fully shown underneath
-    //   frac = 0..1 peel progress of the NEXT image over the base.
-    const pos     = progress * (N - 1);
+  /* Render the peel at a scrub position (0..N-1). idx = base "paper"
+     category fully shown; frac = 0..1 peel of the NEXT image over it. */
+  function renderScrub(pos) {
     const idx     = Math.min(Math.floor(pos), N - 1);
     const hasNext = idx < N - 1;
     const frac    = hasNext ? (pos - idx) : 0;
@@ -372,12 +344,10 @@ function initEventsScroll() {
     const top  = hasNext ? photoSets[idx + 1] : null;
 
     if (top && frac > 0.002) {
-      // Base stays fully visible as the "paper"; the next image peels
-      // over it top→bottom, scrubbed by `frac`. Slight stagger so the
-      // back photo leads the front.
-      // is-current on BOTH base and top so the cursor parallax drifts
-      // them in lockstep — otherwise the still base leaks out from
-      // under the drifting top and reads as a separate image.
+      // Base stays as the "paper"; the next image peels over it
+      // top→bottom (slight stagger: back leads front). is-current on
+      // BOTH so the cursor parallax drifts them in lockstep —
+      // otherwise the still base leaks out behind the drifting top.
       base.classList.add('is-revealed', 'is-current');
       const fBack  = frac;
       const fFront = Math.max(0, Math.min(1, (frac - 0.12) / 0.88));
@@ -388,21 +358,69 @@ function initEventsScroll() {
         el.style.filter   = 'brightness(' + (0.35 + 0.65 * f).toFixed(3) + ')';
       });
     } else {
-      // Segment edge / last category: a single full image.
       base.classList.add('is-revealed', 'is-current');
     }
 
-    // Category text + negative-bg flip follow the dominant image.
     const activeIdx = (hasNext && frac >= 0.5) ? idx + 1 : idx;
     cats.forEach((c, i) => c.classList.toggle('is-active', i === activeIdx));
     sticky.classList.toggle('is-negative', activeIdx % 2 === 1);
+  }
+
+  /* Eased scrub loop — currentPos chases targetPos so the peel glides
+     smoothly instead of snapping to the raw scroll value each frame.
+     Self-terminating: stops once settled (no idle rAF). */
+  function scrubTick() {
+    currentPos += (targetPos - currentPos) * SCRUB_EASE;
+    if (Math.abs(targetPos - currentPos) < 0.0006) currentPos = targetPos;
+    renderScrub(currentPos);
+    scrubRaf = (currentPos !== targetPos)
+      ? requestAnimationFrame(scrubTick)
+      : 0;
+  }
+
+  /* SCROLL-SCRUBBED transition (client 3rd-draft): the image change is
+     tied to scroll position AND eased — scroll updates targetPos, the
+     loop glides the peel toward it. Stop scrolling → it settles
+     smoothly; scroll back → reverses. Cursor only does the parallax
+     drift (below). Desktop only; <=1024 = one static category. */
+  const update = () => {
+    raf = 0;
+    const rect = section.getBoundingClientRect();
+    const totalLine = section.offsetHeight - window.innerHeight;
+    const progress = totalLine > 0
+      ? Math.max(0, Math.min(1, -rect.top / totalLine))
+      : 0;
+    if (progressFill) {
+      progressFill.style.setProperty('--events-progress', progress.toFixed(4));
+    }
+
+    if (!isDesktop()) {
+      photoSets.forEach((p, i) => {
+        resetSet(p);
+        if (i === 0) { p.classList.add('is-revealed', 'is-current'); }
+      });
+      cats.forEach((c, i) => c.classList.toggle('is-active', i === 0));
+      return;
+    }
+
+    targetPos = progress * (N - 1);
+    if (!scrubRaf) scrubRaf = requestAnimationFrame(scrubTick);
   };
 
   window.addEventListener('scroll', () => {
     if (!raf) raf = requestAnimationFrame(update);
   }, { passive: true });
   window.addEventListener('resize', update);
+  // Seed currentPos = target so a refresh mid-section doesn't ease in
+  // from 0 (no peel flash on load), then paint once.
+  (() => {
+    const rect = section.getBoundingClientRect();
+    const t = section.offsetHeight - window.innerHeight;
+    const p = t > 0 ? Math.max(0, Math.min(1, -rect.top / t)) : 0;
+    targetPos = currentPos = p * (N - 1);
+  })();
   update();
+  if (isDesktop()) renderScrub(currentPos);
 
   /* Client tweak (overlap positioner): the photo widths are now
      height-driven (height-%, aspect-ratio 3/5, width auto) so the 3:5
