@@ -2147,8 +2147,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   /* Horizontal-only widen (two +5% passes): height stays 59% of stack
      (273px @ ref), width set explicitly to 28.0% of stack width
      (~180px) instead of deriving from 3/5. Ratio is now ~0.66. */
-  height: 59%;
-  width: 34.1%; /* 3rd draft: FRONT photo only +5% more */
+  /* 3rd draft: FRONT photo only +5% — width AND height. */
+  height: 62%;
+  width: 34.1%;
   left: var(--front-left, 28%);
   /* Same vertical anchor as back so the pair shifts up together
      and both photos stay vertically centred relative to each other.
