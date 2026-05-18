@@ -1902,7 +1902,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   width: 100%;
   max-width: var(--container-max);
   margin-inline: auto;
-  padding-inline: var(--container-padding);
+  /* 3rd draft: Events gets DOUBLE the horizontal padding (client
+     asked for +100% side space in this section specifically). Note:
+     this intentionally insets Events more than the other G2-aligned
+     sections. */
+  padding-inline: calc(var(--container-padding) * 2);
 }
 
 .events__title {
