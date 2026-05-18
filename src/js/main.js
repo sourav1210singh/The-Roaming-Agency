@@ -375,7 +375,10 @@ function initEventsScroll() {
       // Base stays fully visible as the "paper"; the next image peels
       // over it top→bottom, scrubbed by `frac`. Slight stagger so the
       // back photo leads the front.
-      base.classList.add('is-revealed');
+      // is-current on BOTH base and top so the cursor parallax drifts
+      // them in lockstep — otherwise the still base leaks out from
+      // under the drifting top and reads as a separate image.
+      base.classList.add('is-revealed', 'is-current');
       const fBack  = frac;
       const fFront = Math.max(0, Math.min(1, (frac - 0.12) / 0.88));
       top.classList.add('is-current');
