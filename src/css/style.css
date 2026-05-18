@@ -1519,7 +1519,9 @@ body.is-header-hidden .hero-center-title {
      left/right edge. */
   padding-inline: var(--container-padding);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* 3rd draft: give the LEFT title/desc column more horizontal room;
+     the band-names column is pushed a bit further right. */
+  grid-template-columns: 1.3fr 1fr;
   gap: var(--space-4xl);
   align-items: start;
 }
@@ -1615,19 +1617,19 @@ body.is-header-hidden .hero-center-title {
   text-transform: uppercase;
   white-space: nowrap;
   color: #FFFFFF; /* 3rd draft: band name colour */
-  padding: 0.3rem 0; /* 3rd draft: vertical gap between names -40% (was --space-sm 0.5rem) */
+  padding: 0.15rem 0; /* 3rd draft: vertical gap between names reduced further */
   cursor: pointer;
   text-decoration: none;
   letter-spacing: 0;
-  /* Default state — dimmed, no indicator. */
-  opacity: 0.32;
+  /* 3rd draft: do NOT dim the names — full white, no faded state. */
+  opacity: 1;
   transition: color var(--duration-base) var(--ease-smooth),
               opacity var(--duration-base) var(--ease-smooth);
 }
 
 /* 3rd draft: hover + selected = gold #F2DCA3. */
 .band-selector__item:hover {
-  opacity: 0.6;
+  opacity: 1;
   color: #F2DCA3;
 }
 
