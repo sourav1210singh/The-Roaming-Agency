@@ -2774,21 +2774,26 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
    filled — no empty cells. 4 cols x 3 rows = 12 tracks, 7 areas
    that perfectly tile (a = big 2x2, e = tall, f = wide). Images
    object-fit:cover so each cell is fully filled (cropped, no gaps). */
+/* 6 photos are PORTRAIT + 1 is landscape, so the collage is built
+   from portrait-shaped cells (1 col x 2 rows) — matches the images,
+   minimal cropping. The landscape one (item 6) gets the wide 2x2
+   cell. 4 cols x 4 rows = 16 tracks, perfectly tiled, zero gaps. */
 .gallery--masonry {
   grid-template-columns: repeat(4, 1fr);
-  grid-auto-rows: clamp(150px, 16vw, 240px);
+  grid-auto-rows: clamp(135px, 13.5vw, 195px);
   grid-template-areas:
-    "a a b c"
-    "a a d e"
-    "f f g e";
+    "a b c d"
+    "a b c d"
+    "e f g g"
+    "e f g g";
 }
 .gallery--masonry .gallery__item:nth-child(1) { grid-area: a; }
 .gallery--masonry .gallery__item:nth-child(2) { grid-area: b; }
 .gallery--masonry .gallery__item:nth-child(3) { grid-area: c; }
 .gallery--masonry .gallery__item:nth-child(4) { grid-area: d; }
 .gallery--masonry .gallery__item:nth-child(5) { grid-area: e; }
-.gallery--masonry .gallery__item:nth-child(6) { grid-area: f; }
-.gallery--masonry .gallery__item:nth-child(7) { grid-area: g; }
+.gallery--masonry .gallery__item:nth-child(6) { grid-area: g; } /* landscape -> wide */
+.gallery--masonry .gallery__item:nth-child(7) { grid-area: f; }
 
 .gallery__item {
   position: relative;
@@ -2801,6 +2806,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Keep the upper-middle (faces) when a cell still has to crop a
+     little — heads don't get chopped off. */
+  object-position: center 32%;
   transition: transform 0.6s var(--ease-smooth);
 }
 
