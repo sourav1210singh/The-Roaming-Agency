@@ -1536,7 +1536,8 @@ body.is-header-hidden .hero-center-title {
    tucks closer below the heading. */
 .band-selector__heading {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-size: clamp(2.75rem, 5.5vw, 5rem);
+  /* 3rd draft: title a bit smaller (was 2.75-5rem). */
+  font-size: clamp(2.25rem, 4.5vw, 4rem);
   font-weight: var(--fw-medium); /* 3rd draft: "Choose your band" title = Medium */
   line-height: 1;
   letter-spacing: -0.02em;
@@ -1555,9 +1556,12 @@ body.is-header-hidden .hero-center-title {
 .band-selector__desc {
   font-family: var(--font-accent);
   font-size: var(--text-body); /* 3rd draft: standardized paragraph size */
+  /* 3rd draft: a bit bolder than the body Light, and a narrower
+     column (was 500px) so it sits tight under the title. */
+  font-weight: var(--fw-regular);
   color: var(--color-gray-200);
   line-height: 1.7;
-  max-width: 500px;
+  max-width: 340px;
 }
 
 /* Right column — viewport masks the list to a single band-row tall.
@@ -1601,15 +1605,19 @@ body.is-header-hidden .hero-center-title {
 .band-selector__item {
   display: block;
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  /* 3rd draft: band names larger (mockup), Medium weight, ALL CAPS. */
-  font-size: clamp(2rem, 4vw, 3.25rem);
+  /* 3rd draft client spec (Canva inspector): Nohemi Medium, ~69px /
+     97px line-height, 0 tracking, ALL CAPS. One line per band — never
+     wrap "THE BROTHEROCKERS" to two rows. */
+  font-size: clamp(2.6rem, 5.2vw, 4.3rem);
   font-weight: var(--fw-medium);
+  line-height: 1.4;
   text-transform: uppercase;
+  white-space: nowrap;
   color: var(--color-white);
   padding: var(--space-sm) 0;
   cursor: pointer;
   text-decoration: none;
-  letter-spacing: -0.01em;
+  letter-spacing: 0;
   /* Default state — dimmed, no indicator. */
   opacity: 0.32;
   transition: color var(--duration-base) var(--ease-smooth),
