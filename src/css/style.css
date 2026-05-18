@@ -2511,9 +2511,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   padding-inline: calc(var(--container-padding) * 2);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
-  /* 3rd draft: cards pulled a bit left (closer to the title) —
-     smaller column gap (was 1.5-3rem). */
-  gap: clamp(0.5rem, 1.5vw, 1.25rem);
+  /* 3rd draft: cards pulled further left — minimal column gap. */
+  gap: clamp(0rem, 0.5vw, 0.5rem);
   align-items: center;
 }
 
@@ -2561,6 +2560,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   /* viewport extends to viewport edge so cards bleed off the right
      and the next card peeks in — feels like a real carousel. */
   min-width: 0;
+  /* 3rd draft: nudge the whole cards block a bit further left. */
+  margin-left: clamp(-2.5rem, -3vw, -1.25rem);
 }
 
 .testimonials__track {
@@ -2579,14 +2580,14 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 /* ── Card ────────────────────────────────────────────────────── */
 .testimonial-card {
-  /* 3rd draft: width +5% (was 180-230px); height trimmed ~5% via
-     tighter vertical padding. */
-  flex: 0 0 clamp(189px, 15.75vw, 241px);
+  /* 3rd draft: width +5% again (was 189-241px); height trimmed
+     another ~5% via tighter vertical padding (22/18 -> 18/14). */
+  flex: 0 0 clamp(198px, 16.5vw, 253px);
   scroll-snap-align: start;
   position: relative;
   background: #ffffff;
   border-radius: 28px;
-  padding: 22px 24px 18px;
+  padding: 18px 24px 14px;
   box-shadow:
     0 1px 0 rgba(255, 255, 255, 0.9) inset,
     0 14px 40px rgba(0, 0, 0, 0.10),
