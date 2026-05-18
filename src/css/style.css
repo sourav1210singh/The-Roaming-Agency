@@ -1339,7 +1339,12 @@ body.is-header-hidden .hero-center-title {
   margin-left: clamp(-3rem, -2vw, -1rem);
 }
 .stat--mid-left     { grid-column: 1; grid-row: 2; }
-.stat--mid-right    { grid-column: 2; grid-row: 3; }
+/* 3rd draft: "10+ Bands & Artists" nudged up a bit. */
+.stat--mid-right    {
+  grid-column: 2;
+  grid-row: 3;
+  margin-top: clamp(-3.5rem, -5vw, -2rem);
+}
 /* "6 Languages" — revision round 2 follow-up: shifted slightly right
    and up from the original bottom-left position so it lifts toward the
    centre column and reads tighter with the "10+ Bands & Artists" cell
@@ -1348,7 +1353,8 @@ body.is-header-hidden .hero-center-title {
   grid-column: 1;
   grid-row: 4;
   margin-left: clamp(2rem, 6vw, 6rem);
-  margin-top: clamp(-3rem, -4vw, -2rem);
+  /* 3rd draft: "6 Languages" lifted further up. */
+  margin-top: clamp(-6.5rem, -9vw, -4.5rem);
 }
 
 .stat {
