@@ -1338,7 +1338,8 @@ body.is-header-hidden .hero-center-title {
   grid-row: 1;
   margin-left: clamp(-3rem, -2vw, -1rem);
 }
-.stat--mid-left     { grid-column: 1; grid-row: 2; }
+/* 3rd draft: "600+ High-End Events" nudged up a touch. */
+.stat--mid-left     { grid-column: 1; grid-row: 2; margin-top: clamp(-1.5rem, -2vw, -0.75rem); }
 /* 3rd draft: "10+ Bands & Artists" nudged up a touch (dialled back). */
 .stat--mid-right    {
   grid-column: 2;
@@ -1378,7 +1379,9 @@ body.is-header-hidden .hero-center-title {
      mock's #393939 — visually identical). */
   font-weight: var(--fw-regular);
   font-size: clamp(3.5rem, 7.5vw, 7rem);
-  line-height: 1.1;
+  /* 3rd draft: line-height tightened (1.1 -> 0.85) to cut the
+     number↔label vertical gap ~60% (size unchanged). */
+  line-height: 0.85;
   letter-spacing: -0.045em;
   color: #2A2A2A;
   font-variant-numeric: tabular-nums;
@@ -1404,7 +1407,9 @@ body.is-header-hidden .hero-center-title {
   font-size: clamp(0.85rem, 1vw, 1rem);
   font-weight: var(--fw-regular);
   color: #555555;
-  margin-top: 0; /* 3rd draft: tucked right under the number */
+  /* 3rd draft: pull the label up so the number↔label gap is ~60%
+     tighter for all 4 stats (works with the 0.85 number line-height). */
+  margin-top: -0.35em;
 }
 
 /* Mobile — stack stats vertically, no zig-zag */
