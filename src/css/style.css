@@ -1907,8 +1907,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .events__title {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  /* Client tweak: title trimmed a touch (6rem -> 5.25rem on desktop). */
-  font-size: clamp(2.25rem, 6vw, 5.25rem);
+  /* 3rd draft: title trimmed a bit more (5.25rem -> 4.5rem desktop). */
+  font-size: clamp(2rem, 5vw, 4.5rem);
   line-height: 1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -2148,7 +2148,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      (273px @ ref), width set explicitly to 28.0% of stack width
      (~180px) instead of deriving from 3/5. Ratio is now ~0.66. */
   height: 59%;
-  width: 32.5%; /* 3rd draft: photos widened again (+5%) */
+  width: 34.1%; /* 3rd draft: FRONT photo only +5% more */
   left: var(--front-left, 28%);
   /* Same vertical anchor as back so the pair shifts up together
      and both photos stay vertically centred relative to each other.
