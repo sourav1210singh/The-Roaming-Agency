@@ -2506,10 +2506,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .testimonials__layout {
   max-width: var(--container-max);
   margin: 0 auto;
-  /* 3rd draft / G2: contain BOTH sides on the same gutter as every
-     other section (was padding-left only — the carousel bled off the
-     right edge and broke the shared left/right alignment). */
-  padding-inline: var(--container-padding);
+  /* 3rd draft: +100% horizontal padding on BOTH sides (was a single
+     --container-padding). */
+  padding-inline: calc(var(--container-padding) * 2);
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
   /* 3rd draft: testimonials sit closer to the title (was 2-4.5rem). */
@@ -2579,8 +2578,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 /* ── Card ────────────────────────────────────────────────────── */
 .testimonial-card {
-  /* 3rd draft: narrower so 3 cards fit on screen (was 280-360px). */
-  flex: 0 0 clamp(220px, 19vw, 270px);
+  /* 3rd draft: narrower still so 3 cards fit even with the doubled
+     section padding (was 220-270px). */
+  flex: 0 0 clamp(180px, 15vw, 230px);
   scroll-snap-align: start;
   position: relative;
   background: #ffffff;
