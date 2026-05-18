@@ -3195,7 +3195,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .contact__marquee-item {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   font-size: clamp(1.5rem, 4.5vw, 4.25rem);
-  font-weight: 300;
+  font-weight: var(--fw-bold); /* 3rd draft: bolder marquee text */
   line-height: 0.95;
   letter-spacing: -0.02em;
   text-transform: uppercase;
@@ -3204,12 +3204,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   flex-shrink: 0;
 }
 
-/* Bullet shrunk proportionally so it still reads as an accent dot. */
+/* 3rd draft: gold separator dot removed per client. */
 .contact__marquee-bullet {
-  font-size: clamp(1rem, 2.5vw, 2.25rem);
-  color: #c8a560;        /* small gold accent (only one in the section) */
-  line-height: 1;
-  flex-shrink: 0;
+  display: none;
 }
 
 @keyframes contact-marquee-roll {
