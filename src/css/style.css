@@ -1339,11 +1339,11 @@ body.is-header-hidden .hero-center-title {
   margin-left: clamp(-3rem, -2vw, -1rem);
 }
 .stat--mid-left     { grid-column: 1; grid-row: 2; }
-/* 3rd draft: "10+ Bands & Artists" nudged up a bit. */
+/* 3rd draft: "10+ Bands & Artists" nudged up a touch (dialled back). */
 .stat--mid-right    {
   grid-column: 2;
   grid-row: 3;
-  margin-top: clamp(-3.5rem, -5vw, -2rem);
+  margin-top: clamp(-2rem, -3vw, -1.25rem);
 }
 /* "6 Languages" — revision round 2 follow-up: shifted slightly right
    and up from the original bottom-left position so it lifts toward the
@@ -1353,8 +1353,8 @@ body.is-header-hidden .hero-center-title {
   grid-column: 1;
   grid-row: 4;
   margin-left: clamp(2rem, 6vw, 6rem);
-  /* 3rd draft: "6 Languages" lifted further up. */
-  margin-top: clamp(-6.5rem, -9vw, -4.5rem);
+  /* 3rd draft: "6 Languages" lifted up (dialled back down a bit). */
+  margin-top: clamp(-4.5rem, -6.5vw, -3rem);
 }
 
 .stat {
