@@ -2162,7 +2162,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      (~180px) instead of deriving from 3/5. Ratio is now ~0.66. */
   /* 3rd draft: FRONT photo only +5% — width AND height. */
   height: 62%;
-  width: 34.1%;
+  width: 35.8%; /* 3rd draft: image section width +5% more */
   left: var(--front-left, 28%);
   /* Same vertical anchor as back so the pair shifts up together
      and both photos stay vertically centred relative to each other.
@@ -2188,7 +2188,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      (439px @ ref), width set explicitly to 45.0% of stack width
      (~290px) instead of deriving from 3/5. Ratio is now ~0.66. */
   height: 95%;
-  width: 51.5%; /* 3rd draft: photos widened again (+5%) */
+  width: 54.1%; /* 3rd draft: image section width +5% more */
   right: 24%; /* 3rd draft: whole image cluster shifted a bit LEFT (was 15%) */
   top: 40%;
   transform: translateY(-50%);
