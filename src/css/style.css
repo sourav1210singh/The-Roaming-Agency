@@ -2823,6 +2823,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .globe-text {
   text-align: left;
+  /* 3rd draft: +100% horizontal space on the LEFT side only — push
+     the title/subtitle/CTA block in by an extra container gutter. */
+  padding-left: var(--container-padding);
 }
 
 /* Heading + subtitle on light bg — flipped from white-on-dark. The
@@ -2854,7 +2857,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .globe-container {
   position: relative;
   width: 100%;
-  max-width: 950px;
+  /* 3rd draft: globe -10% (was 950px). */
+  max-width: 855px;
   margin-left: 0;
   perspective: 1200px;
   transform: rotate(10deg);
