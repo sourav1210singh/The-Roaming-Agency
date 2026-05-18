@@ -2770,12 +2770,25 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   gap: var(--space-sm);
 }
 
-/* 3rd draft: gallery made smaller / denser (reference: the compact
-   "Weddings New" blog-card grid) — was minmax(300px) / 250px rows. */
+/* 3rd draft: fixed 7-image collage so the section is COMPLETELY
+   filled — no empty cells. 4 cols x 3 rows = 12 tracks, 7 areas
+   that perfectly tile (a = big 2x2, e = tall, f = wide). Images
+   object-fit:cover so each cell is fully filled (cropped, no gaps). */
 .gallery--masonry {
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  grid-auto-rows: 170px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: clamp(150px, 16vw, 240px);
+  grid-template-areas:
+    "a a b c"
+    "a a d e"
+    "f f g e";
 }
+.gallery--masonry .gallery__item:nth-child(1) { grid-area: a; }
+.gallery--masonry .gallery__item:nth-child(2) { grid-area: b; }
+.gallery--masonry .gallery__item:nth-child(3) { grid-area: c; }
+.gallery--masonry .gallery__item:nth-child(4) { grid-area: d; }
+.gallery--masonry .gallery__item:nth-child(5) { grid-area: e; }
+.gallery--masonry .gallery__item:nth-child(6) { grid-area: f; }
+.gallery--masonry .gallery__item:nth-child(7) { grid-area: g; }
 
 .gallery__item {
   position: relative;
@@ -3785,7 +3798,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   .gallery--masonry {
     grid-template-columns: 1fr 1fr;
     grid-auto-rows: 200px;
+    /* Drop the collage areas on mobile — plain 2-col grid. */
+    grid-template-areas: none;
   }
+  .gallery--masonry .gallery__item { grid-area: auto !important; }
 
   .footer__grid {
     grid-template-columns: 1fr;
@@ -3806,6 +3822,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   .gallery--masonry {
     grid-template-columns: 1fr;
     grid-auto-rows: 250px;
+    grid-template-areas: none;
   }
 
   .band-selector__heading {
