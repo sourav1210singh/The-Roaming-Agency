@@ -1615,7 +1615,7 @@ body.is-header-hidden .hero-center-title {
   text-transform: uppercase;
   white-space: nowrap;
   color: #FFFFFF; /* 3rd draft: band name colour */
-  padding: var(--space-sm) 0;
+  padding: 0.3rem 0; /* 3rd draft: vertical gap between names -40% (was --space-sm 0.5rem) */
   cursor: pointer;
   text-decoration: none;
   letter-spacing: 0;
