@@ -2189,7 +2189,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      (~290px) instead of deriving from 3/5. Ratio is now ~0.66. */
   height: 95%;
   width: 51.5%; /* 3rd draft: photos widened again (+5%) */
-  right: 15%;
+  right: 24%; /* 3rd draft: whole image cluster shifted a bit LEFT (was 15%) */
   top: 40%;
   transform: translateY(-50%);
   z-index: 1;
