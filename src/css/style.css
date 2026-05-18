@@ -2014,7 +2014,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
    composes on top unchanged. */
 .events__cat-title {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-size: clamp(2.25rem, 4.5vw, 4rem);
+  /* 3rd draft: category heading a bit smaller (was 2.25-4rem). */
+  font-size: clamp(1.9rem, 3.8vw, 3.4rem);
   font-weight: 300;
   line-height: 1;
   letter-spacing: -0.02em;
