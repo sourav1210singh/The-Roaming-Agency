@@ -1803,7 +1803,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   /* 3rd draft: brand cells a little bigger (~5%). */
   width: clamp(76px, 6.3vw, 95px);
   height: clamp(32px, 2.6vw, 38px);
-  padding: 0 clamp(0.5rem, 1vw, 0.85rem);
+  /* 3rd draft: less horizontal space between logos in the marquee. */
+  padding: 0 clamp(0.2rem, 0.5vw, 0.4rem);
 }
 
 .brands-marquee__logo {
