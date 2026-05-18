@@ -1323,9 +1323,10 @@ body.is-header-hidden .hero-center-title {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(4, auto);
-  /* 3rd draft: vertical space between the numbers reduced (row-gap
-     was 1.5-3rem). Column gap kept for the zig-zag. */
-  gap: clamp(0.25rem, 1vw, 1rem) clamp(1.5rem, 4vw, 4rem);
+  /* 3rd draft: row-gap opened back up — the tight gap + negative
+     margins had clustered the cells. Generous vertical breathing
+     room; column gap unchanged for the zig-zag. */
+  gap: clamp(1.5rem, 3.5vw, 3.5rem) clamp(1.5rem, 4vw, 4rem);
   align-items: end;
 }
 
@@ -1338,14 +1339,8 @@ body.is-header-hidden .hero-center-title {
   grid-row: 1;
   margin-left: clamp(-3rem, -2vw, -1rem);
 }
-/* 3rd draft: "600+ High-End Events" nudged up a touch. */
-.stat--mid-left     { grid-column: 1; grid-row: 2; margin-top: clamp(-1.5rem, -2vw, -0.75rem); }
-/* 3rd draft: "10+ Bands & Artists" nudged up a touch (dialled back). */
-.stat--mid-right    {
-  grid-column: 2;
-  grid-row: 3;
-  margin-top: clamp(-2rem, -3vw, -1.25rem);
-}
+.stat--mid-left     { grid-column: 1; grid-row: 2; }
+.stat--mid-right    { grid-column: 2; grid-row: 3; }
 /* "6 Languages" — revision round 2 follow-up: shifted slightly right
    and up from the original bottom-left position so it lifts toward the
    centre column and reads tighter with the "10+ Bands & Artists" cell
@@ -1354,8 +1349,9 @@ body.is-header-hidden .hero-center-title {
   grid-column: 1;
   grid-row: 4;
   margin-left: clamp(2rem, 6vw, 6rem);
-  /* 3rd draft: "6 Languages" lifted up (dialled back down a bit). */
-  margin-top: clamp(-4.5rem, -6.5vw, -3rem);
+  /* 3rd draft: no upward pull — let the row-gap space it out so it
+     doesn't cluster with "600+" above. */
+  margin-top: 0;
 }
 
 .stat {
