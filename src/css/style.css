@@ -1988,8 +1988,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   flex-shrink: 0;
   width: 2px;
   /* Client tweak: line taller — spans the full 2-line title + 4-line
-     description block of the tallest category. */
-  height: clamp(14rem, 32vh, 18rem);
+     description block of the tallest category (dialed back a touch). */
+  height: clamp(13rem, 29vh, 16rem);
   background: var(--events-line-track);
   position: relative;
   align-self: center;
