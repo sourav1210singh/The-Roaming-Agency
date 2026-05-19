@@ -1360,8 +1360,9 @@ body.is-header-hidden .hero-center-title {
 .stat--top-right    {
   grid-column: 2;
   grid-row: 1;
-  /* Client tweak: nudge "+10 Years of experience" a touch more left. */
-  margin-left: clamp(-4rem, -3vw, -2rem);
+  /* Client tweak: nudge "+10 Years of experience" a touch more left
+     (round 2 — a little further). */
+  margin-left: clamp(-5.5rem, -4.2vw, -3rem);
 }
 .stat--mid-left     { grid-column: 1; grid-row: 2; }
 .stat--mid-right    { grid-column: 2; grid-row: 3; }
