@@ -3244,7 +3244,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .contact__layout {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 var(--container-padding);
+  /* 3rd draft: +100% horizontal padding (Get In Touch). */
+  padding: 0 calc(var(--container-padding) * 2);
   display: grid;
   grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
   gap: clamp(2rem, 5vw, 5rem);
@@ -3587,6 +3588,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 
 /* === FOOTER === */
+/* 3rd draft: +100% horizontal padding for the footer (scoped to the
+   footer's own .container so other sections' container is unchanged). */
+.footer .container {
+  padding-inline: calc(var(--container-padding) * 2);
+}
+
 .footer {
   background: var(--color-black);
   border-top: 1px solid var(--color-gray-800);
