@@ -2909,8 +2909,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .globe-container {
   position: relative;
   width: 100%;
-  /* 3rd draft: globe -10% (was 950px). */
-  max-width: 855px;
+  /* 3rd draft: globe -10% (was 950px). Client tweak: a further -15%
+     (855 -> 727) — card placement scales with the container so they
+     stay aligned to the smaller sphere automatically. */
+  max-width: 727px;
   margin-left: 0;
   perspective: 1200px;
   transform: rotate(10deg);

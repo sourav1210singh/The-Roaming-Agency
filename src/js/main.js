@@ -1053,7 +1053,9 @@ function initGlobeAnimation() {
   globe.add(solidSphere);
 
   // Latitude rings — every 15°
-  const latMat = new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.25 });
+  // Client tweak: grid lines bolder + true #000000 (opacity up — WebGL
+  // can't render line-width > 1px, so opacity is what reads as "bold").
+  const latMat = new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.6 });
   for (let lat = -75; lat <= 75; lat += 15) {
     const phi = (90 - lat) * Math.PI / 180;
     const r = Math.sin(phi);
@@ -1068,7 +1070,7 @@ function initGlobeAnimation() {
   }
 
   // Longitude rings — every 15°
-  const lonMat = new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.2 });
+  const lonMat = new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.55 });
   for (let lon = 0; lon < 360; lon += 15) {
     const pts = [];
     for (let i = 0; i <= 64; i++) {
