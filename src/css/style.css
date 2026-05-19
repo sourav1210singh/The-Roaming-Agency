@@ -2348,7 +2348,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .standards__inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  padding: 0 var(--container-padding);
+  /* Client tweak: left/right padding +50%. */
+  padding: 0 calc(var(--container-padding) * 1.5);
 }
 
 .standards__title {
