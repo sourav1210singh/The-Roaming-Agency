@@ -2771,6 +2771,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   /* Height set by JS in initGalleryReveal() based on actual content. */
 }
 
+/* 3rd draft: +50% horizontal padding for the gallery (scoped to its
+   own .container so other sections' container is unchanged). */
+.gallery-section .container {
+  padding-inline: calc(var(--container-padding) * 1.5);
+}
+
 .gallery-section {
   background: #2A2A2A;
   padding-block: clamp(3rem, 6vw, 5rem);
