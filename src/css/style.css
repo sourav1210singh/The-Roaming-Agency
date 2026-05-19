@@ -3501,13 +3501,14 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   position: relative;
   z-index: 1;
   width: 100%;
-  max-width: 560px;
+  /* 3rd draft tweak: popup ~20% smaller (560 → 448, padding scaled too). */
+  max-width: 448px;
   max-height: 90vh;
   overflow-y: auto;
   background: #ffffff;
   color: #2A2A2A;
   border-radius: 14px;
-  padding: clamp(1.5rem, 4vw, 2.75rem);
+  padding: clamp(1.2rem, 3.2vw, 2.2rem);
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
   animation: cta-modal-in 0.3s var(--ease-out-expo) both;
 }
@@ -3529,20 +3530,20 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .cta-modal__close:hover { color: #2A2A2A; }
 .cta-modal__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-size: clamp(1.15rem, 2.4vw, 1.6rem);
   font-weight: var(--fw-medium);
-  margin: 0 0 0.5rem;
+  margin: 0 0 0.4rem;
 }
 .cta-modal__lead {
   font-size: var(--text-body);
   font-weight: var(--fw-light);
   color: #555555;
-  margin: 0 0 1.5rem;
+  margin: 0 0 1.2rem;
 }
 .cta-modal__grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 0.8rem;
 }
 .cta-modal__full { grid-column: 1 / -1; }
 .cta-modal__form .form-group {
@@ -3575,7 +3576,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   outline: none;
   border-color: var(--color-gold-dark);
 }
-.cta-modal__submit { margin-top: 1.25rem; width: 100%; }
+.cta-modal__submit { margin-top: 1rem; width: 100%; }
 body.cta-modal-open { overflow: hidden; }
 @media (max-width: 560px) {
   .cta-modal__grid { grid-template-columns: 1fr; }
