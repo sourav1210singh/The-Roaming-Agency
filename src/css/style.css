@@ -1987,9 +1987,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .events__progress-line {
   flex-shrink: 0;
   width: 2px;
-  /* 3rd draft: line shorter — roughly the height of the title +
-     subtitle block (covers the longest one), not 70% of the column. */
-  height: clamp(8.5rem, 22vh, 13rem);
+  /* Client tweak: line taller — spans the full 2-line title + 4-line
+     description block of the tallest category. */
+  height: clamp(14rem, 32vh, 18rem);
   background: var(--events-line-track);
   position: relative;
   align-self: center;
