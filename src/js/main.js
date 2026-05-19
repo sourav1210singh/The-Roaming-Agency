@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLanguageSwitcher();
   initMobileMenu();
   initContactForm();
+  initFormModal();
   initStandardsScroll();
   initHeroIntro();
   // initDoorPortal() removed in revision round 2 — the pre-hero door
@@ -1832,4 +1833,78 @@ function initContactForm() {
       form.reset();
     }, 3000);
   });
+}
+
+/* ──────────────────────────────────────────────
+   GET-IN-TOUCH POPUP FORM
+   Section CTAs ([data-open-form]) open a reusable modal with the
+   same fields as the inline contact form. Close via X / overlay /
+   Esc. Submit builds the same mailto as the inline form.
+   ────────────────────────────────────────────── */
+function initFormModal() {
+  const modal = document.getElementById('ctaModal');
+  if (!modal) return;
+  const form = document.getElementById('ctaModalForm');
+  let lastFocus = null;
+
+  const open = (e) => {
+    if (e) e.preventDefault();
+    lastFocus = document.activeElement;
+    modal.classList.add('is-open');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('cta-modal-open');
+    const first = modal.querySelector('input, select, textarea');
+    if (first) setTimeout(() => first.focus(), 50);
+  };
+  const close = () => {
+    modal.classList.remove('is-open');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('cta-modal-open');
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  };
+
+  document.querySelectorAll('[data-open-form]').forEach((el) => {
+    el.addEventListener('click', open);
+  });
+  modal.querySelectorAll('[data-cta-close]').forEach((el) => {
+    el.addEventListener('click', close);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('is-open')) close();
+  });
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const d = Object.fromEntries(new FormData(form));
+      const subject = encodeURIComponent(`Event Inquiry — ${d.eventType || 'General'}`);
+      const body = encodeURIComponent(
+        `Name: ${d.name}\n` +
+        `Email: ${d.email}\n` +
+        `Event Date: ${d.eventDate || 'Not specified'}\n` +
+        `Event Type: ${d.eventType || 'Not specified'}\n` +
+        `Budget: ${d.budget || 'Not specified'}\n\n` +
+        `Message:\n${d.message || 'No message'}`
+      );
+      window.open(`mailto:contact@theroamingagency.com?subject=${subject}&body=${body}`, '_blank');
+
+      const btn = form.querySelector('.cta-modal__submit');
+      if (btn) {
+        const t = btn.textContent;
+        btn.textContent = '✓ Sent!';
+        btn.style.background = '#25D366';
+        btn.style.color = '#ffffff';
+        setTimeout(() => {
+          btn.textContent = t;
+          btn.style.background = '';
+          btn.style.color = '';
+          form.reset();
+          close();
+        }, 2200);
+      } else {
+        form.reset();
+        close();
+      }
+    });
+  }
 }

@@ -271,8 +271,8 @@
            data-fr="Basés sur la Côte d'Azur, disponibles dans le monde entier. Composés de musiciens internationaux maîtrisant le français, l'anglais, l'italien, l'espagnol et le portugais, The Roaming Agency transforme vos cocktails, dîners et célébrations en souvenirs inoubliables.">
           Based on the French Riviera, available worldwide. Composed of international musicians fluent in French, English, Italian, Spanish, and Portuguese. The Roaming Agency transforms your drinks, dinners and celebrations into unforgettable memories.
         </p>
-        <!-- 3rd draft: extra "Get in Touch" CTA (mockup) -->
-        <a href="#contact" class="btn btn--primary section-cta reveal"
+        <!-- 3rd draft: CTA opens the popup form (#contact = no-JS fallback) -->
+        <a href="#contact" class="btn btn--primary section-cta reveal" data-open-form
            data-en="Get a Tailored Quote" data-fr="Obtenir un Devis">Get a Tailored Quote</a>
       </div>
 
@@ -586,6 +586,9 @@
                data-fr="Basés sur la Côte d'Azur, disponibles dans le monde entier. Composés de musiciens internationaux, les Brotherockers transforment vos cocktails et dîners en souvenirs inoubliables.">
               Based on the French Riviera, available worldwide. Composed of international musicians fluent in French, English, Italian, Spanish, and Portuguese, The Brotherockers transform your drinks and dinners into unforgettable memories.
             </p>
+            <!-- 3rd draft: CTA opens the popup form -->
+            <a href="#contact" class="btn btn--primary section-cta reveal" data-open-form
+               data-en="Book Your Band" data-fr="Réservez Votre Groupe">Book Your Band</a>
           </div>
 
           <!-- Right column — viewport-windowed list. JS translates this
@@ -623,9 +626,9 @@
                subtitle text below ("…and available worldwide"). -->
           <h2 class="section__title reveal" data-en="Performing Across Europe's Most Beautiful Celebrations" data-fr="Présents dans les Plus Belles Célébrations d'Europe">Performing Across Europe's Most Beautiful Celebrations</h2>
           <p class="section__subtitle reveal" data-en="Based on the French Riviera and available worldwide, our bands travel wherever the music is needed." data-fr="Basés sur la Côte d'Azur et disponibles dans le monde entier, nos groupes se déplacent partout où la musique est nécessaire.">Based on the French Riviera and available worldwide, our bands travel wherever the music is needed.</p>
-          <!-- 3rd draft: extra "Get in Touch" CTA (mockup) -->
-          <a href="#contact" class="btn btn--primary section-cta reveal"
-             data-en="Contact Us" data-fr="Contactez-Nous">Contact Us</a>
+          <!-- 3rd draft: CTA opens the popup form (catchy label for this section) -->
+          <a href="#contact" class="btn btn--primary section-cta reveal" data-open-form
+             data-en="Check Availability" data-fr="Vérifier la Disponibilité">Check Availability</a>
         </div>
         <!-- Globe: Three.js canvas + JS-positioned cards -->
         <div class="globe-container" id="globeContainer">
@@ -754,6 +757,9 @@
           <span class="testimonials__title-line" data-en="The Roaming" data-fr="The Roaming">The Roaming</span>
           <span class="testimonials__title-line" data-en="Agency"      data-fr="Agency">Agency</span>
         </h2>
+        <!-- 3rd draft: CTA opens the popup form -->
+        <a href="#contact" class="btn btn--primary section-cta reveal" data-open-form
+           data-en="Get in Touch" data-fr="Contactez-Nous">Get in Touch</a>
       </div>
 
       <!-- RIGHT — viewport with horizontal-scrolling cards + nav arrow -->
@@ -1105,6 +1111,58 @@
       </div>
     </div>
   </footer>
+
+  <!-- ===== GET-IN-TOUCH POPUP FORM =====
+       One reusable modal opened by the section CTAs ([data-open-form]). -->
+  <div class="cta-modal" id="ctaModal" aria-hidden="true">
+    <div class="cta-modal__overlay" data-cta-close></div>
+    <div class="cta-modal__dialog" role="dialog" aria-modal="true" aria-label="Get in touch">
+      <button type="button" class="cta-modal__close" data-cta-close aria-label="Close">&times;</button>
+      <h2 class="cta-modal__title" data-en="Let's Create Something Extraordinary" data-fr="Créons Quelque Chose d'Extraordinaire">Let's Create Something Extraordinary</h2>
+      <p class="cta-modal__lead" data-en="Tell us about your event and we'll craft the perfect musical experience." data-fr="Parlez-nous de votre événement et nous créerons l'expérience musicale parfaite.">Tell us about your event and we'll craft the perfect musical experience.</p>
+      <form class="cta-modal__form" id="ctaModalForm" action="#" method="POST">
+        <div class="cta-modal__grid">
+          <div class="form-group">
+            <label for="m-name" data-en="Your Name" data-fr="Votre Nom">Your Name</label>
+            <input type="text" id="m-name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="m-email" data-en="Email Address" data-fr="Adresse Email">Email Address</label>
+            <input type="email" id="m-email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="m-eventDate" data-en="Event Date" data-fr="Date de l'Événement">Event Date</label>
+            <input type="date" id="m-eventDate" name="eventDate">
+          </div>
+          <div class="form-group">
+            <label for="m-eventType" data-en="Type of Event" data-fr="Type d'Événement">Type of Event</label>
+            <select id="m-eventType" name="eventType">
+              <option value="" data-en="Select..." data-fr="Sélectionner...">Select...</option>
+              <option value="wedding" data-en="Wedding" data-fr="Mariage">Wedding</option>
+              <option value="corporate" data-en="Corporate Event" data-fr="Événement d'Entreprise">Corporate Event</option>
+              <option value="party" data-en="Private Party" data-fr="Événement Privé">Private Party</option>
+              <option value="other" data-en="Other" data-fr="Autre">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="m-budget" data-en="Budget Range" data-fr="Fourchette de Budget">Budget Range</label>
+            <select id="m-budget" name="budget">
+              <option value="" data-en="Select..." data-fr="Sélectionner...">Select...</option>
+              <option value="under2500">&lt; €2,500</option>
+              <option value="2500-5000">€2,500 — €5,000</option>
+              <option value="5000-10000">€5,000 — €10,000</option>
+              <option value="over10000">&gt; €10,000</option>
+            </select>
+          </div>
+          <div class="form-group cta-modal__full">
+            <label for="m-message" data-en="Tell Us About Your Event" data-fr="Parlez-Nous de Votre Événement">Tell Us About Your Event</label>
+            <textarea id="m-message" name="message" rows="4"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn--primary cta-modal__submit" data-en="Send Inquiry" data-fr="Envoyer la Demande">Send Inquiry</button>
+      </form>
+    </div>
+  </div>
 
   <!-- ===== MAIN JS =====
        Loaded with `defer` so it executes AFTER gsap + ScrollTrigger

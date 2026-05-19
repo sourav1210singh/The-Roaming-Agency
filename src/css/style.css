@@ -3479,6 +3479,108 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   color: #FCFCFC;
 }
 
+/* ── GET-IN-TOUCH POPUP FORM (opened by section CTAs) ───────────── */
+.cta-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 2rem);
+}
+.cta-modal.is-open { display: flex; }
+.cta-modal__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.7);
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+}
+.cta-modal__dialog {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 560px;
+  max-height: 90vh;
+  overflow-y: auto;
+  background: #ffffff;
+  color: #2A2A2A;
+  border-radius: 14px;
+  padding: clamp(1.5rem, 4vw, 2.75rem);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  animation: cta-modal-in 0.3s var(--ease-out-expo) both;
+}
+@keyframes cta-modal-in {
+  from { opacity: 0; transform: translateY(20px) scale(0.98); }
+  to   { opacity: 1; transform: none; }
+}
+.cta-modal__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.9rem;
+  background: none;
+  border: 0;
+  font-size: 1.9rem;
+  line-height: 1;
+  color: #999;
+  cursor: pointer;
+}
+.cta-modal__close:hover { color: #2A2A2A; }
+.cta-modal__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  font-weight: var(--fw-medium);
+  margin: 0 0 0.5rem;
+}
+.cta-modal__lead {
+  font-size: var(--text-body);
+  font-weight: var(--fw-light);
+  color: #555555;
+  margin: 0 0 1.5rem;
+}
+.cta-modal__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.cta-modal__full { grid-column: 1 / -1; }
+.cta-modal__form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+.cta-modal__form label {
+  font-size: 0.78rem;
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #666666;
+}
+.cta-modal__form input,
+.cta-modal__form select,
+.cta-modal__form textarea {
+  width: 100%;
+  padding: 0.7rem 0.85rem;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  font: inherit;
+  font-size: 0.95rem;
+  color: #2A2A2A;
+  background: #fafafa;
+}
+.cta-modal__form input:focus,
+.cta-modal__form select:focus,
+.cta-modal__form textarea:focus {
+  outline: none;
+  border-color: var(--color-gold-dark);
+}
+.cta-modal__submit { margin-top: 1.25rem; width: 100%; }
+body.cta-modal-open { overflow: hidden; }
+@media (max-width: 560px) {
+  .cta-modal__grid { grid-template-columns: 1fr; }
+}
+
 .btn--outline {
   background: transparent;
   color: var(--color-gold);
