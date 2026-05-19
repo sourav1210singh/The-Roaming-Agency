@@ -3230,7 +3230,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .contact__marquee-item {
   font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   font-size: clamp(1.5rem, 4.5vw, 4.25rem);
-  font-weight: var(--fw-bold); /* 3rd draft: bolder marquee text */
+  font-weight: var(--fw-medium); /* client tweak: less bold than fw-bold */
   line-height: 0.95;
   letter-spacing: -0.02em;
   text-transform: uppercase;
