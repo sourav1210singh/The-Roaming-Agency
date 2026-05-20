@@ -1550,8 +1550,9 @@ body.is-header-hidden .hero-center-title {
   height: 100%;
   /* Match the global --container-padding so the band selector's
      content (heading + list) aligns with every other section's
-     left/right edge. */
-  padding-inline: var(--container-padding);
+     left/right edge. Client tweak: left padding +30%, right same. */
+  padding-left: calc(var(--container-padding) * 1.3);
+  padding-right: var(--container-padding);
   display: grid;
   /* 3rd draft: give the LEFT title/desc column more horizontal room;
      the band-names column is pushed a bit further right. */
@@ -1591,7 +1592,8 @@ body.is-header-hidden .hero-center-title {
 
 .band-selector__desc {
   font-family: var(--font-accent);
-  font-size: var(--text-body); /* 3rd draft: standardized paragraph size */
+  /* Client tweak: a touch smaller than the body standard. */
+  font-size: clamp(0.85rem, 1vw, 1rem);
   /* 3rd draft: a bit bolder than the body Light, and a narrower
      column (was 500px) so it sits tight under the title. */
   font-weight: var(--fw-regular);
@@ -1608,6 +1610,8 @@ body.is-header-hidden .hero-center-title {
   height: 100%;
   display: flex;
   align-items: center;
+  /* Client tweak: nudge the band-names list a bit further right. */
+  padding-left: clamp(1rem, 3vw, 3rem);
   /* Soft mask top + bottom so list items fade out at the edges of the
      centred reveal window, drawing the eye to the gold active item. */
   -webkit-mask-image: linear-gradient(
