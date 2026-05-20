@@ -1329,7 +1329,11 @@ function initGlobeAnimation() {
 
       card.style.left = px + 'px';
       card.style.top = py + 'px';
-      card.style.transform = `translate(-50%, -50%) scale(${cardScale})`;
+      // Counter-rotate cards by -20deg so they stay visually HORIZONTAL
+      // even though the .globe-container parent is CSS-rotated 20deg
+      // for that right-side tilted-globe look. Keeps the city pill
+      // (icon + name) readable as a flat horizontal label, not slanted.
+      card.style.transform = `translate(-50%, -50%) scale(${cardScale}) rotate(-20deg)`;
       card.style.opacity = cardOpacity;
       card.style.zIndex = Math.round(p.z + R);
       card.style.pointerEvents = cardOpacity > 0.5 ? 'auto' : 'none';
