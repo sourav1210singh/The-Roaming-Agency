@@ -26,9 +26,11 @@
     const TOP_SHOW_THRESHOLD = 100; // always visible within the first 100px
     const DELTA_MIN = 6;            // ignore micro-scrolls
     // 3rd draft: don't pop the bar back on the FIRST small up-scroll —
-    // only after a deliberate amount of upward scrolling (~2 notches),
-    // so a quick up-correction to re-read something doesn't cover it.
-    const REVEAL_AFTER = 150;       // px of cumulative up-scroll to reveal
+    // only after a deliberate amount of upward scrolling. Client tweak:
+    // bumped 150 -> 400 so it takes ~3-4 scroll-wheel notches of UP
+    // scrolling before the header reveals (was popping back too quickly
+    // on a single up-correction).
+    const REVEAL_AFTER = 400;       // px of cumulative up-scroll to reveal
     let upAccum = 0;
     // Homepage hero is a stack (sticky black panel + video that slides up).
     // We track the OUTER wrapper so smart-header stays dormant during the
