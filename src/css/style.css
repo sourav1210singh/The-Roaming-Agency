@@ -1444,6 +1444,13 @@ body.is-header-hidden .hero-center-title {
   margin-top: -0.35em;
 }
 
+/* Client tweak: nudge ONLY "Years of experience" (the label under the
+   "+10" number in the top-right stat) a tiny bit to the right. Other
+   stats' labels stay centred. */
+.stat--top-right .stat__label {
+  margin-left: clamp(0.3rem, 0.5vw, 0.5rem);
+}
+
 /* Mobile — stack stats vertically, no zig-zag */
 @media (max-width: 720px) {
   .who-we-are__stats {
