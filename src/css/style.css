@@ -2664,6 +2664,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   font-family: var(--font-body);
   /* Client tweak: card text a touch smaller (0.95 -> 0.85rem, ~10%). */
   font-size: 0.85rem;
+  /* Client tweak: review quote weight up a notch (inherits Light 300
+     from body -> Regular 400 here). Only the quote text, not the
+     author/source/star rows. */
+  font-weight: var(--fw-regular);
   font-style: normal;
   color: #2a2a2a;
   line-height: 1.55;
