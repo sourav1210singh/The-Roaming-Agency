@@ -1052,14 +1052,13 @@ function initGlobeAnimation() {
   const globe = new THREE.Group();
   globe.add(solidSphere);
 
-  /* Client tweak: DOUBLE-BOLD lines — switched from LineBasicMaterial
-     (capped at 1px by WebGL) to TorusGeometry tubes so we get REAL
-     thickness. tubeRadius 0.005 ≈ 2-3× the old line width on screen.
-     Solid black (no transparency) for maximum darkness. */
+  /* Client tweak: BOLD lines via TorusGeometry tubes (WebGL Line caps
+     at 1px). Color dialed back from pure 0x000000 to 0x333333 — still
+     dark, but a touch softer per client. */
   const TUBE_RADIUS = 0.005;
   const RING_SEGMENTS = 128;
   const RADIAL_SEGMENTS = 8;
-  const gridMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+  const gridMat = new THREE.MeshBasicMaterial({ color: 0x333333 });
 
   // Latitude rings — every 20° (lat -80..80 = 9 rings).
   for (let lat = -80; lat <= 80; lat += 20) {
@@ -1073,16 +1072,36 @@ function initGlobeAnimation() {
     globe.add(ring);
   }
 
-  // Longitude great circles — every 20° step covering 0..160 (each torus
-  // is a FULL great circle so it draws meridians at lon AND lon+180 ->
-  // 9 toruses = 18 visible meridian lines, matching the old half-circle
-  // approach).
+  /* Longitude meridians — every 20° step covering lon 0..160 (each
+     "meridian" draws BOTH the lon side AND lon+180 side as two arcs).
+     Client tweak: the arcs DON'T reach the poles — a 5° polar cap is
+     left empty on each end so all 18 meridians don't pile up into a
+     thick blob where they converge at the north/south pole. */
+  const POLE_CAP = Math.PI / 36;             // ~5° skipped near each pole
+  const ARC_LENGTH = Math.PI - 2 * POLE_CAP;  // each arc = ~170° sweep
   for (let lon = 0; lon < 180; lon += 20) {
     const theta = lon * Math.PI / 180;
-    const torusGeo = new THREE.TorusGeometry(1, TUBE_RADIUS, RADIAL_SEGMENTS, RING_SEGMENTS);
-    const ring = new THREE.Mesh(torusGeo, gridMat);
-    ring.rotation.y = theta;              // spin meridian plane around Y axis
-    globe.add(ring);
+    const meridian = new THREE.Group();
+    meridian.rotation.y = theta;             // place meridian at this longitude
+
+    // "Left" arc: from just past the north pole down to just before the
+    // south pole on the lon-side of the sphere.
+    const arcA = new THREE.Mesh(
+      new THREE.TorusGeometry(1, TUBE_RADIUS, RADIAL_SEGMENTS, RING_SEGMENTS, ARC_LENGTH),
+      gridMat
+    );
+    arcA.rotation.z = Math.PI / 2 + POLE_CAP;
+
+    // "Right" arc: from just past the south pole up to just before the
+    // north pole on the (lon+180)-side of the sphere.
+    const arcB = new THREE.Mesh(
+      new THREE.TorusGeometry(1, TUBE_RADIUS, RADIAL_SEGMENTS, RING_SEGMENTS, ARC_LENGTH),
+      gridMat
+    );
+    arcB.rotation.z = 3 * Math.PI / 2 + POLE_CAP;
+
+    meridian.add(arcA, arcB);
+    globe.add(meridian);
   }
 
   /* Client tweak: forward axial tilt — top of the sphere leans toward
