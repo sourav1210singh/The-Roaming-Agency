@@ -2941,8 +2941,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   margin-left: 0;
   perspective: 1200px;
   /* Client mockup match: globe sits roughly centred in its column,
-     not shifted right (translateX 20% removed). */
-  transform: rotate(10deg);
+     not shifted right (translateX removed). Client tweak: right-tilt
+     rotation 10deg -> 20deg. */
+  transform: rotate(20deg);
   transform-origin: center center;
 }
 
