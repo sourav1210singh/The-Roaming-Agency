@@ -2910,6 +2910,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   color: #414141;
   /* Client tweak: subtitle a touch smaller (text-lg -> text-body). */
   font-size: var(--text-body);
+  /* Client tweak: Light weight (Nohemi 300) — lighter than Regular but
+     NOT the super-thin Thin/Extra-Light weights. */
+  font-weight: var(--fw-light);
   /* Tighter line-height for the subtitle too so its 2-3 lines stack
      closer instead of feeling airy. */
   line-height: 1.45;
