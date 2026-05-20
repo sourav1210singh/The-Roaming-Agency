@@ -758,41 +758,47 @@ function initTextDarkening() {
   const section = document.getElementById('whoWeAre');
   if (!section) return;
 
-  const subtitle = section.querySelector('.section__subtitle');
-  if (!subtitle) return;
+  // Client tweak: Who We Are copy is now split into TWO paragraphs
+  // (the closing "The Roaming Agency transforms…" sits on its own line).
+  // Run the darken effect on EACH paragraph independently so the cascade
+  // restarts cleanly when the second paragraph enters the viewport.
+  const subtitles = section.querySelectorAll('.section__subtitle');
+  if (!subtitles.length) return;
 
-  // Split text into words and wrap each in a span. Each word starts at a
-  // dim opacity then brightens to full as the user scrolls through the
-  // section (scroll-scrubbed cascade with a 3-word feather).
-  // We let CSS `currentColor` drive the tint — that way the same effect
-  // works on BOTH dark-bg sections (light text) and light-bg sections
-  // (dark text), without hard-coding any rgba() values in JS.
-  const text = subtitle.textContent.trim();
-  const words = text.split(/\s+/);
-  subtitle.innerHTML = words.map((word) =>
-    `<span class="darken-word" style="opacity: 0.18; transition: opacity 0.35s ease-out;">${word} </span>`
-  ).join('');
+  subtitles.forEach((subtitle) => {
+    // Split text into words and wrap each in a span. Each word starts at
+    // a dim opacity then brightens to full as the user scrolls through
+    // the section (scroll-scrubbed cascade with a 3-word feather).
+    // We let CSS `currentColor` drive the tint — that way the same
+    // effect works on BOTH dark-bg sections (light text) and light-bg
+    // sections (dark text), without hard-coding any rgba() in JS.
+    const text = subtitle.textContent.trim();
+    const words = text.split(/\s+/);
+    subtitle.innerHTML = words.map((word) =>
+      `<span class="darken-word" style="opacity: 0.18; transition: opacity 0.35s ease-out;">${word} </span>`
+    ).join('');
 
-  const wordSpans = subtitle.querySelectorAll('.darken-word');
+    const wordSpans = subtitle.querySelectorAll('.darken-word');
 
-  ScrollTrigger.create({
-    trigger: subtitle,
-    start: 'top 85%',
-    end: 'bottom 55%',
-    scrub: 0.4,
-    invalidateOnRefresh: true,
-    onUpdate: (self) => {
-      const progress = self.progress;
-      const totalWords = wordSpans.length;
-      const reveal = progress * (totalWords + 3);
-      wordSpans.forEach((span, i) => {
-        const wordProgress = Math.max(0, Math.min(1, (reveal - i) / 3));
-        // 0.18 (dim) → 1.0 (full). Colour comes from the parent via
-        // `currentColor` so the wrapping section's `color` rule decides
-        // whether words read as cream-on-dark or grey-on-light.
-        span.style.opacity = String(0.18 + wordProgress * 0.82);
-      });
-    },
+    ScrollTrigger.create({
+      trigger: subtitle,
+      start: 'top 85%',
+      end: 'bottom 55%',
+      scrub: 0.4,
+      invalidateOnRefresh: true,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        const totalWords = wordSpans.length;
+        const reveal = progress * (totalWords + 3);
+        wordSpans.forEach((span, i) => {
+          const wordProgress = Math.max(0, Math.min(1, (reveal - i) / 3));
+          // 0.18 (dim) → 1.0 (full). Colour comes from the parent via
+          // `currentColor` so the wrapping section's `color` rule decides
+          // whether words read as cream-on-dark or grey-on-light.
+          span.style.opacity = String(0.18 + wordProgress * 0.82);
+        });
+      },
+    });
   });
 
   // Force ScrollTrigger to recalculate positions once the page has
@@ -1436,17 +1442,16 @@ function initLanguageSwitcher() {
       activeBand.click();
     }
 
-    // Re-apply text darkening if active
+    // Re-apply text darkening for each Who We Are paragraph (now 2).
     const whoSection = document.getElementById('whoWeAre');
     if (whoSection) {
-      const subtitle = whoSection.querySelector('.section__subtitle');
-      if (subtitle) {
+      whoSection.querySelectorAll('.section__subtitle').forEach((subtitle) => {
         const newText = subtitle.getAttribute('data-' + newLang) || subtitle.textContent;
         const words = newText.trim().split(/\s+/);
         subtitle.innerHTML = words.map(word =>
           `<span class="darken-word" style="opacity: 1; transition: opacity 0.3s ease;">${word} </span>`
         ).join('');
-      }
+      });
     }
   };
 

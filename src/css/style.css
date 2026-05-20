@@ -1233,9 +1233,11 @@ body.is-header-hidden .hero-center-title {
   /* Client tweak: vertical padding trimmed (5-8rem -> 3.5-6rem) so
      the section feels less airy. */
   padding-block: clamp(3.5rem, 7vw, 6rem);
-  /* Aligns left/right edges of inner content with every other
-     section (Standards, Contact, Brands marquee track, etc). */
-  padding-inline: var(--container-padding);
+  /* Aligns left/right edges of inner content with every other section
+     (Standards, Contact, Brands marquee track, etc). Client tweak:
+     LEFT padding -20% (right unchanged). */
+  padding-left: calc(var(--container-padding) * 0.8);
+  padding-right: var(--container-padding);
 }
 
 .who-we-are__grid,
@@ -1296,7 +1298,9 @@ body.is-header-hidden .hero-center-title {
   letter-spacing: -0.02em;
   color: #2A2A2A;
   text-transform: uppercase;
-  margin: 0 0 clamp(0.85rem, 1.6vw, 1.5rem);
+  /* Client tweak: gap between the logo/title image and the paragraph
+     reduced by 50% (was clamp(0.85, 1.6vw, 1.5)). */
+  margin: 0 0 clamp(0.425rem, 0.8vw, 0.75rem);
 }
 
 /* The brand-mark image inside the title <h2>. Source PNG is now
