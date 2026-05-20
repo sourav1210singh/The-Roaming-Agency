@@ -1566,8 +1566,9 @@ body.is-header-hidden .hero-center-title {
   height: 100%;
   /* Match the global --container-padding so the band selector's
      content (heading + list) aligns with every other section's
-     left/right edge. Client tweak: left padding +30%, right same. */
-  padding-left: calc(var(--container-padding) * 1.3);
+     left/right edge. Client tweak: left padding bumped further
+     (1.3 -> 1.7) for more horizontal space on the left side. */
+  padding-left: calc(var(--container-padding) * 1.7);
   padding-right: var(--container-padding);
   display: grid;
   /* 3rd draft: give the LEFT title/desc column more horizontal room;
