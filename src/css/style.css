@@ -1235,8 +1235,9 @@ body.is-header-hidden .hero-center-title {
   padding-block: clamp(3.5rem, 7vw, 6rem);
   /* Aligns left/right edges of inner content with every other section
      (Standards, Contact, Brands marquee track, etc). Client tweak:
-     LEFT padding -20% (right unchanged). */
-  padding-left: calc(var(--container-padding) * 0.8);
+     LEFT padding -20% again on top of the previous -20% (0.8 * 0.8 =
+     0.64, ~36% off the original). Right unchanged. */
+  padding-left: calc(var(--container-padding) * 0.64);
   padding-right: var(--container-padding);
 }
 
