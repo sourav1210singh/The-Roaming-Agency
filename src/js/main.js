@@ -1170,14 +1170,14 @@ function initGlobeAnimation() {
      are NOT real-world coordinates — they're chosen so each card
      lands at the right SCREEN position on the un-tilted projection.
      Each (lat, lon) -> screen (x, y) via project() below.
-     Client tweak (round 2 of per-card nudges): Monaco a bit more left
-     again, Dubai up + left, Lake Como up + left.
-       Monaco   lat=30,  lon=170 -> (-0.66, -0.50) more left still
-       Dubai    lat=20,  lon=125 -> (-0.08, -0.34) higher + slight left
-       Lake Como lat=-15, lon=125 -> (-0.08,  0.26) higher + slight left */
+     Client tweak (round 3): Monaco a touch more left; Dubai down a
+     bit + slight left; Lake Como unchanged.
+       Monaco   lat=30,  lon=178 -> (-0.73, -0.50) further left
+       Dubai    lat=10,  lon=130 -> (-0.17, -0.17) lower + a bit left
+       Lake Como lat=-15, lon=125 -> (-0.08,  0.26) unchanged */
   const cities = [
-    { name: 'Monaco',    country: 'MONACO', lat:  30, lon: 170, img: 'gallery-07.jpg', icon: '🎧', color: '#722f37' },
-    { name: 'Dubai',     country: 'UAE',    lat:  20, lon: 125, img: 'gallery-17.jpg', icon: '🎙️', color: '#c77d6b' },
+    { name: 'Monaco',    country: 'MONACO', lat:  30, lon: 178, img: 'gallery-07.jpg', icon: '🎧', color: '#722f37' },
+    { name: 'Dubai',     country: 'UAE',    lat:  10, lon: 130, img: 'gallery-17.jpg', icon: '🎙️', color: '#c77d6b' },
     { name: 'Lake Como', country: 'ITALY',  lat: -15, lon: 125, img: 'gallery-13.jpg', icon: '🎶', color: '#2e7d4a' },
   ];
 
