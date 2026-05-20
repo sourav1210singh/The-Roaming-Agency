@@ -1233,11 +1233,9 @@ body.is-header-hidden .hero-center-title {
   /* Client tweak: vertical padding trimmed (5-8rem -> 3.5-6rem) so
      the section feels less airy. */
   padding-block: clamp(3.5rem, 7vw, 6rem);
-  /* Aligns left/right edges of inner content with every other section
-     (Standards, Contact, Brands marquee track, etc). Client tweak:
-     LEFT padding -20% four times (~0.41, ~59% off the original).
-     Right unchanged. */
-  padding-left: calc(var(--container-padding) * 0.41);
+  /* Client tweak: after the left-align fix, the user asked to DOUBLE
+     the current visible left space (0.41 -> 0.82). Right unchanged. */
+  padding-left: calc(var(--container-padding) * 0.82);
   padding-right: var(--container-padding);
 }
 
