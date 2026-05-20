@@ -1052,11 +1052,11 @@ function initGlobeAnimation() {
   const globe = new THREE.Group();
   globe.add(solidSphere);
 
-  // Latitude rings — every 15°
-  // Client tweak: grid lines bolder + true #000000 (opacity up — WebGL
-  // can't render line-width > 1px, so opacity is what reads as "bold").
+  // Latitude rings — every 20° (client tweak: wider spacing between lines).
+  // Bold look comes from opacity, not line-width — WebGL can't render
+  // line-width > 1px, so opacity is what reads as "bold".
   const latMat = new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.6 });
-  for (let lat = -75; lat <= 75; lat += 15) {
+  for (let lat = -80; lat <= 80; lat += 20) {
     const phi = (90 - lat) * Math.PI / 180;
     const r = Math.sin(phi);
     const y = Math.cos(phi);
@@ -1069,9 +1069,9 @@ function initGlobeAnimation() {
     globe.add(new THREE.Line(lineGeo, latMat));
   }
 
-  // Longitude rings — every 15°
+  // Longitude rings — every 20° (client tweak: wider spacing).
   const lonMat = new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.55 });
-  for (let lon = 0; lon < 360; lon += 15) {
+  for (let lon = 0; lon < 360; lon += 20) {
     const pts = [];
     for (let i = 0; i <= 64; i++) {
       const phi = (i / 64) * Math.PI;
@@ -1091,7 +1091,7 @@ function initGlobeAnimation() {
      into the screen (Earth-like axial tilt look). The animate() loop
      only updates rotation.y, so this static X tilt persists frame-to-
      frame and the globe spins around its OWN (tilted) Y axis. */
-  globe.rotation.x = THREE.MathUtils.degToRad(30);
+  globe.rotation.x = THREE.MathUtils.degToRad(40);
 
   scene.add(globe);
 
