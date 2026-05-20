@@ -1170,14 +1170,15 @@ function initGlobeAnimation() {
      are NOT real-world coordinates — they're chosen so each card
      lands at the right SCREEN position on the un-tilted projection.
      Each (lat, lon) -> screen (x, y) via project() below.
-     Client tweak: shifted all 3 cards further LEFT (lon +30° each):
-       Monaco   lat=30,  lon=155 -> (-0.48, -0.50) upper-left
-       Dubai    lat=-5,  lon=105 -> ( 0.26,  0.09) centre-right
-       Lake Como lat=-35, lon=115 -> ( 0.10,  0.57) lower-centre */
+     Client tweak (per-card nudge): Monaco a bit more left, Dubai up
+     + left, Lake Como up.
+       Monaco   lat=30,  lon=165 -> (-0.61, -0.50) more left
+       Dubai    lat=10,  lon=115 -> ( 0.09, -0.17) higher + left
+       Lake Como lat=-25, lon=115 -> ( 0.08,  0.42) lifted up a bit */
   const cities = [
-    { name: 'Monaco',    country: 'MONACO', lat:  30, lon: 155, img: 'gallery-07.jpg', icon: '🎧', color: '#722f37' },
-    { name: 'Dubai',     country: 'UAE',    lat:  -5, lon: 105, img: 'gallery-17.jpg', icon: '🎙️', color: '#c77d6b' },
-    { name: 'Lake Como', country: 'ITALY',  lat: -35, lon: 115, img: 'gallery-13.jpg', icon: '🎶', color: '#2e7d4a' },
+    { name: 'Monaco',    country: 'MONACO', lat:  30, lon: 165, img: 'gallery-07.jpg', icon: '🎧', color: '#722f37' },
+    { name: 'Dubai',     country: 'UAE',    lat:  10, lon: 115, img: 'gallery-17.jpg', icon: '🎙️', color: '#c77d6b' },
+    { name: 'Lake Como', country: 'ITALY',  lat: -25, lon: 115, img: 'gallery-13.jpg', icon: '🎶', color: '#2e7d4a' },
   ];
 
   // Per client revision: every card uses the SAME black map-pin icon and
