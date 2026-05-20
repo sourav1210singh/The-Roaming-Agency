@@ -1086,6 +1086,13 @@ function initGlobeAnimation() {
     globe.add(new THREE.Line(lineGeo, lonMat));
   }
 
+  /* Client tweak: forward axial tilt — top of the sphere leans toward
+     the viewer so the north pole is visible and the south pole points
+     into the screen (Earth-like axial tilt look). The animate() loop
+     only updates rotation.y, so this static X tilt persists frame-to-
+     frame and the globe spins around its OWN (tilted) Y axis. */
+  globe.rotation.x = THREE.MathUtils.degToRad(20);
+
   scene.add(globe);
 
   function resizeRenderer() {
