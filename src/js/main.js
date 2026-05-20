@@ -1275,9 +1275,12 @@ function initGlobeAnimation() {
       const distFromCenter = Math.sqrt(p.x * p.x + p.y * p.y) / R;
 
       // EDGE FADE — soften cards near the sphere rim so they don't read
-      // as "floating outside" the globe.
-      const edgeStart = 0.78;
-      const edgeEnd   = 0.94;
+      // as "floating outside" the globe. Client tweak: threshold pushed
+      // outward (0.78->0.92, 0.94->0.99) so cards placed near the
+      // silhouette (e.g. Monaco at ~0.83) stay fully solid like the
+      // rest — only true rim-grazing positions fade now.
+      const edgeStart = 0.92;
+      const edgeEnd   = 0.99;
       const edgeFactor = distFromCenter < edgeStart
         ? 1
         : Math.max(0, 1 - (distFromCenter - edgeStart) / (edgeEnd - edgeStart));
