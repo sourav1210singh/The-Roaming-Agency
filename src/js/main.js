@@ -750,6 +750,25 @@ function initScrollReveals() {
 }
 
 
+/* Helper: in the Who We Are copy, insert a <br> before the closing
+   "The Roaming Agency transforms…" sentence so it visually starts on
+   a new line, WITHOUT splitting the darken-word spans into a separate
+   group (they all stay siblings under the same <p>, so the scroll-
+   darken cascade flows continuously across the break).
+   Used both during init and after every language switch (which rebuilds
+   the word spans from data-en/data-fr). */
+function insertWhoWeAreBreak(subtitle) {
+  const spans = subtitle.querySelectorAll('.darken-word');
+  for (let i = 0; i < spans.length - 1; i++) {
+    if (spans[i].textContent.trim() === 'The' &&
+        spans[i + 1].textContent.trim() === 'Roaming') {
+      subtitle.insertBefore(document.createElement('br'), spans[i]);
+      return;
+    }
+  }
+}
+
+
 /* ──────────────────────────────────────────────
    3b. TEXT DARKENING (travelnextlvl.de style)
    Text starts light/transparent, darkens as user scrolls
@@ -758,47 +777,47 @@ function initTextDarkening() {
   const section = document.getElementById('whoWeAre');
   if (!section) return;
 
-  // Client tweak: Who We Are copy is now split into TWO paragraphs
-  // (the closing "The Roaming Agency transforms…" sits on its own line).
-  // Run the darken effect on EACH paragraph independently so the cascade
-  // restarts cleanly when the second paragraph enters the viewport.
-  const subtitles = section.querySelectorAll('.section__subtitle');
-  if (!subtitles.length) return;
+  const subtitle = section.querySelector('.section__subtitle');
+  if (!subtitle) return;
 
-  subtitles.forEach((subtitle) => {
-    // Split text into words and wrap each in a span. Each word starts at
-    // a dim opacity then brightens to full as the user scrolls through
-    // the section (scroll-scrubbed cascade with a 3-word feather).
-    // We let CSS `currentColor` drive the tint — that way the same
-    // effect works on BOTH dark-bg sections (light text) and light-bg
-    // sections (dark text), without hard-coding any rgba() in JS.
-    const text = subtitle.textContent.trim();
-    const words = text.split(/\s+/);
-    subtitle.innerHTML = words.map((word) =>
-      `<span class="darken-word" style="opacity: 0.18; transition: opacity 0.35s ease-out;">${word} </span>`
-    ).join('');
+  // Split text into words and wrap each in a span. Each word starts at a
+  // dim opacity then brightens to full as the user scrolls through the
+  // section (scroll-scrubbed cascade with a 3-word feather).
+  // We let CSS `currentColor` drive the tint — that way the same effect
+  // works on BOTH dark-bg sections (light text) and light-bg sections
+  // (dark text), without hard-coding any rgba() values in JS.
+  const text = subtitle.textContent.trim();
+  const words = text.split(/\s+/);
+  subtitle.innerHTML = words.map((word) =>
+    `<span class="darken-word" style="opacity: 0.18; transition: opacity 0.35s ease-out;">${word} </span>`
+  ).join('');
 
-    const wordSpans = subtitle.querySelectorAll('.darken-word');
+  // Client tweak: visually break the line BEFORE "The Roaming Agency
+  // transforms…" so it starts on a new line — but keep ALL words in
+  // ONE element so the scroll-darken cascade runs continuously across
+  // the whole copy (no restart on the second line).
+  insertWhoWeAreBreak(subtitle);
 
-    ScrollTrigger.create({
-      trigger: subtitle,
-      start: 'top 85%',
-      end: 'bottom 55%',
-      scrub: 0.4,
-      invalidateOnRefresh: true,
-      onUpdate: (self) => {
-        const progress = self.progress;
-        const totalWords = wordSpans.length;
-        const reveal = progress * (totalWords + 3);
-        wordSpans.forEach((span, i) => {
-          const wordProgress = Math.max(0, Math.min(1, (reveal - i) / 3));
-          // 0.18 (dim) → 1.0 (full). Colour comes from the parent via
-          // `currentColor` so the wrapping section's `color` rule decides
-          // whether words read as cream-on-dark or grey-on-light.
-          span.style.opacity = String(0.18 + wordProgress * 0.82);
-        });
-      },
-    });
+  const wordSpans = subtitle.querySelectorAll('.darken-word');
+
+  ScrollTrigger.create({
+    trigger: subtitle,
+    start: 'top 85%',
+    end: 'bottom 55%',
+    scrub: 0.4,
+    invalidateOnRefresh: true,
+    onUpdate: (self) => {
+      const progress = self.progress;
+      const totalWords = wordSpans.length;
+      const reveal = progress * (totalWords + 3);
+      wordSpans.forEach((span, i) => {
+        const wordProgress = Math.max(0, Math.min(1, (reveal - i) / 3));
+        // 0.18 (dim) → 1.0 (full). Colour comes from the parent via
+        // `currentColor` so the wrapping section's `color` rule decides
+        // whether words read as cream-on-dark or grey-on-light.
+        span.style.opacity = String(0.18 + wordProgress * 0.82);
+      });
+    },
   });
 
   // Force ScrollTrigger to recalculate positions once the page has
@@ -1442,16 +1461,19 @@ function initLanguageSwitcher() {
       activeBand.click();
     }
 
-    // Re-apply text darkening for each Who We Are paragraph (now 2).
+    // Re-apply text darkening for the Who We Are subtitle (single <p>)
+    // and re-insert the visual line break before "The Roaming Agency…".
     const whoSection = document.getElementById('whoWeAre');
     if (whoSection) {
-      whoSection.querySelectorAll('.section__subtitle').forEach((subtitle) => {
+      const subtitle = whoSection.querySelector('.section__subtitle');
+      if (subtitle) {
         const newText = subtitle.getAttribute('data-' + newLang) || subtitle.textContent;
         const words = newText.trim().split(/\s+/);
         subtitle.innerHTML = words.map(word =>
           `<span class="darken-word" style="opacity: 1; transition: opacity 0.3s ease;">${word} </span>`
         ).join('');
-      });
+        insertWhoWeAreBreak(subtitle);
+      }
     }
   };
 
