@@ -2876,11 +2876,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .globe-layout {
   display: grid;
-  /* Client tweak: right column widened (0.6fr -> 0.67fr) so the globe
-     gets ~10% more room. Text column trimmed slightly (0.4fr -> 0.33fr)
-     to compensate; with the recent compact title this still has enough
-     space for the heading + subtitle. */
-  grid-template-columns: 0.33fr 0.67fr;
+  /* Client mockup match: widen the text column so the 4-line title
+     fits without breaking each span into a second line (was 0.33/0.67). */
+  grid-template-columns: 0.42fr 0.58fr;
   gap: var(--space-2xl);
   align-items: center;
   min-height: 90vh;
@@ -2907,9 +2905,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   /* Client tweak: title-to-subtitle gap -40%. */
   margin-bottom: clamp(0.45rem, 0.9vw, 0.75rem);
 }
-/* Force the 4-line break — each <span> is a block-level line. */
+/* Force the 4-line break — each <span> is a block-level line that
+   never wraps internally, so "Across Europe's" / "Most Beautiful"
+   stay on a single line each (client mockup match). */
 .globe-section .globe-title__line {
   display: block;
+  white-space: nowrap;
 }
 .globe-section .section__subtitle {
   color: #414141;
@@ -2933,16 +2934,15 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .globe-container {
   position: relative;
   width: 100%;
-  /* 3rd draft: globe -10% (was 950px). Client tweak: a further -15%
-     (855 -> 727) — card placement scales with the container so they
-     stay aligned to the smaller sphere automatically. */
-  max-width: 727px;
+  /* Client mockup match: globe back to a large size (was 727 after
+     -15% trim; client mockup shows a much larger globe filling the
+     right column). 920 ≈ original 950 minus a hair. */
+  max-width: 920px;
   margin-left: 0;
   perspective: 1200px;
-  /* Client tweak: shift globe to the right (was 30%, dialed back 10%
-     -> net 20%). Translate before rotate so shift is in screen space.
-     City cards use getBoundingClientRect so they follow automatically. */
-  transform: translateX(20%) rotate(10deg);
+  /* Client mockup match: globe sits roughly centred in its column,
+     not shifted right (translateX 20% removed). */
+  transform: rotate(10deg);
   transform-origin: center center;
 }
 
