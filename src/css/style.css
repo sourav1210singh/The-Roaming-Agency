@@ -2893,10 +2893,13 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   color: #2A2A2A;
   font-size: clamp(2rem, 3.5vw, 3rem);
   line-height: 1.0;
-  margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
+  /* Client tweak: title-to-subtitle gap -40%. */
+  margin-bottom: clamp(0.45rem, 0.9vw, 0.75rem);
 }
 .globe-section .section__subtitle {
   color: #414141;
+  /* Client tweak: subtitle a touch smaller (text-lg -> text-body). */
+  font-size: var(--text-body);
   /* Tighter line-height for the subtitle too so its 2-3 lines stack
      closer instead of feeling airy. */
   line-height: 1.45;
