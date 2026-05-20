@@ -1244,7 +1244,13 @@ body.is-header-hidden .hero-center-title {
 .who-we-are__grid,
 .who-we-are__intro {
   max-width: var(--container-max);
-  margin-inline: auto;
+  /* Client tweak: was margin-inline: auto (auto-centred the 1400px
+     grid in wide viewports, which made the .who-we-are padding-left
+     changes mostly invisible — auto-margin recalculated and
+     re-centred). Now left-aligned so padding-left directly controls
+     the offset from the screen edge. */
+  margin-left: 0;
+  margin-right: auto;
 }
 
 .who-we-are__grid {
