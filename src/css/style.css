@@ -2934,7 +2934,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   max-width: 727px;
   margin-left: 0;
   perspective: 1200px;
-  transform: rotate(10deg);
+  /* Client tweak: shift globe ~30% of its width to the right
+     (translate before rotate so the shift is in screen space).
+     City cards use getBoundingClientRect on this container so they
+     follow the shift automatically — alignment preserved. */
+  transform: translateX(30%) rotate(10deg);
   transform-origin: center center;
 }
 
