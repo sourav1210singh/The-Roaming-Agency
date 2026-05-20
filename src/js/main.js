@@ -1173,11 +1173,11 @@ function initGlobeAnimation() {
      Client tweak (round 3): Monaco a touch more left; Dubai down a
      bit + slight left; Lake Como unchanged.
        Monaco   lat=30,  lon=178 -> (-0.73, -0.50) further left
-       Dubai    lat=10,  lon=130 -> (-0.17, -0.17) lower + a bit left
+       Dubai    lat=10,  lon=140 -> (-0.34, -0.17) more left
        Lake Como lat=-15, lon=125 -> (-0.08,  0.26) unchanged */
   const cities = [
     { name: 'Monaco',    country: 'MONACO', lat:  30, lon: 178, img: 'gallery-07.jpg', icon: '🎧', color: '#722f37' },
-    { name: 'Dubai',     country: 'UAE',    lat:  10, lon: 130, img: 'gallery-17.jpg', icon: '🎙️', color: '#c77d6b' },
+    { name: 'Dubai',     country: 'UAE',    lat:  10, lon: 140, img: 'gallery-17.jpg', icon: '🎙️', color: '#c77d6b' },
     { name: 'Lake Como', country: 'ITALY',  lat: -15, lon: 125, img: 'gallery-13.jpg', icon: '🎶', color: '#2e7d4a' },
   ];
 
