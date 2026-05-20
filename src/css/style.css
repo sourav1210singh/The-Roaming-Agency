@@ -1233,9 +1233,9 @@ body.is-header-hidden .hero-center-title {
   /* Client tweak: vertical padding trimmed (5-8rem -> 3.5-6rem) so
      the section feels less airy. */
   padding-block: clamp(3.5rem, 7vw, 6rem);
-  /* Client tweak: after the left-align fix, the user asked to DOUBLE
-     the current visible left space (0.41 -> 0.82). Right unchanged. */
-  padding-left: calc(var(--container-padding) * 0.82);
+  /* Client tweak: doubled the left padding again (0.82 -> 1.64).
+     Right unchanged. */
+  padding-left: calc(var(--container-padding) * 1.64);
   padding-right: var(--container-padding);
 }
 
