@@ -1091,7 +1091,7 @@ function initGlobeAnimation() {
      into the screen (Earth-like axial tilt look). The animate() loop
      only updates rotation.y, so this static X tilt persists frame-to-
      frame and the globe spins around its OWN (tilted) Y axis. */
-  globe.rotation.x = THREE.MathUtils.degToRad(20);
+  globe.rotation.x = THREE.MathUtils.degToRad(30);
 
   scene.add(globe);
 
