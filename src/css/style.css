@@ -1576,8 +1576,8 @@ body.is-header-hidden .hero-center-title {
   line-height: 1;
   letter-spacing: -0.02em;
   text-transform: uppercase;
-  /* 3rd draft: reduce the gap between the title and the paragraph. */
-  margin-bottom: var(--space-sm);
+  /* 3rd draft + client tweak: gap between title and paragraph -40%. */
+  margin-bottom: calc(var(--space-sm) * 0.6);
   color: var(--color-white);
 }
 
