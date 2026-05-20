@@ -1072,36 +1072,70 @@ function initGlobeAnimation() {
     globe.add(ring);
   }
 
-  /* Longitude meridians — every 20° step covering lon 0..160 (each
-     "meridian" draws BOTH the lon side AND lon+180 side as two arcs).
-     Client tweak: the arcs DON'T reach the poles — a 5° polar cap is
-     left empty on each end so all 18 meridians don't pile up into a
-     thick blob where they converge at the north/south pole. */
-  const POLE_CAP = Math.PI / 36;             // ~5° skipped near each pole
-  const ARC_LENGTH = Math.PI - 2 * POLE_CAP;  // each arc = ~170° sweep
+  /* Longitude meridians — every 20° (9 full great circles, drawing
+     18 visible meridian lines since each great circle covers lon AND
+     lon+180).
+     Client tweak: instead of leaving an empty polar cap, the tube
+     TAPERS toward each pole — full thickness at the equator, ~40%
+     thickness at the pole. When all 18 meridians converge at the
+     pole, each tube is so thin that the overlap stays subtle (no
+     thick blob). Three.js has no built-in variable-radius tube, so
+     we build a custom BufferGeometry by hand. */
+  const POLE_TAPER = 0.4;   // tube radius at the pole = 40% of equator
+  const TAPER_RANGE = Math.PI / 4;  // full thickness reached at 45° from pole
+  function buildTaperedGreatCircle(baseR, segs, sides) {
+    const positions = [];
+    const indices = [];
+    for (let s = 0; s <= segs; s++) {
+      const phi = (s / segs) * Math.PI * 2;
+      // Centre of cross-section ring on the unit circle in the XY plane.
+      const cx = Math.cos(phi);
+      const cy = Math.sin(phi);
+      // Distance from the nearest "pole" on this circle (poles at
+      // phi=π/2 and phi=3π/2 — these become the actual N/S pole after
+      // rotation since the circle lies in a vertical plane).
+      const dN = Math.abs(phi - Math.PI / 2);
+      const dS = Math.abs(phi - 3 * Math.PI / 2);
+      const distFromPole = Math.min(dN, dS, 2 * Math.PI - dN, 2 * Math.PI - dS);
+      // smoothstep taper: POLE_TAPER at distance 0, 1.0 at TAPER_RANGE+.
+      const tNorm = Math.min(distFromPole / TAPER_RANGE, 1);
+      const ease = tNorm * tNorm * (3 - 2 * tNorm);
+      const tubeR = baseR * (POLE_TAPER + (1 - POLE_TAPER) * ease);
+      // Cross-section frame: U = radial outward (= centre direction),
+      // V = out-of-plane (+Z). Both unit vectors, orthogonal to tangent.
+      for (let j = 0; j < sides; j++) {
+        const a = (j / sides) * Math.PI * 2;
+        const ca = Math.cos(a);
+        const sa = Math.sin(a);
+        positions.push(
+          cx + tubeR * ca * cx,
+          cy + tubeR * ca * cy,
+          tubeR * sa
+        );
+      }
+    }
+    // Triangulate quads between successive cross-section rings.
+    for (let s = 0; s < segs; s++) {
+      for (let j = 0; j < sides; j++) {
+        const a = s * sides + j;
+        const b = s * sides + ((j + 1) % sides);
+        const c = (s + 1) * sides + ((j + 1) % sides);
+        const d = (s + 1) * sides + j;
+        indices.push(a, b, c, a, c, d);
+      }
+    }
+    const geo = new THREE.BufferGeometry();
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
+    geo.setIndex(indices);
+    geo.computeVertexNormals();
+    return geo;
+  }
   for (let lon = 0; lon < 180; lon += 20) {
     const theta = lon * Math.PI / 180;
-    const meridian = new THREE.Group();
-    meridian.rotation.y = theta;             // place meridian at this longitude
-
-    // "Left" arc: from just past the north pole down to just before the
-    // south pole on the lon-side of the sphere.
-    const arcA = new THREE.Mesh(
-      new THREE.TorusGeometry(1, TUBE_RADIUS, RADIAL_SEGMENTS, RING_SEGMENTS, ARC_LENGTH),
-      gridMat
-    );
-    arcA.rotation.z = Math.PI / 2 + POLE_CAP;
-
-    // "Right" arc: from just past the south pole up to just before the
-    // north pole on the (lon+180)-side of the sphere.
-    const arcB = new THREE.Mesh(
-      new THREE.TorusGeometry(1, TUBE_RADIUS, RADIAL_SEGMENTS, RING_SEGMENTS, ARC_LENGTH),
-      gridMat
-    );
-    arcB.rotation.z = 3 * Math.PI / 2 + POLE_CAP;
-
-    meridian.add(arcA, arcB);
-    globe.add(meridian);
+    const geo = buildTaperedGreatCircle(TUBE_RADIUS, RING_SEGMENTS, RADIAL_SEGMENTS);
+    const mesh = new THREE.Mesh(geo, gridMat);
+    mesh.rotation.y = theta;   // spin meridian plane around the Y axis
+    globe.add(mesh);
   }
 
   /* Client tweak: forward axial tilt — top of the sphere leans toward
