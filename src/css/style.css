@@ -1617,22 +1617,10 @@ body.is-header-hidden .hero-center-title {
   align-items: center;
   /* Client tweak: nudge the band-names list a bit further right. */
   padding-left: clamp(1rem, 3vw, 3rem);
-  /* Soft mask top + bottom so list items fade out at the edges of the
-     centred reveal window, drawing the eye to the gold active item. */
-  -webkit-mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    #000 25%,
-    #000 75%,
-    transparent 100%
-  );
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    #000 25%,
-    #000 75%,
-    transparent 100%
-  );
+  /* Client tweak: top/bottom fade mask REMOVED — band names should
+     stay fully solid as they scroll through the list, no dim/fade at
+     the edges. (Was a top+bottom transparent->black->transparent
+     linear-gradient mask.) */
 }
 
 .band-selector__list {
