@@ -1278,6 +1278,8 @@ body.is-header-hidden .hero-center-title {
   font-weight: var(--fw-semibold);
   letter-spacing: -0.3px;
   text-transform: uppercase;
+  /* Client tweak: nudge the "WHO WE ARE" eyebrow a touch down. */
+  margin-top: clamp(0.5rem, 1vw, 1rem);
   margin-bottom: clamp(0.85rem, 1.4vw, 1.25rem);
 }
 
