@@ -1163,21 +1163,20 @@ function initGlobeAnimation() {
   // every card that pops on the globe feels distinct — amra.com-style variety
   // without using external platform logos. Colours are hand-picked from a
   // luxury palette that complements the gold brand accent.
+  /* Client mockup: only 3 cards on the globe, at fixed screen
+     positions matching the reference image — Monaco (upper-left of
+     globe), Dubai (mid-right), Lake Como (lower-right).
+     Cards project at CARD_ROT=-30 (static), so these lat/lon values
+     are NOT real-world coordinates — they're chosen so each card
+     lands at the right SCREEN position on the un-tilted projection.
+     Each (lat, lon) -> screen (x, y) via project() below:
+       Monaco   lat=30,  lon=125 -> (-0.08, -0.50) upper-left
+       Dubai    lat=-5,  lon=75  -> ( 0.70,  0.09) mid-right
+       Lake Como lat=-35, lon=90 -> ( 0.41,  0.57) lower-right */
   const cities = [
-    { name: 'Miami',     country: 'USA',             lat:  10, lon:  -80, img: 'gallery-25.jpg', icon: '🎷', color: '#c7853d' },
-    { name: 'London',    country: 'UNITED KINGDOM',  lat:  55, lon:  -55, img: 'gallery-05.jpg', icon: '🎸', color: '#8b2635' },
-    { name: 'Barcelona', country: 'SPAIN',           lat: -15, lon:  -30, img: 'gallery-09.jpg', icon: '🎺', color: '#d4a843' },
-    { name: 'Paris',     country: 'FRANCE',          lat:  45, lon:   -5, img: 'gallery-03.jpg', icon: '🎻', color: '#6b4423' },
-    { name: 'Nice',      country: 'FRENCH RIVIERA',  lat: -30, lon:   15, img: 'gallery-01.jpg', icon: '🎹', color: '#1e3a5f' },
-    { name: 'Cannes',    country: 'FRENCH RIVIERA',  lat:  20, lon:   35, img: 'gallery-19.jpg', icon: '🎵', color: '#b28220' },
-    { name: 'Rome',      country: 'ITALY',           lat: -45, lon:   55, img: 'gallery-11.jpg', icon: '🎤', color: '#5d3a8e' },
-    { name: 'Lake Como', country: 'ITALY',           lat:  55, lon:   75, img: 'gallery-13.jpg', icon: '🎶', color: '#2e7d4a' },
-    { name: 'Monaco',    country: 'MONACO',          lat:   0, lon:   95, img: 'gallery-07.jpg', icon: '🎧', color: '#722f37' },
-    { name: 'Santorini', country: 'GREECE',          lat: -35, lon:  115, img: 'gallery-15.jpg', icon: '🥁', color: '#1a6b6b' },
-    { name: 'Dubai',     country: 'UAE',             lat:  40, lon:  140, img: 'gallery-17.jpg', icon: '🎙️', color: '#c77d6b' },
-    { name: 'Riyadh',    country: 'SAUDI ARABIA',    lat: -10, lon:  165, img: 'gallery-27.jpg', icon: '🎼', color: '#a88c4c' },
-    { name: 'St-Tropez', country: 'FRANCE',          lat: -50, lon: -105, img: 'gallery-21.jpg', icon: '📯', color: '#8e4c3a' },
-    { name: 'Corsica',   country: 'FRANCE',          lat:  30, lon: -130, img: 'gallery-23.jpg', icon: '🎚️', color: '#3d5a5f' },
+    { name: 'Monaco',    country: 'MONACO', lat:  30, lon: 125, img: 'gallery-07.jpg', icon: '🎧', color: '#722f37' },
+    { name: 'Dubai',     country: 'UAE',    lat:  -5, lon:  75, img: 'gallery-17.jpg', icon: '🎙️', color: '#c77d6b' },
+    { name: 'Lake Como', country: 'ITALY',  lat: -35, lon:  90, img: 'gallery-13.jpg', icon: '🎶', color: '#2e7d4a' },
   ];
 
   // Per client revision: every card uses the SAME black map-pin icon and
