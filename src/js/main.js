@@ -1052,38 +1052,37 @@ function initGlobeAnimation() {
   const globe = new THREE.Group();
   globe.add(solidSphere);
 
-  // Latitude rings — every 20° (client tweak: wider spacing between lines).
-  // Bold look comes from opacity, not line-width — WebGL can't render
-  // line-width > 1px, so opacity is what reads as "bold".
-  const latMat = new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.9 });
+  /* Client tweak: DOUBLE-BOLD lines — switched from LineBasicMaterial
+     (capped at 1px by WebGL) to TorusGeometry tubes so we get REAL
+     thickness. tubeRadius 0.005 ≈ 2-3× the old line width on screen.
+     Solid black (no transparency) for maximum darkness. */
+  const TUBE_RADIUS = 0.005;
+  const RING_SEGMENTS = 128;
+  const RADIAL_SEGMENTS = 8;
+  const gridMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
+
+  // Latitude rings — every 20° (lat -80..80 = 9 rings).
   for (let lat = -80; lat <= 80; lat += 20) {
     const phi = (90 - lat) * Math.PI / 180;
     const r = Math.sin(phi);
     const y = Math.cos(phi);
-    const pts = [];
-    for (let i = 0; i <= 64; i++) {
-      const a = (i / 64) * Math.PI * 2;
-      pts.push(new THREE.Vector3(r * Math.cos(a), y, r * Math.sin(a)));
-    }
-    const lineGeo = new THREE.BufferGeometry().setFromPoints(pts);
-    globe.add(new THREE.Line(lineGeo, latMat));
+    const torusGeo = new THREE.TorusGeometry(r, TUBE_RADIUS, RADIAL_SEGMENTS, RING_SEGMENTS);
+    const ring = new THREE.Mesh(torusGeo, gridMat);
+    ring.rotation.x = Math.PI / 2;        // tilt XY-plane torus into XZ-plane
+    ring.position.y = y;
+    globe.add(ring);
   }
 
-  // Longitude rings — every 20° (client tweak: wider spacing).
-  const lonMat = new THREE.LineBasicMaterial({ color: 0x000000, transparent: true, opacity: 0.85 });
-  for (let lon = 0; lon < 360; lon += 20) {
-    const pts = [];
-    for (let i = 0; i <= 64; i++) {
-      const phi = (i / 64) * Math.PI;
-      const theta = lon * Math.PI / 180;
-      pts.push(new THREE.Vector3(
-        Math.sin(phi) * Math.cos(theta),
-        Math.cos(phi),
-        Math.sin(phi) * Math.sin(theta)
-      ));
-    }
-    const lineGeo = new THREE.BufferGeometry().setFromPoints(pts);
-    globe.add(new THREE.Line(lineGeo, lonMat));
+  // Longitude great circles — every 20° step covering 0..160 (each torus
+  // is a FULL great circle so it draws meridians at lon AND lon+180 ->
+  // 9 toruses = 18 visible meridian lines, matching the old half-circle
+  // approach).
+  for (let lon = 0; lon < 180; lon += 20) {
+    const theta = lon * Math.PI / 180;
+    const torusGeo = new THREE.TorusGeometry(1, TUBE_RADIUS, RADIAL_SEGMENTS, RING_SEGMENTS);
+    const ring = new THREE.Mesh(torusGeo, gridMat);
+    ring.rotation.y = theta;              // spin meridian plane around Y axis
+    globe.add(ring);
   }
 
   /* Client tweak: forward axial tilt — top of the sphere leans toward
