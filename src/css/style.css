@@ -2757,9 +2757,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 .testimonials__nav svg { width: 18px; height: 18px; }
 .testimonials__nav--prev { left: -22px; }
-/* Client tweak: shift the NEXT arrow further right (was inside the
-   viewport at 12px, now matching prev's -22px outside offset). */
-.testimonials__nav--next { right: -22px; }
+/* Client tweak: shift the NEXT arrow further right again (-22 -> -48). */
+.testimonials__nav--next { right: -48px; }
 
 /* On smaller viewports the prev arrow can collide with the heading,
    so collapse to a simpler bottom-aligned pair. */
