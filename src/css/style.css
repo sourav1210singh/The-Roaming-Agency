@@ -1448,7 +1448,10 @@ body.is-header-hidden .hero-center-title {
    "+10" number in the top-right stat) a tiny bit to the right. Other
    stats' labels stay centred. */
 .stat--top-right .stat__label {
-  margin-left: clamp(0.7rem, 1.1vw, 1.1rem);
+  /* The .stat is a centred flex column, so margin-left only shifts the
+     label by HALF its value (centering redistributes the rest) — barely
+     visible. transform: translateX moves it the FULL amount. */
+  transform: translateX(clamp(0.8rem, 1.4vw, 1.4rem));
 }
 
 /* Mobile — stack stats vertically, no zig-zag */
