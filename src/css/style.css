@@ -1448,7 +1448,7 @@ body.is-header-hidden .hero-center-title {
    "+10" number in the top-right stat) a tiny bit to the right. Other
    stats' labels stay centred. */
 .stat--top-right .stat__label {
-  margin-left: clamp(0.3rem, 0.5vw, 0.5rem);
+  margin-left: clamp(0.7rem, 1.1vw, 1.1rem);
 }
 
 /* Mobile — stack stats vertically, no zig-zag */
