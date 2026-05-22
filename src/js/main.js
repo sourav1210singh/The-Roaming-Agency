@@ -1203,11 +1203,11 @@ function initGlobeAnimation() {
      Each (lat, lon) -> screen (x, y) via project() below.
      Client tweak (round 3): Monaco a touch more left; Dubai down a
      bit + slight left; Lake Como unchanged.
-       Monaco   lat=30,  lon=192 -> (-0.82, -0.50) further left still
+       Monaco   lat=30,  lon=196 -> (-0.84, -0.50) further left still
        Dubai    lat=10,  lon=150 -> (-0.49, -0.17) more left
        Lake Como lat=-15, lon=125 -> (-0.08,  0.26) unchanged */
   const cities = [
-    { name: 'Monaco',    country: 'MONACO', lat:  30, lon: 192, img: 'gallery-07.jpg', icon: '🎧', color: '#722f37' },
+    { name: 'Monaco',    country: 'MONACO', lat:  30, lon: 196, img: 'gallery-07.jpg', icon: '🎧', color: '#722f37' },
     { name: 'Dubai',     country: 'UAE',    lat:  10, lon: 150, img: 'gallery-17.jpg', icon: '🎙️', color: '#c77d6b' },
     { name: 'Lake Como', country: 'ITALY',  lat: -15, lon: 125, img: 'gallery-13.jpg', icon: '🎶', color: '#2e7d4a' },
   ];
