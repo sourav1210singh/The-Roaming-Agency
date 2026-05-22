@@ -3004,8 +3004,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   -webkit-backdrop-filter: blur(8px);
   padding: 10px 20px 10px 14px;
   border-radius: 40px;
-  /* Client tweak: dark border matching the globe grid lines (#333333). */
-  border: 1.5px solid #333333;
+  /* Client tweak: dark border matching the globe grid lines (#333333),
+     made a bit thicker (1.5 -> 2.5px). */
+  border: 2.5px solid #333333;
   /* Reduced from 0 6px 30px rgba(0,0,0,0.2) — client said "reduce the
      shadows… these type of shadows" in the transcript. */
   box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
