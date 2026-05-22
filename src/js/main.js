@@ -1203,12 +1203,12 @@ function initGlobeAnimation() {
      Each (lat, lon) -> screen (x, y) via project() below.
      Client tweak (round 3): Monaco a touch more left; Dubai down a
      bit + slight left; Lake Como unchanged.
-       Monaco   lat=30,  lon=185 -> (-0.79, -0.50) a touch more left
-       Dubai    lat=10,  lon=140 -> (-0.34, -0.17) more left
+       Monaco   lat=30,  lon=188 -> (-0.80, -0.50) further left
+       Dubai    lat=10,  lon=150 -> (-0.49, -0.17) more left
        Lake Como lat=-15, lon=125 -> (-0.08,  0.26) unchanged */
   const cities = [
-    { name: 'Monaco',    country: 'MONACO', lat:  30, lon: 185, img: 'gallery-07.jpg', icon: '🎧', color: '#722f37' },
-    { name: 'Dubai',     country: 'UAE',    lat:  10, lon: 140, img: 'gallery-17.jpg', icon: '🎙️', color: '#c77d6b' },
+    { name: 'Monaco',    country: 'MONACO', lat:  30, lon: 188, img: 'gallery-07.jpg', icon: '🎧', color: '#722f37' },
+    { name: 'Dubai',     country: 'UAE',    lat:  10, lon: 150, img: 'gallery-17.jpg', icon: '🎙️', color: '#c77d6b' },
     { name: 'Lake Como', country: 'ITALY',  lat: -15, lon: 125, img: 'gallery-13.jpg', icon: '🎶', color: '#2e7d4a' },
   ];
 
@@ -1310,8 +1310,8 @@ function initGlobeAnimation() {
       // outward (0.78->0.92, 0.94->0.99) so cards placed near the
       // silhouette (e.g. Monaco at ~0.83) stay fully solid like the
       // rest — only true rim-grazing positions fade now.
-      const edgeStart = 0.92;
-      const edgeEnd   = 0.99;
+      const edgeStart = 0.96;
+      const edgeEnd   = 1.0;
       const edgeFactor = distFromCenter < edgeStart
         ? 1
         : Math.max(0, 1 - (distFromCenter - edgeStart) / (edgeEnd - edgeStart));
