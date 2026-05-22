@@ -924,11 +924,17 @@ function initBandSelector() {
     if (!item) return;
     const band = item.dataset.band;
 
-    // Translate the list so the active item centres in the viewport.
+    // Translate the list so the active item centres ON THE SCREEN.
+    // NOTE: viewport.clientHeight is NOT the screen height — the viewport
+    // overflows (its height = the full 11-band list ≈ 1063px vs a ~900px
+    // screen), so centring within clientHeight pushed the active band
+    // ~80px below the true screen centre. Instead we centre against the
+    // real screen centre (window.innerHeight/2) and subtract the
+    // viewport's top offset on screen (≈0 while the section is pinned).
     if (list && viewport) {
       const itemHeight = item.offsetHeight;
-      const viewportHeight = viewport.clientHeight;
-      const offset = (viewportHeight / 2) - (itemHeight / 2) - (idx * itemHeight);
+      const vpTop = viewport.getBoundingClientRect().top;
+      const offset = (window.innerHeight / 2) - vpTop - (itemHeight / 2) - (idx * itemHeight);
       list.style.transform = `translateY(${offset}px)`;
     }
 
