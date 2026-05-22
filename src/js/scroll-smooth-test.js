@@ -53,9 +53,13 @@
       wheelMultiplier: 1.4,
       lerp: 0.2,
     });
-    // Client test: Lenis ON by default now so the smooth + more-sensitive
-    // feel is what loads. Press `L` to toggle back to native for A/B.
-    lenis.start();
+    // Client wants ZERO input-to-motion delay — Lenis interpolation
+    // (lerp) always adds catch-up lag, so we default to NATIVE scroll
+    // (instant, 1:1 with the wheel). Smoothness still comes from the
+    // performance CSS layer (content-visibility + GPU compositing =
+    // 60fps), and sensitivity from the shortened pinned runways. Press
+    // `L` to toggle Lenis ON if you want to A/B the smooth-but-laggy feel.
+    lenis.stop();
 
     window.lenis = lenis;
     window.__lenisTest = lenis; // explicit handle for the test harness
