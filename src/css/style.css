@@ -2891,7 +2891,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   background: #f0f0f0;
   color: #2A2A2A;
   overflow: hidden;
-  min-height: 150vh;
+  /* Client tweak: was min-height 150vh which left ~60vh of dead space
+     above + below the globe (content/layout is only ~90vh). Sized to
+     the content now. Also trim this section's top/bottom padding so it
+     doesn't feel airy. */
+  min-height: auto;
+  padding-block: clamp(2rem, 4vw, 3.5rem);
 }
 
 .globe-layout {
