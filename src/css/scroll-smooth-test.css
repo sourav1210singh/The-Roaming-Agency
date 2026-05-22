@@ -76,12 +76,12 @@ html {
   overscroll-behavior-y: none;
 }
 
-/* Native smooth-scroll as a fallback for anchor jumps (Lenis handles
-   wheel; this only affects in-page #anchor clicks if Lenis is absent). */
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
-  }
+/* scroll-behavior MUST be auto for Lenis — the shared base CSS sets it
+   to "smooth", which fights Lenis (Lenis drives the scroll itself) and
+   causes janky anchor jumps. Force it back to auto here (test page only;
+   this file loads last and index.html never loads it). */
+html {
+  scroll-behavior: auto !important;
 }
 
 /* ── G2 STRICT-ALIGNMENT TRIAL (TEST PAGE ONLY) ───────────────────────

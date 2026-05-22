@@ -43,23 +43,20 @@
     // the scroll-driven transforms off the main thread). Native scroll
     // stays instant + 1:1 with the wheel — no catch-up, no section
     // overshoot. Press `l` to switch Lenis ON and A/B the two feels.
+    // Premium "weighted / momentum" smooth scroll (Awwwards-style).
+    // Vanilla-JS adaptation of the requested React SmoothScroll config:
+    //   duration 1.15  -> heavier, weighted feel (1.4 = slower, 0.9 = snappier)
+    //   easing exponential decay (fast start, soft landing) -> the
+    //     "premium" feel; do NOT swap for linear.
+    //   touchMultiplier 1.2 -> mobile/touch scroll speed.
     const lenis = new window.Lenis({
-      duration: 0.85,
-      easing: (t) => 1 - Math.pow(1 - t, 3),
+      duration: 1.15,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      syncTouch: false,
-      // Client tweak: higher wheel multiplier for MORE sensitivity
-      // (client felt the page needed 2-3 scrolls to move a little).
-      wheelMultiplier: 1.4,
-      lerp: 0.2,
+      touchMultiplier: 1.2,
     });
-    // Client wants ZERO input-to-motion delay — Lenis interpolation
-    // (lerp) always adds catch-up lag, so we default to NATIVE scroll
-    // (instant, 1:1 with the wheel). Smoothness still comes from the
-    // performance CSS layer (content-visibility + GPU compositing =
-    // 60fps), and sensitivity from the shortened pinned runways. Press
-    // `L` to toggle Lenis ON if you want to A/B the smooth-but-laggy feel.
-    lenis.stop();
+    // Active by default — the whole (test) page gets the smooth feel.
+    // Press `L` to toggle to native scroll for an A/B comparison.
 
     window.lenis = lenis;
     window.__lenisTest = lenis; // explicit handle for the test harness
