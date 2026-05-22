@@ -9,7 +9,10 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Was scroll-behavior: smooth — changed to auto because Lenis now
+     drives smooth scrolling site-wide (smooth-scroll.js). CSS smooth
+     fights Lenis and causes janky anchor jumps. */
+  scroll-behavior: auto;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
