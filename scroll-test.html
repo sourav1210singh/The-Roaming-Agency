@@ -108,20 +108,14 @@
   <link rel="stylesheet" href="src/css/reset.css">
   <link rel="stylesheet" href="src/css/style.css">
 
-  <!-- ======================================================================
-       SCROLL-SMOOTHNESS TEST PAGE ONLY — NOT loaded on the live homepage.
-       This page is an isolated sandbox to test scroll-smoothness fixes:
-       1. scroll-smooth-test.css — content-visibility + GPU compositing hints
-       2. Lenis smooth-scroll CDN  — interpolated wheel scrolling
-       3. scroll-smooth-test.js    — tuned Lenis init + GSAP ticker sync
-       index.html is completely untouched.
-       ====================================================================== -->
-  <link rel="stylesheet" href="src/css/scroll-smooth-test.css">
-
-  <!-- GSAP + ScrollTrigger (needed early for hero animations). -->
+  <!-- GSAP + ScrollTrigger (needed early for hero animations).
+       Three.js is NOT loaded here — main.js dynamically injects it only
+       when the user scrolls near the globe section, saving ~150 KB on
+       initial page load. -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-  <!-- Lenis smooth-scroll (test page only) -->
+  <!-- ===== SCROLL-SMOOTHNESS TEST LAYER (test page only) ===== -->
+  <link rel="stylesheet" href="src/css/scroll-smooth-test.css">
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
 </head>
 <body>
@@ -147,7 +141,7 @@
     <div class="header__inner">
       <!-- Logo -->
       <a href="/" class="logo logo--hero" id="mainLogo">
-        <span class="logo__text">The Roaming Agency</span>
+        <img class="logo__img" src="src/assets/images/logo-roaming-agency.png" alt="The Roaming Agency" width="670" height="373">
         <span class="logo__tagline" data-en="Extraordinary events deserve extraordinary music" data-fr="Des événements extraordinaires méritent une musique extraordinaire">Extraordinary events deserve extraordinary music</span>
       </a>
 
@@ -213,7 +207,7 @@
        the user scrolls. JS in initHeroIntro() drives the position +
        font-size each frame from the scroll progress. -->
   <a href="/" class="hero-center-title" id="heroCenterTitle">
-    <span class="hero-center-title__text">The Roaming Agency</span>
+    <img class="hero-center-title__img" src="src/assets/images/logo-roaming-agency.png" alt="The Roaming Agency" width="670" height="373">
   </a>
 
   <!-- ===== DOOR PORTAL REMOVED (revision round 2, item 1.1) =====
@@ -277,9 +271,12 @@
         </h2>
         <p class="section__subtitle who-we-are__copy reveal"
            data-en="Based on the French Riviera, available worldwide. Composed of international musicians fluent in French, English, Italian, Spanish, and Portuguese. The Roaming Agency transforms your drinks, dinners and celebrations into unforgettable memories."
-           data-fr="Basés sur la Côte d'Azur, disponibles dans le monde entier. Composés de musiciens internationaux maîtrisant le français, l'anglais, l'italien, l'espagnol et le portugais, The Roaming Agency transforme vos cocktails, dîners et célébrations en souvenirs inoubliables.">
+           data-fr="Basés sur la Côte d'Azur, disponibles dans le monde entier. Composés de musiciens internationaux maîtrisant le français, l'anglais, l'italien, l'espagnol et le portugais. The Roaming Agency transforme vos cocktails, dîners et célébrations en souvenirs inoubliables.">
           Based on the French Riviera, available worldwide. Composed of international musicians fluent in French, English, Italian, Spanish, and Portuguese. The Roaming Agency transforms your drinks, dinners and celebrations into unforgettable memories.
         </p>
+        <!-- 3rd draft: CTA opens the popup form (#contact = no-JS fallback) -->
+        <a href="#contact" class="btn btn--primary section-cta reveal" data-open-form
+           data-en="Get a Tailored Quote" data-fr="Obtenir un Devis">Get a Tailored Quote</a>
       </div>
 
       <!-- RIGHT — staggered stat grid with animated counters -->
@@ -319,6 +316,13 @@
        • Each track is duplicated inline so the translate(-50%) loop seams. -->
   <section class="brands-marquee" id="brandsMarquee" aria-label="Brands we have performed for">
 
+    <!-- 3rd draft: "Trusted By" label above the logos — uppercase,
+         one part bold + the other regular (mockup). -->
+    <p class="brands-marquee__label">
+      <span class="brands-marquee__label-strong" data-en="Trusted" data-fr="Ils">Trusted</span>
+      <span data-en="By" data-fr="Nous Font Confiance">By</span>
+    </p>
+
     <!-- Row 1 — scrolls LEFT -->
     <div class="brands-marquee__row">
       <div class="brands-marquee__track">
@@ -350,6 +354,8 @@
         <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="AstraZeneca" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/novartis.png" alt="Novartis" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="PokerStars" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/luxottica.png" alt="Luxottica" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/mitsubishi.png" alt="Mitsubishi" class="brands-marquee__logo"></span>
         <!-- Loop duplicate -->
         <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/louis-vuitton.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/dior.png" alt="" class="brands-marquee__logo"></span>
@@ -379,6 +385,8 @@
         <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/novartis.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/luxottica.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/mitsubishi.png" alt="" class="brands-marquee__logo"></span>
       </div>
     </div>
 
@@ -510,7 +518,7 @@
              stack during scroll. -->
         <div class="events__right">
           <div class="events__photo-stack" id="eventsPhotoStack">
-            <div class="events__photo-set is-active" data-idx="0">
+            <div class="events__photo-set" data-idx="0">
               <img src="src/assets/images/events/event-01.jpg" alt="Wedding band" class="events__photo events__photo--front">
               <img src="src/assets/images/events/event-02.jpg" alt="Wedding celebration" class="events__photo events__photo--back">
             </div>
@@ -523,8 +531,8 @@
               <img src="src/assets/images/events/event-06.jpg" alt="Birthday celebration" class="events__photo events__photo--back">
             </div>
             <div class="events__photo-set" data-idx="3">
-              <img src="src/assets/images/events/event-04.jpg" alt="Artistic direction setup" class="events__photo events__photo--front">
-              <img src="src/assets/images/events/event-01.jpg" alt="Curated performance" class="events__photo events__photo--back">
+              <img src="src/assets/images/events/event-07.jpg" alt="Artistic direction setup" class="events__photo events__photo--front">
+              <img src="src/assets/images/events/event-08.jpg" alt="Curated performance" class="events__photo events__photo--back">
             </div>
           </div>
         </div>
@@ -573,6 +581,9 @@
                data-fr="Basés sur la Côte d'Azur, disponibles dans le monde entier. Composés de musiciens internationaux, les Brotherockers transforment vos cocktails et dîners en souvenirs inoubliables.">
               Based on the French Riviera, available worldwide. Composed of international musicians fluent in French, English, Italian, Spanish, and Portuguese, The Brotherockers transform your drinks and dinners into unforgettable memories.
             </p>
+            <!-- 3rd draft: CTA opens the popup form -->
+            <a href="#contact" class="btn btn--primary section-cta reveal" data-open-form
+               data-en="Book Your Band" data-fr="Réservez Votre Groupe">Book Your Band</a>
           </div>
 
           <!-- Right column — viewport-windowed list. JS translates this
@@ -608,8 +619,16 @@
           <!-- Revision round 2 M1: AVAILABLE WORLDWIDE eyebrow removed
                per client direction — its meaning is now folded into the
                subtitle text below ("…and available worldwide"). -->
-          <h2 class="section__title reveal" data-en="Performing Across Europe's Most Beautiful Celebrations" data-fr="Présents dans les Plus Belles Célébrations d'Europe">Performing Across Europe's Most Beautiful Celebrations</h2>
-          <p class="section__subtitle reveal" data-en="Based on the French Riviera and available worldwide, our bands travel wherever the music is needed." data-fr="Basés sur la Côte d'Azur et disponibles dans le monde entier, nos groupes se déplacent partout où la musique est nécessaire.">Based on the French Riviera and available worldwide, our bands travel wherever the music is needed.</p>
+          <h2 class="section__title reveal globe-title">
+            <span class="globe-title__line" data-en="Performing"     data-fr="Présents">Performing</span>
+            <span class="globe-title__line" data-en="Across Europe's" data-fr="dans les">Across Europe's</span>
+            <span class="globe-title__line" data-en="Most Beautiful"  data-fr="Plus Belles">Most Beautiful</span>
+            <span class="globe-title__line" data-en="Celebrations"    data-fr="Célébrations d'Europe">Celebrations</span>
+          </h2>
+          <p class="section__subtitle reveal" data-en="Based on the French Riviera, our bands travel wherever the music is needed. Available worldwide." data-fr="Basés sur la Côte d'Azur, nos groupes se déplacent partout où la musique est nécessaire. Disponibles dans le monde entier.">Based on the French Riviera, our bands travel wherever the music is needed. Available worldwide.</p>
+          <!-- 3rd draft: CTA opens the popup form (catchy label for this section) -->
+          <a href="#contact" class="btn btn--primary section-cta reveal" data-open-form
+             data-en="Contact Us" data-fr="Contactez-Nous">Contact Us</a>
         </div>
         <!-- Globe: Three.js canvas + JS-positioned cards -->
         <div class="globe-container" id="globeContainer">
@@ -738,6 +757,9 @@
           <span class="testimonials__title-line" data-en="The Roaming" data-fr="The Roaming">The Roaming</span>
           <span class="testimonials__title-line" data-en="Agency"      data-fr="Agency">Agency</span>
         </h2>
+        <!-- 3rd draft: CTA opens the popup form -->
+        <a href="#contact" class="btn btn--primary section-cta reveal" data-open-form
+           data-en="Be Our Next Story" data-fr="Devenez Notre Prochaine Histoire">Be Our Next Story</a>
       </div>
 
       <!-- RIGHT — viewport with horizontal-scrolling cards + nav arrow -->
@@ -899,40 +921,25 @@
         <div class="gallery-track" id="galleryTrack">
           <div class="gallery gallery--masonry reveal">
             <div class="gallery__item gallery__item--tall">
-              <img src="src/assets/images/gallery/gallery-01.jpg" alt="Live performance at luxury event" loading="lazy">
+              <img src="src/assets/images/gallery/client-01.jpg" alt="Live performance at a luxury wedding" loading="lazy">
             </div>
             <div class="gallery__item">
-              <img src="src/assets/images/gallery/gallery-03.jpg" alt="Roaming band at wedding" loading="lazy">
+              <img src="src/assets/images/gallery/client-02.jpg" alt="Guests celebrating with the roaming band" loading="lazy">
             </div>
             <div class="gallery__item">
-              <img src="src/assets/images/gallery/gallery-05.jpg" alt="Band performing at corporate event" loading="lazy">
-            </div>
-            <div class="gallery__item">
-              <img src="src/assets/images/gallery/gallery-07.jpg" alt="Musicians mingling with guests" loading="lazy">
+              <img src="src/assets/images/gallery/client-03.jpg" alt="Musicians mingling with the guests" loading="lazy">
             </div>
             <div class="gallery__item gallery__item--tall">
-              <img src="src/assets/images/gallery/gallery-09.jpg" alt="Interactive musical performance" loading="lazy">
+              <img src="src/assets/images/gallery/client-04.jpg" alt="Roaming band at a destination wedding" loading="lazy">
             </div>
             <div class="gallery__item">
-              <img src="src/assets/images/gallery/gallery-11.jpg" alt="Acoustic performance at villa" loading="lazy">
+              <img src="src/assets/images/gallery/client-05.jpg" alt="Live music at a French Riviera event" loading="lazy">
             </div>
             <div class="gallery__item">
-              <img src="src/assets/images/gallery/gallery-13.jpg" alt="Band at French Riviera event" loading="lazy">
-            </div>
-            <div class="gallery__item">
-              <img src="src/assets/images/gallery/gallery-15.jpg" alt="Live music at destination wedding" loading="lazy">
-            </div>
-            <div class="gallery__item">
-              <img src="src/assets/images/gallery/gallery-17.jpg" alt="Musicians performing at gala" loading="lazy">
+              <img src="src/assets/images/gallery/client-06.jpg" alt="The band performing for a lively crowd" loading="lazy">
             </div>
             <div class="gallery__item gallery__item--tall">
-              <img src="src/assets/images/gallery/gallery-19.jpg" alt="Roaming band at sunset event" loading="lazy">
-            </div>
-            <div class="gallery__item">
-              <img src="src/assets/images/gallery/gallery-21.jpg" alt="Band entertaining guests" loading="lazy">
-            </div>
-            <div class="gallery__item">
-              <img src="src/assets/images/gallery/gallery-23.jpg" alt="Live performance at luxury venue" loading="lazy">
+              <img src="src/assets/images/gallery/client-07.jpg" alt="Roaming musicians at sunset" loading="lazy">
             </div>
           </div>
         </div>
@@ -1105,6 +1112,58 @@
     </div>
   </footer>
 
+  <!-- ===== GET-IN-TOUCH POPUP FORM =====
+       One reusable modal opened by the section CTAs ([data-open-form]). -->
+  <div class="cta-modal" id="ctaModal" aria-hidden="true">
+    <div class="cta-modal__overlay" data-cta-close></div>
+    <div class="cta-modal__dialog" role="dialog" aria-modal="true" aria-label="Get in touch">
+      <button type="button" class="cta-modal__close" data-cta-close aria-label="Close">&times;</button>
+      <h2 class="cta-modal__title" data-en="Let's Create Something Extraordinary" data-fr="Créons Quelque Chose d'Extraordinaire">Let's Create Something Extraordinary</h2>
+      <p class="cta-modal__lead" data-en="Tell us about your event and we'll craft the perfect musical experience." data-fr="Parlez-nous de votre événement et nous créerons l'expérience musicale parfaite.">Tell us about your event and we'll craft the perfect musical experience.</p>
+      <form class="cta-modal__form" id="ctaModalForm" action="#" method="POST">
+        <div class="cta-modal__grid">
+          <div class="form-group">
+            <label for="m-name" data-en="Your Name" data-fr="Votre Nom">Your Name</label>
+            <input type="text" id="m-name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="m-email" data-en="Email Address" data-fr="Adresse Email">Email Address</label>
+            <input type="email" id="m-email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="m-eventDate" data-en="Event Date" data-fr="Date de l'Événement">Event Date</label>
+            <input type="date" id="m-eventDate" name="eventDate">
+          </div>
+          <div class="form-group">
+            <label for="m-eventType" data-en="Type of Event" data-fr="Type d'Événement">Type of Event</label>
+            <select id="m-eventType" name="eventType">
+              <option value="" data-en="Select..." data-fr="Sélectionner...">Select...</option>
+              <option value="wedding" data-en="Wedding" data-fr="Mariage">Wedding</option>
+              <option value="corporate" data-en="Corporate Event" data-fr="Événement d'Entreprise">Corporate Event</option>
+              <option value="party" data-en="Private Party" data-fr="Événement Privé">Private Party</option>
+              <option value="other" data-en="Other" data-fr="Autre">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="m-budget" data-en="Budget Range" data-fr="Fourchette de Budget">Budget Range</label>
+            <select id="m-budget" name="budget">
+              <option value="" data-en="Select..." data-fr="Sélectionner...">Select...</option>
+              <option value="under2500">&lt; €2,500</option>
+              <option value="2500-5000">€2,500 — €5,000</option>
+              <option value="5000-10000">€5,000 — €10,000</option>
+              <option value="over10000">&gt; €10,000</option>
+            </select>
+          </div>
+          <div class="form-group cta-modal__full">
+            <label for="m-message" data-en="Tell Us About Your Event" data-fr="Parlez-Nous de Votre Événement">Tell Us About Your Event</label>
+            <textarea id="m-message" name="message" rows="4"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn--primary cta-modal__submit" data-en="Send Inquiry" data-fr="Envoyer la Demande">Send Inquiry</button>
+      </form>
+    </div>
+  </div>
+
   <!-- ===== MAIN JS =====
        Loaded with `defer` so it executes AFTER gsap + ScrollTrigger
        (also deferred above) and before DOMContentLoaded fires. Without
@@ -1115,8 +1174,7 @@
   <!-- Smart header — hide on scroll-down, reveal on scroll-up. Standalone
        so band sub-pages can also include it without pulling in main.js. -->
   <script src="src/js/smart-header.js" defer></script>
-  <!-- TEST-PAGE-ONLY scroll smoothness layer. Loaded LAST so it can
-       wrap/observe everything main.js set up. -->
+  <!-- TEST-PAGE-ONLY scroll smoothness layer (loaded last) -->
   <script src="src/js/scroll-smooth-test.js" defer></script>
 </body>
 </html>

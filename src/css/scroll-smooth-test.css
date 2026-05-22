@@ -110,3 +110,18 @@ html {
   margin-inline: auto;
   padding-inline: var(--container-padding);
 }
+
+/* ── SENSITIVITY TRIAL (TEST PAGE ONLY) ───────────────────────────────
+   Client: "I need to scroll 2-3 times to move a little bit." The biggest
+   culprit is the very tall pinned scroll-runways — you scroll a lot but
+   the page only progresses a little because the scroll is feeding the
+   pinned animation. Shortening the runways means each wheel notch makes
+   visibly more progress = higher perceived sensitivity.
+   The JS (band selector / events scrub) reads section.offsetHeight for
+   progress, so it auto-adapts to these shorter heights — animations stay
+   correct, just complete over less scroll. index.html keeps the original
+   (taller) heights; this only affects the test page.
+   Choose Your Band: 500vh -> 320vh.  Globe was already trimmed live. */
+#chooseBand {
+  height: 320vh;
+}

@@ -48,11 +48,14 @@
       easing: (t) => 1 - Math.pow(1 - t, 3),
       smoothWheel: true,
       syncTouch: false,
-      wheelMultiplier: 0.9,
+      // Client tweak: higher wheel multiplier for MORE sensitivity
+      // (client felt the page needed 2-3 scrolls to move a little).
+      wheelMultiplier: 1.4,
       lerp: 0.2,
     });
-    // Start STOPPED — native scroll is the default experience.
-    lenis.stop();
+    // Client test: Lenis ON by default now so the smooth + more-sensitive
+    // feel is what loads. Press `L` to toggle back to native for A/B.
+    lenis.start();
 
     window.lenis = lenis;
     window.__lenisTest = lenis; // explicit handle for the test harness
