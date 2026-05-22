@@ -3024,16 +3024,17 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   /* Per client revision — every card now wears the SAME black map-pin
      SVG (no per-city emoji). Sized to read crisp next to the bold city
      label inside the white pill. */
-  width: 18px;
-  height: 18px;
+  /* Client tweak: pin icon a bit bigger (18 -> 22px). */
+  width: 22px;
+  height: 22px;
   background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  /* Client tweak: pin icon colour matches the grid lines (#333333).
-     SVG uses fill="currentColor" so this drives the icon fill. */
-  color: #333333;
+  /* Client tweak: pin icon was too dark (#333333) — lightened a bit
+     to #5a5a5a. SVG uses fill="currentColor" so this drives the fill. */
+  color: #5a5a5a;
   line-height: 1;
 }
 

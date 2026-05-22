@@ -1330,8 +1330,9 @@ function initGlobeAnimation() {
 
       // Depth-based scale — front cards larger, back cards a touch
       // smaller. Subtle (1.0 base, +0.25 at full front) so we don't
-      // pulse the cards as the globe spins.
-      const cardScale = 0.85 + zNorm * 0.30;
+      // pulse the cards as the globe spins. Client tweak: overall card
+      // size -5% (× 0.95).
+      const cardScale = (0.85 + zNorm * 0.30) * 0.95;
 
       card.style.left = px + 'px';
       card.style.top = py + 'px';
