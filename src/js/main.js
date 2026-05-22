@@ -925,16 +925,20 @@ function initBandSelector() {
     const band = item.dataset.band;
 
     // Translate the list so the active item centres ON THE SCREEN.
-    // NOTE: viewport.clientHeight is NOT the screen height — the viewport
-    // overflows (its height = the full 11-band list ≈ 1063px vs a ~900px
-    // screen), so centring within clientHeight pushed the active band
-    // ~80px below the true screen centre. Instead we centre against the
-    // real screen centre (window.innerHeight/2) and subtract the
-    // viewport's top offset on screen (≈0 while the section is pinned).
+    // The section pins at top:0, so while it's visible the viewport's top
+    // sits at the screen top (vpTop = 0). We therefore centre against the
+    // real screen centre (window.innerHeight/2) WITHOUT reading
+    // getBoundingClientRect().top.
+    //   Why not read vpTop: setActive(0) also runs once on page LOAD,
+    //   while this section is still far below the fold (vpTop is huge).
+    //   Subtracting that huge vpTop translated the list far off-screen,
+    //   so the bands were INVISIBLE on arrival and only "slid in from the
+    //   top" after the first scroll nudged a band change. Assuming
+    //   vpTop = 0 makes band 0 correctly centred from the first paint —
+    //   it's already there when you reach the section, no slide-in.
     if (list && viewport) {
       const itemHeight = item.offsetHeight;
-      const vpTop = viewport.getBoundingClientRect().top;
-      const offset = (window.innerHeight / 2) - vpTop - (itemHeight / 2) - (idx * itemHeight);
+      const offset = (window.innerHeight / 2) - (itemHeight / 2) - (idx * itemHeight);
       list.style.transform = `translateY(${offset}px)`;
     }
 
