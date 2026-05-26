@@ -3861,11 +3861,11 @@ body.cta-modal-open { overflow: hidden; }
   color: var(--color-gray-600);
 }
 
-/* Designed-by credit line under the copyright row — same muted text size
-   as the copyright, gold accent on hover for the link. */
+/* Designed-by credit — sits INLINE in the same .footer__bottom row as
+   the copyright and the "Based in Nice…" line (centred between them
+   thanks to the row's flex space-between). Same muted text size as the
+   copyright; the link picks up a subtle gold accent on hover. */
 .footer__credit {
-  margin-top: var(--space-sm);
-  text-align: center;
   font-size: var(--text-xs);
   color: var(--color-gray-600);
 }
