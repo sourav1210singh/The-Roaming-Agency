@@ -1,5 +1,5 @@
 /* ============================================
-   THE ROAMING AGENCY — Main JavaScript
+   THE ROAMING AGENCY - Main JavaScript
    GSAP ScrollTrigger + Interactions
    ============================================ */
 
@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
     gsap.registerPlugin(ScrollTrigger);
     // initLogoAnimation() replaced by the scroll-driven dock logic in
-    // initIntroZoom() — kept in file for reference but no longer invoked.
+    // initIntroZoom() - kept in file for reference but no longer invoked.
     initNavigation();
     initScrollReveals();
     initTextDarkening();
@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initFormModal();
   initStandardsScroll();
   initHeroIntro();
-  // initDoorPortal() removed in revision round 2 — the pre-hero door
+  // initDoorPortal() removed in revision round 2 - the pre-hero door
   // intro section was dropped per client direction. See item 1.1.
   initStatsCounter();
   initBrandsMarquee();
@@ -51,23 +51,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 /* ──────────────────────────────────────────────
-   BRANDS MARQUEE — scroll-active speed mode
+   BRANDS MARQUEE - scroll-active speed mode
    While the page is actively scrolling, the body gets `.is-scrolling`
    so CSS can switch the marquee tracks to their faster duration. Idle
-   removes the class after 250ms — short enough that intermittent wheel
+   removes the class after 250ms - short enough that intermittent wheel
    ticks chain into one continuous "fast" stretch, long enough that
    mouse-rest doesn't blink the speed change.
    ----------
    The logo backgrounds were previously cleaned at runtime via canvas
    sampling + CSS filter chains. That code was removed once the source
-   PNGs were pre-processed offline (process-logos.ps1) — the cleaned
+   PNGs were pre-processed offline (process-logos.ps1) - the cleaned
    PNGs in v2-clean/ are already pure-black on transparent, so no
    runtime treatment is needed.
    ────────────────────────────────────────────── */
 
 
 /* ──────────────────────────────────────────────
-   GALLERY REVEAL — scroll-driven internal gallery scroll + panel reveal
+   GALLERY REVEAL - scroll-driven internal gallery scroll + panel reveal
    Per client request (Option D of the gallery-cutoff fix):
    • The gallery contains 12 masonry photos and is naturally TALLER
      than the viewport. Plain sticky-top:0 would pin the gallery before
@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
    ────────────────────────────────────────────── */
 function initGalleryReveal() {
   // Phase 2 (responsive): on phones/tablets the gallery is a normal
-  // scrolling masonry — skip the JS pin so it can't set the inline
+  // scrolling masonry - skip the JS pin so it can't set the inline
   // pin height / track transform that the <=1024 CSS overrides.
   if (window.matchMedia('(max-width: 1024px)').matches) return;
   const stack    = document.getElementById('galleryPinStack');
@@ -106,7 +106,7 @@ function initGalleryReveal() {
     contentHeight = masonry.scrollHeight + padY;
     // How many px we need to translate to fully expose the bottom.
     // If the gallery already fits in 1 viewport, internalScroll = 0
-    // and Phase 1 collapses to nothing — Phase 2 (panel reveal) is
+    // and Phase 1 collapses to nothing - Phase 2 (panel reveal) is
     // the only phase. Either way, the contract is the same.
     internalScroll = Math.max(0, contentHeight - vh);
     // Pin runs for: internal scroll + 1 viewport (the panel reveal).
@@ -127,7 +127,7 @@ function initGalleryReveal() {
     const phase1End = internalScroll / pinDuration;
     let translateY;
     if (phase1End <= 0 || progress >= phase1End) {
-      translateY = internalScroll;     // Phase 2 — hold at last frame
+      translateY = internalScroll;     // Phase 2 - hold at last frame
     } else {
       const p1 = progress / phase1End; // 0 to 1 within Phase 1
       translateY = p1 * internalScroll;
@@ -143,7 +143,7 @@ function initGalleryReveal() {
   update();
   window.addEventListener('scroll', onScroll, { passive: true });
   window.addEventListener('resize', () => { measure(); update(); });
-  // Re-measure once each lazy image lands — masonry height can grow.
+  // Re-measure once each lazy image lands - masonry height can grow.
   masonry.querySelectorAll('img').forEach(img => {
     if (!img.complete) img.addEventListener('load', () => { measure(); update(); }, { once: true });
   });
@@ -156,12 +156,12 @@ function initBrandsMarquee() {
      and toggled the duration on row hover (60s -> 110s) and on
      body.is-scrolling (60s -> 22s). Problem: when CSS animation duration
      changes mid-animation, the browser RESNAPS the track's transform to
-     a position based on the new duration percentage — producing a
+     a position based on the new duration percentage - producing a
      ~2000px visible JUMP on hover-in / hover-out. The hovered logo
      would literally vanish and a different logo would appear in its
      place. Fix: take the marquee off CSS animation entirely and drive
      it with a JS RAF loop that interpolates VELOCITY between target
-     speeds — duration changes become smooth glides, no jump. */
+     speeds - duration changes become smooth glides, no jump. */
   const wrapper = document.querySelector('.brands-marquee');
   if (!wrapper) return;
   const tracks = wrapper.querySelectorAll('.brands-marquee__track');
@@ -213,7 +213,7 @@ function initBrandsMarquee() {
   window.addEventListener('resize', measureAll);
 
   // Reverse rows start with track translated by -halfWidth so the
-  // first wrap takes them to 0 — keeps the perceived scroll direction
+  // first wrap takes them to 0 - keeps the perceived scroll direction
   // consistent for both rows.
   states.forEach(s => {
     if (s.isReverse) s.x = s.halfWidth || 0;
@@ -231,7 +231,7 @@ function initBrandsMarquee() {
     });
     row.addEventListener('mouseleave', () => {
       s.hovered = false;
-      // Don't override scrolling state — picked up next frame.
+      // Don't override scrolling state - picked up next frame.
       s.targetVel = isPageScrolling ? s.scrollVel : s.idleVel;
     });
   });
@@ -292,11 +292,11 @@ function initBrandsMarquee() {
 
 
 /* ──────────────────────────────────────────────
-   EVENTS WE SERVE — sticky-stack scroll engine
+   EVENTS WE SERVE - sticky-stack scroll engine
    • Outer .events provides ~400vh of scroll runway. We map progress
      0→1 across the 4 categories (Weddings, Corporate, Private,
      Artistic Direction).
-   • activeIdx = floor(progress * N), clamped — flips category content
+   • activeIdx = floor(progress * N), clamped - flips category content
      and matching photo set.
    • Even indexes (0, 2)  → light theme (white bg, dark text).
      Odd indexes  (1, 3)  → "negative" dark theme (black bg, white text).
@@ -347,7 +347,7 @@ function initEventsScroll() {
     if (top && frac > 0.002) {
       // Base stays as the "paper"; the next image peels over it
       // top→bottom (slight stagger: back leads front). is-current on
-      // BOTH so the cursor parallax drifts them in lockstep —
+      // BOTH so the cursor parallax drifts them in lockstep -
       // otherwise the still base leaks out behind the drifting top.
       base.classList.add('is-revealed', 'is-current');
       const fBack  = frac;
@@ -367,7 +367,7 @@ function initEventsScroll() {
     sticky.classList.toggle('is-negative', activeIdx % 2 === 1);
   }
 
-  /* Eased scrub loop — currentPos chases targetPos so the peel glides
+  /* Eased scrub loop - currentPos chases targetPos so the peel glides
      smoothly instead of snapping to the raw scroll value each frame.
      Self-terminating: stops once settled (no idle rAF). */
   function scrubTick() {
@@ -380,7 +380,7 @@ function initEventsScroll() {
   }
 
   /* SCROLL-SCRUBBED transition (client 3rd-draft): the image change is
-     tied to scroll position AND eased — scroll updates targetPos, the
+     tied to scroll position AND eased - scroll updates targetPos, the
      loop glides the peel toward it. Stop scrolling → it settles
      smoothly; scroll back → reverses. Cursor only does the parallax
      drift (below). Desktop only; <=1024 = one static category. */
@@ -426,7 +426,7 @@ function initEventsScroll() {
   /* Client tweak (overlap positioner): the photo widths are now
      height-driven (height-%, aspect-ratio 3/5, width auto) so the 3:5
      portrait shape is guaranteed at every viewport. But that breaks
-     the CSS-only overlap calc — front's `left:%` is relative to stack
+     the CSS-only overlap calc - front's `left:%` is relative to stack
      WIDTH while photo widths come from stack HEIGHT. Use JS to set
      front's `left` in pixels so its right edge overlaps back's left
      edge by ~50px regardless of viewport. Re-run on resize / scroll
@@ -496,8 +496,8 @@ function initEventsScroll() {
 
 
 /* ──────────────────────────────────────────────
-   DOOR PORTAL — pre-hero cinematic intro (REMOVED)
-   Revision round 2, item 1.1 — client asked for the pre-hero door
+   DOOR PORTAL - pre-hero cinematic intro (REMOVED)
+   Revision round 2, item 1.1 - client asked for the pre-hero door
    intro to be removed entirely. The section, its CSS (~500 lines),
    the hero-door-bg.jpg / door-reveal.mp4 assets, and this function
    have all been deleted so the page starts directly on the hero stack.
@@ -525,7 +525,7 @@ function initStatsCounter() {
     const ease = (t) => 1 - Math.pow(1 - t, 3); // ease-out-cubic
 
     // Helper: wrap +/- signs in a span so CSS can size them down.
-    // Client tweak — the "+" should read ~40% smaller than the digits
+    // Client tweak - the "+" should read ~40% smaller than the digits
     // (sized in CSS as .stat__number-sign font-size: 0.6em).
     const wrapSign = (s) => s ? '<span class="stat__number-sign">' + s + '</span>' : '';
 
@@ -783,7 +783,7 @@ function initTextDarkening() {
   // Split text into words and wrap each in a span. Each word starts at a
   // dim opacity then brightens to full as the user scrolls through the
   // section (scroll-scrubbed cascade with a 3-word feather).
-  // We let CSS `currentColor` drive the tint — that way the same effect
+  // We let CSS `currentColor` drive the tint - that way the same effect
   // works on BOTH dark-bg sections (light text) and light-bg sections
   // (dark text), without hard-coding any rgba() values in JS.
   const text = subtitle.textContent.trim();
@@ -793,7 +793,7 @@ function initTextDarkening() {
   ).join('');
 
   // Client tweak: visually break the line BEFORE "The Roaming Agency
-  // transforms…" so it starts on a new line — but keep ALL words in
+  // transforms…" so it starts on a new line - but keep ALL words in
   // ONE element so the scroll-darken cascade runs continuously across
   // the whole copy (no restart on the second line).
   insertWhoWeAreBreak(subtitle);
@@ -823,10 +823,10 @@ function initTextDarkening() {
   // Force ScrollTrigger to recalculate positions once the page has
   // settled. Three refresh hooks for robustness across environments
   // (Vercel CDN can be slower than localhost, so the 400ms fallback
-  // wasn't always enough — images still loading shifted section
+  // wasn't always enough - images still loading shifted section
   // positions after the trigger was created):
   //   1. setTimeout(400ms): early best-effort
-  //   2. window.load: AFTER every image + font has loaded — most reliable
+  //   2. window.load: AFTER every image + font has loaded - most reliable
   //   3. fonts.ready: AFTER custom fonts (Nohemi) have rendered
   const refresh = () => {
     if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
@@ -845,7 +845,7 @@ function initTextDarkening() {
 
 /* ──────────────────────────────────────────────
    4. BAND SELECTOR
-   "Choose Your Band" — dynamic background + text
+   "Choose Your Band" - dynamic background + text
    ────────────────────────────────────────────── */
 function initBandSelector() {
   // Phase 2 (responsive): on phones/tablets the 500vh sticky runway is
@@ -888,8 +888,8 @@ function initBandSelector() {
       fr: 'Spécialisé dans les hits des années 60 et 70 avec un style pointu, des harmonies vocales à couper le souffle et des solos de guitare légendaires.'
     },
     cafecreme: {
-      en: 'Paris, mon amour. Café Crème brings a distinguished touch — soul, neo soul, pop, and jazz. The reference for strolling music based in Paris.',
-      fr: 'Paris, mon amour. Café Crème apporte une touche distinguée — soul, neo soul, pop et jazz. La référence de la musique itinérante basée à Paris.'
+      en: 'Paris, mon amour. Café Crème brings a distinguished touch - soul, neo soul, pop, and jazz. The reference for strolling music based in Paris.',
+      fr: 'Paris, mon amour. Café Crème apporte une touche distinguée - soul, neo soul, pop et jazz. La référence de la musique itinérante basée à Paris.'
     },
     whysoserious: {
       en: 'An extraordinary experience awaits. Details coming soon.',
@@ -900,8 +900,8 @@ function initBandSelector() {
       fr: 'Une expérience extraordinaire vous attend. Détails à venir.'
     },
     dj: {
-      en: 'Johnny Molotov — The Party Engineer. The only man performing live with a roaming band before switching to an unbelievable DJ set.',
-      fr: 'Johnny Molotov — L\'ingénieur de la fête. Le seul homme à se produire en live avec un groupe itinérant avant de passer à un set DJ incroyable.'
+      en: 'Johnny Molotov - The Party Engineer. The only man performing live with a roaming band before switching to an unbelievable DJ set.',
+      fr: 'Johnny Molotov - L\'ingénieur de la fête. Le seul homme à se produire en live avec un groupe itinérant avant de passer à un set DJ incroyable.'
     }
   };
 
@@ -912,7 +912,7 @@ function initBandSelector() {
   const section = document.getElementById('chooseBand');
   const sticky = document.querySelector('.band-selector__sticky');
 
-  /* setActive(idx) — single source of truth for which band is "current".
+  /* setActive(idx) - single source of truth for which band is "current".
      Centring trick: translate the list by `-itemIndex × itemHeight` so the
      active row sits at the centre of the viewport's mask window. The
      description crossfades only when the band actually changes (avoids
@@ -934,7 +934,7 @@ function initBandSelector() {
     //   Subtracting that huge vpTop translated the list far off-screen,
     //   so the bands were INVISIBLE on arrival and only "slid in from the
     //   top" after the first scroll nudged a band change. Assuming
-    //   vpTop = 0 makes band 0 correctly centred from the first paint —
+    //   vpTop = 0 makes band 0 correctly centred from the first paint -
     //   it's already there when you reach the section, no slide-in.
     if (list && viewport) {
       const itemHeight = item.offsetHeight;
@@ -942,7 +942,7 @@ function initBandSelector() {
       list.style.transform = `translateY(${offset}px)`;
     }
 
-    // Active class — gold colour, no line.
+    // Active class - gold colour, no line.
     items.forEach(i => i.classList.remove('is-active', 'active'));
     item.classList.add('is-active');
 
@@ -953,7 +953,7 @@ function initBandSelector() {
       bg.classList.toggle('active', match);
     });
 
-    // Description swap — only on real band change.
+    // Description swap - only on real band change.
     if (band !== currentBand) {
       currentBand = band;
       if (descEl && bandDescriptions[band]) {
@@ -977,12 +977,12 @@ function initBandSelector() {
   // visible before the page transition kicks in.
   items.forEach((item, idx) => {
     item.addEventListener('click', (e) => {
-      // Allow default link navigation — no preventDefault.
+      // Allow default link navigation - no preventDefault.
       setActive(idx);
     });
   });
 
-  /* Scroll-driven active band — reads progress through the OUTER tall
+  /* Scroll-driven active band - reads progress through the OUTER tall
      section (which provides 500vh of scroll runway). The sticky inner
      stays pinned for that whole stretch; we map progress 0→1 across the
      11 bands. We use a plain rAF + scroll listener instead of ScrollTrigger
@@ -1004,7 +1004,7 @@ function initBandSelector() {
       if (!raf) raf = requestAnimationFrame(updateFromScroll);
     }, { passive: true });
     window.addEventListener('resize', updateFromScroll);
-    // Initialise — place the list correctly on load.
+    // Initialise - place the list correctly on load.
     setActive(0);
     updateFromScroll();
   } else {
@@ -1014,10 +1014,10 @@ function initBandSelector() {
 
 
 /* ──────────────────────────────────────────────
-   4b. GLOBE — LAZY-LOAD WRAPPER
+   4b. GLOBE - LAZY-LOAD WRAPPER
    Three.js (~150 KB minified) is NOT loaded eagerly. We watch the
    #worldwide section with an IntersectionObserver tuned to a 600px
-   "approaching" rootMargin — once the user scrolls within 600px of
+   "approaching" rootMargin - once the user scrolls within 600px of
    the globe, we dynamically inject the Three.js <script> tag and
    call the original initGlobeAnimation() once it loads.
    Result: every other page (band sub-pages, blog, FAQ-only browsers
@@ -1028,7 +1028,7 @@ function initGlobeLazy() {
   if (!section) return;
 
   // Phase 4 (responsive/perf): never download or run the ~150 KB
-  // Three.js WebGL globe on phones/tablets — it's the biggest perf /
+  // Three.js WebGL globe on phones/tablets - it's the biggest perf /
   // battery cost on low-end Android. The <=1024 CSS hides the empty
   // canvas so the section reads as clean "Available Worldwide" text.
   if (window.matchMedia('(max-width: 1024px)').matches) return;
@@ -1046,7 +1046,7 @@ function initGlobeLazy() {
     document.head.appendChild(tag);
   };
 
-  // Approaching trigger — fire 600px before the section enters viewport
+  // Approaching trigger - fire 600px before the section enters viewport
   // so Three.js has time to download + parse before the user sees the globe.
   const io = new IntersectionObserver((entries) => {
     if (entries.some((e) => e.isIntersecting)) {
@@ -1078,24 +1078,24 @@ function initGlobeAnimation() {
   const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 100);
   camera.position.z = 3.2;
 
-  // Solid white inner sphere — hides back-side lines
+  // Solid white inner sphere - hides back-side lines
   const solidGeo = new THREE.SphereGeometry(0.99, 64, 32);
   const solidMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
   const solidSphere = new THREE.Mesh(solidGeo, solidMat);
 
-  // Globe group — rotate both together
+  // Globe group - rotate both together
   const globe = new THREE.Group();
   globe.add(solidSphere);
 
   /* Client tweak: BOLD lines via TorusGeometry tubes (WebGL Line caps
-     at 1px). Color dialed back from pure 0x000000 to 0x333333 — still
+     at 1px). Color dialed back from pure 0x000000 to 0x333333 - still
      dark, but a touch softer per client. */
   const TUBE_RADIUS = 0.005;
   const RING_SEGMENTS = 128;
   const RADIAL_SEGMENTS = 8;
   const gridMat = new THREE.MeshBasicMaterial({ color: 0x333333 });
 
-  // Latitude rings — every 20° (lat -80..80 = 9 rings).
+  // Latitude rings - every 20° (lat -80..80 = 9 rings).
   for (let lat = -80; lat <= 80; lat += 20) {
     const phi = (90 - lat) * Math.PI / 180;
     const r = Math.sin(phi);
@@ -1107,11 +1107,11 @@ function initGlobeAnimation() {
     globe.add(ring);
   }
 
-  /* Longitude meridians — every 20° (9 full great circles, drawing
+  /* Longitude meridians - every 20° (9 full great circles, drawing
      18 visible meridian lines since each great circle covers lon AND
      lon+180).
      Client tweak: instead of leaving an empty polar cap, the tube
-     TAPERS toward each pole — full thickness at the equator, ~40%
+     TAPERS toward each pole - full thickness at the equator, ~40%
      thickness at the pole. When all 18 meridians converge at the
      pole, each tube is so thin that the overlap stays subtle (no
      thick blob). Three.js has no built-in variable-radius tube, so
@@ -1127,7 +1127,7 @@ function initGlobeAnimation() {
       const cx = Math.cos(phi);
       const cy = Math.sin(phi);
       // Distance from the nearest "pole" on this circle (poles at
-      // phi=π/2 and phi=3π/2 — these become the actual N/S pole after
+      // phi=π/2 and phi=3π/2 - these become the actual N/S pole after
       // rotation since the circle lies in a vertical plane).
       const dN = Math.abs(phi - Math.PI / 2);
       const dS = Math.abs(phi - 3 * Math.PI / 2);
@@ -1173,7 +1173,7 @@ function initGlobeAnimation() {
     globe.add(mesh);
   }
 
-  /* Client tweak: forward axial tilt — top of the sphere leans toward
+  /* Client tweak: forward axial tilt - top of the sphere leans toward
      the viewer so the north pole is visible and the south pole points
      into the screen (Earth-like axial tilt look). The animate() loop
      only updates rotation.y, so this static X tilt persists frame-to-
@@ -1195,14 +1195,14 @@ function initGlobeAnimation() {
   // === CITY CARDS ===
   const R = 280;
   // Each city carries its own music-themed icon + brand-palette colour, so
-  // every card that pops on the globe feels distinct — amra.com-style variety
+  // every card that pops on the globe feels distinct - amra.com-style variety
   // without using external platform logos. Colours are hand-picked from a
   // luxury palette that complements the gold brand accent.
   /* Client mockup: only 3 cards on the globe, at fixed screen
-     positions matching the reference image — Monaco (upper-left of
+     positions matching the reference image - Monaco (upper-left of
      globe), Dubai (mid-right), Lake Como (lower-right).
      Cards project at CARD_ROT=-30 (static), so these lat/lon values
-     are NOT real-world coordinates — they're chosen so each card
+     are NOT real-world coordinates - they're chosen so each card
      lands at the right SCREEN position on the un-tilted projection.
      Each (lat, lon) -> screen (x, y) via project() below.
      Client tweak (round 3): Monaco a touch more left; Dubai down a
@@ -1218,7 +1218,7 @@ function initGlobeAnimation() {
 
   // Per client revision: every card uses the SAME black map-pin icon and
   // shows ONE line of text only (the place name). The previous per-city
-  // emoji + country-subtitle layout was dropped — kept the data fields in
+  // emoji + country-subtitle layout was dropped - kept the data fields in
   // the city objects above so future iterations can resurrect them without
   // re-hand-crafting the lat/lon table.
   const PIN_SVG = `
@@ -1251,7 +1251,7 @@ function initGlobeAnimation() {
   // the rotating globe. The animate() loop below maps each card's 3D
   // projection to a screen position every frame and only fades a card
   // when it crosses to the back of the globe. The transcript was
-  // explicit: "locations should remain fixed (not disappear)" — so the
+  // explicit: "locations should remain fixed (not disappear)" - so the
   // staggered queue / FRONT_ZONES / activate-one-card lifecycle that
   // was here before has been removed entirely.
 
@@ -1267,7 +1267,7 @@ function initGlobeAnimation() {
   let currentRotY = -30;
   let targetRotY = -30;
   /* 3rd draft: the city photos/buttons must NOT rotate with the globe
-     (they "slipped away" — orbiting out from under the cursor so you
+     (they "slipped away" - orbiting out from under the cursor so you
      could never click one). Their screen position is now locked to a
      FIXED projection angle, so the wireframe still spins smoothly
      (client likes that) while the location cards stay put + clickable. */
@@ -1296,7 +1296,7 @@ function initGlobeAnimation() {
       const lat = parseFloat(card.dataset.lat);
       const lon = parseFloat(card.dataset.lon);
       // Fixed angle (NOT currentRotY) so cards stay put while the
-      // wireframe globe rotates behind them — clickable, not "rotated".
+      // wireframe globe rotates behind them - clickable, not "rotated".
       const p = project(lat, lon, CARD_ROT);
 
       // Position card center relative to sphere center, scaled to actual
@@ -1309,11 +1309,11 @@ function initGlobeAnimation() {
       // (0 = centre, 1 = silhouette edge).
       const distFromCenter = Math.sqrt(p.x * p.x + p.y * p.y) / R;
 
-      // EDGE FADE — soften cards near the sphere rim so they don't read
+      // EDGE FADE - soften cards near the sphere rim so they don't read
       // as "floating outside" the globe. Client tweak: threshold pushed
       // outward (0.78->0.92, 0.94->0.99) so cards placed near the
       // silhouette (e.g. Monaco at ~0.83) stay fully solid like the
-      // rest — only true rim-grazing positions fade now.
+      // rest - only true rim-grazing positions fade now.
       const edgeStart = 0.99;
       const edgeEnd   = 1.05;
       const edgeFactor = distFromCenter < edgeStart
@@ -1321,7 +1321,7 @@ function initGlobeAnimation() {
         : Math.max(0, 1 - (distFromCenter - edgeStart) / (edgeEnd - edgeStart));
       const edgeEase = edgeFactor * edgeFactor * (3 - 2 * edgeFactor);
 
-      // FRONT/BACK OPACITY — cards on the front hemisphere stay fully
+      // FRONT/BACK OPACITY - cards on the front hemisphere stay fully
       // visible; back-of-globe cards fade out smoothly. The transition
       // band (0.45 → 0.55) sits right at the silhouette so a city
       // rotating to the back fades, not snaps. Multiplied by edge fade
@@ -1332,7 +1332,7 @@ function initGlobeAnimation() {
         (zNorm - 0.45) / 0.10;
       const cardOpacity = frontOpacity * edgeEase;
 
-      // Depth-based scale — front cards larger, back cards a touch
+      // Depth-based scale - front cards larger, back cards a touch
       // smaller. Subtle (1.0 base, +0.25 at full front) so we don't
       // pulse the cards as the globe spins. Client tweak: overall card
       // size -5% (× 0.95).
@@ -1348,7 +1348,7 @@ function initGlobeAnimation() {
       card.style.opacity = cardOpacity;
       card.style.zIndex = Math.round(p.z + R);
       card.style.pointerEvents = cardOpacity > 0.5 ? 'auto' : 'none';
-      // Light blur on cards still rotating off the front side — front
+      // Light blur on cards still rotating off the front side - front
       // cards stay sharp, no blur applied at all when zNorm >= 0.7.
       card.style.filter = zNorm >= 0.7
         ? 'none'
@@ -1359,7 +1359,7 @@ function initGlobeAnimation() {
   }
   requestAnimationFrame(animate);
 
-  /* Globe rotation — DELTA-driven (drag-to-rotate feel).
+  /* Globe rotation - DELTA-driven (drag-to-rotate feel).
      Client tweak round 3:
        Previous round used ABSOLUTE cursor-X -> rotation mapping with
        a fixed ±180° range and a snap-back-to-idle on mouseleave. Two
@@ -1368,15 +1368,15 @@ function initGlobeAnimation() {
             visible sphere is ~81% of container width), so true full
             360° was rare.
          2. Mouseleave forced the globe back to -30° idle, losing the
-            user's rotation work — felt unnatural.
+            user's rotation work - felt unnatural.
        New model: each mousemove computes the cursor's pixel DELTA
        since the last frame and adds proportional rotation. This means:
          • Continuous mouse motion in one direction keeps rotating
-           the globe indefinitely (no 360° cap — user can spin past
+           the globe indefinitely (no 360° cap - user can spin past
            and past).
          • Mouse LEFT motion -> surface scrolls LEFT (mouse direction
            matches surface direction).
-         • Mouseleave does NOT reset rotation — globe holds whatever
+         • Mouseleave does NOT reset rotation - globe holds whatever
            angle the cursor last left it at.
          • Mouse re-entering the container resumes deltas from the new
            position with no snap. */
@@ -1385,7 +1385,7 @@ function initGlobeAnimation() {
 
   container.addEventListener('mouseenter', (e) => {
     // Seed lastMouseX so the first move computes a clean 0 delta
-    // from the entry point — no jump.
+    // from the entry point - no jump.
     lastMouseX = e.clientX;
   });
 
@@ -1405,7 +1405,7 @@ function initGlobeAnimation() {
   });
 
   container.addEventListener('mouseleave', () => {
-    // Reset the delta tracker but DON'T touch targetRotY — globe holds
+    // Reset the delta tracker but DON'T touch targetRotY - globe holds
     // its last position. The next mouseenter will re-seed lastMouseX.
     lastMouseX = null;
   });
@@ -1555,7 +1555,7 @@ function initHeroIntro() {
   if (!section || !heroCenterTitle) return;
 
   // Re-export under the legacy name so any external callers still work.
-  // Everything below is the simplified flow — no saxophone, no white panel,
+  // Everything below is the simplified flow - no saxophone, no white panel,
   // no music notes, no side panels. Just: logo travels, tagline fades, header
   // chrome reveals, all driven by scroll progress through the hero section.
 
@@ -1598,14 +1598,14 @@ function initHeroIntro() {
     resizeT = setTimeout(measureLogoTarget, 150);
   });
 
-  // === MAIN ANIMATION LOOP — single rAF, lerped scroll values ===
+  // === MAIN ANIMATION LOOP - single rAF, lerped scroll values ===
   function animate() {
     currentRaw += (targetRaw - currentRaw) * 0.1;
 
     // ── Hero-stack visibility window ───────────────────────────────
     // The door portal sits BEFORE the hero stack on the page. While the
     // user is still on the door portal, the hero-only chrome (logo,
-    // tagline) must stay hidden — they belong to the hero, not the door.
+    // tagline) must stay hidden - they belong to the hero, not the door.
     // As the user approaches the hero stack we fade them in over a
     // short lead-in window so the entrance feels intentional, not abrupt.
     const heroStartTop = stack ? stack.offsetTop : 0;
@@ -1689,14 +1689,14 @@ function initHeroIntro() {
   // Seed both raw values from the CURRENT scroll position before
   // kicking off the RAF loop. On a refresh-at-deep-scroll, this puts
   // the hero-center-title directly at its docked position on the very
-  // first frame — no centre flash, no lerp animation from 0.
+  // first frame - no centre flash, no lerp animation from 0.
   targetRaw  = computeProgress();
   currentRaw = targetRaw;
   if (targetRaw > 0.6) document.body.classList.add('intro-complete');
 
   requestAnimationFrame(animate);
 
-  // === SCROLL LISTENER — maps scrollY across the heroIntro height ===
+  // === SCROLL LISTENER - maps scrollY across the heroIntro height ===
   // 0 = top of page, 1 = scrolled one full heroIntro height. Past that,
   // the logo is docked and `body.intro-complete` is set so other parts
   // of the site (smart-header, etc.) know the intro is over.
@@ -1710,7 +1710,7 @@ function initHeroIntro() {
 
 
 /* ──────────────────────────────────────────────
-   NAV DROPDOWNS — Events ▾ + Bands ▾
+   NAV DROPDOWNS - Events ▾ + Bands ▾
    • Desktop hover is handled by CSS (:hover on .nav__item--has-dropdown).
      This JS only adds CLICK / TAP / KEYBOARD support so the dropdowns
      work on mobile + for keyboard users.
@@ -1718,7 +1718,7 @@ function initHeroIntro() {
      `.is-open` on the parent <li>. When open, hovering away or
      clicking outside closes it.
    • On viewports ≤ 768px the parent's link click is intercepted to
-     toggle the accordion instead of navigating — once the user picks
+     toggle the accordion instead of navigating - once the user picks
      a sub-link inside the dropdown it navigates normally.
    • Esc closes any open dropdown.
    ────────────────────────────────────────────── */
@@ -1728,7 +1728,7 @@ function initNavDropdowns() {
 
   const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
 
-  // Per-item hover-out timers — revision round 2 N5. The dropdown used
+  // Per-item hover-out timers - revision round 2 N5. The dropdown used
   // to close the instant the cursor left the parent <li>, which made it
   // very easy for the user to lose the panel while moving toward an item.
   // We now arm a 220ms timer on mouseleave; if the cursor re-enters the
@@ -1742,7 +1742,7 @@ function initNavDropdowns() {
   };
 
   const armClose = (item) => {
-    // Hover-driven close — only fires on desktop. Mobile uses tap-toggle.
+    // Hover-driven close - only fires on desktop. Mobile uses tap-toggle.
     if (isMobile()) return;
     cancelClose(item);
     const t = setTimeout(() => {
@@ -1764,7 +1764,7 @@ function initNavDropdowns() {
     link.addEventListener('click', (e) => {
       // On mobile (or when user hasn't already opened it on desktop),
       // intercept the click so we toggle instead of navigate. This lets
-      // touch users see the dropdown contents — they can then tap a
+      // touch users see the dropdown contents - they can then tap a
       // specific sub-link to navigate.
       const open = item.classList.contains('is-open');
       if (isMobile() || !open) {
@@ -1814,14 +1814,14 @@ function initNavDropdowns() {
 
 
 /* ──────────────────────────────────────────────
-   TESTIMONIALS — chevron nav for the horizontal carousel
+   TESTIMONIALS - chevron nav for the horizontal carousel
    • Click prev/next → scroll the track by exactly one card width
      (card + gap), with the browser's native smooth-scroll handling
      the easing.
    • Disable each button at the corresponding edge (so the user gets
      visual feedback when they can't scroll further).
    • Free wins: native scroll-snap, touch drag, keyboard arrows when
-     the track is focused — all built-in.
+     the track is focused - all built-in.
    ────────────────────────────────────────────── */
 function initTestimonialsCarousel() {
   const track = document.getElementById('testimonialsTrack');
@@ -1854,19 +1854,19 @@ function initTestimonialsCarousel() {
 
 
 /* ──────────────────────────────────────────────
-   OUR STANDARDS — clip-reveal observer
+   OUR STANDARDS - clip-reveal observer
    No images, no horizontal scroll. As each .standard enters the
    viewport, IntersectionObserver adds `.is-revealed` and the CSS
    clip-path animates the title + description out from behind the
    thin vertical line on the left, sliding rightward. One-and-done
-   per item — once revealed, it stays revealed even if the user
+   per item - once revealed, it stays revealed even if the user
    scrolls back up.
    ────────────────────────────────────────────── */
 function initStandardsScroll() {
   const items = document.querySelectorAll('.standards .standard');
   if (!items.length) return;
 
-  // Reduced-motion users — short-circuit to "everything visible" so
+  // Reduced-motion users - short-circuit to "everything visible" so
   // they don't see a blank section. The CSS rule for prefers-reduced-
   // motion already cancels the clip animation; this just makes sure
   // the .is-revealed class is on for any styling that depends on it.
@@ -1879,7 +1879,7 @@ function initStandardsScroll() {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       // Tiny stagger by item index so a row of items doesn't reveal
-      // perfectly synchronized — adds a more natural "one-by-one"
+      // perfectly synchronized - adds a more natural "one-by-one"
       // cadence even when several items enter the viewport together.
       const idx = parseInt(entry.target.dataset.idx || '0', 10);
       const delay = (idx % 3) * 110;
@@ -1901,7 +1901,7 @@ function initStandardsScroll() {
 /* Custom-luxury-cursor removed in revision round 2 per client:
    "I'd personally remove the custom cursor and keep a normal one
    so it feels smoother." The browser's native cursor now handles
-   all hover states — buttons + links get the natural pointer-hand
+   all hover states - buttons + links get the natural pointer-hand
    cursor via the browser's defaults, no JS overhead. */
 
 
@@ -1916,7 +1916,7 @@ function initContactForm() {
     const data = Object.fromEntries(formData);
 
     // Build mailto link with form data
-    const subject = encodeURIComponent(`Event Inquiry — ${data.eventType || 'General'}`);
+    const subject = encodeURIComponent(`Event Inquiry - ${data.eventType || 'General'}`);
     const body = encodeURIComponent(
       `Name: ${data.name}\n` +
       `Email: ${data.email}\n` +
@@ -1984,7 +1984,7 @@ function initFormModal() {
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       const d = Object.fromEntries(new FormData(form));
-      const subject = encodeURIComponent(`Event Inquiry — ${d.eventType || 'General'}`);
+      const subject = encodeURIComponent(`Event Inquiry - ${d.eventType || 'General'}`);
       const body = encodeURIComponent(
         `Name: ${d.name}\n` +
         `Email: ${d.email}\n` +

@@ -1,5 +1,5 @@
 /* ============================================================================
-   SCROLL-SMOOTHNESS TEST LAYER  —  loaded ONLY by scroll-test.html
+   SCROLL-SMOOTHNESS TEST LAYER  -  loaded ONLY by scroll-test.html
    ----------------------------------------------------------------------------
    Goal: make section-to-section scrolling feel buttery (high perceived
    FPS, no "block-y" stutter) WITHOUT touching index.html or any of the
@@ -8,7 +8,7 @@
    loads this file).
 
    Techniques:
-   1. content-visibility:auto on the big sections — the browser SKIPS
+   1. content-visibility:auto on the big sections - the browser SKIPS
       layout + paint for sections that are off-screen, so each scroll
       frame has far less work to do. contain-intrinsic-size gives the
       skipped section a placeholder height so the scrollbar doesn't
@@ -23,7 +23,7 @@
    Applied to the heavy stacked sections. The intrinsic-size values are
    rough "this section is about this tall" hints so the page height
    stays stable while a section is render-skipped. They don't need to
-   be exact — just close enough that the scrollbar doesn't lurch. */
+   be exact - just close enough that the scrollbar doesn't lurch. */
 .who-we-are,
 .brands-marquee,
 .testimonials,
@@ -76,7 +76,7 @@ html {
   overscroll-behavior-y: none;
 }
 
-/* scroll-behavior MUST be auto for Lenis — the shared base CSS sets it
+/* scroll-behavior MUST be auto for Lenis - the shared base CSS sets it
    to "smooth", which fights Lenis (Lenis drives the scroll itself) and
    causes janky anchor jumps. Force it back to auto here (test page only;
    this file loads last and index.html never loads it). */
@@ -93,7 +93,7 @@ html {
    (padding-inline: clamp(2.5rem, 6vw, 7rem)) so its content starts
    further in than every other section on wide screens.
 
-   This override (loaded only by scroll-test.html — index.html never
+   This override (loaded only by scroll-test.html - index.html never
    loads this file) makes Events use the SAME container metrics as
    .container / .header__inner: full-bleed sticky bg kept, but the
    inner title + layout are capped to --container-max and use the
@@ -113,12 +113,12 @@ html {
 
 /* ── SENSITIVITY TRIAL (TEST PAGE ONLY) ───────────────────────────────
    Client: "I need to scroll 2-3 times to move a little bit." The biggest
-   culprit is the very tall pinned scroll-runways — you scroll a lot but
+   culprit is the very tall pinned scroll-runways - you scroll a lot but
    the page only progresses a little because the scroll is feeding the
    pinned animation. Shortening the runways means each wheel notch makes
    visibly more progress = higher perceived sensitivity.
    The JS (band selector / events scrub) reads section.offsetHeight for
-   progress, so it auto-adapts to these shorter heights — animations stay
+   progress, so it auto-adapts to these shorter heights - animations stay
    correct, just complete over less scroll. index.html keeps the original
    (taller) heights; this only affects the test page.
    Choose Your Band: 500vh -> 320vh.  Globe was already trimmed live. */

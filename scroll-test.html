@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="The Roaming Agency — Premium roaming bands for luxury weddings, corporate events, and private parties across Europe. Based on the French Riviera, available worldwide.">
+  <meta name="description" content="The Roaming Agency - Premium roaming bands for luxury weddings, corporate events, and private parties across Europe. Based on the French Riviera, available worldwide.">
   <meta name="keywords" content="luxury wedding band, roaming band French Riviera, live music agency, strolling band, destination wedding music">
 
-  <title>The Roaming Agency — Luxury Roaming Bands for Extraordinary Events</title>
+  <title>The Roaming Agency - Luxury Roaming Bands for Extraordinary Events</title>
 
   <!-- Canonical + bilingual hreflang -->
   <link rel="canonical" href="https://theroamingagency.com/">
@@ -15,7 +15,7 @@
   <link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="The Roaming Agency — Luxury Roaming Bands">
+  <meta property="og:title" content="The Roaming Agency - Luxury Roaming Bands">
   <meta property="og:description" content="Premium roaming bands for weddings, corporate events, and private parties. Based on the French Riviera, available worldwide.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://theroamingagency.com/">
@@ -25,7 +25,7 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="The Roaming Agency — Luxury Roaming Bands">
+  <meta name="twitter:title" content="The Roaming Agency - Luxury Roaming Bands">
   <meta name="twitter:description" content="Premium roaming bands for weddings, corporate events, and private parties on the French Riviera and worldwide.">
   <meta name="twitter:image" content="https://theroamingagency.com/src/assets/images/hero-banner.jpg">
 
@@ -34,7 +34,7 @@
   <meta name="author" content="The Roaming Agency">
   <meta name="theme-color" content="#2A2A2A">
 
-  <!-- Structured data — Organization + LocalBusiness for Google Knowledge Panel
+  <!-- Structured data - Organization + LocalBusiness for Google Knowledge Panel
        and rich-result eligibility on local searches. -->
   <script type="application/ld+json">
   {
@@ -101,7 +101,7 @@
   <!-- Favicon placeholder -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
 
-  <!-- Stylesheets — Nohemi (self-hosted, all 9 weights) is loaded inside
+  <!-- Stylesheets - Nohemi (self-hosted, all 9 weights) is loaded inside
        variables.css via @font-face. The Google Fonts Inter link was
        removed once the licensed Nohemi files arrived. -->
   <link rel="stylesheet" href="src/css/variables.css">
@@ -109,7 +109,7 @@
   <link rel="stylesheet" href="src/css/style.css">
 
   <!-- GSAP + ScrollTrigger (needed early for hero animations).
-       Three.js is NOT loaded here — main.js dynamically injects it only
+       Three.js is NOT loaded here - main.js dynamically injects it only
        when the user scrolls near the globe section, saving ~150 KB on
        initial page load. -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -145,7 +145,7 @@
         <span class="logo__tagline" data-en="Extraordinary events deserve extraordinary music" data-fr="Des événements extraordinaires méritent une musique extraordinaire">Extraordinary events deserve extraordinary music</span>
       </a>
 
-      <!-- Navigation — top-level categories with dropdowns on Events + Bands.
+      <!-- Navigation - top-level categories with dropdowns on Events + Bands.
            Per client v2 brief: 6 items max horizontally, individual band
            names live INSIDE the Bands dropdown. -->
       <nav class="nav" id="mainNav" aria-label="Site navigation">
@@ -191,7 +191,7 @@
         </ul>
       </nav>
 
-      <!-- Language toggle — always visible, single button -->
+      <!-- Language toggle - always visible, single button -->
       <button class="lang-toggle lang-toggle--fixed" id="langToggleFixed" aria-label="Switch language">FR</button>
 
       <!-- Mobile hamburger -->
@@ -211,7 +211,7 @@
   </a>
 
   <!-- ===== DOOR PORTAL REMOVED (revision round 2, item 1.1) =====
-       Client direction: drop the pre-hero door intro entirely — start the
+       Client direction: drop the pre-hero door intro entirely - start the
        page on the hero stack so visitors land directly on the brand video
        and tagline. All door-portal HTML, CSS, JS (initDoorPortal) and the
        door-reveal.mp4 / hero-door-bg.jpg assets have been removed.
@@ -223,21 +223,21 @@
        Original sticky black panel + sliding video + tagline. The user
        lands here once they've passed through the door. The existing
        initHeroIntro() drives the logo dock, header chrome reveal, and
-       tagline pin/drift — all unchanged. -->
+       tagline pin/drift - all unchanged. -->
   <div class="hero-stack" id="heroStack">
     <a id="main-content"></a>
 
-    <!-- Black panel — sticky, z:1 (deepest) -->
+    <!-- Black panel - sticky, z:1 (deepest) -->
     <section class="hero-intro" id="heroIntro"></section>
 
-    <!-- Riviera footage. z:2 — slides up OVER the sticky black panel. -->
+    <!-- Riviera footage. z:2 - slides up OVER the sticky black panel. -->
     <section class="hero-video" id="heroVideo">
       <video class="hero-video__media" autoplay muted loop playsinline preload="auto">
         <source src="src/assets/videos/hero.mp4" type="video/mp4">
       </video>
     </section>
 
-    <!-- Tagline overlay — pinned via position: fixed, JS drifts it up. -->
+    <!-- Tagline overlay - pinned via position: fixed, JS drifts it up. -->
     <h1 class="hero-intro__tagline" id="heroTagline"
         data-en="Bespoke musical solutions<br>for exclusive events worldwide"
         data-fr="Solutions musicales sur mesure<br>pour événements exclusifs à travers le monde">
@@ -249,18 +249,18 @@
        New light-on-white treatment per client brief. Text on the LEFT,
        four animated counter stats arranged in a staggered zig-zag on
        the RIGHT. The paragraph keeps the scroll-driven word-darkening
-       effect. Copy is a placeholder — final text comes from Pier. -->
+       effect. Copy is a placeholder - final text comes from Pier. -->
   <section class="section who-we-are" id="whoWeAre">
     <div class="container who-we-are__grid">
 
-      <!-- LEFT — eyebrow + title + paragraph -->
+      <!-- LEFT - eyebrow + title + paragraph -->
       <div class="who-we-are__intro">
         <span class="section__label who-we-are__label reveal"
               data-en="Who We Are" data-fr="Qui Sommes-Nous">Who We Are</span>
         <!-- Per client direction: replaced the stacked text title
              with the brand-mark logo image (custom decorative R that
              standard fonts couldn't match). Keeping <h2> for semantic
-             structure and SEO — the image sits inside it with the
+             structure and SEO - the image sits inside it with the
              alt text carrying the brand name. -->
         <h2 class="section__title who-we-are__title reveal">
           <img class="who-we-are__title-img"
@@ -279,7 +279,7 @@
            data-en="Get a Tailored Quote" data-fr="Obtenir un Devis">Get a Tailored Quote</a>
       </div>
 
-      <!-- RIGHT — staggered stat grid with animated counters -->
+      <!-- RIGHT - staggered stat grid with animated counters -->
       <div class="who-we-are__stats">
         <div class="stat stat--top-right">
           <span class="stat__number" data-count="10" data-prefix="+">+0</span>
@@ -303,11 +303,11 @@
   </section>
 
 
-  <!-- ===== BRAND LOGOS — TWO-ROW MARQUEE =====
+  <!-- ===== BRAND LOGOS - TWO-ROW MARQUEE =====
        Per client v2:
-       • Row 1 scrolls LEFT — main brand set delivered by client
+       • Row 1 scrolls LEFT - main brand set delivered by client
          (src/assets/images/brands/v2/row1/*).
-       • Row 2 scrolls RIGHT — hotel set
+       • Row 2 scrolls RIGHT - hotel set
          (src/assets/images/brands/v2/row2/*).
        • Default speed = fast, hover slows down (so users get a closer look
          when they reach for the logos), motion outside the section stays
@@ -316,14 +316,14 @@
        • Each track is duplicated inline so the translate(-50%) loop seams. -->
   <section class="brands-marquee" id="brandsMarquee" aria-label="Brands we have performed for">
 
-    <!-- 3rd draft: "Trusted By" label above the logos — uppercase,
+    <!-- 3rd draft: "Trusted By" label above the logos - uppercase,
          one part bold + the other regular (mockup). -->
     <p class="brands-marquee__label">
       <span class="brands-marquee__label-strong" data-en="Trusted" data-fr="Ils">Trusted</span>
       <span data-en="By" data-fr="Nous Font Confiance">By</span>
     </p>
 
-    <!-- Row 1 — scrolls LEFT -->
+    <!-- Row 1 - scrolls LEFT -->
     <div class="brands-marquee__row">
       <div class="brands-marquee__track">
         <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/louis-vuitton.png" alt="Louis Vuitton" class="brands-marquee__logo"></span>
@@ -390,7 +390,7 @@
       </div>
     </div>
 
-    <!-- Row 2 — scrolls RIGHT. Hotels set per client Drive. -->
+    <!-- Row 2 - scrolls RIGHT. Hotels set per client Drive. -->
     <div class="brands-marquee__row brands-marquee__row--reverse">
       <div class="brands-marquee__track">
         <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/burgenstock.png" alt="Bürgenstock" class="brands-marquee__logo"></span>
@@ -428,7 +428,7 @@
 
   <!-- ===== EVENTS WE SERVE =====
        Per client v2 brief + transcript:
-       • Frame, title, layout STAY FIXED while user scrolls — sticky outer
+       • Frame, title, layout STAY FIXED while user scrolls - sticky outer
          provides ~400vh of scroll runway, sticky inner is pinned for that
          whole stretch.
        • Content cycles through 4 categories on scroll; bg colour swaps
@@ -438,7 +438,7 @@
        • Left column: a thin vertical line that fills 0→100% as the user
          scrolls the section, plus the active category's title + desc.
        • Right column: TWO staggered photos per category (one front-left,
-         one back-right) — overlapping like in the mockup.
+         one back-right) - overlapping like in the mockup.
        • The 4 categories: Weddings, Corporate Events, Private Parties,
          and Artistic Direction (NEW per brief). -->
   <section class="events" id="events">
@@ -482,9 +482,9 @@
                 <span class="events__cat-mask"><span class="events__cat-text" data-en="Events" data-fr="d'Entreprise">Events</span></span>
               </h3>
               <p class="events__cat-desc"
-                 data-en="Elevate your gatherings with world-class live entertainment — from cocktail receptions to gala dinners, we set the perfect tone for every moment."
-                 data-fr="Élevez vos rassemblements avec un divertissement live de classe mondiale — du cocktail au dîner de gala, nous donnons le ton parfait à chaque instant.">
-                Elevate your gatherings with world-class live entertainment — from cocktail receptions to gala dinners, we set the perfect tone for every moment.
+                 data-en="Elevate your gatherings with world-class live entertainment - from cocktail receptions to gala dinners, we set the perfect tone for every moment."
+                 data-fr="Élevez vos rassemblements avec un divertissement live de classe mondiale - du cocktail au dîner de gala, nous donnons le ton parfait à chaque instant.">
+                Elevate your gatherings with world-class live entertainment - from cocktail receptions to gala dinners, we set the perfect tone for every moment.
               </p>
             </article>
             <article class="events__cat" data-idx="2">
@@ -493,9 +493,9 @@
                 <span class="events__cat-mask"><span class="events__cat-text" data-en="Parties" data-fr="Privés">Parties</span></span>
               </h3>
               <p class="events__cat-desc"
-                 data-en="Birthdays, anniversaries, exclusive celebrations — our bands bring energy, elegance, and an experience your guests will never forget."
-                 data-fr="Anniversaires, célébrations exclusives — nos groupes apportent énergie, élégance et une expérience inoubliable pour vos invités.">
-                Birthdays, anniversaries, exclusive celebrations — our bands bring energy, elegance, and an experience your guests will never forget.
+                 data-en="Birthdays, anniversaries, exclusive celebrations - our bands bring energy, elegance, and an experience your guests will never forget."
+                 data-fr="Anniversaires, célébrations exclusives - nos groupes apportent énergie, élégance et une expérience inoubliable pour vos invités.">
+                Birthdays, anniversaries, exclusive celebrations - our bands bring energy, elegance, and an experience your guests will never forget.
               </p>
             </article>
             <article class="events__cat" data-idx="3">
@@ -504,16 +504,16 @@
                 <span class="events__cat-mask"><span class="events__cat-text" data-en="Direction" data-fr="Artistique">Direction</span></span>
               </h3>
               <p class="events__cat-desc"
-                 data-en="Tailored programming, song selection, and event flow — we curate every musical moment so it lands on the right beat with the room's energy."
-                 data-fr="Programmation sur-mesure, sélection musicale et déroulé d'événement — nous orchestrons chaque moment pour qu'il vibre à l'unisson avec l'énergie de la salle.">
-                Tailored programming, song selection, and event flow — we curate every musical moment so it lands on the right beat with the room's energy.
+                 data-en="Tailored programming, song selection, and event flow - we curate every musical moment so it lands on the right beat with the room's energy."
+                 data-fr="Programmation sur-mesure, sélection musicale et déroulé d'événement - nous orchestrons chaque moment pour qu'il vibre à l'unisson avec l'énergie de la salle.">
+                Tailored programming, song selection, and event flow - we curate every musical moment so it lands on the right beat with the room's energy.
               </p>
             </article>
           </div>
         </div>
 
         <!-- RIGHT: 2-photo stacked stagger per category.
-             Decorative horizontal stripes removed per client — they
+             Decorative horizontal stripes removed per client - they
              served no purpose and visually competed with the photo
              stack during scroll. -->
         <div class="events__right">
@@ -546,7 +546,7 @@
        right-hand band list translates upward, swapping the centred band
        (gold) and crossfading the matching B&W background image. The
        `.band-selector__sticky` inner is what stays fixed in the viewport.
-       Active-state line + dot indicator removed — gold colour alone
+       Active-state line + dot indicator removed - gold colour alone
        signals selection. Inspired by https://www.weavy.ai/. -->
   <section class="band-selector" id="chooseBand">
     <div class="band-selector__sticky">
@@ -570,7 +570,7 @@
       <div class="band-selector__content">
         <div class="band-selector__inner">
 
-          <!-- Left column — heading + active band description -->
+          <!-- Left column - heading + active band description -->
           <div class="band-selector__intro">
             <h2 class="band-selector__heading">
               <span data-en="Choose" data-fr="Choisissez">Choose</span><br>
@@ -586,7 +586,7 @@
                data-en="Book Your Band" data-fr="Réservez Votre Groupe">Book Your Band</a>
           </div>
 
-          <!-- Right column — viewport-windowed list. JS translates this
+          <!-- Right column - viewport-windowed list. JS translates this
                vertically so the active item sits at the centre of the
                sticky frame. Click still navigates to the band page. -->
           <div class="band-selector__viewport">
@@ -617,7 +617,7 @@
       <div class="globe-layout">
         <div class="globe-text">
           <!-- Revision round 2 M1: AVAILABLE WORLDWIDE eyebrow removed
-               per client direction — its meaning is now folded into the
+               per client direction - its meaning is now folded into the
                subtitle text below ("…and available worldwide"). -->
           <h2 class="section__title reveal globe-title">
             <span class="globe-title__line" data-en="Performing"     data-fr="Présents">Performing</span>
@@ -641,12 +641,12 @@
 
   <!-- ===== OUR STANDARDS =====
        Per client v2 brief:
-       • NO IMAGES — they didn't add value to each category
+       • NO IMAGES - they didn't add value to each category
        • Mixed-weight heading: "OUR" thin + "STANDARDS" bold
        • 6 standards in a 3-column ZIGZAG grid (middle column offset down)
        • Each item has a thin vertical line stub on the left, then bold
          uppercase title, then description
-       • As the user scrolls, each item reveals one-by-one — text emerges
+       • As the user scrolls, each item reveals one-by-one - text emerges
          from BEHIND the vertical line and slides RIGHTWARD via animated
          clip-path. The line stays put; the text "uncovers" itself.
        • IntersectionObserver in main.js triggers `.is-revealed` per item. -->
@@ -700,7 +700,7 @@
             <h3 class="standard__title" data-en="Reliable" data-fr="Fiabilité">Reliable</h3>
             <p class="standard__desc"
                data-en="The Brotherockers take their mission seriously: punctuality, professionalism, attention to detail; nothing is left up to chance."
-               data-fr="Ponctualité, professionnalisme, attention aux détails — rien n'est laissé au hasard.">
+               data-fr="Ponctualité, professionnalisme, attention aux détails - rien n'est laissé au hasard.">
               The Brotherockers take their mission seriously: punctuality, professionalism, attention to detail; nothing is left up to chance.
             </p>
           </div>
@@ -712,7 +712,7 @@
             <h3 class="standard__title" data-en="Savoir-Faire" data-fr="Savoir-Faire">Savoir-Faire</h3>
             <p class="standard__desc"
                data-en="The right song at the right time. The guys' expert control of the mood will take your guests from base to summit. A night (or day) they will never forget."
-               data-fr="La bonne chanson au bon moment. Une maîtrise experte de l'ambiance qui emmène vos invités au sommet — une soirée (ou journée) inoubliable.">
+               data-fr="La bonne chanson au bon moment. Une maîtrise experte de l'ambiance qui emmène vos invités au sommet - une soirée (ou journée) inoubliable.">
               The right song at the right time. The guys' expert control of the mood will take your guests from base to summit. A night (or day) they will never forget.
             </p>
           </div>
@@ -739,12 +739,12 @@
        accents when truly necessary." So gold ONLY on the eyebrow label;
        heading is bold black, body grey, the "See all reviews" link is
        Google-blue. Light panel bg #f0f0f0.
-       Layout: 2-col grid — heading column on the left, horizontal-scroll
+       Layout: 2-col grid - heading column on the left, horizontal-scroll
        carousel on the right with a chevron nav button. -->
   <section class="testimonials" id="testimonials">
     <div class="testimonials__layout">
 
-      <!-- LEFT — gold eyebrow + huge bold black heading.
+      <!-- LEFT - gold eyebrow + huge bold black heading.
            Each line wrapped in a span with `white-space: nowrap` so the
            heading is forced to EXACTLY 3 lines (no mid-word breaks). The
            data-en/data-fr lives on each span individually so the FR
@@ -762,7 +762,7 @@
            data-en="Be Our Next Story" data-fr="Devenez Notre Prochaine Histoire">Be Our Next Story</a>
       </div>
 
-      <!-- RIGHT — viewport with horizontal-scrolling cards + nav arrow -->
+      <!-- RIGHT - viewport with horizontal-scrolling cards + nav arrow -->
       <div class="testimonials__viewport">
         <div class="testimonials__track" id="testimonialsTrack">
 
@@ -783,7 +783,7 @@
                       <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
                     </svg>
                   </span>
-                  Google Review — The Brotherockers
+                  Google Review - The Brotherockers
                 </div>
                 <a href="https://g.page/r/CZ12mswnNpzREBM/review" target="_blank" rel="noopener" class="testimonial-card__gmb-link">See all reviews →</a>
               </div>
@@ -807,7 +807,7 @@
                       <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
                     </svg>
                   </span>
-                  Google Review — The Serenades
+                  Google Review - The Serenades
                 </div>
                 <a href="https://g.page/r/CWLBTCA6lESaEAE/review" target="_blank" rel="noopener" class="testimonial-card__gmb-link">See all reviews →</a>
               </div>
@@ -831,7 +831,7 @@
                       <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
                     </svg>
                   </span>
-                  Google Review — The Peppermints
+                  Google Review - The Peppermints
                 </div>
                 <a href="https://g.page/r/CTm2b06c0xVlEAE/review" target="_blank" rel="noopener" class="testimonial-card__gmb-link">See all reviews →</a>
               </div>
@@ -855,7 +855,7 @@
                       <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
                     </svg>
                   </span>
-                  Google Review — The Gentlemen
+                  Google Review - The Gentlemen
                 </div>
                 <a href="https://g.page/r/CcD5uKbGy3P-EAE/review" target="_blank" rel="noopener" class="testimonial-card__gmb-link">See all reviews →</a>
               </div>
@@ -879,7 +879,7 @@
                       <path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303a12.04 12.04 0 01-4.087 5.571l.003-.002 6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/>
                     </svg>
                   </span>
-                  Google Review — The Supersonics
+                  Google Review - The Supersonics
                 </div>
                 <a href="https://g.page/r/CVP7CAc_FJ4jEBM/review" target="_blank" rel="noopener" class="testimonial-card__gmb-link">See all reviews →</a>
               </div>
@@ -955,11 +955,11 @@
 
   <!-- ===== CONTACT =====
        Per client v2 brief + transcript:
-       "Let's create something extraordinary — I thought maybe this can
+       "Let's create something extraordinary - I thought maybe this can
         work well as an infinite loop, like this go to there and keeps
         keeps rolling."
        So the heading is now an INFINITE-LOOP MARQUEE that rolls right→left
-       continuously, never stops. Pure CSS animation — no scroll dependency.
+       continuously, never stops. Pure CSS animation - no scroll dependency.
        Below it: two-column form layout matching the mockup. -->
   <section class="contact" id="contact">
 
@@ -968,7 +968,7 @@
          data-en-content="Let's Create Something Extraordinary"
          data-fr-content="Créons Quelque Chose d'Extraordinaire">
       <div class="contact__marquee-track" id="contactMarqueeTrack">
-        <!-- 6× repeats of "Heading + bullet" — duplicated inline so the
+        <!-- 6× repeats of "Heading + bullet" - duplicated inline so the
              translateX(-50%) loop seams perfectly. JS will substitute
              the FR text via the data-attributes when the toggle fires. -->
         <span class="contact__marquee-item" data-en="Let's Create Something Extraordinary" data-fr="Créons Quelque Chose d'Extraordinaire">Let's Create Something Extraordinary</span>
@@ -1017,8 +1017,8 @@
             <select id="budget" name="budget">
               <option value="" data-en="Select..." data-fr="Sélectionner...">Select...</option>
               <option value="under2500">&lt; €2,500</option>
-              <option value="2500-5000">€2,500 — €5,000</option>
-              <option value="5000-10000">€5,000 — €10,000</option>
+              <option value="2500-5000">€2,500 - €5,000</option>
+              <option value="5000-10000">€5,000 - €10,000</option>
               <option value="over10000">&gt; €10,000</option>
             </select>
           </div>
@@ -1108,7 +1108,7 @@
       <div class="footer__bottom">
         <span>© 2026 The Roaming Agency. All rights reserved.</span>
         <span class="footer__credit">Designed by <a href="https://www.incrementors.com/" target="_blank" rel="noopener noreferrer">Incrementors</a></span>
-        <span>Based in Nice, French Riviera — Available Worldwide</span>
+        <span>Based in Nice, French Riviera - Available Worldwide</span>
       </div>
     </div>
   </footer>
@@ -1150,8 +1150,8 @@
             <select id="m-budget" name="budget">
               <option value="" data-en="Select..." data-fr="Sélectionner...">Select...</option>
               <option value="under2500">&lt; €2,500</option>
-              <option value="2500-5000">€2,500 — €5,000</option>
-              <option value="5000-10000">€5,000 — €10,000</option>
+              <option value="2500-5000">€2,500 - €5,000</option>
+              <option value="5000-10000">€5,000 - €10,000</option>
               <option value="over10000">&gt; €10,000</option>
             </select>
           </div>
@@ -1172,7 +1172,7 @@
        initTextDarkening + other gsap-dependent setups, which broke
        the scroll word-darken effect on Vercel under slow CDN loads. -->
   <script src="src/js/main.js" defer></script>
-  <!-- Smart header — hide on scroll-down, reveal on scroll-up. Standalone
+  <!-- Smart header - hide on scroll-down, reveal on scroll-up. Standalone
        so band sub-pages can also include it without pulling in main.js. -->
   <script src="src/js/smart-header.js" defer></script>
   <!-- TEST-PAGE-ONLY scroll smoothness layer (loaded last) -->

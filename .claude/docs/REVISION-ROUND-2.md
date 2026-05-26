@@ -1,4 +1,4 @@
-# Website Second Draft — Revisions (Round 2)
+# Website Second Draft - Revisions (Round 2)
 
 > Source: client Notion page "Website Second draft - Revisions"
 > Date: latest revision round after the v2 implementation.
@@ -19,10 +19,10 @@
 |---|---|---|
 | R1 | **Remove the door intro and the video.** Later we'll add the logo loading animation instead. | ⬜ |
 | R2 | **Remove the custom cursor**, keep a normal one so it feels smoother. | ⬜ |
-| R3 | **Brands section** — icons much smaller + grey background like mockup. Q: prefer 2 PNGs (one per row)? | ⬜ |
+| R3 | **Brands section** - icons much smaller + grey background like mockup. Q: prefer 2 PNGs (one per row)? | ⬜ |
 | R4 | Remove **"available worldwide"** from globe section, add it into the subtitle instead. | ⬜ |
-| R5 | **Gallery** — remove the title, just photos on dark bg. Q: does zoom-on-hover make sense if not clickable? | ⬜ |
-| R6 | **Remove the FAQ section** — will become a separate page. | ⬜ |
+| R5 | **Gallery** - remove the title, just photos on dark bg. Q: does zoom-on-hover make sense if not clickable? | ⬜ |
+| R6 | **Remove the FAQ section** - will become a separate page. | ⬜ |
 
 ---
 
@@ -32,7 +32,7 @@
 |---|---|---|
 | G1 | Change color `#1c1c1c` → `#393939` (in texts and backgrounds) | ⬜ |
 | G2 | Left and right margins aligned across all sections so every text block / graphic starts at the same position | ⬜ |
-| G3 | Scrolling feels like it moves in blocks — check smoothness reference (Lenis-style?) | ⬜ |
+| G3 | Scrolling feels like it moves in blocks - check smoothness reference (Lenis-style?) | ⬜ |
 
 ---
 
@@ -44,8 +44,8 @@
 | N2 | Make nav text smaller AND closer to the right side of the screen | ⬜ |
 | N3 | Active-item line: animate left → right (like reference). Otherwise drop the line and use bold text only | ⬜ |
 | N4 | Replace gold with off-white | ⬜ |
-| N5 | Bands dropdown: dropdown disappears too quickly when moving cursor over items — fix hover-out timing | ⬜ |
-| N6 | Dropdown items: no background color change on hover — only font-weight + white color change | ⬜ |
+| N5 | Bands dropdown: dropdown disappears too quickly when moving cursor over items - fix hover-out timing | ⬜ |
+| N6 | Dropdown items: no background color change on hover - only font-weight + white color change | ⬜ |
 
 ---
 
@@ -63,7 +63,7 @@
 | # | Item | Status |
 |---|---|---|
 | W1 | Thinner type for both the title AND the numbers | ⬜ |
-| W2 | Spacing: title sits too far from the descriptive paragraph — match mockup | ⬜ |
+| W2 | Spacing: title sits too far from the descriptive paragraph - match mockup | ⬜ |
 | W3 | "Who we are" gold eyebrow: reduce letter-spacing + make thinner | ⬜ |
 | W4 | "Years of experience" etc. labels: align better with the number + reduce spacing between number and label | ⬜ |
 
@@ -130,7 +130,7 @@
 
 | # | Item | Status |
 |---|---|---|
-| GL1 | Remove the title completely — just photos on a dark background | ⬜ |
+| GL1 | Remove the title completely - just photos on a dark background | ⬜ |
 | GL2 | **Q: does zoom-on-hover make sense if photos aren't clickable?** | ❓ |
 
 ---
@@ -141,7 +141,7 @@
 |---|---|---|
 | CT1 | Remove gold accents from phone + email | ⬜ |
 | CT2 | Send button much smaller | ⬜ |
-| CT3 | "Let's create something…" infinite marquee — use LIGHTER font weight (currently too bold) | ⬜ |
+| CT3 | "Let's create something…" infinite marquee - use LIGHTER font weight (currently too bold) | ⬜ |
 
 ---
 
@@ -149,7 +149,7 @@
 
 | # | Item | Status |
 |---|---|---|
-| F1 | Remove from homepage — becomes a separate page later | ⬜ |
+| F1 | Remove from homepage - becomes a separate page later | ⬜ |
 
 ---
 
@@ -157,52 +157,52 @@
 
 1. **Brands:** Do you prefer sending 2 PNGs (one per row, all brands inside) instead of individual logos? Our take: individual files are more flexible (easier to swap, no Photoshop needed for ordering), but if alignment is the issue we can solve via CSS. Will recommend after implementing.
 
-2. **Events We Serve:** Cursor-following image transition — yes, feasible. We'll bind transition trigger to mouse-position-within-section instead of auto-cycle.
+2. **Events We Serve:** Cursor-following image transition - yes, feasible. We'll bind transition trigger to mouse-position-within-section instead of auto-cycle.
 
-3. **Globe:** Hover-only rotation — yes, doable. We can wire `mousemove` over the canvas to drive the rotation angle proportional to cursor X position. Click + scroll fallbacks stay available.
+3. **Globe:** Hover-only rotation - yes, doable. We can wire `mousemove` over the canvas to drive the rotation angle proportional to cursor X position. Click + scroll fallbacks stay available.
 
-4. **Standards:** Block-by-block reveal on scroll — already implemented via clip-reveal IntersectionObserver. Confirm if the current behaviour matches what was meant, or if they want a different per-block animation.
+4. **Standards:** Block-by-block reveal on scroll - already implemented via clip-reveal IntersectionObserver. Confirm if the current behaviour matches what was meant, or if they want a different per-block animation.
 
-5. **Gallery:** Zoom-on-hover for non-clickable images — fair point, will remove. Hover state becomes a subtle brightness lift instead, signalling "viewable" without implying "clickable".
+5. **Gallery:** Zoom-on-hover for non-clickable images - fair point, will remove. Hover state becomes a subtle brightness lift instead, signalling "viewable" without implying "clickable".
 
-6. **General smoothness:** Scrolling feels block-y — likely due to the sticky-stack sections (door portal, Choose Your Band, Events) where the user is "pinned" while content swaps. Will add Lenis (smooth-scroll library) for the in-between scroll feel, which makes the transitions between sticky sections fluid.
+6. **General smoothness:** Scrolling feels block-y - likely due to the sticky-stack sections (door portal, Choose Your Band, Events) where the user is "pinned" while content swaps. Will add Lenis (smooth-scroll library) for the in-between scroll feel, which makes the transitions between sticky sections fluid.
 
 ---
 
 ## Implementation order (proposed)
 
-Phase 1 — quick deletions / global fixes (lowest risk, highest visual impact):
-1. R1 — Remove door intro + video
-2. R6 — Remove FAQ from homepage
-3. R2 — Remove custom cursor
-4. R5 — Gallery: remove title, drop zoom-on-hover
-5. G1 — Color swap `#1C1C1C → #393939` (variables.css)
-6. G2 — Container padding alignment audit
+Phase 1 - quick deletions / global fixes (lowest risk, highest visual impact):
+1. R1 - Remove door intro + video
+2. R6 - Remove FAQ from homepage
+3. R2 - Remove custom cursor
+4. R5 - Gallery: remove title, drop zoom-on-hover
+5. G1 - Color swap `#1C1C1C → #393939` (variables.css)
+6. G2 - Container padding alignment audit
 
-Phase 2 — nav + global UX:
-7. N1–N6 — Navigation bar restyle (solid bg, smaller text right-aligned, dropdown hover fix, off-white instead of gold, no bg change on hover)
-8. G3 — Add Lenis smooth-scroll
+Phase 2 - nav + global UX:
+7. N1-N6 - Navigation bar restyle (solid bg, smaller text right-aligned, dropdown hover fix, off-white instead of gold, no bg change on hover)
+8. G3 - Add Lenis smooth-scroll
 
-Phase 3 — typography pass (thinner weights):
-9. H1, H2 — Hero tagline
-10. W1, W3, W4 — Who We Are weights + spacing
-11. E5, E6 — Events title
-12. C1 — Choose Your Band typography
-13. S4 — Standards subtitle
-14. CT3 — Contact marquee
-15. M1 — Globe eyebrow into subtitle
+Phase 3 - typography pass (thinner weights):
+9. H1, H2 - Hero tagline
+10. W1, W3, W4 - Who We Are weights + spacing
+11. E5, E6 - Events title
+12. C1 - Choose Your Band typography
+13. S4 - Standards subtitle
+14. CT3 - Contact marquee
+15. M1 - Globe eyebrow into subtitle
 
-Phase 4 — section-specific behaviour:
-16. R3 — Brands smaller logos + grey bg
-17. R4 — Globe eyebrow removal
-18. E2, E3, E4 — Events photos (no rotation, cursor-follow transition, curtain top-to-bottom)
-19. C3 — Choose Your Band photos to B&W
-20. C5, C6 — Choose Your Band smoother motion + fixed title position
-21. M2 — Globe location buttons no rotation
-22. M3 — Globe hover-rotation
-23. S1, S2, S3 — Standards header spacing + line extension + reveal animation
+Phase 4 - section-specific behaviour:
+16. R3 - Brands smaller logos + grey bg
+17. R4 - Globe eyebrow removal
+18. E2, E3, E4 - Events photos (no rotation, cursor-follow transition, curtain top-to-bottom)
+19. C3 - Choose Your Band photos to B&W
+20. C5, C6 - Choose Your Band smoother motion + fixed title position
+21. M2 - Globe location buttons no rotation
+22. M3 - Globe hover-rotation
+23. S1, S2, S3 - Standards header spacing + line extension + reveal animation
 
-Phase 5 — contact polish:
-24. CT1, CT2 — Contact gold removal + smaller send button
+Phase 5 - contact polish:
+24. CT1, CT2 - Contact gold removal + smaller send button
 
-Phase 6 — final QA + answer client questions in a single message.
+Phase 6 - final QA + answer client questions in a single message.

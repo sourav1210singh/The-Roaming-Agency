@@ -29,7 +29,7 @@
 | Remove all glow effects | ⬜ |
 | Remove all gold decorative lines / box frames | ⬜ |
 | WhatsApp icon → white-only, dark translucent bg, hover "Let's chat." | ⬜ |
-| Custom cursor — verify alignment vs real cursor | ⬜ |
+| Custom cursor - verify alignment vs real cursor | ⬜ |
 | Remove saxophone loading screen (temporary) | ⬜ |
 
 ---

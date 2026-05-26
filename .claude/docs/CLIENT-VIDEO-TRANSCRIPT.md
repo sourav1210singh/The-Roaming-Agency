@@ -1,4 +1,4 @@
-# Client Video Transcript — Verbatim
+# Client Video Transcript - Verbatim
 
 > Date: revision round after first draft.
 > Loom-style walkthrough by the agency director, accompanying the

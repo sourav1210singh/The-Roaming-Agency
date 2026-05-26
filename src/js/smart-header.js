@@ -1,5 +1,5 @@
 /* ============================================================================
-   Smart Header — hide on scroll-down, reveal on scroll-up.
+   Smart Header - hide on scroll-down, reveal on scroll-up.
 
    Loaded on EVERY page (homepage + 11 band sub-pages) via its own
    `<script src="…/smart-header.js" defer>` tag. Self-running on
@@ -12,7 +12,7 @@
      uses the separate CSS `translate` property (via `.is-hidden`
      class) so the two animations compose without fighting.
    • While the `#introZoom` section is still on-screen we do NOT
-     toggle hide/show — the intro animation owns the bar there.
+     toggle hide/show - the intro animation owns the bar there.
    ============================================================================ */
 
 (function () {
@@ -25,7 +25,7 @@
 
     const TOP_SHOW_THRESHOLD = 100; // always visible within the first 100px
     const DELTA_MIN = 6;            // ignore micro-scrolls
-    // 3rd draft: don't pop the bar back on the FIRST small up-scroll —
+    // 3rd draft: don't pop the bar back on the FIRST small up-scroll -
     // only after a deliberate amount of upward scrolling. Client tweak:
     // bumped 150 -> 400 so it takes ~3-4 scroll-wheel notches of UP
     // scrolling before the header reveals (was popping back too quickly
@@ -43,7 +43,7 @@
     let lastY = window.scrollY;
     let ticking = false;
 
-    // Helper — toggle hide on BOTH the header element and the document body
+    // Helper - toggle hide on BOTH the header element and the document body
     // so CSS rules can target sibling elements (e.g. the homepage
     // hero-center-title overlay logo, which lives outside the <header>).
     const setHidden = (hide) => {
@@ -105,7 +105,7 @@
   /* ── Shared mobile nav for the SUB-PAGES ─────────────────────────────
      The homepage ships its own `#hamburger` button + initMobileMenu()
      in main.js. The 11 band pages + faq/blog/dj only load this file
-     and have NO hamburger and a hardcoded `nav--visible` on the nav —
+     and have NO hamburger and a hardcoded `nav--visible` on the nav -
      so at ≤768 the off-canvas drawer was stuck open with no trigger.
 
      This injects the same hamburger the homepage uses and wires the

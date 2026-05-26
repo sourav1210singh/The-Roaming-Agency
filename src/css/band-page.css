@@ -1,10 +1,10 @@
 /* ============================================
-   BAND PAGE — Individual Band Styles
+   BAND PAGE - Individual Band Styles
    ============================================ */
 
-/* Header opacity reset — the homepage uses opacity: 0 on .header so the
+/* Header opacity reset - the homepage uses opacity: 0 on .header so the
    intro-zoom JS can fade it in. Band sub-pages have no intro-zoom, so the
-   default needs to be visible. We don't add !important — the smart-header
+   default needs to be visible. We don't add !important - the smart-header
    `body.is-header-hidden` class still gets to translate the bar away on
    scroll-down. */
 .header {
@@ -211,7 +211,7 @@
 /* === BAND STANDARDS ===
    Band pages use the legacy .standards > .standard-card markup.
    Globally `.standards` is just a bare dark block and `.standard-card`
-   is `display: revert` (unstyled) — that's why this section looked
+   is `display: revert` (unstyled) - that's why this section looked
    odd. The rules below are scoped under `.band-standards` so they
    give the band pages a proper luxury card grid WITHOUT touching the
    homepage's redesigned `.standards__grid`/`.standard__*` section. */
@@ -261,7 +261,7 @@
   margin: 0;
 }
 
-/* Short gold rule above each title — picks up the gold-line motif
+/* Short gold rule above each title - picks up the gold-line motif
    used across the site for a quiet luxury cue. */
 .band-standards .standard-card__title::before {
   content: "";

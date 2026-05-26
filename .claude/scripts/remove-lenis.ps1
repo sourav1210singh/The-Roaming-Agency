@@ -18,7 +18,7 @@ $subPages = @(
   'src\pages\faq.html'
 )
 
-# Sub-page pattern — the comment line + two script tags + any trailing newline.
+# Sub-page pattern - the comment line + two script tags + any trailing newline.
 $subPagePattern = '(?ms)\s*<!-- Lenis smooth-scroll \(revision round 2, G3\)\. -->\r?\n\s*<script src="https://cdn\.jsdelivr\.net/npm/lenis@1\.1\.13/dist/lenis\.min\.js" defer></script>\r?\n\s*<script src="\.\./js/lenis-scroll\.js" defer></script>'
 
 foreach ($f in $subPages) {

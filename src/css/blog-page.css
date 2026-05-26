@@ -1,10 +1,10 @@
 /* ============================================================================
-   BLOG PAGE — masonry grid of articles
+   BLOG PAGE - masonry grid of articles
    ============================================================================
    Per client mockup: light grey panel, top header (logo + nav), then a
    masonry grid of article cards. Each card has an image, a bold sans
    title, an em-dash divider, and an italic body excerpt. Uses CSS
-   multi-column for the masonry layout — best cross-browser support and
+   multi-column for the masonry layout - best cross-browser support and
    it handles variable card heights natively without JavaScript.
    ============================================================================ */
 
@@ -89,8 +89,8 @@ body {
   margin-bottom: clamp(1rem, 2vw, 1.75rem);
   width: 100%;
   display: inline-block;     /* keeps card as a single layout unit */
-  background: transparent;   /* per mockup — no card chrome, just spacing */
-  /* Subtle reveal — fade up slightly on first paint. Skipped under
+  background: transparent;   /* per mockup - no card chrome, just spacing */
+  /* Subtle reveal - fade up slightly on first paint. Skipped under
      reduced-motion. */
   opacity: 0;
   transform: translateY(12px);
@@ -130,7 +130,7 @@ body {
 .blog-card__image {
   display: block;
   width: 100%;
-  /* Default aspect — ~3:4 portrait. Modifier classes below tweak. */
+  /* Default aspect - ~3:4 portrait. Modifier classes below tweak. */
   aspect-ratio: 4 / 3;
   object-fit: cover;
   border-radius: 14px;
@@ -158,7 +158,7 @@ body {
   margin: 0 0 0.4rem;
 }
 
-/* ── Em-dash divider — the small "—" between title and excerpt */
+/* ── Em-dash divider - the small "-" between title and excerpt */
 .blog-card__divider {
   display: block;
   font-size: 0.85rem;

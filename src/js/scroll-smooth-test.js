@@ -1,5 +1,5 @@
 /* ============================================================================
-   SCROLL-SMOOTHNESS TEST LAYER  —  loaded ONLY by scroll-test.html
+   SCROLL-SMOOTHNESS TEST LAYER  -  loaded ONLY by scroll-test.html
    ----------------------------------------------------------------------------
    Adds a properly-tuned Lenis smooth-scroll on top of the existing page.
    The earlier site-wide Lenis attempt was reverted because duration:1.1
@@ -8,7 +8,7 @@
    driven so ScrollTrigger (Choose Your Band / Events / Gallery pins)
    stays perfectly in sync.
 
-   index.html does NOT load this file — it's isolated to the test page.
+   index.html does NOT load this file - it's isolated to the test page.
    ============================================================================ */
 (function () {
   'use strict';
@@ -27,12 +27,12 @@
   function init() {
     if (isTouch() || reducedMotion()) return;
     if (typeof window.Lenis === 'undefined') {
-      console.warn('[scroll-test] Lenis CDN not loaded — native scroll only.');
+      console.warn('[scroll-test] Lenis CDN not loaded - native scroll only.');
       return;
     }
 
     // KEY INSIGHT: smooth-scroll interpolation (Lenis) ALWAYS adds some
-    // input-to-motion delay — that's its nature. The user wants the
+    // input-to-motion delay - that's its nature. The user wants the
     // page to move EXACTLY with the wheel (zero delay) AND feel smooth.
     // Those are only compatible if NATIVE scroll runs at a solid 60fps
     // (no dropped frames = smooth, and native = zero delay + 1:1 wheel).
@@ -41,7 +41,7 @@
     // purely from the performance layer in scroll-smooth-test.css
     // (content-visibility skips offscreen render, GPU compositing keeps
     // the scroll-driven transforms off the main thread). Native scroll
-    // stays instant + 1:1 with the wheel — no catch-up, no section
+    // stays instant + 1:1 with the wheel - no catch-up, no section
     // overshoot. Press `l` to switch Lenis ON and A/B the two feels.
     // Premium "weighted / momentum" smooth scroll (Awwwards-style).
     // Vanilla-JS adaptation of the requested React SmoothScroll config:
@@ -55,7 +55,7 @@
       smoothWheel: true,
       touchMultiplier: 1.2,
     });
-    // Active by default — the whole (test) page gets the smooth feel.
+    // Active by default - the whole (test) page gets the smooth feel.
     // Press `L` to toggle to native scroll for an A/B comparison.
 
     window.lenis = lenis;
@@ -85,7 +85,7 @@
       'position:fixed;top:8px;left:8px;z-index:99999;font:600 12px/1.4 monospace;' +
       'background:rgba(0,0,0,.8);color:#0f0;padding:6px 10px;border-radius:6px;' +
       'pointer-events:none;white-space:pre';
-    meter.textContent = 'FPS —';
+    meter.textContent = 'FPS -';
     document.body.appendChild(meter);
 
     let frames = 0, last = performance.now(), fps = 0, minFps = 999;

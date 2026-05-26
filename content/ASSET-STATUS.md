@@ -1,4 +1,4 @@
-# Asset Status — The Roaming Agency Website
+# Asset Status - The Roaming Agency Website
 
 ## What's Integrated
 
@@ -39,15 +39,15 @@
 
 ## Content Still Needed from Client
 
-1. **Agency Logo** (SVG preferred) — for header, hero, footer
-2. **Individual Band Logos** (SVG preferred) — for each band page hero
-3. **Band Photos** — at least 4-6 per band for gallery sections
-4. **"Who We Are" Text** — English + French versions
-5. **Individual Band Descriptions** — 8 bands still using placeholder text:
+1. **Agency Logo** (SVG preferred) - for header, hero, footer
+2. **Individual Band Logos** (SVG preferred) - for each band page hero
+3. **Band Photos** - at least 4-6 per band for gallery sections
+4. **"Who We Are" Text** - English + French versions
+5. **Individual Band Descriptions** - 8 bands still using placeholder text:
    - Kingsmen, Peppermints, Gentlemen, Serenades, Supersonics, Rendez-Vous, Why So Serious?, Blackjacks
-6. **Brand/Venue Logos** — for horizontal ticker section
-7. **Testimonial Screenshots** — GMB review screenshots or review text
-8. **Band Videos** — 9 bands still need hero video clips:
+6. **Brand/Venue Logos** - for horizontal ticker section
+7. **Testimonial Screenshots** - GMB review screenshots or review text
+8. **Band Videos** - 9 bands still need hero video clips:
    - Brotherockers, Kingsmen, Peppermints, Gentlemen, Serenades, Supersonics, Rendez-Vous, Why So Serious?, DJ
-9. **French Translations** — for all band-specific content
-10. **Event Type Photos** — Wedding, Corporate, Party section images
+9. **French Translations** - for all band-specific content
+10. **Event Type Photos** - Wedding, Corporate, Party section images

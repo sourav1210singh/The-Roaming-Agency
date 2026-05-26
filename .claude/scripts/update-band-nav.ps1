@@ -17,7 +17,7 @@ $bands = @(
     @{file='dj.html';                  title='DJ'}
 )
 
-# Pattern matching the OLD .nav__band-list block — needs MULTILINE.
+# Pattern matching the OLD .nav__band-list block - needs MULTILINE.
 # We match from `<nav class="nav nav--visible" id="mainNav">` through `</nav>`.
 $oldNavRegex = '(?s)<nav class="nav nav--visible" id="mainNav">.*?</nav>'
 

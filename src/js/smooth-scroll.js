@@ -1,14 +1,14 @@
 /* ============================================================================
-   SMOOTH SCROLL  —  site-wide premium momentum scrolling (Lenis)
+   SMOOTH SCROLL  -  site-wide premium momentum scrolling (Lenis)
    ----------------------------------------------------------------------------
    Loaded on EVERY page. Adds the weighted / momentum-based smooth scroll
    used on premium (Awwwards-style) sites, on top of the existing GSAP
-   ScrollTrigger pins (Events / Choose Your Band / Gallery) — Lenis still
+   ScrollTrigger pins (Events / Choose Your Band / Gallery) - Lenis still
    drives the native window.scrollY so ScrollTrigger stays in perfect sync.
 
    Design choices:
    • DESKTOP ONLY (>=1025px). On phones / tablets we keep the OS-native
-     scroll — mobile native scroll is already smooth and Lenis can fight
+     scroll - mobile native scroll is already smooth and Lenis can fight
      the platform's momentum. Matches the project's existing rule of
      gating heavy desktop JS behind the same breakpoint.
    • prefers-reduced-motion: reduce  -> Lenis is skipped entirely.
@@ -34,7 +34,7 @@
     // Respect reduced-motion users + keep mobile/tablet on native scroll.
     if (reducedMotion() || !isDesktop()) return;
     if (typeof window.Lenis === 'undefined') {
-      console.warn('[smooth-scroll] Lenis not loaded — native scroll only.');
+      console.warn('[smooth-scroll] Lenis not loaded - native scroll only.');
       return;
     }
 

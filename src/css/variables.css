@@ -1,5 +1,5 @@
 /* ============================================================================
-   THE ROAMING AGENCY — Design Tokens
+   THE ROAMING AGENCY - Design Tokens
    ============================================================================
    Locked v2 palette + Nohemi typography. Everything below maps to the
    client brief:
@@ -12,7 +12,7 @@
    weight contrast, paragraphs lean thinner.
    ============================================================================ */
 
-/* ── NOHEMI FONT FACES — 9 weights, self-hosted .woff2 ─────────────── */
+/* ── NOHEMI FONT FACES - 9 weights, self-hosted .woff2 ─────────────── */
 @font-face {
   font-family: 'Nohemi';
   font-style: normal;
@@ -78,30 +78,30 @@
 }
 
 :root {
-  /* ── PALETTE — locked v2 codes ──────────────────────────────────── */
+  /* ── PALETTE - locked v2 codes ──────────────────────────────────── */
 
   /* Off-whites (≈40% of surface area) */
-  --color-white:        #FCFCFC;   /* off-white — was #ffffff (pure white banned) */
+  --color-white:        #FCFCFC;   /* off-white - was #ffffff (pure white banned) */
   --color-off-white:    #FCFCFC;
-  --color-light-panel:  #F0F0F0;   /* light grey panel — used for Brands, Globe, Testimonials */
+  --color-light-panel:  #F0F0F0;   /* light grey panel - used for Brands, Globe, Testimonials */
 
   /* Dark greys (≈50% of text + lines) */
   --color-dark-grey:    #2A2A2A;   /* main body text */
   --color-mid-grey:     #414141;   /* lines, dividers, secondary text */
 
   /* Off-black (≈Our Standards / Door portal panel bg) */
-  --color-black:        #2A2A2A;   /* off-black — was #0a0a0a (pure black banned) */
+  --color-black:        #2A2A2A;   /* off-black - was #0a0a0a (pure black banned) */
   --color-dark:         #2A2A2A;   /* legacy alias */
   --color-dark-surface: #2A2A2A;   /* legacy alias */
   --color-dark-card:    #232323;   /* darker than the #2A2A2A bg so cards still read */
   --color-off-black:    #2A2A2A;
 
-  /* Gold accent (< 10%, highlights only — eyebrows, hover underlines) */
+  /* Gold accent (< 10%, highlights only - eyebrows, hover underlines) */
   --color-gold:         #F2DCA3;
   --color-gold-light:   #F8E9C2;
   --color-gold-dark:    #C8A560;   /* deeper gold for hover */
 
-  /* Legacy grey scale aliases — kept so old selectors don't break,
+  /* Legacy grey scale aliases - kept so old selectors don't break,
      but mapped onto the new palette. */
   --color-gray-800:     #414141;
   --color-gray-600:     #5a5a5a;
@@ -117,12 +117,12 @@
   --color-accent:       var(--color-gold);
   --color-accent-hover: var(--color-gold-dark);
 
-  /* ── TYPOGRAPHY — Nohemi everywhere, weight contrast does the work ─ */
+  /* ── TYPOGRAPHY - Nohemi everywhere, weight contrast does the work ─ */
   --font-heading:       'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   --font-body:          'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
   --font-accent:        'Nohemi', Georgia, serif;
 
-  /* Weight tokens — used as font-weight: var(--fw-thin) for clarity. */
+  /* Weight tokens - used as font-weight: var(--fw-thin) for clarity. */
   --fw-thin:            100;
   --fw-extralight:      200;
   --fw-light:           300;
@@ -138,7 +138,7 @@
      Our Standards, which the client wants kept slightly smaller. */
   --text-body:  clamp(0.95rem, 1.1vw, 1.125rem);
 
-  /* Font Sizes — fluid scale (unchanged) */
+  /* Font Sizes - fluid scale (unchanged) */
   --text-xs:    clamp(0.7rem, 0.65rem + 0.25vw, 0.8rem);
   --text-sm:    clamp(0.8rem, 0.75rem + 0.3vw, 0.9rem);
   --text-base:  clamp(0.9rem, 0.85rem + 0.35vw, 1.05rem);
@@ -186,7 +186,7 @@
   --radius-lg:   16px;
   --radius-full: 9999px;
 
-  /* Shadows — purely neutral, no gold tint anywhere. The glow effect
+  /* Shadows - purely neutral, no gold tint anywhere. The glow effect
      `--shadow-gold` was removed per brief: "Remove decorative elements:
      gold lines used to create blocks, glows, heavy container borders." */
   --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.18);
@@ -195,7 +195,7 @@
 
   /* Z-Index Scale. Loader must be ABOVE the hero-center-title (z:900)
      so on reload-at-deep-scroll the title's initial-frame flash is
-     never visible — loader covers everything until JS settles the
+     never visible - loader covers everything until JS settles the
      final logo position. */
   --z-base:     1;
   --z-header:   100;

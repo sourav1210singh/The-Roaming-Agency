@@ -9,7 +9,7 @@
 }
 
 html {
-  /* Was scroll-behavior: smooth — changed to auto because Lenis now
+  /* Was scroll-behavior: smooth - changed to auto because Lenis now
      drives smooth scrolling site-wide (smooth-scroll.js). CSS smooth
      fights Lenis and causes janky anchor jumps. */
   scroll-behavior: auto;
