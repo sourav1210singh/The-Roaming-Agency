@@ -698,7 +698,10 @@ body.is-header-hidden .hero-center-title {
   top: 0;
   width: 100%;
   height: 100vh;
-  background: #000;
+  /* 5th draft: intro/loading screen background WHITE (was #000).
+     Logo + tagline start dark here and brighten to white as the user
+     scrolls into the video (driven in initHeroIntro). */
+  background: #ffffff;
   overflow: hidden;
   z-index: 1;
 }
@@ -722,7 +725,9 @@ body.is-header-hidden .hero-center-title {
   font-weight: var(--fw-medium);
   line-height: 1.1;
   letter-spacing: 0.005em;
-  color: #ffffff;
+  /* 5th draft: dark by default (readable on the new white intro panel);
+     initHeroIntro() brightens it to white as it drifts over the video. */
+  color: #2A2A2A;
   z-index: 3;
   pointer-events: none;
   will-change: opacity, transform;

@@ -1636,6 +1636,10 @@ function initHeroIntro() {
     // End:   header logo slot.
     const travel = Math.max(0, Math.min(1, currentRaw));
     const travelEase = 1 - Math.pow(1 - travel, 3); // ease-out-cubic
+    // 5th draft: intro panel is WHITE now, so the logo + tagline start
+    // DARK at the very top and brighten to white quickly as the user
+    // scrolls into the (dark) video + docks the logo on the dark header.
+    const lightAmount = Math.min(1, travelEase / 0.12);
     const startX = window.innerWidth / 2;
     const startY = window.innerHeight * 0.22;
     const x = startX + (logoTarget.x - startX) * travelEase;
@@ -1649,6 +1653,17 @@ function initHeroIntro() {
     heroCenterTitle.style.transform = 'translate(-50%, -50%)';
     heroCenterTitle.style.fontSize = fontPx + 'px';
     heroCenterTitle.style.pointerEvents = heroVisibility > 0.5 ? 'auto' : 'none';
+    // brightness(0)=black logo on the white intro -> brightness(1)=normal
+    // near-white logo once it's over the video / docked on the dark header.
+    heroCenterTitle.style.filter = 'brightness(' + lightAmount + ')';
+
+    // 5th draft: drive the intro PANEL background on the SAME curve as the
+    // logo/tagline brightness. White at the top (loading screen), going
+    // back to black as you scroll - so the panel + text always transition
+    // together and you NEVER get white-on-white or black-on-black. The
+    // video then slides up over the (now black) panel exactly as before.
+    const introGrey = Math.round(255 * (1 - lightAmount));
+    section.style.backgroundColor = `rgb(${introGrey}, ${introGrey}, ${introGrey})`;
 
     // ── Tagline pin → travel-with-video ────────────────────────────
     // Phase A (scroll heroStart → heroStart + pinEnd): tagline pinned
@@ -1664,6 +1679,10 @@ function initHeroIntro() {
       const drift = Math.max(0, window.scrollY - pinEnd);
       tagline.style.opacity = String(heroVisibility);
       tagline.style.transform = `translate(-50%, calc(-50% - ${drift}px))`;
+      // Dark (#2A2A2A) on the white intro -> white as it drifts over the
+      // dark video, matching the logo's brighten.
+      const g = Math.round(42 + (255 - 42) * lightAmount);
+      tagline.style.color = `rgb(${g}, ${g}, ${g})`;
     }
 
     // ── Header chrome reveal ───────────────────────────────────────
