@@ -1923,13 +1923,17 @@ function initContactForm() {
     const formData = new FormData(form);
     const data = Object.fromEntries(formData);
 
-    // Build mailto link with form data
+    // Build mailto link with form data (5th draft: extra fields).
     const subject = encodeURIComponent(`Event Inquiry - ${data.eventType || 'General'}`);
     const body = encodeURIComponent(
       `Name: ${data.name}\n` +
       `Email: ${data.email}\n` +
       `Event Date: ${data.eventDate || 'Not specified'}\n` +
+      `Location: ${data.location || 'Not specified'}\n` +
       `Event Type: ${data.eventType || 'Not specified'}\n` +
+      `Phone: ${data.phone || 'Not specified'}\n` +
+      `How did you hear: ${data.hearAbout || 'Not specified'}\n` +
+      `Number of Guests: ${data.guests || 'Not specified'}\n` +
       `Budget: ${data.budget || 'Not specified'}\n\n` +
       `Message:\n${data.message || 'No message'}`
     );

@@ -993,76 +993,38 @@
        Below it: two-column form layout matching the mockup. -->
   <section class="contact" id="contact">
 
-    <!-- ── INFINITE LOOP HEADING (right → left, never stops) ── -->
-    <div class="contact__marquee" aria-label="Let's create something extraordinary"
-         data-en-content="Let's Create Something Extraordinary"
-         data-fr-content="Créons Quelque Chose d'Extraordinaire">
-      <div class="contact__marquee-track" id="contactMarqueeTrack">
-        <!-- 6× repeats of "Heading + bullet" - duplicated inline so the
-             translateX(-50%) loop seams perfectly. JS will substitute
-             the FR text via the data-attributes when the toggle fires. -->
-        <span class="contact__marquee-item" data-en="Let's Create Something Extraordinary" data-fr="Créons Quelque Chose d'Extraordinaire">Let's Create Something Extraordinary</span>
-        <span class="contact__marquee-bullet" aria-hidden="true">●</span>
-        <span class="contact__marquee-item" data-en="Let's Create Something Extraordinary" data-fr="Créons Quelque Chose d'Extraordinaire">Let's Create Something Extraordinary</span>
-        <span class="contact__marquee-bullet" aria-hidden="true">●</span>
-        <span class="contact__marquee-item" data-en="Let's Create Something Extraordinary" data-fr="Créons Quelque Chose d'Extraordinaire">Let's Create Something Extraordinary</span>
-        <span class="contact__marquee-bullet" aria-hidden="true">●</span>
-        <!-- Loop duplicate -->
-        <span class="contact__marquee-item" aria-hidden="true">Let's Create Something Extraordinary</span>
-        <span class="contact__marquee-bullet" aria-hidden="true">●</span>
-        <span class="contact__marquee-item" aria-hidden="true">Let's Create Something Extraordinary</span>
-        <span class="contact__marquee-bullet" aria-hidden="true">●</span>
-        <span class="contact__marquee-item" aria-hidden="true">Let's Create Something Extraordinary</span>
-        <span class="contact__marquee-bullet" aria-hidden="true">●</span>
-      </div>
-    </div>
+    <!-- 5th draft: static (no-animation) header + single white-card form,
+         matching the weddings-new reference. Pierre disliked the animated
+         marquee, so the heading is now large + static. -->
+    <div class="contact__inner">
 
-    <!-- ── 2-column form layout ── -->
-    <div class="contact__layout">
-
-      <!-- Left column: eyebrow + body + contact details -->
-      <div class="contact__intro">
-        <span class="contact__eyebrow" data-en="Get In Touch" data-fr="Contactez-Nous">Get In Touch</span>
-        <p class="contact__lead"
-           data-en="Ready to make your event unforgettable? Tell us about your vision and we'll craft the perfect musical experience."
-           data-fr="Prêt à rendre votre événement inoubliable ? Parlez-nous de votre vision et nous créerons l'expérience musicale parfaite.">
-          Ready to make your event unforgettable? Tell us about your vision and we'll craft the perfect musical experience.
-        </p>
-        <ul class="contact__details">
-          <li><strong>Email:</strong> <a href="mailto:contact@theroamingagency.com">contact@theroamingagency.com</a></li>
-          <li><strong>Phone:</strong> <a href="tel:+33686621282">+33 6 86 62 12 82</a></li>
-          <li><strong>Base:</strong> <span data-en="Nice, French Riviera" data-fr="Nice, Côte d'Azur">Nice, French Riviera</span></li>
-        </ul>
+      <div class="contact__header">
+        <span class="contact__eyebrow" data-en="Get in touch" data-fr="Contactez-nous">Get in touch</span>
+        <h2 class="contact__heading"
+            data-en="Let's Plan Your Extraordinary Celebration!"
+            data-fr="Planifions Votre Célébration Extraordinaire&#8239;!">Let's Plan Your Extraordinary Celebration!</h2>
+        <p class="contact__sub"
+           data-en="Fill out the form and get an answer within the next 12 hours."
+           data-fr="Remplissez le formulaire et obtenez une réponse dans les 12 heures.">Fill out the form and get an answer within the next 12 hours.</p>
       </div>
 
-      <!-- Right column: form in its own 2-col grid (mockup layout) -->
       <form class="contact__form" id="contactForm" action="#" method="POST">
         <div class="contact__form-grid">
           <div class="form-group">
-            <label for="name" data-en="Your Name" data-fr="Votre Nom">Your Name</label>
+            <label for="name" data-en="Full Name" data-fr="Nom Complet">Full Name</label>
             <input type="text" id="name" name="name" required>
-          </div>
-          <div class="form-group">
-            <label for="budget" data-en="Budget Range" data-fr="Fourchette de Budget">Budget Range</label>
-            <select id="budget" name="budget">
-              <option value="" data-en="Select..." data-fr="Sélectionner...">Select...</option>
-              <option value="under2500">&lt; €2,500</option>
-              <option value="2500-5000">€2,500 - €5,000</option>
-              <option value="5000-10000">€5,000 - €10,000</option>
-              <option value="over10000">&gt; €10,000</option>
-            </select>
           </div>
           <div class="form-group">
             <label for="email" data-en="Email Address" data-fr="Adresse Email">Email Address</label>
             <input type="email" id="email" name="email" required>
           </div>
-          <div class="form-group form-group--span-rows">
-            <label for="message" data-en="Tell Us About Your Event" data-fr="Parlez-Nous de Votre Événement">Tell Us About Your Event</label>
-            <textarea id="message" name="message" rows="6"></textarea>
-          </div>
           <div class="form-group">
             <label for="eventDate" data-en="Event Date" data-fr="Date de l'Événement">Event Date</label>
             <input type="date" id="eventDate" name="eventDate">
+          </div>
+          <div class="form-group">
+            <label for="location" data-en="Location" data-fr="Lieu">Location</label>
+            <input type="text" id="location" name="location">
           </div>
           <div class="form-group">
             <label for="eventType" data-en="Type of Event" data-fr="Type d'Événement">Type of Event</label>
@@ -1073,6 +1035,38 @@
               <option value="party" data-en="Private Party" data-fr="Événement Privé">Private Party</option>
               <option value="other" data-en="Other" data-fr="Autre">Other</option>
             </select>
+          </div>
+          <div class="form-group">
+            <label for="phone" data-en="Phone" data-fr="Téléphone">Phone</label>
+            <input type="tel" id="phone" name="phone">
+          </div>
+          <div class="form-group">
+            <label for="hearAbout" data-en="How did you hear about us?" data-fr="Comment nous avez-vous connus&#8239;?">How did you hear about us?</label>
+            <select id="hearAbout" name="hearAbout">
+              <option value="" data-en="Select..." data-fr="Sélectionner...">Select...</option>
+              <option value="google" data-en="Google" data-fr="Google">Google</option>
+              <option value="instagram" data-en="Instagram" data-fr="Instagram">Instagram</option>
+              <option value="referral" data-en="Referral" data-fr="Recommandation">Referral</option>
+              <option value="other" data-en="Other" data-fr="Autre">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="guests" data-en="Number of Guests" data-fr="Nombre d'Invités">Number of Guests</label>
+            <input type="number" id="guests" name="guests" min="0">
+          </div>
+          <div class="form-group form-group--full">
+            <label for="budget" data-en="Budget" data-fr="Budget">Budget</label>
+            <select id="budget" name="budget">
+              <option value="" data-en="Select..." data-fr="Sélectionner...">Select...</option>
+              <option value="under2500">&lt; €2,500</option>
+              <option value="2500-5000">€2,500 - €5,000</option>
+              <option value="5000-10000">€5,000 - €10,000</option>
+              <option value="over10000">&gt; €10,000</option>
+            </select>
+          </div>
+          <div class="form-group form-group--full">
+            <label for="message" data-en="Tell us what you are planning..." data-fr="Dites-nous ce que vous planifiez...">Tell us what you are planning...</label>
+            <textarea id="message" name="message" rows="5"></textarea>
           </div>
         </div>
         <button type="submit" class="contact__submit" data-en="Send Inquiry" data-fr="Envoyer la Demande">Send Inquiry</button>
