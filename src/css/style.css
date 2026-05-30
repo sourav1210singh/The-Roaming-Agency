@@ -3549,9 +3549,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 /* Client tweak: smaller font size for the "Book Your Band" CTA only
    (Choose Your Band section). Other section CTAs keep the 20/22 spec. */
 .band-selector .section-cta {
-  font-size: 16px;
-  line-height: 18px;
-  padding: 0.78rem 2rem;
+  font-size: 18px;
+  line-height: 20px;
+  padding: 0.85rem 2.2rem;
 }
 
 /* ── GET-IN-TOUCH POPUP FORM (opened by section CTAs) ───────────── */
