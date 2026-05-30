@@ -219,41 +219,46 @@ function initBrandsMarquee() {
     if (s.isReverse) s.x = s.halfWidth || 0;
   });
 
-  // Hover handlers per row. On mouseenter, target velocity drops to
-  // hoverVel; on mouseleave it goes back. The currentVel lerp below
-  // smooths the transition so no instant snap is ever visible.
-  states.forEach(s => {
-    const row = s.track.closest('.brands-marquee__row');
-    if (!row) return;
-    row.addEventListener('mouseenter', () => {
-      s.hovered = true;
-      s.targetVel = s.hoverVel;
-    });
-    row.addEventListener('mouseleave', () => {
-      s.hovered = false;
-      // Don't override scrolling state - picked up next frame.
-      s.targetVel = isPageScrolling ? s.scrollVel : s.idleVel;
-    });
-  });
+  /* 5th draft client request:
+       "Band movement should stay CONSTANT and not slow down when you
+        hover. Only change the speed if you click and drag the cursor to
+        one side to accelerate."
+     So the old hover-slowdown AND page-scroll-speedup are BOTH removed.
+     The marquee now runs at a constant idle velocity, and a horizontal
+     click-drag accelerates it (the faster you drag, the faster it goes);
+     on release it eases back to the constant idle speed. */
+  let dragging = false;
+  let dragVel = 0;            // signed px/sec of the pointer while dragging
+  let lastPointerX = 0;
+  let lastPointerT = 0;
+  wrapper.style.cursor = 'grab';
+  wrapper.style.touchAction = 'pan-y'; // let vertical page scroll through
 
-  // Page-scroll state mirrors the old body.is-scrolling concept but
-  // here we just set a boolean that the RAF loop reads. Idle timer
-  // matches the original 250ms idle to keep the same feel.
-  let isPageScrolling = false;
-  let scrollIdleTimer = null;
-  window.addEventListener('scroll', () => {
-    isPageScrolling = true;
-    states.forEach(s => {
-      if (!s.hovered) s.targetVel = s.scrollVel;
-    });
-    clearTimeout(scrollIdleTimer);
-    scrollIdleTimer = setTimeout(() => {
-      isPageScrolling = false;
-      states.forEach(s => {
-        if (!s.hovered) s.targetVel = s.idleVel;
-      });
-    }, 250);
-  }, { passive: true });
+  wrapper.addEventListener('pointerdown', (e) => {
+    dragging = true;
+    dragVel = 0;
+    lastPointerX = e.clientX;
+    lastPointerT = performance.now();
+    wrapper.style.cursor = 'grabbing';
+    if (wrapper.setPointerCapture) {
+      try { wrapper.setPointerCapture(e.pointerId); } catch (_) {}
+    }
+  });
+  window.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    const now = performance.now();
+    const dt = Math.max(0.001, (now - lastPointerT) / 1000);
+    dragVel = (e.clientX - lastPointerX) / dt;
+    lastPointerX = e.clientX;
+    lastPointerT = now;
+  });
+  const endDrag = () => {
+    dragging = false;
+    dragVel = 0;
+    wrapper.style.cursor = 'grab';
+  };
+  window.addEventListener('pointerup', endDrag);
+  window.addEventListener('pointercancel', endDrag);
 
   // Reduced-motion: don't auto-scroll. Park each track at x=0.
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -275,7 +280,18 @@ function initBrandsMarquee() {
     last = now;
     for (const s of states) {
       if (!s.halfWidth) continue;
-      s.currentVel += (s.targetVel - s.currentVel) * SMOOTHING;
+      // Constant idle velocity, accelerated only while click-dragging.
+      // Drag direction that matches the row's natural flow speeds it up;
+      // the opposite direction just holds at idle (never reverses/slows).
+      let target = s.idleVel;
+      if (dragging) {
+        const boost = s.isReverse ? dragVel : -dragVel;
+        target = s.idleVel + Math.min(Math.max(0, boost), 500);
+      }
+      s.targetVel = target;
+      // Snappier response while dragging, smooth settle on release.
+      const smooth = dragging ? 0.15 : SMOOTHING;
+      s.currentVel += (s.targetVel - s.currentVel) * smooth;
       if (s.isReverse) {
         s.x -= s.currentVel * dt;
         if (s.x <= 0) s.x += s.halfWidth;
