@@ -138,7 +138,9 @@ body {
 .page-loader {
   position: fixed;
   inset: 0;
-  background: var(--color-black);
+  /* 5th draft: loading screen background WHITE (was black), elements
+     dark — logo stays on hold for now per client. */
+  background: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -155,8 +157,10 @@ body {
 .page-loader__spinner {
   width: 40px;
   height: 40px;
-  border: 2px solid var(--color-gray-800);
-  border-top-color: var(--color-gold);
+  /* 5th draft: light track on the new white background; dark rotating
+     segment so the spinner reads as black-on-white (gold kept subtle). */
+  border: 2px solid #e6e6e6;
+  border-top-color: #2A2A2A;
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
