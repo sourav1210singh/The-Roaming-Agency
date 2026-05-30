@@ -2822,18 +2822,55 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .gallery-section {
   background: #2A2A2A;
-  padding-block: clamp(3rem, 6vw, 5rem);
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-  z-index: 1;
+  /* 5th draft: gallery is now a normal in-flow slider section (was a
+     pinned sticky 100vh). Removed sticky/height/overflow. */
+  padding-block: clamp(2.5rem, 5vw, 4rem);
 }
 
-.gallery-track {
+/* 5th draft slider: all slides stack in the SAME grid cell so the
+   container sizes to the collage and only the active slide shows
+   (opacity crossfade). Arrows sit just outside the collage edges. */
+.gallery-slider {
   position: relative;
-  will-change: transform;
+  display: grid;
 }
+.gallery-slide {
+  grid-area: 1 / 1;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.7s var(--ease-smooth), visibility 0.7s;
+  pointer-events: none;
+}
+.gallery-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.gallery-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 4;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 0;
+  background: rgba(255, 255, 255, 0.92);
+  color: #2A2A2A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.gallery-nav:hover {
+  transform: translateY(-50%) scale(1.08);
+  background: #ffffff;
+}
+.gallery-nav--prev { left: clamp(-22px, -1.5vw, -8px); }
+.gallery-nav--next { right: clamp(-22px, -1.5vw, -8px); }
 
 .gallery {
   display: grid;
@@ -2846,7 +2883,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
    compact so all 7 are visible at once on desktop (no scroll). */
 .gallery--masonry {
   grid-template-columns: repeat(6, 1fr);
-  grid-auto-rows: clamp(110px, 11.5vw, 178px);
+  /* 5th draft: smaller rows so the whole collage reads more compact. */
+  grid-auto-rows: clamp(88px, 9.2vw, 145px);
   grid-template-areas:
     "l1 l1 c  c  r1 r1"
     "l1 l1 c  c  r1 r1"
@@ -2869,7 +2907,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .gallery__item {
   position: relative;
   overflow: hidden;
-  border-radius: var(--radius-sm);
+  /* 5th draft: rounder picture corners per client. */
+  border-radius: clamp(12px, 1.4vw, 20px);
   cursor: default;  /* explicitly not clickable */
 }
 
@@ -3255,7 +3294,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      phase 2 of the reveal (gallery already showed all photos via
      internal scroll, now holds at last frame while contact rises). */
   z-index: 2;
-  margin-top: -100vh;
+  /* 5th draft: gallery no longer pins, so the -100vh rise-over is removed. */
 }
 
 /* ── INFINITE MARQUEE HEADING ──────────────────────────────────── */

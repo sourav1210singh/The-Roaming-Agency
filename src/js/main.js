@@ -84,69 +84,42 @@ document.addEventListener('DOMContentLoaded', () => {
                 frame". Contact (margin-top: -100vh + z-index:2) rises
                 over the pinned gallery from the viewport bottom to top.
    ────────────────────────────────────────────── */
+/* 5th draft: the gallery is now a SLIDER (carousel). Crossfade between
+   collage slides, auto-advance every 20s, prev/next arrows. The old
+   pinned-scroll masonry was removed (see HTML + CSS notes). */
 function initGalleryReveal() {
-  // Phase 2 (responsive): on phones/tablets the gallery is a normal
-  // scrolling masonry - skip the JS pin so it can't set the inline
-  // pin height / track transform that the <=1024 CSS overrides.
-  if (window.matchMedia('(max-width: 1024px)').matches) return;
-  const stack    = document.getElementById('galleryPinStack');
-  const section  = document.querySelector('.gallery-section');
-  const track    = document.getElementById('galleryTrack');
-  const masonry  = track && track.querySelector('.gallery');
-  if (!stack || !section || !track || !masonry) return;
+  const slider = document.getElementById('gallerySlider');
+  if (!slider) return;
+  const slides = Array.from(slider.querySelectorAll('.gallery-slide'));
+  if (slides.length < 2) return; // nothing to slide between
 
-  let vh, contentHeight, internalScroll, pinDuration, raf = 0;
+  const prevBtn = document.getElementById('galleryPrev');
+  const nextBtn = document.getElementById('galleryNext');
+  const AUTOPLAY_MS = 20000; // client: change every 20 seconds
 
-  function measure() {
-    vh = window.innerHeight;
-    // Measure the masonry's own content height + the section's vertical
-    // padding so the track has room to fully expose the last photo row.
-    const cs = getComputedStyle(section);
-    const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
-    contentHeight = masonry.scrollHeight + padY;
-    // How many px we need to translate to fully expose the bottom.
-    // If the gallery already fits in 1 viewport, internalScroll = 0
-    // and Phase 1 collapses to nothing - Phase 2 (panel reveal) is
-    // the only phase. Either way, the contract is the same.
-    internalScroll = Math.max(0, contentHeight - vh);
-    // Pin runs for: internal scroll + 1 viewport (the panel reveal).
-    pinDuration = internalScroll + vh;
-    // Sticky's pin range = stack.offsetHeight - vh. We want that to
-    // equal pinDuration, so stack.offsetHeight = pinDuration + vh.
-    stack.style.height = (pinDuration + vh) + 'px';
+  let index = slides.findIndex(s => s.classList.contains('is-active'));
+  if (index < 0) index = 0;
+
+  function show(i) {
+    index = (i + slides.length) % slides.length;
+    slides.forEach((s, n) => s.classList.toggle('is-active', n === index));
   }
 
-  function update() {
-    raf = 0;
-    const rect = stack.getBoundingClientRect();
-    const max  = stack.offsetHeight - vh;
-    if (max <= 0) return;
-    // How far through the pin range we are (0 to 1).
-    const progress = Math.max(0, Math.min(1, -rect.top / max));
-    // Phase 1 ends at internalScroll / pinDuration of the progress.
-    const phase1End = internalScroll / pinDuration;
-    let translateY;
-    if (phase1End <= 0 || progress >= phase1End) {
-      translateY = internalScroll;     // Phase 2 - hold at last frame
-    } else {
-      const p1 = progress / phase1End; // 0 to 1 within Phase 1
-      translateY = p1 * internalScroll;
-    }
-    track.style.transform = 'translate3d(0, ' + (-translateY) + 'px, 0)';
+  let timer = null;
+  function restart() {
+    clearInterval(timer);
+    timer = setInterval(() => show(index + 1), AUTOPLAY_MS);
   }
 
-  function onScroll() {
-    if (!raf) raf = requestAnimationFrame(update);
-  }
+  if (nextBtn) nextBtn.addEventListener('click', () => { show(index + 1); restart(); });
+  if (prevBtn) prevBtn.addEventListener('click', () => { show(index - 1); restart(); });
 
-  measure();
-  update();
-  window.addEventListener('scroll', onScroll, { passive: true });
-  window.addEventListener('resize', () => { measure(); update(); });
-  // Re-measure once each lazy image lands - masonry height can grow.
-  masonry.querySelectorAll('img').forEach(img => {
-    if (!img.complete) img.addEventListener('load', () => { measure(); update(); }, { once: true });
-  });
+  // Pause autoplay while hovering, resume on leave.
+  slider.addEventListener('mouseenter', () => clearInterval(timer));
+  slider.addEventListener('mouseleave', restart);
+
+  show(index);
+  restart();
 }
 
 

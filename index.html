@@ -917,37 +917,65 @@
        internally, then for the final viewport-worth of scroll the
        gallery stays at its "last frame" while the contact + footer
        panel rises over it. -->
-  <div class="gallery-pin-stack" id="galleryPinStack">
-    <section class="section gallery-section" id="gallery">
-      <div class="container">
-        <div class="gallery-track" id="galleryTrack">
-          <div class="gallery gallery--masonry reveal">
-            <div class="gallery__item gallery__item--tall">
-              <img src="src/assets/images/gallery/client-01.jpg" alt="Live performance at a luxury wedding" loading="lazy">
-            </div>
-            <div class="gallery__item">
-              <img src="src/assets/images/gallery/client-02.jpg" alt="Guests celebrating with the roaming band" loading="lazy">
-            </div>
-            <div class="gallery__item">
-              <img src="src/assets/images/gallery/client-03.jpg" alt="Musicians mingling with the guests" loading="lazy">
-            </div>
-            <div class="gallery__item gallery__item--tall">
-              <img src="src/assets/images/gallery/client-04.jpg" alt="Roaming band at a destination wedding" loading="lazy">
-            </div>
-            <div class="gallery__item">
-              <img src="src/assets/images/gallery/client-05.jpg" alt="Live music at a French Riviera event" loading="lazy">
-            </div>
-            <div class="gallery__item">
-              <img src="src/assets/images/gallery/client-06.jpg" alt="The band performing for a lively crowd" loading="lazy">
-            </div>
-            <div class="gallery__item gallery__item--tall">
-              <img src="src/assets/images/gallery/client-07.jpg" alt="Roaming musicians at sunset" loading="lazy">
-            </div>
+  <!-- 5th draft: Gallery is now a SLIDER (carousel). Each slide is one
+       collage; it auto-advances every 20s and has prev/next arrows.
+       The old pinned-scroll masonry + .gallery-pin-stack wrapper were
+       removed (contact's margin-top:-100vh that relied on the pin is
+       reset to 0 in CSS). -->
+  <section class="section gallery-section" id="gallery">
+    <div class="container">
+      <div class="gallery-slider" id="gallerySlider">
+
+        <!-- Slide 1 - official client photos -->
+        <div class="gallery-slide is-active">
+          <div class="gallery gallery--masonry">
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-01.jpg" alt="Live performance at a luxury wedding" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-02.jpg" alt="Guests celebrating with the roaming band" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-03.jpg" alt="Musicians mingling with the guests" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-04.jpg" alt="Roaming band at a destination wedding" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-05.jpg" alt="Live music at a French Riviera event" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-06.jpg" alt="The band performing for a lively crowd" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/client-07.jpg" alt="Roaming musicians at sunset" loading="lazy"></div>
           </div>
         </div>
+
+        <!-- Slide 2 -->
+        <div class="gallery-slide">
+          <div class="gallery gallery--masonry">
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-01.jpg" alt="Roaming band performance" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-02.jpg" alt="Wedding celebration" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-03.jpg" alt="Live music event" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-04.jpg" alt="Band with guests" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-05.jpg" alt="Evening performance" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-06.jpg" alt="Musicians on stage" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-07.jpg" alt="Celebration crowd" loading="lazy"></div>
+          </div>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="gallery-slide">
+          <div class="gallery gallery--masonry">
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-08.jpg" alt="Roaming band performance" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-09.jpg" alt="Wedding celebration" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-10.jpg" alt="Live music event" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-11.jpg" alt="Band with guests" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-12.jpg" alt="Evening performance" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-13.jpg" alt="Musicians on stage" loading="lazy"></div>
+            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-14.jpg" alt="Celebration crowd" loading="lazy"></div>
+          </div>
+        </div>
+
+        <!-- Prev / Next arrows -->
+        <button class="gallery-nav gallery-nav--prev" id="galleryPrev" aria-label="Previous photos" type="button">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <button class="gallery-nav gallery-nav--next" id="galleryNext" aria-label="Next photos" type="button">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
 
   <!-- ===== FAQ moved to dedicated page (revision round 2, item 1.2) =====
        Client asked for FAQ as its own page rather than a homepage section,
