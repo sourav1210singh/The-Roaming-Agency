@@ -1630,6 +1630,11 @@ body.is-header-hidden .hero-center-title {
   line-height: 1.7;
   /* 3rd draft: a bit more horizontal room for the title/desc block. */
   max-width: 460px;
+  /* 5th draft: descriptions are dynamic (different length per band), which
+     used to push the "Book Your Band" button up/down. Reserve enough space
+     for the LONGEST description (Brotherockers, ~6 lines @1440 = 147px) so
+     the button stays at a FIXED position no matter which band is active. */
+  min-height: clamp(8.5rem, 11vw, 10.5rem);
 }
 
 /* Right column - viewport masks the list to a single band-row tall.
