@@ -1499,10 +1499,10 @@ body.is-header-hidden .hero-center-title {
    No line + dot indicator - gold colour alone signals the active band. */
 .band-selector {
   position: relative;
-  /* ~one viewport of scroll budget per band (11 bands ≈ 11 stops).
-     Tuned conservatively at 500vh so the entire pin sequence is digestible
-     on a single mouse-wheel sweep. */
-  height: 500vh;
+  /* 5th draft: runway trimmed 500vh -> 350vh so cycling all 11 bands
+     takes ~1.6x less scroll (was ~3.5 wheel-notches/band -> ~2.2). The
+     JS reads section.offsetHeight for progress, so it auto-adapts. */
+  height: 350vh;
   background: var(--color-black);
 }
 
