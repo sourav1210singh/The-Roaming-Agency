@@ -1187,22 +1187,24 @@ function initGlobeAnimation() {
   // every card that pops on the globe feels distinct - amra.com-style variety
   // without using external platform logos. Colours are hand-picked from a
   // luxury palette that complements the gold brand accent.
-  /* Client mockup: only 3 cards on the globe, at fixed screen
-     positions matching the reference image - Monaco (upper-left of
-     globe), Dubai (mid-right), Lake Como (lower-right).
-     Cards project at CARD_ROT=-30 (static), so these lat/lon values
-     are NOT real-world coordinates - they're chosen so each card
-     lands at the right SCREEN position on the un-tilted projection.
-     Each (lat, lon) -> screen (x, y) via project() below.
-     Client tweak (round 3): Monaco a touch more left; Dubai down a
-     bit + slight left; Lake Como unchanged.
-       Monaco   lat=30,  lon=200 -> (-0.85, -0.50) further left still
-       Dubai    lat=10,  lon=140 -> (-0.34, -0.17) shifted back right
-       Lake Como lat=-15, lon=125 -> (-0.08,  0.26) unchanged */
+  /* 5th draft: locations are now PINNED to the globe and rotate with it
+     (grab-to-rotate). So lat/lon are spread AROUND the sphere (lon 0..330)
+     with varied latitudes - as the user grabs and spins the globe,
+     different cities rotate into the front view. 12 cities seed the
+     "final version" preview the client asked for. */
   const cities = [
-    { name: 'Monaco',    country: 'MONACO', lat:  30, lon: 200, img: 'gallery-07.jpg', icon: '🎧', color: '#722f37' },
-    { name: 'Dubai',     country: 'UAE',    lat:  10, lon: 140, img: 'gallery-17.jpg', icon: '🎙️', color: '#c77d6b' },
-    { name: 'Lake Como', country: 'ITALY',  lat: -15, lon: 125, img: 'gallery-13.jpg', icon: '🎶', color: '#2e7d4a' },
+    { name: 'Monaco',       lat:  38, lon:   0,  img: 'gallery-07.jpg' },
+    { name: 'Dubai',        lat:  12, lon:  30,  img: 'gallery-17.jpg' },
+    { name: 'Lake Como',    lat:  30, lon:  60,  img: 'gallery-13.jpg' },
+    { name: 'Paris',        lat:  -5, lon:  90,  img: 'gallery-03.jpg' },
+    { name: 'London',       lat:  22, lon: 120,  img: 'gallery-05.jpg' },
+    { name: 'Saint-Tropez', lat: -20, lon: 150,  img: 'gallery-21.jpg' },
+    { name: 'Rome',         lat:   8, lon: 180,  img: 'gallery-11.jpg' },
+    { name: 'Barcelona',    lat:  35, lon: 210,  img: 'gallery-09.jpg' },
+    { name: 'Santorini',    lat: -12, lon: 240,  img: 'gallery-15.jpg' },
+    { name: 'Geneva',       lat:  18, lon: 270,  img: 'gallery-19.jpg' },
+    { name: 'Marrakech',    lat: -25, lon: 300,  img: 'gallery-23.jpg' },
+    { name: 'Riyadh',       lat:   0, lon: 330,  img: 'gallery-27.jpg' },
   ];
 
   // Per client revision: every card uses the SAME black map-pin icon and
@@ -1244,160 +1246,111 @@ function initGlobeAnimation() {
   // staggered queue / FRONT_ZONES / activate-one-card lifecycle that
   // was here before has been removed entirely.
 
-  function project(lat, lon, rotY) {
-    const phi = (90 - lat) * Math.PI / 180;
-    const theta = (lon + rotY) * Math.PI / 180;
-    const x3d = R * Math.sin(phi) * Math.cos(theta);
-    const y3d = -R * Math.cos(phi);
-    const z3d = R * Math.sin(phi) * Math.sin(theta);
-    return { x: x3d, y: y3d, z: z3d, visible: z3d > -R * 0.6 };
-  }
+  // 5th draft: cards are PINNED to the sphere and projected through the
+  // SAME transform as the wireframe (globe.quaternion + camera), so they
+  // sit exactly on the tilted, rotating globe. Reusable vector to avoid
+  // per-frame allocations.
+  const _v = new THREE.Vector3();
 
   let currentRotY = -30;
   let targetRotY = -30;
-  /* 3rd draft: the city photos/buttons must NOT rotate with the globe
-     (they "slipped away" - orbiting out from under the cursor so you
-     could never click one). Their screen position is now locked to a
-     FIXED projection angle, so the wireframe still spins smoothly
-     (client likes that) while the location cards stay put + clickable. */
-  const CARD_ROT = -30;
+
+  // Track the hovered card so its photo can be lifted above every other
+  // marker (client: when a photo appears behind another card's pin, the
+  // photo should come out on top).
+  let hoveredCard = null;
+  cardEls.forEach((card) => {
+    card.addEventListener('mouseenter', () => { hoveredCard = card; });
+    card.addEventListener('mouseleave', () => { if (hoveredCard === card) hoveredCard = null; });
+  });
 
   function animate() {
     currentRotY += (targetRotY - currentRotY) * 0.12;
     globe.rotation.y = currentRotY * Math.PI / 180;
+    globe.updateMatrixWorld();
 
     resizeRenderer();
     renderer.render(scene, camera);
 
-    const containerRect = container.getBoundingClientRect();
-    const cw = containerRect.width;
-    const ch = containerRect.height;
-
-    // Sphere occupies ~81% of canvas width (derived from Three.js camera at z=3,
-    // FOV=45°, sphere radius=1). We scale card placement to the actual sphere
-    // silhouette so cards never drift off into empty canvas area.
-    const SPHERE_SCREEN_RATIO = 0.81;
-    const sphereRadiusPx = (Math.min(cw, ch) / 2) * SPHERE_SCREEN_RATIO;
-    const centerX = cw / 2;
-    const centerY = ch / 2;
+    const cw = container.clientWidth;
+    const ch = container.clientHeight;
 
     cardEls.forEach((card) => {
       const lat = parseFloat(card.dataset.lat);
       const lon = parseFloat(card.dataset.lon);
-      // Fixed angle (NOT currentRotY) so cards stay put while the
-      // wireframe globe rotates behind them - clickable, not "rotated".
-      const p = project(lat, lon, CARD_ROT);
+      const phi = (90 - lat) * Math.PI / 180;
+      const lonRad = lon * Math.PI / 180;
+      // Local point on the unit sphere, rotated by the globe's current
+      // orientation (50deg forward tilt + currentRotY spin).
+      _v.set(
+        Math.sin(phi) * Math.cos(lonRad),
+        Math.cos(phi),
+        Math.sin(phi) * Math.sin(lonRad)
+      ).applyQuaternion(globe.quaternion);
 
-      // Position card center relative to sphere center, scaled to actual
-      // sphere px radius.
-      const px = centerX + (p.x / R) * sphereRadiusPx;
-      const py = centerY + (p.y / R) * sphereRadiusPx;
-      const zNorm = (p.z + R) / (R * 2);  // 0 = back of globe, 1 = front
+      const worldZ = _v.z;             // > 0 = front hemisphere (toward camera)
+      const zNorm = (worldZ + 1) / 2;  // 0 = back, 1 = front
 
-      // Normalized distance from sphere center in sphere-radius units
-      // (0 = centre, 1 = silhouette edge).
-      const distFromCenter = Math.sqrt(p.x * p.x + p.y * p.y) / R;
+      // Project to screen (NDC -> container pixels) the same way Three.js
+      // renders the wireframe, so the pin lands exactly on the surface.
+      const ndc = _v.clone().project(camera);
+      const px = (ndc.x * 0.5 + 0.5) * cw;
+      const py = (-ndc.y * 0.5 + 0.5) * ch;
 
-      // EDGE FADE - soften cards near the sphere rim so they don't read
-      // as "floating outside" the globe. Client tweak: threshold pushed
-      // outward (0.78->0.92, 0.94->0.99) so cards placed near the
-      // silhouette (e.g. Monaco at ~0.83) stay fully solid like the
-      // rest - only true rim-grazing positions fade now.
-      const edgeStart = 0.99;
-      const edgeEnd   = 1.05;
-      const edgeFactor = distFromCenter < edgeStart
-        ? 1
-        : Math.max(0, 1 - (distFromCenter - edgeStart) / (edgeEnd - edgeStart));
-      const edgeEase = edgeFactor * edgeFactor * (3 - 2 * edgeFactor);
-
-      // FRONT/BACK OPACITY - cards on the front hemisphere stay fully
-      // visible; back-of-globe cards fade out smoothly. The transition
-      // band (0.45 → 0.55) sits right at the silhouette so a city
-      // rotating to the back fades, not snaps. Multiplied by edge fade
-      // for rim softening.
-      const frontOpacity =
+      // Front/back fade: solid on the front, fades through the silhouette,
+      // hidden once it rotates to the back.
+      const cardOpacity =
         zNorm >= 0.55 ? 1 :
         zNorm <= 0.45 ? 0 :
         (zNorm - 0.45) / 0.10;
-      const cardOpacity = frontOpacity * edgeEase;
 
-      // Depth-based scale - front cards larger, back cards a touch
-      // smaller. Subtle (1.0 base, +0.25 at full front) so we don't
-      // pulse the cards as the globe spins. Client tweak: overall card
-      // size -5% (× 0.95).
+      // Depth scale - front cards a touch larger.
       const cardScale = (0.85 + zNorm * 0.30) * 0.95;
 
       card.style.left = px + 'px';
       card.style.top = py + 'px';
-      // Counter-rotate cards by -20deg so they stay visually HORIZONTAL
-      // even though the .globe-container parent is CSS-rotated 20deg
-      // for that right-side tilted-globe look. Keeps the city pill
-      // (icon + name) readable as a flat horizontal label, not slanted.
+      // Counter-rotate -20deg to cancel the container's CSS tilt so the
+      // pill reads as a flat horizontal label.
       card.style.transform = `translate(-50%, -50%) scale(${cardScale}) rotate(-20deg)`;
       card.style.opacity = cardOpacity;
-      card.style.zIndex = Math.round(p.z + R);
+      // Hovered card jumps to the very top (its photo covers other pins);
+      // otherwise depth-sorted by worldZ.
+      card.style.zIndex = (card === hoveredCard) ? 9999 : Math.round((worldZ + 1) * 500);
       card.style.pointerEvents = cardOpacity > 0.5 ? 'auto' : 'none';
-      // Light blur on cards still rotating off the front side - front
-      // cards stay sharp, no blur applied at all when zNorm >= 0.7.
-      card.style.filter = zNorm >= 0.7
-        ? 'none'
-        : `blur(${(0.7 - zNorm) * 3}px)`;
+      card.style.filter = zNorm >= 0.7 ? 'none' : `blur(${(0.7 - zNorm) * 3}px)`;
     });
 
     requestAnimationFrame(animate);
   }
   requestAnimationFrame(animate);
 
-  /* Globe rotation - DELTA-driven (drag-to-rotate feel).
-     Client tweak round 3:
-       Previous round used ABSOLUTE cursor-X -> rotation mapping with
-       a fixed ±180° range and a snap-back-to-idle on mouseleave. Two
-       problems with that model:
-         1. Mouse never quite reached container edges in practice (the
-            visible sphere is ~81% of container width), so true full
-            360° was rare.
-         2. Mouseleave forced the globe back to -30° idle, losing the
-            user's rotation work - felt unnatural.
-       New model: each mousemove computes the cursor's pixel DELTA
-       since the last frame and adds proportional rotation. This means:
-         • Continuous mouse motion in one direction keeps rotating
-           the globe indefinitely (no 360° cap - user can spin past
-           and past).
-         • Mouse LEFT motion -> surface scrolls LEFT (mouse direction
-           matches surface direction).
-         • Mouseleave does NOT reset rotation - globe holds whatever
-           angle the cursor last left it at.
-         • Mouse re-entering the container resumes deltas from the new
-           position with no snap. */
-  let lastMouseX = null;
-  const SENSITIVITY = 0.7; // degrees of rotation per pixel of cursor movement
+  /* 5th draft: GRAB-to-rotate. The globe spins only while the user
+     click-drags it (cursor grab -> grabbing), and the location cards are
+     pinned to the sphere so they orbit with it. When nobody is dragging
+     the globe holds still, so hover-photos stay readable and the cards
+     are easy to point at. No idle auto-spin (client: "grab to rotate"). */
+  let dragging = false;
+  let lastX = 0;
+  const SENSITIVITY = 0.6; // degrees of rotation per pixel dragged
+  container.style.cursor = 'grab';
 
-  container.addEventListener('mouseenter', (e) => {
-    // Seed lastMouseX so the first move computes a clean 0 delta
-    // from the entry point - no jump.
-    lastMouseX = e.clientX;
+  container.addEventListener('pointerdown', (e) => {
+    dragging = true;
+    lastX = e.clientX;
+    container.style.cursor = 'grabbing';
   });
-
-  container.addEventListener('mousemove', (e) => {
-    if (lastMouseX === null) lastMouseX = e.clientX;
-    const dx = e.clientX - lastMouseX;
-    // Direction mapping (THREE.js right-handed coords):
-    //   rotation.y INCREASING -> globe's +X side rotates toward -Z
-    //     (into the screen) -> visible surface scrolls LEFT
-    //   rotation.y DECREASING -> visible surface scrolls RIGHT
-    // User wants mouse direction to MATCH surface direction:
-    //   Mouse LEFT  (dx<0) -> surface scroll LEFT  -> rotation.y INCREASE
-    //   Mouse RIGHT (dx>0) -> surface scroll RIGHT -> rotation.y DECREASE
-    // Hence the MINUS:
+  window.addEventListener('pointermove', (e) => {
+    if (!dragging) return;
+    var dx = e.clientX - lastX;
     targetRotY -= dx * SENSITIVITY;
-    lastMouseX = e.clientX;
+    lastX = e.clientX;
   });
-
-  container.addEventListener('mouseleave', () => {
-    // Reset the delta tracker but DON'T touch targetRotY - globe holds
-    // its last position. The next mouseenter will re-seed lastMouseX.
-    lastMouseX = null;
-  });
+  var endGlobeDrag = function () {
+    dragging = false;
+    container.style.cursor = 'grab';
+  };
+  window.addEventListener('pointerup', endGlobeDrag);
+  window.addEventListener('pointercancel', endGlobeDrag);
 }
 
 
