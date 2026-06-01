@@ -1,191 +1,224 @@
 /* ============================================================================
-   BLOG PAGE - masonry grid of articles
-   ============================================================================
-   Per client mockup: light grey panel, top header (logo + nav), then a
-   masonry grid of article cards. Each card has an image, a bold sans
-   title, an em-dash divider, and an italic body excerpt. Uses CSS
-   multi-column for the masonry layout - best cross-browser support and
-   it handles variable card heights natively without JavaScript.
+   BLOG + ARTICLE pages (5th draft - rebuilt to the Canva mockups)
+   ----------------------------------------------------------------------------
+   Dark editorial theme. Blog = hero + 3 scroll-reveal featured banners
+   (joshuas.io behaviour) + "Latest Articles" + "Wedding Highlights" card
+   rows. Article = split hero + editorial body with reveal-on-scroll images
+   + pull-quote + "You might also like" grid (auwa.life behaviour).
+   Reveal uses the shared `.reveal` / `.is-visible` classes (style.css)
+   toggled by src/js/blog-article.js (IntersectionObserver).
    ============================================================================ */
 
-/* The page itself rides on the band-page.css style.css base for the
-   header / WhatsApp / language toggle, then adds the blog-only chrome. */
-body {
-  background: #f0f0f0;
-  color: #2A2A2A;
+body.blog-body {
+  background: #2A2A2A;
+  color: #ffffff;
 }
 
-/* ── Section frame ────────────────────────────────────────────── */
-.blog {
-  padding: clamp(6rem, 10vw, 9rem) 0 clamp(4rem, 8vw, 6rem);
-  background: #f0f0f0;
-}
+.hero-center-title { display: none !important; }
 
-.blog__container {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 0 clamp(1.25rem, 4vw, 3rem);
+/* ===== BLOG HERO ===== */
+.blog2-hero {
+  position: relative;
+  height: clamp(44vh, 58vh, 68vh);
+  overflow: hidden;
 }
-
-/* ── Page header (above the grid) ────────────────────────────── */
-.blog__header {
-  max-width: 56ch;
-  margin: 0 0 clamp(2.5rem, 5vw, 4rem);
+.blog2-hero__img {
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center 35%;
+  display: block;
 }
-
-.blog__eyebrow {
+.blog2-hero__overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(42,42,42,0.88));
+}
+.blog2-hero__caption {
+  position: absolute; left: 0; right: 0;
+  bottom: clamp(2rem, 5vw, 4rem);
+  text-align: center; padding: 0 1rem;
+}
+.blog2-hero__eyebrow {
   display: block;
   font-family: var(--font-body);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #c8a560;
-  margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
+  font-size: 0.8rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: #dec37c;
+  margin-bottom: 0.6rem;
+}
+.blog2-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: var(--fw-medium);
+  margin: 0; color: #fff;
 }
 
-.blog__title {
-  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-size: clamp(2rem, 4.4vw, 3.5rem);
-  font-weight: 800;
-  line-height: 1.05;
-  letter-spacing: -0.02em;
-  margin: 0 0 clamp(0.75rem, 1.5vw, 1.25rem);
-  color: #2A2A2A;
+/* ===== FEATURED BANNERS (reveal on scroll) ===== */
+.blog2-featured {
+  max-width: 1100px;
+  margin: clamp(3rem, 6vw, 5rem) auto;
+  padding: 0 var(--container-padding);
+  display: flex; flex-direction: column;
+  gap: clamp(1.25rem, 2.5vw, 2rem);
 }
+.feature-banner {
+  position: relative; display: block;
+  height: clamp(220px, 34vw, 420px);
+  border-radius: 16px; overflow: hidden;
+  color: #fff; text-decoration: none;
+}
+.feature-banner__img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.6s var(--ease-smooth);
+}
+.feature-banner:hover .feature-banner__img { transform: scale(1.04); }
+.feature-banner::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.05) 55%);
+}
+.feature-banner__label {
+  position: absolute; top: 1rem; left: 1.25rem; z-index: 2;
+  font-size: 0.7rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: #dec37c;
+}
+.feature-banner__body {
+  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+}
+.feature-banner__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 3vw, 2.6rem);
+  font-weight: var(--fw-medium);
+  line-height: 1.1; margin: 0 0 0.75rem; max-width: 20ch;
+}
+.feature-banner__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
-.blog__lead {
+/* chips */
+.chip {
+  display: inline-block;
   font-family: var(--font-body);
-  font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
-  line-height: 1.6;
-  color: #5a5a5a;
-  margin: 0;
+  font-size: 0.65rem; letter-spacing: 0.1em;
+  text-transform: uppercase; color: #fff;
+  border: 1px solid rgba(255,255,255,0.4);
+  border-radius: 999px; padding: 0.28rem 0.7rem;
 }
 
-/* ── Masonry grid (CSS multi-column) ─────────────────────────────
-   `column-count` decides how many columns; `column-gap` sets the
-   horizontal gap. Each .blog-card has `break-inside: avoid` so a
-   card never gets split between columns. The `inline-block + width
-   100%` quirk locks the card as a single layout box (some browsers
-   otherwise split content). */
-.blog__masonry {
-  column-count: 4;
-  column-gap: clamp(1rem, 2vw, 1.75rem);
+/* ===== CARD ROWS ===== */
+.blog2-row { padding: clamp(1.5rem, 3vw, 2.5rem) 0; }
+.blog2-row__inner {
+  max-width: 1200px; margin: 0 auto;
+  padding: 0 var(--container-padding);
 }
+.blog2-row__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.3rem, 2.4vw, 2rem);
+  font-weight: var(--fw-medium); color: #fff;
+  margin: 0 0 clamp(1.25rem, 2.5vw, 2rem);
+}
+.blog2-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: clamp(1rem, 2vw, 1.6rem);
+}
+.post-card { display: block; color: inherit; text-decoration: none; }
+.post-card__media {
+  aspect-ratio: 4 / 3; border-radius: 10px;
+  overflow: hidden; margin-bottom: 0.85rem; background: #3a3a3a;
+}
+.post-card__media img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.5s var(--ease-smooth);
+}
+.post-card:hover .post-card__media img { transform: scale(1.05); }
+.post-card__tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem; }
+.post-card__title {
+  font-family: var(--font-heading);
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  font-weight: var(--fw-medium); line-height: 1.25;
+  color: #fff; margin: 0 0 0.4rem;
+}
+.post-card__date {
+  font-family: var(--font-body);
+  font-size: 0.78rem; color: rgba(255,255,255,0.55);
+}
+@media (max-width: 980px) { .blog2-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 520px) { .blog2-grid { grid-template-columns: 1fr; } }
 
-@media (max-width: 1100px) {
-  .blog__masonry { column-count: 3; }
+/* ===== ARTICLE PAGE ===== */
+.article { padding-top: clamp(5.5rem, 9vw, 8rem); }
+.article-hero {
+  max-width: 1150px; margin: 0 auto clamp(2rem, 4vw, 3.5rem);
+  padding: 0 var(--container-padding);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 4vw, 4rem); align-items: center;
+}
+.article-hero__media {
+  border-radius: 14px; overflow: hidden; aspect-ratio: 4 / 5;
+}
+.article-hero__media img { width: 100%; height: 100%; object-fit: cover; }
+.article-hero__date {
+  display: block; font-family: var(--font-body);
+  font-size: 0.8rem; letter-spacing: 0.1em;
+  color: #dec37c; margin-bottom: 0.8rem;
+}
+.article-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 3.6vw, 3.4rem);
+  font-weight: var(--fw-medium); line-height: 1.1;
+  color: #fff; margin: 0 0 1rem;
+}
+.article-hero__sub {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  font-weight: var(--fw-light);
+  color: rgba(255,255,255,0.7); line-height: 1.5;
+  margin: 0 0 1.25rem;
+}
+.article-hero__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+.article-body {
+  max-width: 680px; margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+.article-body p {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.1vw, 1.15rem);
+  font-weight: var(--fw-light); line-height: 1.85;
+  color: rgba(255,255,255,0.82); margin: 0 0 1.5rem;
+}
+.article-body__lead {
+  font-size: clamp(1.1rem, 1.3vw, 1.3rem) !important;
+  color: #ffffff !important;
+  font-weight: var(--fw-regular) !important;
+}
+.article-figure {
+  margin: clamp(2rem, 4vw, 3.5rem) 0;
+  border-radius: 14px; overflow: hidden;
+}
+.article-figure img { width: 100%; display: block; }
+.article-quote {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.4vw, 2rem);
+  font-weight: var(--fw-medium); line-height: 1.3;
+  color: #fff; margin: clamp(2rem, 4vw, 3rem) 0;
+  padding-left: 1.25rem; border-left: 3px solid #dec37c;
+}
+.article-byline {
+  font-family: var(--font-body) !important;
+  font-size: 0.8rem !important; letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.5) !important;
+  margin-top: clamp(2rem, 4vw, 3rem) !important;
+}
+.article-related {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  padding-top: clamp(2rem, 4vw, 3rem);
 }
 @media (max-width: 800px) {
-  .blog__masonry { column-count: 2; }
-}
-@media (max-width: 520px) {
-  .blog__masonry { column-count: 1; }
+  .article-hero { grid-template-columns: 1fr; }
+  .article-hero__media { aspect-ratio: 16 / 10; }
 }
 
-/* ── Card ─────────────────────────────────────────────────────── */
-.blog-card {
-  break-inside: avoid;
-  margin-bottom: clamp(1rem, 2vw, 1.75rem);
-  width: 100%;
-  display: inline-block;     /* keeps card as a single layout unit */
-  background: transparent;   /* per mockup - no card chrome, just spacing */
-  /* Subtle reveal - fade up slightly on first paint. Skipped under
-     reduced-motion. */
-  opacity: 0;
-  transform: translateY(12px);
-  animation: blog-card-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-/* Stagger reveals so the page feels alive when it loads. */
-.blog-card:nth-child(1)  { animation-delay: 0.05s; }
-.blog-card:nth-child(2)  { animation-delay: 0.10s; }
-.blog-card:nth-child(3)  { animation-delay: 0.15s; }
-.blog-card:nth-child(4)  { animation-delay: 0.20s; }
-.blog-card:nth-child(5)  { animation-delay: 0.25s; }
-.blog-card:nth-child(6)  { animation-delay: 0.30s; }
-.blog-card:nth-child(7)  { animation-delay: 0.35s; }
-.blog-card:nth-child(8)  { animation-delay: 0.40s; }
-.blog-card:nth-child(9)  { animation-delay: 0.45s; }
-.blog-card:nth-child(10) { animation-delay: 0.50s; }
-.blog-card:nth-child(11) { animation-delay: 0.55s; }
-.blog-card:nth-child(12) { animation-delay: 0.60s; }
-
-@keyframes blog-card-fade-up {
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .blog-card { opacity: 1; transform: none; animation: none; }
-}
-
-.blog-card__link {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-/* ── Card image ──────────────────────────────────────────────── */
-.blog-card__image {
-  display: block;
-  width: 100%;
-  /* Default aspect - ~3:4 portrait. Modifier classes below tweak. */
-  aspect-ratio: 4 / 3;
-  object-fit: cover;
-  border-radius: 14px;
-  margin-bottom: clamp(0.75rem, 1.5vw, 1.1rem);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-              filter 0.4s ease;
-}
-
-.blog-card__image--tall  { aspect-ratio: 3 / 4; }   /* taller portrait */
-.blog-card__image--wide  { aspect-ratio: 16 / 10; } /* wider landscape */
-
-.blog-card__link:hover .blog-card__image {
-  transform: scale(1.02);
-  filter: brightness(0.95);
-}
-
-/* ── Card title ──────────────────────────────────────────────── */
-.blog-card__title {
-  font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
-  font-size: clamp(1rem, 1.15vw, 1.18rem);
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
-  color: #2A2A2A;
-  margin: 0 0 0.4rem;
-}
-
-/* ── Em-dash divider - the small "-" between title and excerpt */
-.blog-card__divider {
-  display: block;
-  font-size: 0.85rem;
-  color: #9a9a9a;
-  margin: 0 0 0.55rem;
-  user-select: none;
-}
-
-/* ── Excerpt body ────────────────────────────────────────────── */
-.blog-card__excerpt {
-  font-family: var(--font-body);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: #6a6a6a;
-  margin: 0;
-}
-
-/* ── Footer (minimal) ────────────────────────────────────────── */
+/* ===== Footer back link ===== */
 .footer__back {
-  color: #c8a560;
-  font-size: 0.85rem;
-  text-decoration: none;
-  transition: color 0.2s ease;
+  color: #c8a560; font-size: 0.85rem;
+  text-decoration: none; transition: color 0.2s ease;
 }
 .footer__back:hover { color: #f2dca3; }
-
-/* On the blog page, override the home-style hero-center title element
-   in case any global CSS keeps it absolutely positioned and breaks the
-   grid layout. The blog page doesn't use a hero-center title at all. */
-.hero-center-title { display: none !important; }
