@@ -466,3 +466,48 @@
     grid-column: span 1;
   }
 }
+
+
+/* ===== FOLLOW US ON INSTAGRAM (5th draft - static grid + Follow button) ===== */
+.insta-feed { background: #ffffff; text-align: center; }
+.insta-feed__title {
+  font-family: var(--font-accent);
+  font-style: italic;
+  font-weight: var(--fw-regular);
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  color: #2A2A2A;
+  margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
+}
+.insta-feed__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(0.4rem, 1vw, 0.75rem);
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.insta-feed__item {
+  position: relative; display: block; aspect-ratio: 1 / 1;
+  overflow: hidden; border-radius: 6px; background: #eeeeee;
+}
+.insta-feed__item img {
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform 0.4s var(--ease-smooth);
+}
+.insta-feed__item:hover img { transform: scale(1.06); }
+.insta-feed__icon {
+  position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; color: #fff; background: rgba(0,0,0,0.28);
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.insta-feed__item:hover .insta-feed__icon { opacity: 1; }
+.insta-feed__btn {
+  display: inline-block; margin-top: clamp(1.5rem, 3vw, 2.25rem);
+  background: var(--color-gold-dark); color: #FCFCFC;
+  padding: 0.8rem 2.5rem; border-radius: 999px;
+  font-family: var(--font-body); font-size: 0.82rem;
+  font-weight: var(--fw-semibold); letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.insta-feed__btn:hover { background: var(--color-gold); transform: translateY(-1px); }
+@media (max-width: 640px) { .insta-feed__grid { grid-template-columns: repeat(2, 1fr); } }
