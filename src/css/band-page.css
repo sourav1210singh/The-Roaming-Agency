@@ -26,6 +26,9 @@
   height: 70vh;
   min-height: 500px;
   overflow: hidden;
+  /* Clear the fixed top bar (38px) + header so the image isn't hidden behind
+     them. JS refines this to the exact measured height on load/resize. */
+  margin-top: 124px;
 }
 
 .band-hero__video-wrap {
@@ -59,9 +62,12 @@
 
 .band-hero__content {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   padding: var(--space-4xl) var(--container-padding);
   z-index: 2;
 }
@@ -510,6 +516,19 @@
   opacity: 0; transition: opacity 0.3s ease;
 }
 .insta-feed__item:hover .insta-feed__icon { opacity: 1; }
+/* Play-button variant (mockup) - always visible white triangle on a disc */
+.insta-feed__icon--play {
+  inset: 0; background: transparent; opacity: 1;
+}
+.insta-feed__icon--play svg {
+  width: 54px; height: 54px; padding: 14px;
+  border-radius: 50%; background: rgba(0,0,0,0.32);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+.insta-feed__item:hover .insta-feed__icon--play svg {
+  transform: scale(1.1); background: rgba(0,0,0,0.5);
+}
 .insta-feed__btn {
   display: inline-block; margin-top: clamp(1.5rem, 3vw, 2.25rem);
   background: var(--color-gold-dark); color: #FCFCFC;
@@ -533,23 +552,34 @@
 .band-intro2 { background: #f4f4f4; padding-block: clamp(3rem, 6vw, 5rem); }
 .band-intro2__inner {
   max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding);
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: clamp(2rem, 5vw, 5rem); align-items: center;
+  display: grid; grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(2.5rem, 6vw, 6rem); align-items: start;
 }
 .band-intro2__desc {
   font-family: var(--font-body);
   font-size: clamp(0.95rem, 1.1vw, 1.1rem);
-  line-height: 1.8; color: #444; margin: 0 0 clamp(1.5rem, 3vw, 2rem);
+  line-height: 1.95; color: #1a1a1a; margin: 0;
+  text-align: justify; text-justify: inter-word;
+}
+/* word-darkening spans inherit the dark color; opacity is scrubbed 0.18 → 1 */
+.band-intro2__desc .darken-word { color: inherit; }
+.band-intro2__right {
+  display: flex; flex-direction: column; gap: clamp(2.5rem, 6vw, 5rem);
+  padding-top: clamp(0.5rem, 2vw, 1.5rem);
 }
 .band-intro2__slogan {
   font-family: var(--font-heading);
-  font-size: clamp(2rem, 4vw, 3.4rem);
-  font-weight: var(--fw-bold); line-height: 1.05;
+  font-size: clamp(2.4rem, 5.5vw, 5rem);
+  font-weight: var(--fw-bold); line-height: 1.02;
   color: #2A2A2A; margin: 0; text-align: right;
+  text-transform: uppercase; letter-spacing: -0.01em;
 }
+.band-intro2__slogan-line { display: block; }
+.band-intro2__cta { align-self: flex-end; min-width: 240px; text-align: center; }
 @media (max-width: 800px) {
   .band-intro2__inner { grid-template-columns: 1fr; }
-  .band-intro2__slogan { text-align: left; }
+  .band-intro2__slogan, .band-intro2__slogan-line { text-align: left; }
+  .band-intro2__cta { align-self: flex-start; min-width: 0; }
 }
 
 /* 3. Trusted By marquee wrapper */
@@ -584,8 +614,8 @@
 .band-touch { background: #2A2A2A; color: #fff; padding-block: clamp(3rem, 6vw, 5rem); }
 .band-touch__title {
   text-align: center; font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.15;
-  margin: 0 0 clamp(1rem, 2vw, 1.5rem); color: #fff;
+  font-size: clamp(2.25rem, 5vw, 4.5rem); line-height: 1.1;
+  margin: 0 0 clamp(2.75rem, 5.5vw, 4.5rem); color: #fff;
 }
 .band-touch__title--light { display: block; font-weight: var(--fw-light); }
 .band-touch__title--strong { display: block; font-weight: var(--fw-bold); }
@@ -599,13 +629,19 @@
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: clamp(1.5rem, 3vw, 3rem);
 }
+/* Vertical accent line on each cell (matches homepage "Our Standards") */
+.band-touch__col {
+  align-self: start;
+  border-left: 1px solid rgba(255, 255, 255, 0.45);
+  padding-left: clamp(0.9rem, 1.4vw, 1.3rem);
+}
 .band-touch__name {
   font-family: var(--font-heading);
-  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  font-size: clamp(1.5rem, 2.4vw, 2.25rem);
   font-weight: var(--fw-medium); margin: 0 0 0.6rem; color: #fff;
 }
 .band-touch__desc {
-  font-family: var(--font-body); font-size: 0.92rem;
+  font-family: var(--font-body); font-size: clamp(0.875rem, 1vw, 1rem);
   font-weight: var(--fw-light); line-height: 1.7;
   color: rgba(255,255,255,0.7); margin: 0;
 }
@@ -614,6 +650,80 @@
 /* 7. Gallery slider section bg */
 .band-gallery2 { background: #f0f0f0; }
 
+/* 5b. Testimonials - on band pages the long band name (e.g. "THE BLACKJACKS")
+   overflows the left column, so push the cards right instead of pulling them
+   left as on the homepage. Scoped to .testimonials--band only. */
+.testimonials--band .testimonials__layout { gap: clamp(1rem, 3vw, 3rem); }
+.testimonials--band .testimonials__viewport { margin-left: 0; }
+
 /* 10. FAQ section */
 .band-faq { background: #ffffff; }
 .band-faq .faq { max-width: 760px; margin: clamp(1.5rem, 3vw, 2.5rem) auto 0; }
+
+/* 10b. FAQ - 2-column split layout with pill accordions (mockup) */
+.band-faq--split .band-faq__layout {
+  display: grid; grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(2rem, 5vw, 5rem); align-items: start;
+  max-width: 1100px; margin: 0 auto;
+}
+.band-faq__eyebrow {
+  display: block; font-family: var(--font-body); text-transform: uppercase;
+  letter-spacing: 0.18em; font-size: 0.78rem; font-weight: var(--fw-medium);
+  color: var(--color-gold); margin-bottom: 0.9rem;
+}
+.band-faq__title {
+  font-family: var(--font-heading); margin: 0; color: #2A2A2A;
+  font-size: clamp(1.8rem, 3.4vw, 2.7rem); line-height: 1.08;
+}
+.band-faq__title-line { display: block; font-weight: var(--fw-light); }
+.band-faq__title-line--strong { font-weight: var(--fw-bold); }
+.band-faq--split .faq { max-width: none; margin: 0; }
+.band-faq--split .faq__item {
+  border: 1px solid #d6d6d6; border-radius: 32px; margin-bottom: 1rem;
+  padding: 0 1.7rem; overflow: hidden; transition: border-color 0.25s ease;
+}
+.band-faq--split .faq__item.open { border-color: #2A2A2A; }
+.band-faq--split .faq__question {
+  width: 100%; display: flex; align-items: center; justify-content: space-between;
+  gap: 1rem; background: none; border: none; cursor: pointer; text-align: left;
+  padding: 1.15rem 0; font-family: var(--font-body); font-size: 0.98rem;
+  font-weight: var(--fw-medium); text-transform: uppercase; letter-spacing: 0.02em;
+  color: #2A2A2A;
+}
+.band-faq--split .faq__icon {
+  font-size: 1.5rem; line-height: 1; color: #2A2A2A; flex-shrink: 0;
+  transition: transform 0.25s ease;
+}
+.band-faq--split .faq__item.open .faq__icon { transform: rotate(45deg); }
+.band-faq--split .faq__answer {
+  max-height: 0; overflow: hidden; transition: max-height 0.3s ease;
+}
+.band-faq--split .faq__item.open .faq__answer { max-height: 420px; }
+.band-faq--split .faq__answer p {
+  margin: 0 0 1.3rem; color: #555; line-height: 1.7; font-size: 0.92rem;
+  text-transform: none; letter-spacing: 0;
+}
+@media (max-width: 760px) {
+  .band-faq--split .band-faq__layout { grid-template-columns: 1fr; gap: 1.5rem; }
+}
+
+/* Top utility bar (band pages only) - fixed/sticky, stays pinned at the very
+   top even when the main header hides on scroll-down. */
+.band-topbar {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: calc(var(--z-header) + 2);
+  display: flex; justify-content: flex-end; align-items: center;
+  gap: clamp(1.2rem, 2vw, 2rem);
+  height: 38px; padding: 0 clamp(1.5rem, 4vw, 3rem);
+  background: #2A2A2A;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+/* Push the main header down so it sits just below the sticky top bar. */
+.header--has-topbar { top: 38px; }
+.band-topbar__link {
+  font-family: var(--font-body); font-size: 0.82rem; letter-spacing: 0.05em;
+  color: rgba(255, 255, 255, 0.6); text-decoration: none;
+  transition: color 0.2s ease;
+}
+.band-topbar__link:hover { color: #fff; }
+.band-topbar__link--active { color: #fff; font-weight: var(--fw-semibold); }

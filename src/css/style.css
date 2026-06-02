@@ -1237,7 +1237,7 @@ body.is-header-hidden .hero-center-title {
    readable on the light panel.
    ============================================================================ */
 .who-we-are {
-  background-color: #f0f0f0; /* off-white per palette spec */
+  background-color: #ffffff; /* client tweak: white (was off-white) */
   color: #2A2A2A;            /* dark grey body text */
   /* Client tweak: vertical padding trimmed (5-8rem -> 3.5-6rem) so
      the section feels less airy. */
@@ -1746,7 +1746,8 @@ body.is-header-hidden .hero-center-title {
   max-width: var(--container-max);
   margin-inline: auto;
   padding: clamp(2rem, 4vw, 3.2rem) var(--container-padding);
-  background: transparent;
+  /* Client tweak: light-grey panel behind the Trusted By logos (was white). */
+  background: #F0F0F0;
   /* No border-top / border-bottom - divider lines removed per brief. */
   overflow: hidden;
 }
