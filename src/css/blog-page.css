@@ -19,7 +19,7 @@ body.blog-body {
 /* ===== BLOG HERO ===== */
 .blog2-hero {
   position: relative;
-  height: clamp(44vh, 58vh, 68vh);
+  height: clamp(560px, 85vh, 920px);
   overflow: hidden;
 }
 .blog2-hero__img {
@@ -32,8 +32,9 @@ body.blog-body {
   background: linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(42,42,42,0.88));
 }
 .blog2-hero__caption {
-  position: absolute; left: 0; right: 0;
-  bottom: clamp(2rem, 5vw, 4rem);
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
   text-align: center; padding: 0 1rem;
 }
 .blog2-hero__eyebrow {
@@ -60,7 +61,7 @@ body.blog-body {
    slides up to stack over it (scale + dim driven by inline JS in blog.html). */
 .feature-banner {
   position: sticky; display: block;
-  height: clamp(240px, 38vw, 440px);
+  height: clamp(500px, 85vh, 900px);
   margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
   border-radius: 16px; overflow: hidden;
   color: #fff; text-decoration: none;
@@ -78,24 +79,34 @@ body.blog-body {
 .feature-banner:hover .feature-banner__img { transform: scale(1.04); }
 .feature-banner::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.78), rgba(0,0,0,0.05) 55%);
+  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.4));
+}
+/* Ornate inset frame (joshuas.io editorial look) */
+.feature-banner::before {
+  content: ''; position: absolute;
+  inset: clamp(0.9rem, 1.8vw, 1.6rem);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 8px; z-index: 2; pointer-events: none;
 }
 .feature-banner__label {
-  position: absolute; top: 1rem; left: 1.25rem; z-index: 2;
-  font-size: 0.7rem; letter-spacing: 0.18em;
+  display: block; z-index: 3;
+  font-size: 0.78rem; letter-spacing: 0.22em;
   text-transform: uppercase; color: #dec37c;
+  margin-bottom: clamp(0.6rem, 1.2vw, 1rem);
 }
 .feature-banner__body {
-  position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
-  padding: clamp(1.25rem, 3vw, 2.25rem);
+  position: absolute; inset: 0; z-index: 3;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  text-align: center; padding: clamp(1.5rem, 4vw, 3rem);
 }
 .feature-banner__title {
   font-family: var(--font-heading);
-  font-size: clamp(1.4rem, 3vw, 2.6rem);
+  font-size: clamp(1.8rem, 4vw, 3.4rem);
   font-weight: var(--fw-medium);
-  line-height: 1.1; margin: 0 0 0.75rem; max-width: 20ch;
+  line-height: 1.1; margin: 0 0 1rem; max-width: 18ch;
 }
-.feature-banner__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.feature-banner__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
 
 /* chips */
 .chip {
