@@ -67,8 +67,15 @@
 }
 
 .band-hero__logo {
-  max-height: 80px;
-  margin-bottom: var(--space-lg);
+  /* 5th draft: white band logo on the hero (5 bands). Sits in place of
+     the text name; the <h1> wrapper is kept for SEO (alt = band name). */
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: min(440px, 72vw);
+  max-height: clamp(90px, 13vh, 150px);
+  margin: 0 0 var(--space-md);
+  object-fit: contain;
 }
 
 .band-hero__name {
