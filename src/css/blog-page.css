@@ -141,7 +141,7 @@ body.blog-body {
 @media (max-width: 520px) { .blog2-grid { grid-template-columns: 1fr; } }
 
 /* ===== ARTICLE PAGE ===== */
-.article { padding-top: clamp(5.5rem, 9vw, 8rem); }
+.article { padding-top: clamp(8rem, 10vw, 9.5rem); } /* clears sticky top bar + header */
 .article-hero {
   max-width: 1150px; margin: 0 auto clamp(2rem, 4vw, 3.5rem);
   padding: 0 var(--container-padding);
