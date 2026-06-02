@@ -340,8 +340,10 @@
 /* === BAND TESTIMONIALS (GMB Reviews) === */
 .band-reviews {
   padding: var(--space-section) 0;
-  background: var(--color-dark);
+  /* 5th draft mockup: testimonials on a LIGHT background (white cards). */
+  background: #f4f4f4;
 }
+.band-reviews .section__title { color: #2A2A2A; }
 
 .band-reviews__gmb-link {
   display: inline-flex;
@@ -475,14 +477,15 @@
 }
 
 
-/* ===== FOLLOW US ON INSTAGRAM (5th draft - static grid + Follow button) ===== */
-.insta-feed { background: #ffffff; text-align: center; }
+/* ===== FOLLOW US ON INSTAGRAM (5th draft - static grid + Follow button) =====
+   Mockup: DARK section. */
+.insta-feed { background: #2A2A2A; text-align: center; }
 .insta-feed__title {
   font-family: var(--font-accent);
   font-style: italic;
   font-weight: var(--fw-regular);
   font-size: clamp(1.5rem, 3vw, 2.4rem);
-  color: #2A2A2A;
+  color: #ffffff;
   margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
 }
 .insta-feed__grid {
