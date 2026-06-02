@@ -21,7 +21,11 @@ body.blog-body {
   position: relative;
   height: clamp(560px, 85vh, 920px);
   overflow: hidden;
+  /* Offset below the fixed top bar (38px) + header so the dark header doesn't
+     overlap/clip the band's heads at the top of the image. */
+  margin-top: 124px;
 }
+@media (max-width: 768px) { .blog2-hero { margin-top: 96px; } }
 .blog2-hero__img {
   width: 100%; height: 100%;
   object-fit: cover; object-position: center 35%;
