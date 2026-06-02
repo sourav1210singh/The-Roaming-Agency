@@ -575,7 +575,7 @@
   text-transform: uppercase; letter-spacing: -0.01em;
 }
 .band-intro2__slogan-line { display: block; }
-.band-intro2__cta { align-self: flex-end; min-width: 240px; text-align: center; }
+.band-intro2__cta { align-self: flex-end; min-width: 240px; text-align: center; border-radius: 999px; color: #ffffff; }
 @media (max-width: 800px) {
   .band-intro2__inner { grid-template-columns: 1fr; }
   .band-intro2__slogan, .band-intro2__slogan-line { text-align: left; }
@@ -649,6 +649,10 @@
 
 /* 7. Gallery slider section bg */
 .band-gallery2 { background: #f0f0f0; }
+
+/* 8. Contact - band pages have no marquee heading (unlike the homepage), so
+   add top breathing room above the form. Scoped to band pages via this file. */
+.contact { padding-top: clamp(3rem, 6vw, 5rem); }
 
 /* 5b. Testimonials - on band pages the long band name (e.g. "THE BLACKJACKS")
    overflows the left column, so push the cards right instead of pulling them
