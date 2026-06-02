@@ -104,7 +104,9 @@ body {
   font-weight: var(--fw-light);
   background-color: var(--color-bg);
   color: var(--color-text);
-  overflow-x: hidden;
+  /* clip (not hidden) so it stops horizontal scroll WITHOUT becoming a scroll
+     container - the latter breaks position:sticky (blog featured stack). */
+  overflow-x: clip;
 }
 
 .container {
@@ -3994,7 +3996,7 @@ body.cta-modal-open { overflow: hidden; }
   }
   html,
   body {
-    overflow-x: hidden;
+    overflow-x: clip; /* clip (not hidden) keeps position:sticky working */
   }
 }
 

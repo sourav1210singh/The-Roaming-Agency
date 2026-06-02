@@ -105,7 +105,7 @@
 
     <!-- ===== FEATURED (3 banners, reveal on scroll - joshuas.io style) ===== -->
     <section class="blog2-featured">
-      <a class="feature-banner reveal" href="article-kingsmen.html">
+      <a class="feature-banner" href="article-kingsmen.html">
         <img class="feature-banner__img" src="../assets/images/gallery/gallery-04.jpg" alt="The Kingsmen performing" loading="lazy">
         <span class="feature-banner__label" data-en="Featured" data-fr="À la une">Featured</span>
         <div class="feature-banner__body">
@@ -116,7 +116,7 @@
         </div>
       </a>
 
-      <a class="feature-banner reveal" href="article-guest-experience.html">
+      <a class="feature-banner" href="article-guest-experience.html">
         <img class="feature-banner__img" src="../assets/images/gallery/gallery-12.jpg" alt="Guests dancing with the band" loading="lazy">
         <span class="feature-banner__label" data-en="Featured" data-fr="À la une">Featured</span>
         <div class="feature-banner__body">
@@ -127,7 +127,7 @@
         </div>
       </a>
 
-      <a class="feature-banner reveal" href="article-right-sound.html">
+      <a class="feature-banner" href="article-right-sound.html">
         <img class="feature-banner__img" src="../assets/images/gallery/gallery-25.jpg" alt="Saxophone solo at an event" loading="lazy">
         <span class="feature-banner__label" data-en="Featured" data-fr="À la une">Featured</span>
         <div class="feature-banner__body">
@@ -216,5 +216,40 @@
 
   <script src="../js/blog-article.js" defer></script>
   <script src="../js/smooth-scroll.js" defer></script>
+
+  <!-- Featured banners: stacked-cards scroll (covered card scales down + dims) -->
+  <script>
+  (function () {
+    var banners = Array.prototype.slice.call(
+      document.querySelectorAll('.blog2-featured .feature-banner'));
+    if (banners.length < 2) return;
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var vh = window.innerHeight;
+      for (var i = 0; i < banners.length; i++) {
+        if (i === banners.length - 1) {
+          banners[i].style.transform = 'scale(1)';
+          banners[i].style.filter = 'none';
+          continue;
+        }
+        var curTop = banners[i].getBoundingClientRect().top;
+        var nextTop = banners[i + 1].getBoundingClientRect().top;
+        var denom = (vh - curTop) || 1;
+        var p = (vh - nextTop) / denom;       // 0 → next far below, 1 → next covering
+        p = Math.max(0, Math.min(1, p));
+        banners[i].style.transform = 'scale(' + (1 - p * 0.08).toFixed(4) + ')';
+        banners[i].style.filter = 'brightness(' + (1 - p * 0.42).toFixed(3) + ')';
+      }
+    }
+    function onScroll() {
+      if (!ticking) { requestAnimationFrame(update); ticking = true; }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    if (window.lenis && window.lenis.on) window.lenis.on('scroll', onScroll);
+    update();
+  })();
+  </script>
 </body>
 </html>

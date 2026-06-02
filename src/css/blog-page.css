@@ -55,15 +55,22 @@ body.blog-body {
   max-width: 1100px;
   margin: clamp(3rem, 6vw, 5rem) auto;
   padding: 0 var(--container-padding);
-  display: flex; flex-direction: column;
-  gap: clamp(1.25rem, 2.5vw, 2rem);
 }
+/* Stacked-cards on scroll: each banner sticks below the top bar and the next
+   slides up to stack over it (scale + dim driven by inline JS in blog.html). */
 .feature-banner {
-  position: relative; display: block;
-  height: clamp(220px, 34vw, 420px);
+  position: sticky; display: block;
+  height: clamp(240px, 38vw, 440px);
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
   border-radius: 16px; overflow: hidden;
   color: #fff; text-decoration: none;
+  transform-origin: center top;
+  will-change: transform, filter;
 }
+.feature-banner:last-child { margin-bottom: 0; }
+.feature-banner:nth-child(1) { top: 46px; z-index: 1; }
+.feature-banner:nth-child(2) { top: 62px; z-index: 2; }
+.feature-banner:nth-child(3) { top: 78px; z-index: 3; }
 .feature-banner__img {
   width: 100%; height: 100%; object-fit: cover;
   transition: transform 0.6s var(--ease-smooth);
