@@ -518,3 +518,99 @@
 }
 .insta-feed__btn:hover { background: var(--color-gold); transform: translateY(-1px); }
 @media (max-width: 640px) { .insta-feed__grid { grid-template-columns: repeat(2, 1fr); } }
+
+
+/* ============================================================================
+   5th draft: band page rebuilt to the Canva mockup. New sections:
+   intro2 (slogan + desc + CTA), Trusted By, full-width strip, testimonials
+   carousel, The Band's Touch (dark 3-col), gallery slider, FAQ.
+   ============================================================================ */
+
+/* 2. Intro (desc + CTA on the left, big slogan on the right) */
+.band-intro2 { background: #f4f4f4; padding-block: clamp(3rem, 6vw, 5rem); }
+.band-intro2__inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 var(--container-padding);
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: clamp(2rem, 5vw, 5rem); align-items: center;
+}
+.band-intro2__desc {
+  font-family: var(--font-body);
+  font-size: clamp(0.95rem, 1.1vw, 1.1rem);
+  line-height: 1.8; color: #444; margin: 0 0 clamp(1.5rem, 3vw, 2rem);
+}
+.band-intro2__slogan {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: var(--fw-bold); line-height: 1.05;
+  color: #2A2A2A; margin: 0; text-align: right;
+}
+@media (max-width: 800px) {
+  .band-intro2__inner { grid-template-columns: 1fr; }
+  .band-intro2__slogan { text-align: left; }
+}
+
+/* 3. Trusted By marquee wrapper */
+.band-trusted { background: #ffffff; text-align: center; padding-block: clamp(2rem, 4vw, 3rem); }
+.band-trusted__label {
+  display: block; font-family: var(--font-body);
+  font-size: 0.85rem; font-weight: var(--fw-semibold);
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: #2A2A2A; margin-bottom: clamp(1rem, 2vw, 1.5rem);
+}
+.band-trusted .brands-marquee__track { animation-duration: 45s; }
+
+/* 4. Full-width band image strip */
+.band-strip { width: 100%; height: clamp(280px, 42vh, 520px); overflow: hidden; }
+.band-strip img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; }
+
+/* 5. Testimonials carousel arrows */
+.band-reviews__carousel { position: relative; }
+.band-reviews__nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  z-index: 5; width: 42px; height: 42px; border-radius: 50%;
+  border: 0; background: rgba(255,255,255,0.92); color: #2A2A2A;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.band-reviews__nav:hover { transform: translateY(-50%) scale(1.08); background: #fff; }
+.band-reviews__nav--prev { left: -10px; }
+.band-reviews__nav--next { right: -10px; }
+
+/* 6. The Band's Touch (dark 3-col) */
+.band-touch { background: #2A2A2A; color: #fff; padding-block: clamp(3rem, 6vw, 5rem); }
+.band-touch__title {
+  text-align: center; font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.5rem); line-height: 1.15;
+  margin: 0 0 clamp(1rem, 2vw, 1.5rem); color: #fff;
+}
+.band-touch__title--light { display: block; font-weight: var(--fw-light); }
+.band-touch__title--strong { display: block; font-weight: var(--fw-bold); }
+.band-touch__intro {
+  max-width: 680px; margin: 0 auto clamp(2rem, 4vw, 3rem); text-align: center;
+  font-family: var(--font-body); font-weight: var(--fw-light);
+  color: rgba(255,255,255,0.7); line-height: 1.7;
+}
+.band-touch__grid {
+  max-width: 1000px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+.band-touch__name {
+  font-family: var(--font-heading);
+  font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+  font-weight: var(--fw-medium); margin: 0 0 0.6rem; color: #fff;
+}
+.band-touch__desc {
+  font-family: var(--font-body); font-size: 0.92rem;
+  font-weight: var(--fw-light); line-height: 1.7;
+  color: rgba(255,255,255,0.7); margin: 0;
+}
+@media (max-width: 760px) { .band-touch__grid { grid-template-columns: 1fr; } }
+
+/* 7. Gallery slider section bg */
+.band-gallery2 { background: #f0f0f0; }
+
+/* 10. FAQ section */
+.band-faq { background: #ffffff; }
+.band-faq .faq { max-width: 760px; margin: clamp(1.5rem, 3vw, 2.5rem) auto 0; }
