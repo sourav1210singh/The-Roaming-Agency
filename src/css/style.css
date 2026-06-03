@@ -3169,6 +3169,13 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   pointer-events: auto;
 }
 
+/* Cards low on the globe: show the hover photo ABOVE the pin instead of below,
+   so it isn't clipped off the bottom of the globe. (Toggled by JS per frame.) */
+.globe-card--flip-up .globe-card__photo {
+  top: auto;
+  bottom: calc(100% + 8px);
+}
+
 /* Card positions handled by JS - no fixed CSS positions needed */
 
 /* All globe animations handled by JS */

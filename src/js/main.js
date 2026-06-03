@@ -1311,6 +1311,9 @@ function initGlobeAnimation() {
       card.style.zIndex = (card === hoveredCard) ? 9999 : Math.round((worldZ + 1) * 500);
       card.style.pointerEvents = cardOpacity > 0.5 ? 'auto' : 'none';
       card.style.filter = zNorm >= 0.7 ? 'none' : `blur(${(0.7 - zNorm) * 3}px)`;
+      // Cards low on the globe would push their hover-photo off the bottom and
+      // get clipped, so flip the photo ABOVE the card for the lower portion.
+      card.classList.toggle('globe-card--flip-up', py > ch * 0.6);
     });
 
     requestAnimationFrame(animate);
@@ -1335,7 +1338,9 @@ function initGlobeAnimation() {
   window.addEventListener('pointermove', (e) => {
     if (!dragging) return;
     var dx = e.clientX - lastX;
-    targetRotY -= dx * SENSITIVITY;
+    // Grab-to-rotate: drag right -> globe's front face follows your hand to
+    // the right (was `-=`, which span it the opposite way per client feedback).
+    targetRotY += dx * SENSITIVITY;
     lastX = e.clientX;
   });
   var endGlobeDrag = function () {
