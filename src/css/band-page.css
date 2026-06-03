@@ -26,9 +26,9 @@
   height: 70vh;
   min-height: 500px;
   overflow: hidden;
-  /* Clear the fixed top bar (38px) + header so the image isn't hidden behind
-     them. JS refines this to the exact measured height on load/resize. */
-  margin-top: 124px;
+  /* Clear the fixed header so the image isn't hidden behind it.
+     JS refines this to the exact measured header height on load/resize. */
+  margin-top: 88px;
 }
 
 .band-hero__video-wrap {
@@ -732,24 +732,3 @@
 @media (max-width: 760px) {
   .band-faq--split .band-faq__layout { grid-template-columns: 1fr; gap: 1.5rem; }
 }
-
-/* Top utility bar (band pages only) - fixed/sticky, stays pinned at the very
-   top even when the main header hides on scroll-down. */
-.band-topbar {
-  position: fixed; top: 0; left: 0; right: 0;
-  z-index: calc(var(--z-header) + 2);
-  display: flex; justify-content: flex-end; align-items: center;
-  gap: clamp(1.2rem, 2vw, 2rem);
-  height: 38px; padding: 0 clamp(1.5rem, 4vw, 3rem);
-  background: #2A2A2A;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-}
-/* Push the main header down so it sits just below the sticky top bar. */
-.header--has-topbar { top: 38px; }
-.band-topbar__link {
-  font-family: var(--font-body); font-size: 0.82rem; letter-spacing: 0.05em;
-  color: rgba(255, 255, 255, 0.6); text-decoration: none;
-  transition: color 0.2s ease;
-}
-.band-topbar__link:hover { color: #fff; }
-.band-topbar__link--active { color: #fff; font-weight: var(--fw-semibold); }
