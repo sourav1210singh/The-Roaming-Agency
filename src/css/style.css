@@ -3306,7 +3306,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   /* 3rd draft: "take out the gradient of the final part of the page". */
   background: #2A2A2A;
   color: #ffffff;
-  padding: 0 0 clamp(4rem, 7vw, 6rem);
+  /* Now sits ABOVE the gallery (client: "block should appear above the
+     gallery"), so it needs top padding too - it no longer butts flush
+     against the gallery as it did when it followed it. */
+  padding: clamp(4rem, 7vw, 6rem) 0;
   overflow: hidden;
   /* Scroll-reveal Option D: rise OVER the pinned Gallery's final
      viewport-worth of scroll. The negative margin-top of -100vh
