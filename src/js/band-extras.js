@@ -85,5 +85,77 @@
         touchCols.forEach(function (c) { c.classList.add('is-revealed'); });
       }, 6000);
     }
+
+    // ── Trusted By marquee - JS-driven, identical to the homepage: constant
+    //    idle velocity + horizontal click-drag to accelerate. Band pages don't
+    //    load main.js, so replicate it here so the drag behaviour matches. ──
+    (function initBrandsMarquee() {
+      var wrapper = document.querySelector('.brands-marquee');
+      if (!wrapper) return;
+      var tracks = wrapper.querySelectorAll('.brands-marquee__track');
+      if (!tracks.length) return;
+      wrapper.classList.add('brands-marquee--js-driven'); // CSS anim off (style.css)
+      var states = Array.prototype.map.call(tracks, function (track) {
+        var isReverse = track.closest('.brands-marquee__row--reverse') != null;
+        var idle = isReverse ? 38 : 28;
+        return { track: track, isReverse: isReverse, x: 0, idleVel: idle, currentVel: idle, halfWidth: 0 };
+      });
+      var measureAll = function () { states.forEach(function (s) { s.halfWidth = s.track.scrollWidth / 2; }); };
+      measureAll();
+      wrapper.querySelectorAll('img').forEach(function (img) {
+        if (!img.complete) img.addEventListener('load', measureAll, { once: true });
+      });
+      window.addEventListener('resize', measureAll);
+      // band-extras runs deferred (before full layout) and cached images never
+      // fire 'load', so re-measure once everything has settled - otherwise
+      // halfWidth can stay 0 and the track never moves.
+      window.addEventListener('load', measureAll);
+      setTimeout(measureAll, 600);
+      states.forEach(function (s) { if (s.isReverse) s.x = s.halfWidth || 0; });
+
+      var dragging = false, dragVel = 0, lastX = 0, lastT = 0;
+      wrapper.style.cursor = 'grab';
+      wrapper.style.touchAction = 'pan-y';
+      wrapper.addEventListener('pointerdown', function (e) {
+        dragging = true; dragVel = 0; lastX = e.clientX; lastT = performance.now();
+        wrapper.style.cursor = 'grabbing';
+        if (wrapper.setPointerCapture) { try { wrapper.setPointerCapture(e.pointerId); } catch (_) {} }
+      });
+      window.addEventListener('pointermove', function (e) {
+        if (!dragging) return;
+        var now = performance.now();
+        var dt = Math.max(0.001, (now - lastT) / 1000);
+        dragVel = (e.clientX - lastX) / dt;
+        lastX = e.clientX; lastT = now;
+      });
+      var endDrag = function () { dragging = false; dragVel = 0; wrapper.style.cursor = 'grab'; };
+      window.addEventListener('pointerup', endDrag);
+      window.addEventListener('pointercancel', endDrag);
+
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        states.forEach(function (s) { s.currentVel = 0; s.track.style.transform = 'translate3d(0,0,0)'; });
+        return;
+      }
+      var last = performance.now();
+      var tick = function (now) {
+        var dt = Math.min(0.05, (now - last) / 1000);
+        last = now;
+        states.forEach(function (s) {
+          if (!s.halfWidth) return;
+          var target = s.idleVel;
+          if (dragging) {
+            var boost = s.isReverse ? dragVel : -dragVel;
+            target = s.idleVel + Math.min(Math.max(0, boost), 500);
+          }
+          var smooth = dragging ? 0.15 : 0.035;
+          s.currentVel += (target - s.currentVel) * smooth;
+          if (s.isReverse) { s.x -= s.currentVel * dt; if (s.x <= 0) s.x += s.halfWidth; }
+          else { s.x += s.currentVel * dt; if (s.x >= s.halfWidth) s.x -= s.halfWidth; }
+          s.track.style.transform = 'translate3d(' + (-s.x) + 'px,0,0)';
+        });
+        requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    })();
   });
 })();
