@@ -583,10 +583,21 @@
   text-transform: uppercase; letter-spacing: -0.01em;
 }
 .band-intro2__slogan-line { display: block; }
-/* Inherit the standard .btn--primary look (gold bg + black text + --text-sm
-   + --radius-sm) so this matches every other button on the site. Only the
-   grid positioning is band-specific. */
-.band-intro2__cta { align-self: flex-end; }
+/* Match the "Be Our Next Story" section CTA exactly (client reference):
+   deep-gold pill, near-white Nohemi Regular text, Canva spec 20/22 -0.3px,
+   roomy padding. Only the grid positioning stays band-specific. */
+.band-intro2__cta {
+  align-self: flex-end;
+  background: var(--color-gold-dark);
+  color: #FCFCFC;
+  font-weight: var(--fw-regular);
+  font-size: 20px;
+  line-height: 22px;
+  letter-spacing: -0.3px;
+  border-radius: var(--radius-full);
+  padding: 0.95rem 2.4rem;
+}
+.band-intro2__cta:hover { background: var(--color-gold); color: #FCFCFC; }
 @media (max-width: 800px) {
   .band-intro2__inner { grid-template-columns: 1fr; }
   .band-intro2__slogan, .band-intro2__slogan-line { text-align: left; }
