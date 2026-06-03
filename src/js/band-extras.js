@@ -47,5 +47,28 @@
       tNext.addEventListener('click', function () { track.scrollBy({ left: stepSize(), behavior: 'smooth' }); });
       tPrev.addEventListener('click', function () { track.scrollBy({ left: -stepSize(), behavior: 'smooth' }); });
     }
+
+    // ── The Band's Touch - clip-reveal on scroll (homepage "Our Standards"
+    //    behaviour): each cell uncovers rightward, staggered one-by-one.
+    //    Progressive enhancement: only enable the hide/reveal when JS +
+    //    IntersectionObserver are available (and motion isn't reduced); the
+    //    section stays fully visible otherwise. ──
+    var bandTouch = document.querySelector('.band-touch');
+    var touchCols = bandTouch
+      ? Array.prototype.slice.call(bandTouch.querySelectorAll('.band-touch__col')) : [];
+    var reduceMotion = window.matchMedia &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (bandTouch && touchCols.length && !reduceMotion && ('IntersectionObserver' in window)) {
+      bandTouch.classList.add('band-touch--reveal'); // hides cells + enables anim
+      var touchObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var idx = parseInt(entry.target.dataset.touchIdx || '0', 10);
+          setTimeout(function () { entry.target.classList.add('is-revealed'); }, (idx % 3) * 110);
+          touchObs.unobserve(entry.target);
+        });
+      }, { threshold: 0.3, rootMargin: '0px 0px -8% 0px' });
+      touchCols.forEach(function (c, i) { c.dataset.touchIdx = String(i); touchObs.observe(c); });
+    }
   });
 })();

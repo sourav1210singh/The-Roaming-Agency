@@ -643,6 +643,20 @@
   border-left: 1px solid rgba(255, 255, 255, 0.45);
   padding-left: clamp(0.9rem, 1.4vw, 1.3rem);
 }
+/* Clip-reveal (matches homepage "Our Standards"): the cell is hidden and
+   uncovers rightward from the left line when .is-revealed is added on scroll.
+   JS-gated via .band-touch--reveal (added by band-extras.js) so the section
+   is ALWAYS visible if JS/IntersectionObserver is unavailable. */
+.band-touch--reveal .band-touch__col {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: clip-path;
+}
+.band-touch--reveal .band-touch__col.is-revealed { clip-path: inset(0 0 0 0); }
+/* Middle-column zigzag - nudge the centre cells down (like Our Standards). */
+.band-touch__grid > .band-touch__col:nth-child(3n+2) {
+  margin-top: clamp(2rem, 4vw, 4rem);
+}
 .band-touch__name {
   font-family: var(--font-heading);
   font-size: clamp(1.5rem, 2.4vw, 2.25rem);
