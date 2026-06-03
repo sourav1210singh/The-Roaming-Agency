@@ -114,9 +114,8 @@ function initGalleryReveal() {
   if (nextBtn) nextBtn.addEventListener('click', () => { show(index + 1); restart(); });
   if (prevBtn) prevBtn.addEventListener('click', () => { show(index - 1); restart(); });
 
-  // Pause autoplay while hovering, resume on leave.
-  slider.addEventListener('mouseenter', () => clearInterval(timer));
-  slider.addEventListener('mouseleave', restart);
+  // Client: keep auto-sliding every 20s no matter where the cursor is
+  // (no pause-on-hover).
 
   show(index);
   restart();

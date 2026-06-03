@@ -29,8 +29,8 @@
         var nx = document.getElementById('bandGalleryNext');
         if (nx) nx.addEventListener('click', function () { show(idx + 1); restart(); });
         if (pv) pv.addEventListener('click', function () { show(idx - 1); restart(); });
-        slider.addEventListener('mouseenter', function () { clearInterval(timer); });
-        slider.addEventListener('mouseleave', restart);
+        // Client: keep auto-sliding every 20s regardless of cursor position
+        // (no pause-on-hover).
         show(idx); restart();
       }
     }
