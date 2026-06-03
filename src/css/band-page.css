@@ -40,12 +40,15 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* Bias the crop toward the top so the band's heads aren't cut off. */
+  object-position: center 20%;
 }
 
 .band-hero__poster {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
 }
 
 .band-hero__overlay {
