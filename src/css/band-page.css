@@ -583,11 +583,14 @@
   text-transform: uppercase; letter-spacing: -0.01em;
 }
 .band-intro2__slogan-line { display: block; }
-.band-intro2__cta { align-self: flex-end; min-width: 240px; text-align: center; border-radius: 999px; color: #ffffff; font-size: 1rem; }
+/* Inherit the standard .btn--primary look (gold bg + black text + --text-sm
+   + --radius-sm) so this matches every other button on the site. Only the
+   grid positioning is band-specific. */
+.band-intro2__cta { align-self: flex-end; }
 @media (max-width: 800px) {
   .band-intro2__inner { grid-template-columns: 1fr; }
   .band-intro2__slogan, .band-intro2__slogan-line { text-align: left; }
-  .band-intro2__cta { align-self: flex-start; min-width: 0; }
+  .band-intro2__cta { align-self: flex-start; }
 }
 
 /* 3. Trusted By marquee wrapper */
