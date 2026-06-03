@@ -1636,7 +1636,7 @@ body.is-header-hidden .hero-center-title {
      used to push the "Book Your Band" button up/down. Reserve enough space
      for the LONGEST description (Brotherockers, ~6 lines @1440 = 147px) so
      the button stays at a FIXED position no matter which band is active. */
-  min-height: clamp(8.5rem, 11vw, 10.5rem);
+  min-height: clamp(7rem, 12.5vw, 11rem);
 }
 
 /* Right column - viewport masks the list to a single band-row tall.
@@ -3582,6 +3582,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   font-size: 18px;
   line-height: 20px;
   padding: 0.85rem 2.2rem;
+  /* Sit closer to the description (less empty space above the button). */
+  margin-top: clamp(0.5rem, 1.2vw, 0.9rem);
 }
 
 /* ── GET-IN-TOUCH POPUP FORM (opened by section CTAs) ───────────── */
@@ -3926,7 +3928,7 @@ body.cta-modal-open { overflow: hidden; }
   }
 
   .band-selector__desc {
-    margin: 0 auto var(--space-2xl);
+    margin: 0 auto var(--space-md);
   }
 
   .contact__grid {
