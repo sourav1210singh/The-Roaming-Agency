@@ -50,25 +50,40 @@
 
     // ── The Band's Touch - clip-reveal on scroll (homepage "Our Standards"
     //    behaviour): each cell uncovers rightward, staggered one-by-one.
-    //    Progressive enhancement: only enable the hide/reveal when JS +
-    //    IntersectionObserver are available (and motion isn't reduced); the
-    //    section stays fully visible otherwise. ──
+    //    Plain scroll listener (reads getBoundingClientRect) - no IO, no
+    //    ScrollTrigger - so it works reliably with native scroll AND Lenis,
+    //    with no refresh-timing fragility. Gated so the section stays fully
+    //    visible if JS / motion isn't available. ──
     var bandTouch = document.querySelector('.band-touch');
     var touchCols = bandTouch
       ? Array.prototype.slice.call(bandTouch.querySelectorAll('.band-touch__col')) : [];
     var reduceMotion = window.matchMedia &&
       window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (bandTouch && touchCols.length && !reduceMotion && ('IntersectionObserver' in window)) {
+    if (bandTouch && touchCols.length && !reduceMotion) {
       bandTouch.classList.add('band-touch--reveal'); // hides cells + enables anim
-      var touchObs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (!entry.isIntersecting) return;
-          var idx = parseInt(entry.target.dataset.touchIdx || '0', 10);
-          setTimeout(function () { entry.target.classList.add('is-revealed'); }, (idx % 3) * 110);
-          touchObs.unobserve(entry.target);
+      var ticking = false;
+      var revealTouch = function () {
+        ticking = false;
+        var vh = window.innerHeight || document.documentElement.clientHeight;
+        touchCols.forEach(function (c, i) {
+          if (c.classList.contains('is-revealed')) return;
+          if (c.getBoundingClientRect().top < vh * 0.9) {
+            setTimeout(function () { c.classList.add('is-revealed'); }, (i % 3) * 110);
+          }
         });
-      }, { threshold: 0.3, rootMargin: '0px 0px -8% 0px' });
-      touchCols.forEach(function (c, i) { c.dataset.touchIdx = String(i); touchObs.observe(c); });
+      };
+      var onTouchScroll = function () {
+        if (!ticking) { window.requestAnimationFrame(revealTouch); ticking = true; }
+      };
+      window.addEventListener('scroll', onTouchScroll, { passive: true });
+      window.addEventListener('resize', onTouchScroll);
+      if (window.lenis && typeof window.lenis.on === 'function') window.lenis.on('scroll', onTouchScroll);
+      revealTouch();                                   // reveal anything already in view
+      window.addEventListener('load', revealTouch, { once: true });
+      // Safety net: never leave the section permanently hidden.
+      setTimeout(function () {
+        touchCols.forEach(function (c) { c.classList.add('is-revealed'); });
+      }, 6000);
     }
   });
 })();
