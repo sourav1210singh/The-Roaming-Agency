@@ -1887,6 +1887,13 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   object-fit: contain;
   opacity: 1;
   transition: transform 0.3s ease;
+  /* Don't let a press on a logo select/drag the image - the press should
+     drive the marquee drag instead. pointer-events:none routes the press to
+     the marquee; the rest blocks native image drag/selection cross-browser. */
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-user-drag: none;
 }
 
 /* Subtle hover lift. */
