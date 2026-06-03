@@ -3461,14 +3461,23 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   gap: 0.25rem;
 }
 
-.form-group label {
-  font-family: var(--font-body);
-  font-size: 0.72rem;
-  font-weight: var(--fw-semibold);
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: #888888;
+/* Reference (weddings-new) form: each field's text lives INSIDE it as a
+   placeholder, so visually hide the <label>s (kept in the DOM for a11y). */
+.contact__form .form-group label {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
 }
+/* Grey placeholder text to match the reference. */
+.contact__form .form-group ::placeholder { color: #9a9a9a; opacity: 1; }
+/* Keep the select greyed while its empty (placeholder) option is selected,
+   then dark once a real option is chosen. */
+.contact__form .form-group select:has(option[value=""]:checked) { color: #9a9a9a; }
+.contact__form .form-group select { color: #2A2A2A; }
 
 .contact__form .form-group input,
 .contact__form .form-group select,
