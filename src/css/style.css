@@ -2840,6 +2840,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      pinned sticky 100vh). Removed sticky/height/overflow. */
   padding-block: clamp(2.5rem, 5vw, 4rem);
 }
+/* Client: more left/right breathing room around the homepage gallery. */
+.gallery-section .container {
+  padding-left: clamp(2.5rem, 8vw, 8rem);
+  padding-right: clamp(2.5rem, 8vw, 8rem);
+}
 
 /* 5th draft slider: all slides stack in the SAME grid cell so the
    container sizes to the collage and only the active slide shows
@@ -3393,8 +3398,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .contact__inner {
   max-width: var(--container-max);
   margin: 0 auto;
-  /* Extra left/right breathing room (more than the default gutter). */
-  padding: 0 clamp(1.5rem, 7vw, 7rem);
+  /* Extra left/right breathing room (more than the default gutter).
+     Client: increased side padding. */
+  padding: 0 clamp(3rem, 10vw, 9.5rem);
   /* Two columns: heading copy on the LEFT, form card on the RIGHT. */
   display: grid;
   grid-template-columns: 1fr 1.05fr;
