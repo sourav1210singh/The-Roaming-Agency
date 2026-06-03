@@ -686,6 +686,17 @@
 /* 7. Gallery slider section bg */
 .band-gallery2 { background: #f0f0f0; }
 
+/* Client: more left/right breathing room on the gallery + Get in touch
+   sections (band pages only - this file isn't loaded on the homepage). */
+.band-gallery2 .container {
+  padding-left: clamp(2.5rem, 8vw, 8rem);
+  padding-right: clamp(2.5rem, 8vw, 8rem);
+}
+.contact__inner {
+  padding-left: clamp(3rem, 10vw, 9.5rem);
+  padding-right: clamp(3rem, 10vw, 9.5rem);
+}
+
 /* 8. Contact - band pages have no marquee heading (unlike the homepage), so
    add top breathing room above the form. Scoped to band pages via this file. */
 .contact { padding-top: clamp(3rem, 6vw, 5rem); }
