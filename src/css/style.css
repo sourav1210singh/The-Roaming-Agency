@@ -1501,10 +1501,10 @@ body.is-header-hidden .hero-center-title {
    No line + dot indicator - gold colour alone signals the active band. */
 .band-selector {
   position: relative;
-  /* 5th draft: runway trimmed 500vh -> 350vh so cycling all 11 bands
-     takes ~1.6x less scroll (was ~3.5 wheel-notches/band -> ~2.2). The
-     JS reads section.offsetHeight for progress, so it auto-adapts. */
-  height: 350vh;
+  /* Runway trimmed 500 -> 350 -> 260vh so cycling all 11 bands needs far
+     fewer scrolls (client: "too slow, scroll too many times"). The JS reads
+     section.offsetHeight for progress, so it auto-adapts. */
+  height: 260vh;
   background: var(--color-black);
 }
 
@@ -1665,10 +1665,9 @@ body.is-header-hidden .hero-center-title {
   display: flex;
   flex-direction: column;
   width: 100%;
-  /* Revision round 2 C5: smoother motion. Was 0.6s ease-out-expo
-     (snappy with overshoot) - longer 0.95s cubic-bezier(0.22, 1, 0.36, 1)
-     for a glide-into-place feel between bands. */
-  transition: transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+  /* The list now SCRUBS continuously with scroll (JS sets transform every
+     frame), so no CSS transition - a transition would lag a frame behind and
+     feel heavy. Lenis already smooths the scroll input. */
   will-change: transform;
 }
 

@@ -907,51 +907,46 @@ function initBandSelector() {
      description crossfades only when the band actually changes (avoids
      flicker every scroll tick). */
   let currentBand = null;
-  function setActive(idx) {
+  let activeIdx = -1;
+  // Cache the row height (re-measured on resize) so the per-frame scrub
+  // doesn't thrash layout by reading offsetHeight every tick.
+  let itemHeight = items[0] ? items[0].offsetHeight : 64;
+  const measureItem = () => { if (items[0]) itemHeight = items[0].offsetHeight; };
+
+  /* Continuous glide: translate the list by a FRACTIONAL band position so
+     the names scrub smoothly past the centre instead of snapping. The list
+     has no CSS transition, so this tracks the scroll 1:1 (Lenis smooths the
+     input). Centring assumes the pinned viewport top = screen top. */
+  function applyTransform(pos) {
+    if (!list) return;
+    pos = Math.max(0, Math.min(pos, items.length - 1));
+    const offset = (window.innerHeight / 2) - (itemHeight / 2) - (pos * itemHeight);
+    list.style.transform = `translate3d(0, ${offset}px, 0)`;
+  }
+
+  // Gold highlight + B&W image + description follow the NEAREST band; only
+  // updates when the nearest band actually flips (avoids per-tick work).
+  function setActiveBand(idx) {
     idx = Math.max(0, Math.min(idx, items.length - 1));
+    if (idx === activeIdx) return;
+    activeIdx = idx;
     const item = items[idx];
     if (!item) return;
     const band = item.dataset.band;
-
-    // Translate the list so the active item centres ON THE SCREEN.
-    // The section pins at top:0, so while it's visible the viewport's top
-    // sits at the screen top (vpTop = 0). We therefore centre against the
-    // real screen centre (window.innerHeight/2) WITHOUT reading
-    // getBoundingClientRect().top.
-    //   Why not read vpTop: setActive(0) also runs once on page LOAD,
-    //   while this section is still far below the fold (vpTop is huge).
-    //   Subtracting that huge vpTop translated the list far off-screen,
-    //   so the bands were INVISIBLE on arrival and only "slid in from the
-    //   top" after the first scroll nudged a band change. Assuming
-    //   vpTop = 0 makes band 0 correctly centred from the first paint -
-    //   it's already there when you reach the section, no slide-in.
-    if (list && viewport) {
-      const itemHeight = item.offsetHeight;
-      const offset = (window.innerHeight / 2) - (itemHeight / 2) - (idx * itemHeight);
-      list.style.transform = `translateY(${offset}px)`;
-    }
-
-    // Active class - gold colour, no line.
     items.forEach(i => i.classList.remove('is-active', 'active'));
     item.classList.add('is-active');
-
-    // Crossfade matching B&W image.
     bgImages.forEach(bg => {
       const match = bg.dataset.band === band;
       bg.classList.toggle('is-active', match);
       bg.classList.toggle('active', match);
     });
-
-    // Description swap - only on real band change.
     if (band !== currentBand) {
       currentBand = band;
       if (descEl && bandDescriptions[band]) {
         const lang = currentLang();
         const text = bandDescriptions[band][lang] || bandDescriptions[band].en;
         gsap.to(descEl, {
-          opacity: 0,
-          y: 10,
-          duration: 0.2,
+          opacity: 0, y: 10, duration: 0.2,
           onComplete: () => {
             descEl.textContent = text;
             gsap.to(descEl, { opacity: 1, y: 0, duration: 0.3 });
@@ -961,39 +956,37 @@ function initBandSelector() {
     }
   }
 
-  // Click on a band name jumps to it AND lets the anchor navigate to the
-  // band's page. We hold default for a tiny beat so the gold flash is
-  // visible before the page transition kicks in.
+  // Discrete set (click / load): centre exactly on a band.
+  function setActive(idx) {
+    idx = Math.max(0, Math.min(idx, items.length - 1));
+    applyTransform(idx);
+    setActiveBand(idx);
+  }
+
+  // Click jumps to a band AND lets the anchor navigate to the band's page.
   items.forEach((item, idx) => {
-    item.addEventListener('click', (e) => {
-      // Allow default link navigation - no preventDefault.
-      setActive(idx);
-    });
+    item.addEventListener('click', () => { setActive(idx); });
   });
 
-  /* Scroll-driven active band - reads progress through the OUTER tall
-     section (which provides 500vh of scroll runway). The sticky inner
-     stays pinned for that whole stretch; we map progress 0→1 across the
-     11 bands. We use a plain rAF + scroll listener instead of ScrollTrigger
-     here so it survives even if GSAP fails to load. */
+  /* Scroll-driven scrub - maps progress through the tall section's runway
+     to a FRACTIONAL band position and glides the list continuously. Plain
+     rAF + scroll listener so it survives even if GSAP fails to load. */
   if (section && sticky) {
     let raf = 0;
     const updateFromScroll = () => {
       raf = 0;
       const rect = section.getBoundingClientRect();
       const total = section.offsetHeight - window.innerHeight;
-      // How far through the pinned runway we are (0 at first reveal, 1 at exit).
       const progress = Math.max(0, Math.min(1, -rect.top / total));
-      // Map progress across N bands. Slight interior bias so the first and
-      // last bands aren't only briefly visible at the extremes.
-      const idx = Math.round(progress * (items.length - 1));
-      if (!items[idx].classList.contains('is-active')) setActive(idx);
+      const pos = progress * (items.length - 1);
+      applyTransform(pos);              // continuous glide
+      setActiveBand(Math.round(pos));   // nearest band = gold + description
     };
     window.addEventListener('scroll', () => {
       if (!raf) raf = requestAnimationFrame(updateFromScroll);
     }, { passive: true });
-    window.addEventListener('resize', updateFromScroll);
-    // Initialise - place the list correctly on load.
+    window.addEventListener('resize', () => { measureItem(); updateFromScroll(); });
+    // Initialise - place band 0 centred on load.
     setActive(0);
     updateFromScroll();
   } else {
