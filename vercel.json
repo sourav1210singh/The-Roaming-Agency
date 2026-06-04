@@ -1,4 +1,34 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/src/pages/article-elevated-evening", "destination": "/blog/the-band-that-elevated-the-entire-evening", "permanent": true },
+    { "source": "/src/pages/article-guest-experience", "destination": "/blog/how-live-music-shapes-the-guest-experience", "permanent": true },
+    { "source": "/src/pages/article-kingsmen", "destination": "/blog/why-everyone-is-looking-at-the-kingsmen", "permanent": true },
+    { "source": "/src/pages/article-right-sound", "destination": "/blog/why-the-right-sound-changes-everything", "permanent": true },
+    { "source": "/src/pages/article-wedding-music", "destination": "/blog/what-a-wedding-feels-like-when-music-is-done-right", "permanent": true },
+    { "source": "/src/pages/:slug", "destination": "/:slug", "permanent": true }
+  ],
+  "rewrites": [
+    { "source": "/the-brotherockers", "destination": "/src/pages/the-brotherockers.html" },
+    { "source": "/the-kingsmen", "destination": "/src/pages/the-kingsmen.html" },
+    { "source": "/the-peppermints", "destination": "/src/pages/the-peppermints.html" },
+    { "source": "/the-gentlemen", "destination": "/src/pages/the-gentlemen.html" },
+    { "source": "/the-serenades", "destination": "/src/pages/the-serenades.html" },
+    { "source": "/the-supersonics", "destination": "/src/pages/the-supersonics.html" },
+    { "source": "/the-rendez-vous", "destination": "/src/pages/the-rendez-vous.html" },
+    { "source": "/cafe-creme", "destination": "/src/pages/cafe-creme.html" },
+    { "source": "/why-so-serious", "destination": "/src/pages/why-so-serious.html" },
+    { "source": "/the-blackjacks", "destination": "/src/pages/the-blackjacks.html" },
+    { "source": "/blog", "destination": "/src/pages/blog.html" },
+    { "source": "/dj", "destination": "/src/pages/dj.html" },
+    { "source": "/faq", "destination": "/src/pages/faq.html" },
+    { "source": "/blog/the-band-that-elevated-the-entire-evening", "destination": "/src/pages/article-elevated-evening.html" },
+    { "source": "/blog/how-live-music-shapes-the-guest-experience", "destination": "/src/pages/article-guest-experience.html" },
+    { "source": "/blog/why-everyone-is-looking-at-the-kingsmen", "destination": "/src/pages/article-kingsmen.html" },
+    { "source": "/blog/why-the-right-sound-changes-everything", "destination": "/src/pages/article-right-sound.html" },
+    { "source": "/blog/what-a-wedding-feels-like-when-music-is-done-right", "destination": "/src/pages/article-wedding-music.html" }
+  ],
   "headers": [
     {
       "source": "/(.*)",

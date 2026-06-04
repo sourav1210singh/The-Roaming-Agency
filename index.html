@@ -104,9 +104,9 @@
   <!-- Stylesheets - Nohemi (self-hosted, all 9 weights) is loaded inside
        variables.css via @font-face. The Google Fonts Inter link was
        removed once the licensed Nohemi files arrived. -->
-  <link rel="stylesheet" href="src/css/variables.css">
-  <link rel="stylesheet" href="src/css/reset.css">
-  <link rel="stylesheet" href="src/css/style.css">
+  <link rel="stylesheet" href="/src/css/variables.css">
+  <link rel="stylesheet" href="/src/css/reset.css">
+  <link rel="stylesheet" href="/src/css/style.css">
 
   <!-- GSAP + ScrollTrigger (needed early for hero animations).
        Three.js is NOT loaded here - main.js dynamically injects it only
@@ -139,7 +139,7 @@
     <div class="header__inner">
       <!-- Logo -->
       <a href="/" class="logo logo--hero" id="mainLogo">
-        <img class="logo__img" src="src/assets/images/logo-roaming-agency.png" alt="The Roaming Agency" width="670" height="373">
+        <img class="logo__img" src="/src/assets/images/logo-roaming-agency.png" alt="The Roaming Agency" width="670" height="373">
         <span class="logo__tagline" data-en="Extraordinary events deserve extraordinary music" data-fr="Des événements extraordinaires méritent une musique extraordinaire">Extraordinary events deserve extraordinary music</span>
       </a>
 
@@ -160,28 +160,28 @@
           <li class="nav__item nav__item--has-dropdown">
             <a href="#chooseBand" class="nav__link" data-en="Bands" data-fr="Groupes">Bands</a>
             <ul class="nav__dropdown" role="menu">
-              <li><a href="src/pages/the-brotherockers.html">The Brotherockers</a></li>
-              <li><a href="src/pages/the-kingsmen.html">The Kingsmen</a></li>
-              <li><a href="src/pages/the-peppermints.html">The Peppermints</a></li>
-              <li><a href="src/pages/the-gentlemen.html">The Gentlemen</a></li>
-              <li><a href="src/pages/the-serenades.html">The Serenades</a></li>
-              <li><a href="src/pages/the-supersonics.html">The Supersonics</a></li>
-              <li><a href="src/pages/the-rendez-vous.html">The Rendez-Vous</a></li>
-              <li><a href="src/pages/cafe-creme.html">Café Crème</a></li>
-              <li><a href="src/pages/why-so-serious.html">Why So Serious?</a></li>
-              <li><a href="src/pages/the-blackjacks.html">The Blackjacks</a></li>
+              <li><a href="/the-brotherockers">The Brotherockers</a></li>
+              <li><a href="/the-kingsmen">The Kingsmen</a></li>
+              <li><a href="/the-peppermints">The Peppermints</a></li>
+              <li><a href="/the-gentlemen">The Gentlemen</a></li>
+              <li><a href="/the-serenades">The Serenades</a></li>
+              <li><a href="/the-supersonics">The Supersonics</a></li>
+              <li><a href="/the-rendez-vous">The Rendez-Vous</a></li>
+              <li><a href="/cafe-creme">Café Crème</a></li>
+              <li><a href="/why-so-serious">Why So Serious?</a></li>
+              <li><a href="/the-blackjacks">The Blackjacks</a></li>
               <li class="nav__dropdown-divider" aria-hidden="true"></li>
               <li><a href="#contact" data-en="More Music Acts" data-fr="Plus de Groupes Musicaux">More Music Acts</a></li>
             </ul>
           </li>
           <li class="nav__item">
-            <a href="src/pages/dj.html" class="nav__link">DJ</a>
+            <a href="/dj" class="nav__link">DJ</a>
           </li>
           <li class="nav__item">
-            <a href="src/pages/faq.html" class="nav__link">FAQ</a>
+            <a href="/faq" class="nav__link">FAQ</a>
           </li>
           <li class="nav__item">
-            <a href="src/pages/blog.html" class="nav__link" data-en="Blog" data-fr="Journal">Blog</a>
+            <a href="/blog" class="nav__link" data-en="Blog" data-fr="Journal">Blog</a>
           </li>
           <li class="nav__item">
             <a href="#contact" class="nav__link" data-en="More Music Acts" data-fr="Plus de Groupes">More Music Acts</a>
@@ -205,7 +205,7 @@
        the user scrolls. JS in initHeroIntro() drives the position +
        font-size each frame from the scroll progress. -->
   <a href="/" class="hero-center-title" id="heroCenterTitle">
-    <img class="hero-center-title__img" src="src/assets/images/logo-roaming-agency.png" alt="The Roaming Agency" width="670" height="373">
+    <img class="hero-center-title__img" src="/src/assets/images/logo-roaming-agency.png" alt="The Roaming Agency" width="670" height="373">
   </a>
 
   <!-- ===== DOOR PORTAL REMOVED (revision round 2, item 1.1) =====
@@ -231,7 +231,7 @@
     <!-- Riviera footage. z:2 - slides up OVER the sticky black panel. -->
     <section class="hero-video" id="heroVideo">
       <video class="hero-video__media" autoplay muted loop playsinline preload="auto">
-        <source src="src/assets/videos/hero.mp4" type="video/mp4">
+        <source src="/src/assets/videos/hero.mp4" type="video/mp4">
       </video>
     </section>
 
@@ -262,7 +262,7 @@
              alt text carrying the brand name. -->
         <h2 class="section__title who-we-are__title reveal">
           <img class="who-we-are__title-img"
-               src="src/assets/images/the-roaming-agency-title-2x.png"
+               src="/src/assets/images/the-roaming-agency-title-2x.png"
                alt="The Roaming Agency"
                width="670" height="373"
                loading="lazy">
@@ -324,102 +324,102 @@
     <!-- Row 1 - scrolls LEFT -->
     <div class="brands-marquee__row">
       <div class="brands-marquee__track">
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/louis-vuitton.png" alt="Louis Vuitton" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/dior.png" alt="Dior" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/chanel.png" alt="Chanel" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/tremezzo.png" alt="Grand Hotel Tremezzo" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/bulgari.png" alt="Bulgari" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/fendi.png" alt="Fendi" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/lacoste.png" alt="Lacoste" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/hublot.png" alt="Hublot" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/patek-philippe.png" alt="Patek Philippe" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/panerai.png" alt="Panerai" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/adler-joalliers.png" alt="Adler Joalliers" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/guerlain.png" alt="Guerlain" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/loreal.png" alt="L'Oréal" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/la-mer.png" alt="La Mer" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/edmond-de-rothschild.png" alt="Edmond de Rothschild" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/festival-de-cannes.png" alt="Festival de Cannes" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/superyacht-awards.png" alt="Superyacht Awards" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/ritz-carlton-yacht.png" alt="Ritz-Carlton Yacht" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/f1.png" alt="Formula 1" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/amg.png" alt="AMG" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/orange.png" alt="Orange" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/netflix.png" alt="Netflix" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/swissroc.png" alt="Swissroc" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/orkla.png" alt="Orkla" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/veolia.png" alt="Veolia" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="AstraZeneca" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/novartis.png" alt="Novartis" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="PokerStars" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/luxottica.png" alt="Luxottica" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row1/mitsubishi.png" alt="Mitsubishi" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/louis-vuitton.png" alt="Louis Vuitton" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/dior.png" alt="Dior" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/chanel.png" alt="Chanel" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/tremezzo.png" alt="Grand Hotel Tremezzo" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/bulgari.png" alt="Bulgari" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/fendi.png" alt="Fendi" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/lacoste.png" alt="Lacoste" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/hublot.png" alt="Hublot" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/patek-philippe.png" alt="Patek Philippe" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/panerai.png" alt="Panerai" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/adler-joalliers.png" alt="Adler Joalliers" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/guerlain.png" alt="Guerlain" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/loreal.png" alt="L'Oréal" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/la-mer.png" alt="La Mer" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/edmond-de-rothschild.png" alt="Edmond de Rothschild" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/festival-de-cannes.png" alt="Festival de Cannes" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/superyacht-awards.png" alt="Superyacht Awards" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/ritz-carlton-yacht.png" alt="Ritz-Carlton Yacht" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/f1.png" alt="Formula 1" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/amg.png" alt="AMG" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/orange.png" alt="Orange" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/netflix.png" alt="Netflix" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/swissroc.png" alt="Swissroc" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/orkla.png" alt="Orkla" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/veolia.png" alt="Veolia" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="AstraZeneca" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/novartis.png" alt="Novartis" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="PokerStars" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/luxottica.png" alt="Luxottica" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/mitsubishi.png" alt="Mitsubishi" class="brands-marquee__logo"></span>
         <!-- Loop duplicate -->
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/louis-vuitton.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/dior.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/chanel.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/tremezzo.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/bulgari.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/fendi.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/lacoste.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/hublot.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/patek-philippe.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/panerai.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/adler-joalliers.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/guerlain.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/loreal.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/la-mer.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/edmond-de-rothschild.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/festival-de-cannes.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/superyacht-awards.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/ritz-carlton-yacht.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/f1.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/amg.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/orange.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/netflix.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/swissroc.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/orkla.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/veolia.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/novartis.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/luxottica.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row1/mitsubishi.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/louis-vuitton.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/dior.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/chanel.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/tremezzo.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/bulgari.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/fendi.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/lacoste.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/hublot.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/patek-philippe.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/panerai.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/adler-joalliers.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/guerlain.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/loreal.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/la-mer.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/edmond-de-rothschild.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/festival-de-cannes.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/superyacht-awards.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/ritz-carlton-yacht.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/f1.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/amg.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/orange.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/netflix.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/swissroc.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/orkla.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/veolia.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/novartis.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/luxottica.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/mitsubishi.png" alt="" class="brands-marquee__logo"></span>
       </div>
     </div>
 
     <!-- Row 2 - scrolls RIGHT. Hotels set per client Drive. -->
     <div class="brands-marquee__row brands-marquee__row--reverse">
       <div class="brands-marquee__track">
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/burgenstock.png" alt="Bürgenstock" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/ultima-gstaad.png" alt="Ultima Gstaad" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/gstaad-palace.png" alt="Gstaad Palace" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="Airelles Val d'Isère" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/majestic-cannes.png" alt="Majestic Cannes" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/martinez-cannes.png" alt="Martinez Cannes" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="Fairmont Monte-Carlo" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/monte-carlo-bay.png" alt="Monte-Carlo Bay" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/hotel-de-paris-st-tropez.png" alt="Hôtel de Paris St-Tropez" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="Shangri-La Paris" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/la-reserve-geneve.png" alt="La Réserve Genève" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/grand-theatre-de-geneve.png" alt="Grand Théâtre de Genève" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/vitznauerhof-hotel.png" alt="Vitznauerhof" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="Grand Hotel Tremezzo" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/burgenstock.png" alt="Bürgenstock" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/ultima-gstaad.png" alt="Ultima Gstaad" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/gstaad-palace.png" alt="Gstaad Palace" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="Airelles Val d'Isère" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/majestic-cannes.png" alt="Majestic Cannes" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/martinez-cannes.png" alt="Martinez Cannes" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="Fairmont Monte-Carlo" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/monte-carlo-bay.png" alt="Monte-Carlo Bay" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/hotel-de-paris-st-tropez.png" alt="Hôtel de Paris St-Tropez" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="Shangri-La Paris" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/la-reserve-geneve.png" alt="La Réserve Genève" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/grand-theatre-de-geneve.png" alt="Grand Théâtre de Genève" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/vitznauerhof-hotel.png" alt="Vitznauerhof" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="Grand Hotel Tremezzo" class="brands-marquee__logo"></span>
         <!-- Loop duplicate -->
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/burgenstock.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/ultima-gstaad.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/gstaad-palace.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/majestic-cannes.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/martinez-cannes.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/monte-carlo-bay.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/hotel-de-paris-st-tropez.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/la-reserve-geneve.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/grand-theatre-de-geneve.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/vitznauerhof-hotel.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/burgenstock.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/ultima-gstaad.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/gstaad-palace.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/majestic-cannes.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/martinez-cannes.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/monte-carlo-bay.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/hotel-de-paris-st-tropez.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/la-reserve-geneve.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/grand-theatre-de-geneve.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/vitznauerhof-hotel.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="" class="brands-marquee__logo"></span>
       </div>
     </div>
   </section>
@@ -517,20 +517,20 @@
         <div class="events__right">
           <div class="events__photo-stack" id="eventsPhotoStack">
             <div class="events__photo-set" data-idx="0">
-              <img src="src/assets/images/events/event-01.jpg" alt="Wedding band" class="events__photo events__photo--front">
-              <img src="src/assets/images/events/event-02.jpg" alt="Wedding celebration" class="events__photo events__photo--back">
+              <img src="/src/assets/images/events/event-01.jpg" alt="Wedding band" class="events__photo events__photo--front">
+              <img src="/src/assets/images/events/event-02.jpg" alt="Wedding celebration" class="events__photo events__photo--back">
             </div>
             <div class="events__photo-set" data-idx="1">
-              <img src="src/assets/images/events/event-03.jpg" alt="Corporate live entertainment" class="events__photo events__photo--front">
-              <img src="src/assets/images/events/event-04.jpg" alt="Corporate gala" class="events__photo events__photo--back">
+              <img src="/src/assets/images/events/event-03.jpg" alt="Corporate live entertainment" class="events__photo events__photo--front">
+              <img src="/src/assets/images/events/event-04.jpg" alt="Corporate gala" class="events__photo events__photo--back">
             </div>
             <div class="events__photo-set" data-idx="2">
-              <img src="src/assets/images/events/event-05.jpg" alt="Private party band" class="events__photo events__photo--front">
-              <img src="src/assets/images/events/event-06.jpg" alt="Birthday celebration" class="events__photo events__photo--back">
+              <img src="/src/assets/images/events/event-05.jpg" alt="Private party band" class="events__photo events__photo--front">
+              <img src="/src/assets/images/events/event-06.jpg" alt="Birthday celebration" class="events__photo events__photo--back">
             </div>
             <div class="events__photo-set" data-idx="3">
-              <img src="src/assets/images/events/event-07.jpg" alt="Artistic direction setup" class="events__photo events__photo--front">
-              <img src="src/assets/images/events/event-08.jpg" alt="Curated performance" class="events__photo events__photo--back">
+              <img src="/src/assets/images/events/event-07.jpg" alt="Artistic direction setup" class="events__photo events__photo--front">
+              <img src="/src/assets/images/events/event-08.jpg" alt="Curated performance" class="events__photo events__photo--back">
             </div>
           </div>
         </div>
@@ -593,17 +593,17 @@
                sticky frame. Click still navigates to the band page. -->
           <div class="band-selector__viewport">
             <div class="band-selector__list" id="bandList">
-              <a class="band-selector__item is-active" data-band="brotherockers" href="src/pages/the-brotherockers.html">The Brotherockers</a>
-              <a class="band-selector__item" data-band="kingsmen"     href="src/pages/the-kingsmen.html">The Kingsmen</a>
-              <a class="band-selector__item" data-band="peppermints"  href="src/pages/the-peppermints.html">The Peppermints</a>
-              <a class="band-selector__item" data-band="gentlemen"    href="src/pages/the-gentlemen.html">The Gentlemen</a>
-              <a class="band-selector__item" data-band="serenades"    href="src/pages/the-serenades.html">The Serenades</a>
-              <a class="band-selector__item" data-band="supersonics"  href="src/pages/the-supersonics.html">The Supersonics</a>
-              <a class="band-selector__item" data-band="rendezvous"   href="src/pages/the-rendez-vous.html">The Rendez-Vous</a>
-              <a class="band-selector__item" data-band="cafecreme"    href="src/pages/cafe-creme.html">Café Crème</a>
-              <a class="band-selector__item" data-band="whysoserious" href="src/pages/why-so-serious.html">Why So Serious?</a>
-              <a class="band-selector__item" data-band="blackjacks"   href="src/pages/the-blackjacks.html">The Blackjacks</a>
-              <a class="band-selector__item" data-band="dj"           href="src/pages/dj.html">DJ</a>
+              <a class="band-selector__item is-active" data-band="brotherockers" href="/the-brotherockers">The Brotherockers</a>
+              <a class="band-selector__item" data-band="kingsmen"     href="/the-kingsmen">The Kingsmen</a>
+              <a class="band-selector__item" data-band="peppermints"  href="/the-peppermints">The Peppermints</a>
+              <a class="band-selector__item" data-band="gentlemen"    href="/the-gentlemen">The Gentlemen</a>
+              <a class="band-selector__item" data-band="serenades"    href="/the-serenades">The Serenades</a>
+              <a class="band-selector__item" data-band="supersonics"  href="/the-supersonics">The Supersonics</a>
+              <a class="band-selector__item" data-band="rendezvous"   href="/the-rendez-vous">The Rendez-Vous</a>
+              <a class="band-selector__item" data-band="cafecreme"    href="/cafe-creme">Café Crème</a>
+              <a class="band-selector__item" data-band="whysoserious" href="/why-so-serious">Why So Serious?</a>
+              <a class="band-selector__item" data-band="blackjacks"   href="/the-blackjacks">The Blackjacks</a>
+              <a class="band-selector__item" data-band="dj"           href="/dj">DJ</a>
             </div>
           </div>
 
@@ -1012,39 +1012,39 @@
         <!-- Slide 1 - official client photos -->
         <div class="gallery-slide is-active">
           <div class="gallery gallery--masonry">
-            <div class="gallery__item"><img src="src/assets/images/gallery/client-01.jpg" alt="Live performance at a luxury wedding" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/client-02.jpg" alt="Guests celebrating with the roaming band" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/client-03.jpg" alt="Musicians mingling with the guests" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/client-04.jpg" alt="Roaming band at a destination wedding" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/client-05.jpg" alt="Live music at a French Riviera event" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/client-06.jpg" alt="The band performing for a lively crowd" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/client-07.jpg" alt="Roaming musicians at sunset" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/client-01.jpg" alt="Live performance at a luxury wedding" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/client-02.jpg" alt="Guests celebrating with the roaming band" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/client-03.jpg" alt="Musicians mingling with the guests" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/client-04.jpg" alt="Roaming band at a destination wedding" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/client-05.jpg" alt="Live music at a French Riviera event" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/client-06.jpg" alt="The band performing for a lively crowd" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/client-07.jpg" alt="Roaming musicians at sunset" loading="lazy"></div>
           </div>
         </div>
 
         <!-- Slide 2 -->
         <div class="gallery-slide">
           <div class="gallery gallery--masonry">
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-01.jpg" alt="Roaming band performance" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-02.jpg" alt="Wedding celebration" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-03.jpg" alt="Live music event" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-04.jpg" alt="Band with guests" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-05.jpg" alt="Evening performance" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-06.jpg" alt="Musicians on stage" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-07.jpg" alt="Celebration crowd" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-01.jpg" alt="Roaming band performance" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-02.jpg" alt="Wedding celebration" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-03.jpg" alt="Live music event" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-04.jpg" alt="Band with guests" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-05.jpg" alt="Evening performance" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-06.jpg" alt="Musicians on stage" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-07.jpg" alt="Celebration crowd" loading="lazy"></div>
           </div>
         </div>
 
         <!-- Slide 3 -->
         <div class="gallery-slide">
           <div class="gallery gallery--masonry">
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-08.jpg" alt="Roaming band performance" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-09.jpg" alt="Wedding celebration" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-10.jpg" alt="Live music event" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-11.jpg" alt="Band with guests" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-12.jpg" alt="Evening performance" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-13.jpg" alt="Musicians on stage" loading="lazy"></div>
-            <div class="gallery__item"><img src="src/assets/images/gallery/gallery-14.jpg" alt="Celebration crowd" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-08.jpg" alt="Roaming band performance" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-09.jpg" alt="Wedding celebration" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-10.jpg" alt="Live music event" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-11.jpg" alt="Band with guests" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-12.jpg" alt="Evening performance" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-13.jpg" alt="Musicians on stage" loading="lazy"></div>
+            <div class="gallery__item"><img src="/src/assets/images/gallery/gallery-14.jpg" alt="Celebration crowd" loading="lazy"></div>
           </div>
         </div>
 
@@ -1097,23 +1097,23 @@
         <div>
           <h4 class="footer__heading" data-en="Bands" data-fr="Groupes">Bands</h4>
           <div class="footer__links">
-            <a href="src/pages/the-brotherockers.html" class="footer__link">The Brotherockers</a>
-            <a href="src/pages/the-kingsmen.html" class="footer__link">The Kingsmen</a>
-            <a href="src/pages/the-peppermints.html" class="footer__link">The Peppermints</a>
-            <a href="src/pages/the-gentlemen.html" class="footer__link">The Gentlemen</a>
-            <a href="src/pages/the-serenades.html" class="footer__link">The Serenades</a>
-            <a href="src/pages/the-supersonics.html" class="footer__link">The Supersonics</a>
+            <a href="/the-brotherockers" class="footer__link">The Brotherockers</a>
+            <a href="/the-kingsmen" class="footer__link">The Kingsmen</a>
+            <a href="/the-peppermints" class="footer__link">The Peppermints</a>
+            <a href="/the-gentlemen" class="footer__link">The Gentlemen</a>
+            <a href="/the-serenades" class="footer__link">The Serenades</a>
+            <a href="/the-supersonics" class="footer__link">The Supersonics</a>
           </div>
         </div>
 
         <div>
           <h4 class="footer__heading">&nbsp;</h4>
           <div class="footer__links">
-            <a href="src/pages/the-rendez-vous.html" class="footer__link">The Rendez-Vous</a>
-            <a href="src/pages/cafe-creme.html" class="footer__link">Café Crème</a>
-            <a href="src/pages/why-so-serious.html" class="footer__link">Why So Serious?</a>
-            <a href="src/pages/the-blackjacks.html" class="footer__link">The Blackjacks</a>
-            <a href="src/pages/dj.html" class="footer__link">DJ</a>
+            <a href="/the-rendez-vous" class="footer__link">The Rendez-Vous</a>
+            <a href="/cafe-creme" class="footer__link">Café Crème</a>
+            <a href="/why-so-serious" class="footer__link">Why So Serious?</a>
+            <a href="/the-blackjacks" class="footer__link">The Blackjacks</a>
+            <a href="/dj" class="footer__link">DJ</a>
           </div>
         </div>
 
@@ -1123,7 +1123,7 @@
             <a href="#" class="footer__link" data-en="Weddings" data-fr="Mariages">Weddings</a>
             <a href="#" class="footer__link" data-en="Corporate" data-fr="Entreprises">Corporate</a>
             <a href="#" class="footer__link" data-en="Private Parties" data-fr="Événements Privés">Private Parties</a>
-            <a href="src/pages/faq.html" class="footer__link">FAQ</a>
+            <a href="/faq" class="footer__link">FAQ</a>
             <a href="#contact" class="footer__link" data-en="Contact" data-fr="Contact">Contact</a>
           </div>
         </div>
@@ -1195,10 +1195,10 @@
        defer, main.js could run before the GSAP scripts and skip
        initTextDarkening + other gsap-dependent setups, which broke
        the scroll word-darken effect on Vercel under slow CDN loads. -->
-  <script src="src/js/main.js" defer></script>
+  <script src="/src/js/main.js" defer></script>
   <!-- Smart header - hide on scroll-down, reveal on scroll-up. Standalone
        so band sub-pages can also include it without pulling in main.js. -->
-  <script src="src/js/smart-header.js" defer></script>
-  <script src="src/js/smooth-scroll.js" defer></script>
+  <script src="/src/js/smart-header.js" defer></script>
+  <script src="/src/js/smooth-scroll.js" defer></script>
 </body>
 </html>
