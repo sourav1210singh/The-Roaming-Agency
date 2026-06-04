@@ -1,14 +1,5 @@
 {
-  "cleanUrls": true,
   "trailingSlash": false,
-  "redirects": [
-    { "source": "/src/pages/article-elevated-evening", "destination": "/blog/the-band-that-elevated-the-entire-evening", "permanent": true },
-    { "source": "/src/pages/article-guest-experience", "destination": "/blog/how-live-music-shapes-the-guest-experience", "permanent": true },
-    { "source": "/src/pages/article-kingsmen", "destination": "/blog/why-everyone-is-looking-at-the-kingsmen", "permanent": true },
-    { "source": "/src/pages/article-right-sound", "destination": "/blog/why-the-right-sound-changes-everything", "permanent": true },
-    { "source": "/src/pages/article-wedding-music", "destination": "/blog/what-a-wedding-feels-like-when-music-is-done-right", "permanent": true },
-    { "source": "/src/pages/:slug", "destination": "/:slug", "permanent": true }
-  ],
   "rewrites": [
     { "source": "/the-brotherockers", "destination": "/src/pages/the-brotherockers.html" },
     { "source": "/the-kingsmen", "destination": "/src/pages/the-kingsmen.html" },
@@ -28,6 +19,26 @@
     { "source": "/blog/why-everyone-is-looking-at-the-kingsmen", "destination": "/src/pages/article-kingsmen.html" },
     { "source": "/blog/why-the-right-sound-changes-everything", "destination": "/src/pages/article-right-sound.html" },
     { "source": "/blog/what-a-wedding-feels-like-when-music-is-done-right", "destination": "/src/pages/article-wedding-music.html" }
+  ],
+  "redirects": [
+    { "source": "/src/pages/article-elevated-evening.html", "destination": "/blog/the-band-that-elevated-the-entire-evening", "permanent": true },
+    { "source": "/src/pages/article-guest-experience.html", "destination": "/blog/how-live-music-shapes-the-guest-experience", "permanent": true },
+    { "source": "/src/pages/article-kingsmen.html", "destination": "/blog/why-everyone-is-looking-at-the-kingsmen", "permanent": true },
+    { "source": "/src/pages/article-right-sound.html", "destination": "/blog/why-the-right-sound-changes-everything", "permanent": true },
+    { "source": "/src/pages/article-wedding-music.html", "destination": "/blog/what-a-wedding-feels-like-when-music-is-done-right", "permanent": true },
+    { "source": "/src/pages/the-brotherockers.html", "destination": "/the-brotherockers", "permanent": true },
+    { "source": "/src/pages/the-kingsmen.html", "destination": "/the-kingsmen", "permanent": true },
+    { "source": "/src/pages/the-peppermints.html", "destination": "/the-peppermints", "permanent": true },
+    { "source": "/src/pages/the-gentlemen.html", "destination": "/the-gentlemen", "permanent": true },
+    { "source": "/src/pages/the-serenades.html", "destination": "/the-serenades", "permanent": true },
+    { "source": "/src/pages/the-supersonics.html", "destination": "/the-supersonics", "permanent": true },
+    { "source": "/src/pages/the-rendez-vous.html", "destination": "/the-rendez-vous", "permanent": true },
+    { "source": "/src/pages/cafe-creme.html", "destination": "/cafe-creme", "permanent": true },
+    { "source": "/src/pages/why-so-serious.html", "destination": "/why-so-serious", "permanent": true },
+    { "source": "/src/pages/the-blackjacks.html", "destination": "/the-blackjacks", "permanent": true },
+    { "source": "/src/pages/blog.html", "destination": "/blog", "permanent": true },
+    { "source": "/src/pages/dj.html", "destination": "/dj", "permanent": true },
+    { "source": "/src/pages/faq.html", "destination": "/faq", "permanent": true }
   ],
   "headers": [
     {
