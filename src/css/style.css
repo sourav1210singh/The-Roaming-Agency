@@ -699,7 +699,12 @@ body.is-header-hidden .hero-center-title {
   position: sticky;
   top: 0;
   width: 100%;
-  height: 100vh;
+  /* Client (5th draft): leave a sliver of the hero video peeking at the
+     bottom of the first screen so visitors know they can scroll down.
+     85vh intro => the top ~15vh of the sliding video shows on load.
+     The scroll choreography auto-adapts (progress is measured off the
+     #heroStack height, not a hardcoded 100vh). */
+  height: 85vh;
   /* 5th draft: intro/loading screen background WHITE (was #000).
      Logo + tagline start dark here and brighten to white as the user
      scrolls into the video (driven in initHeroIntro). */
