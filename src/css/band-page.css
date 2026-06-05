@@ -636,7 +636,8 @@
 .band-touch { background: #2A2A2A; color: #fff; padding-block: clamp(3rem, 6vw, 5rem); }
 .band-touch__title {
   text-align: center; font-family: var(--font-heading);
-  font-size: clamp(2.25rem, 5vw, 4.5rem); line-height: 1.1;
+  /* Client: make this section title a bit smaller on all band pages. */
+  font-size: clamp(1.9rem, 4.3vw, 3.5rem); line-height: 1.1;
   margin: 0 0 clamp(2.75rem, 5.5vw, 4.5rem); color: #fff;
 }
 .band-touch__title--light { display: block; font-weight: var(--fw-light); }
@@ -720,6 +721,10 @@
    left as on the homepage. Scoped to .testimonials--band only. */
 .testimonials--band .testimonials__layout { gap: clamp(1rem, 3vw, 3rem); }
 .testimonials--band .testimonials__viewport { margin-left: 0; }
+/* Client: long band names (e.g. "THE BROTHEROCKERS") overflow the heading, so
+   drop the band-page testimonials title one size smaller so they fit. Scoped
+   to band pages - the homepage "They Chose" title is unchanged. */
+.testimonials--band .testimonials__title { font-size: clamp(1.7rem, 3.05vw, 2.7rem); }
 
 /* 10. FAQ section */
 .band-faq { background: #ffffff; position: relative; z-index: 2; }
