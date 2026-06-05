@@ -687,10 +687,14 @@
 .band-gallery2 {
   background: #f0f0f0;
   /* Client: PIN the gallery so the form + footer slide up over it (curtain).
-     min-height makes it a full-viewport backdrop while stuck. */
+     Cap to EXACTLY the viewport and centre the slider so the top/bottom space
+     is balanced - min-height previously made the section taller than the
+     viewport, leaving a big gap on top and cutting the slider at the bottom. */
   position: sticky;
   top: 0;
-  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+  padding-block: 0;
   display: flex;
   flex-direction: column;
   justify-content: center;
