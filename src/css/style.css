@@ -3339,19 +3339,18 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   /* 3rd draft: "take out the gradient of the final part of the page". */
   background: #2A2A2A;
   color: #ffffff;
-  /* Now sits ABOVE the gallery (client: "block should appear above the
-     gallery"), so it needs top padding too - it no longer butts flush
-     against the gallery as it did when it followed it. */
   padding: clamp(4rem, 7vw, 6rem) 0;
+  /* Client clarification: the order is gallery FIRST, then the form, and as
+     you scroll the form RISES OVER / overlaps the gallery (like the previous
+     version). The form is a later sibling, so a negative margin-top pulls it
+     up over the gallery's bottom; rounded top + upward shadow make it read as
+     a sheet sliding over the photos. overflow:hidden clips to the radius. */
+  margin-top: clamp(-11rem, -9vw, -4rem);
+  border-top-left-radius: clamp(1.5rem, 3vw, 2.75rem);
+  border-top-right-radius: clamp(1.5rem, 3vw, 2.75rem);
+  box-shadow: 0 -30px 60px rgba(0, 0, 0, 0.45);
   overflow: hidden;
-  /* Scroll-reveal Option D: rise OVER the pinned Gallery's final
-     viewport-worth of scroll. The negative margin-top of -100vh
-     shifts contact's natural document position UP by one viewport
-     so it overlaps the LAST viewport of gallery-pin-stack - that's
-     phase 2 of the reveal (gallery already showed all photos via
-     internal scroll, now holds at last frame while contact rises). */
   z-index: 2;
-  /* 5th draft: gallery no longer pins, so the -100vh rise-over is removed. */
 }
 
 /* ── INFINITE MARQUEE HEADING ──────────────────────────────────── */
