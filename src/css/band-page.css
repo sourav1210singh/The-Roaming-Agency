@@ -493,7 +493,7 @@
 
 /* ===== FOLLOW US ON INSTAGRAM (5th draft - static grid + Follow button) =====
    Mockup: DARK section. */
-.insta-feed { background: #2A2A2A; text-align: center; }
+.insta-feed { background: #2A2A2A; text-align: center; position: relative; z-index: 2; }
 .insta-feed__title {
   font-family: var(--font-accent);
   font-style: italic;
@@ -684,7 +684,17 @@
 @media (max-width: 760px) { .band-touch__grid { grid-template-columns: 1fr; } }
 
 /* 7. Gallery slider section bg */
-.band-gallery2 { background: #f0f0f0; }
+.band-gallery2 {
+  background: #f0f0f0;
+  /* Client: PIN the gallery so the form + footer slide up over it (curtain).
+     min-height makes it a full-viewport backdrop while stuck. */
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
 
 /* Client: more left/right breathing room on the gallery + Get in touch
    sections (band pages only - this file isn't loaded on the homepage). */
@@ -708,7 +718,7 @@
 .testimonials--band .testimonials__viewport { margin-left: 0; }
 
 /* 10. FAQ section */
-.band-faq { background: #ffffff; }
+.band-faq { background: #ffffff; position: relative; z-index: 2; }
 .band-faq .faq { max-width: 760px; margin: clamp(1.5rem, 3vw, 2.5rem) auto 0; }
 
 /* 10b. FAQ - 2-column split layout with pill accordions (mockup) */

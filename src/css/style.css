@@ -2864,9 +2864,17 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .gallery-section {
   background: #2A2A2A;
-  /* 5th draft: gallery is now a normal in-flow slider section (was a
-     pinned sticky 100vh). Removed sticky/height/overflow. */
   padding-block: clamp(2.5rem, 5vw, 4rem);
+  /* Client: PIN the gallery - it sticks to the top of the viewport while the
+     form + footer (which follow and carry a higher z-index) slide UP and over
+     it, like a curtain. min-height keeps it a full-viewport backdrop while
+     pinned. */
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 /* Client: more left/right breathing room around the homepage gallery. */
 .gallery-section .container {
@@ -3340,16 +3348,10 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   background: #2A2A2A;
   color: #ffffff;
   padding: clamp(4rem, 7vw, 6rem) 0;
-  /* Client clarification: the order is gallery FIRST, then the form, and as
-     you scroll the form RISES OVER / overlaps the gallery (like the previous
-     version). The form is a later sibling, so a negative margin-top pulls it
-     up over the gallery's bottom; rounded top + upward shadow make it read as
-     a sheet sliding over the photos. overflow:hidden clips to the radius. */
-  margin-top: clamp(-11rem, -9vw, -4rem);
-  border-top-left-radius: clamp(1.5rem, 3vw, 2.75rem);
-  border-top-right-radius: clamp(1.5rem, 3vw, 2.75rem);
-  box-shadow: 0 -30px 60px rgba(0, 0, 0, 0.45);
   overflow: hidden;
+  /* Sits ABOVE the pinned (sticky) gallery: this z-index lifts the form over
+     the gallery so it slides UP and covers it as you scroll (curtain reveal).
+     The footer below carries z-index too so it also rides over the gallery. */
   z-index: 2;
 }
 
@@ -3872,6 +3874,9 @@ body.cta-modal-open { overflow: hidden; }
   background: var(--color-black);
   border-top: 1px solid var(--color-gray-800);
   padding: var(--space-4xl) 0 var(--space-2xl);
+  /* Rides OVER the pinned (sticky) gallery, same as the form. */
+  position: relative;
+  z-index: 2;
   /* Scroll-reveal: same overlay layer as .contact so the pinned
      Gallery stays beneath as the footer scrolls past. */
   position: relative;
