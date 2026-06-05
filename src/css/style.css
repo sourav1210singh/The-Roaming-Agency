@@ -732,9 +732,18 @@ body.is-header-hidden .hero-center-title {
   font-weight: var(--fw-medium);
   line-height: 1.1;
   letter-spacing: 0.005em;
-  /* 5th draft: dark by default (readable on the new white intro panel);
-     initHeroIntro() brightens it to white as it drifts over the video. */
-  color: #2A2A2A;
+  /* Dynamic two-tone fill (client 5th draft): dark over the white intro,
+     white where the rising video overlaps the text. --split (set per frame
+     by initHeroIntro) is the boundary: above it = dark, below it = white.
+     A hard-stop gradient clipped to the text gives a crisp moving line. */
+  --split: 100%;
+  background-image: linear-gradient(to bottom,
+    #2A2A2A 0%, #2A2A2A var(--split),
+    #ffffff var(--split), #ffffff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
   z-index: 3;
   pointer-events: none;
   will-change: opacity, transform;
@@ -1054,6 +1063,20 @@ body.is-header-hidden .hero-center-title {
      (still scales via the intro-zoom font-size dock animation). */
   height: 2em;
   width: auto;
+}
+
+/* Dynamic two-tone logo (client 5th draft): a BLACK silhouette is the base
+   (reads on the white intro); a WHITE copy is layered exactly on top and
+   revealed by clip-path ONLY over the part of the logo that overlaps the
+   dark header. initHeroIntro() updates the clip per frame so the white grows
+   in proportion to how much of the logo has entered the header. */
+.hero-center-title__img--dark { filter: brightness(0); }
+.hero-center-title__img--light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: brightness(0) invert(1);   /* solid white silhouette, alpha kept */
+  clip-path: inset(0 0 100% 0);      /* hidden until JS reveals the overlap */
 }
 
 @keyframes heroTitleShine {

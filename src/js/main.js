@@ -1576,17 +1576,20 @@ function initHeroIntro() {
     heroCenterTitle.style.transform = 'translate(-50%, -50%)';
     heroCenterTitle.style.fontSize = fontPx + 'px';
     heroCenterTitle.style.pointerEvents = heroVisibility > 0.5 ? 'auto' : 'none';
-    // brightness(0)=black logo on the white intro -> brightness(1)=normal
-    // near-white logo once it's over the video / docked on the dark header.
-    heroCenterTitle.style.filter = 'brightness(' + lightAmount + ')';
-
-    // 5th draft: drive the intro PANEL background on the SAME curve as the
-    // logo/tagline brightness. White at the top (loading screen), going
-    // back to black as you scroll - so the panel + text always transition
-    // together and you NEVER get white-on-white or black-on-black. The
-    // video then slides up over the (now black) panel exactly as before.
-    const introGrey = Math.round(255 * (1 - lightAmount));
-    section.style.backgroundColor = `rgb(${introGrey}, ${introGrey}, ${introGrey})`;
+    // Client 5th draft: background stays WHITE and the logo stays a black
+    // silhouette by default - NO wholesale flip. A white copy of the logo is
+    // revealed ONLY over the part that overlaps the dark header, proportional
+    // to the overlap (and gated by header visibility so it never goes white
+    // over the still-bright intro).
+    const lightImg = heroCenterTitle.querySelector('.hero-center-title__img--light');
+    if (lightImg && header) {
+      const lr = heroCenterTitle.getBoundingClientRect();
+      const headerVis = Math.max(0, Math.min(1, (currentRaw - 0.5) / 0.35));
+      const headerBottom = header.getBoundingClientRect().bottom;
+      let frac = lr.height ? (headerBottom - lr.top) / lr.height : 0;
+      frac = Math.max(0, Math.min(1, frac)) * headerVis;
+      lightImg.style.clipPath = 'inset(0 0 ' + ((1 - frac) * 100).toFixed(2) + '% 0)';
+    }
 
     // ── Tagline pin → travel-with-video ────────────────────────────
     // Phase A (scroll heroStart → heroStart + pinEnd): tagline pinned
@@ -1602,10 +1605,16 @@ function initHeroIntro() {
       const drift = Math.max(0, window.scrollY - pinEnd);
       tagline.style.opacity = String(heroVisibility);
       tagline.style.transform = `translate(-50%, calc(-50% - ${drift}px))`;
-      // Dark (#2A2A2A) on the white intro -> white as it drifts over the
-      // dark video, matching the logo's brighten.
-      const g = Math.round(42 + (255 - 42) * lightAmount);
-      tagline.style.color = `rgb(${g}, ${g}, ${g})`;
+      // Two-tone fill: dark above the rising video's top edge, white below it
+      // (the part overlapping the video). Proportional, computed per frame.
+      const vid = document.getElementById('heroVideo');
+      const tr = tagline.getBoundingClientRect();
+      let split = 1;
+      if (vid && tr.height) {
+        const videoTop = vid.getBoundingClientRect().top;
+        split = Math.max(0, Math.min(1, (videoTop - tr.top) / tr.height));
+      }
+      tagline.style.setProperty('--split', (split * 100).toFixed(2) + '%');
     }
 
     // ── Header chrome reveal ───────────────────────────────────────
