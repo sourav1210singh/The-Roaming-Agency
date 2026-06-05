@@ -636,8 +636,8 @@
 .band-touch { background: #2A2A2A; color: #fff; padding-block: clamp(3rem, 6vw, 5rem); }
 .band-touch__title {
   text-align: center; font-family: var(--font-heading);
-  /* Client: make this section title a bit smaller on all band pages. */
-  font-size: clamp(1.9rem, 4.3vw, 3.5rem); line-height: 1.1;
+  /* Client: make this section title a bit smaller on all band pages (2nd pass). */
+  font-size: clamp(1.7rem, 3.8vw, 3rem); line-height: 1.1;
   margin: 0 0 clamp(2.75rem, 5.5vw, 4.5rem); color: #fff;
 }
 .band-touch__title--light { display: block; font-weight: var(--fw-light); }
