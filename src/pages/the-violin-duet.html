@@ -58,6 +58,16 @@
   }
   </script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <style>
+    /* The hero clip is a 16:9 video but the hero box is much wider, so cover
+       was cropping it to just the top. Show the FULL video (contained) on a
+       dark backdrop instead. Scoped to this page only. */
+    .band-hero__video-wrap { background: #141414; }
+    .band-hero__video-wrap video.band-hero__poster {
+      object-fit: contain;
+      object-position: center;
+    }
+  </style>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
