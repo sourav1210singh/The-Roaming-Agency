@@ -27,3 +27,6 @@ src/assets/images/brands/v2-temp/
 
 # Generated test files / one-offs
 src/assets/images/Gemini_Generated_Image_*.png
+
+# Raw client source assets (heavy videos) - prepped copies live in images/acts + videos
+src/assets/Violin Duet - Roaming Agency/
