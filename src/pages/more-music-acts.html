@@ -33,7 +33,8 @@
   <script src="/src/js/smart-header.js" defer></script>
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
   <style>
-    .acts-hero { text-align: center; padding: calc(var(--space-2xl, 6rem)) var(--space-md) var(--space-xl); }
+    /* Top padding clears the fixed header so the H1 isn't clipped at the top. */
+    .acts-hero { text-align: center; padding: clamp(8.5rem, 12vw, 11rem) var(--space-md) var(--space-xl); }
     .acts-hero__eyebrow {
       display: block; font-family: var(--font-body);
       font-size: 0.85rem; font-weight: var(--fw-semibold, 600);
