@@ -500,10 +500,10 @@
    Mockup: DARK section. */
 .insta-feed { background: #2A2A2A; text-align: center; position: relative; z-index: 2; }
 .insta-feed__title {
-  font-family: var(--font-accent);
-  font-style: italic;
+  font-family: var(--font-body);
+  font-style: normal;
   font-weight: var(--fw-regular);
-  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-size: clamp(1.05rem, 2vw, 1.5rem);
   color: #ffffff;
   margin: 0 0 clamp(1.5rem, 3vw, 2.5rem);
 }
@@ -582,7 +582,7 @@
 }
 .band-intro2__slogan {
   font-family: var(--font-heading);
-  font-size: clamp(2.4rem, 5.5vw, 5rem);
+  font-size: clamp(1.9rem, 4vw, 3.5rem);
   font-weight: var(--fw-bold); line-height: 1.02;
   color: #2A2A2A; margin: 0; text-align: right;
   text-transform: uppercase; letter-spacing: -0.01em;

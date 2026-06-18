@@ -30,3 +30,7 @@ src/assets/images/Gemini_Generated_Image_*.png
 
 # Raw client source assets (heavy videos) - prepped copies live in images/acts + videos
 src/assets/Violin Duet - Roaming Agency/
+src/assets/Web Site Assets/
+
+# Client audit PDFs (not site assets)
+audit_seo_pierre_*.pdf
