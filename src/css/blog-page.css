@@ -86,8 +86,9 @@ body.blog-body {
 .feature-banner:hover .feature-banner__img { transform: scale(1.04); }
 .feature-banner::after {
   content: ''; position: absolute; inset: 0;
-  /* Gradient from below so the bottom-left title/tags stay readable. */
-  background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.32) 40%, rgba(0,0,0,0) 72%);
+  /* Gradient from below so the bottom-left title/tags stay readable
+     (strong lower band so white text holds up on bright photos). */
+  background: linear-gradient(to top, rgba(0,0,0,0.90) 0%, rgba(0,0,0,0.72) 22%, rgba(0,0,0,0.28) 48%, rgba(0,0,0,0) 74%);
 }
 /* Ornate inset frame (joshuas.io editorial look) */
 .feature-banner::before {
