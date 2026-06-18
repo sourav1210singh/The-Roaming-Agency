@@ -109,6 +109,11 @@
   letter-spacing: 0.05em;
 }
 
+/* 6th draft — More Music Acts pages (DJ, Violin Duet, Saxophonist, Jazz Band):
+   plain white hero tagline (no gold/italic) + tighter title->tagline gap. */
+.band-hero--plain .band-hero__name { margin-bottom: var(--space-sm); }
+.band-hero--plain .band-hero__tagline { color: var(--color-white); font-style: normal; }
+
 /* === BAND SLOGAN + DESCRIPTION (nitex.com style) === */
 .band-intro {
   position: relative;

@@ -35,12 +35,6 @@
   <style>
     /* Top padding clears the fixed header so the H1 isn't clipped at the top. */
     .acts-hero { text-align: center; padding: clamp(8.5rem, 12vw, 11rem) var(--space-md) var(--space-xl); }
-    .acts-hero__eyebrow {
-      display: block; font-family: var(--font-body);
-      font-size: 0.85rem; font-weight: var(--fw-semibold, 600);
-      letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--color-gold-dark, #b8902f); margin-bottom: 1rem;
-    }
     .acts-hero__title {
       font-family: var(--font-heading); font-weight: 600;
       font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: 1.05;
@@ -67,11 +61,13 @@
     .act-card:hover .act-card__media img { transform: scale(1.06); }
     .act-card__body { padding: 1.4rem 1.5rem 1.7rem; }
     .act-card__title {
+      display: block;
       font-family: var(--font-heading); font-weight: 600;
       font-size: 1.5rem; color: var(--color-dark, #2A2A2A); margin-bottom: 0.4rem;
     }
-    .act-card__line { font-family: var(--font-body); color: var(--color-grey, #666); font-size: 0.98rem; margin-bottom: 1rem; }
+    .act-card__line { display: block; font-family: var(--font-body); color: var(--color-grey, #666); font-size: 0.98rem; margin-bottom: 1rem; }
     .act-card__cta {
+      display: inline-block;
       font-family: var(--font-body); font-weight: var(--fw-semibold, 600);
       font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase;
       color: var(--color-gold-dark, #b8902f);
@@ -138,7 +134,6 @@
 
   <!-- ===== ACTS HERO / INTRO ===== -->
   <a id="main-content"></a><section class="acts-hero">
-    <span class="acts-hero__eyebrow">The Roaming Agency</span>
     <h1 class="acts-hero__title" data-en="More Music Acts" data-fr="Plus d'Actes Musicaux">More Music Acts</h1>
     <p class="acts-hero__sub" data-en="Beyond our roaming bands, discover our solo artists and ensembles &#8212; each a signature touch for your next extraordinary event." data-fr="Au-del&#224; de nos groupes itin&#233;rants, d&#233;couvrez nos artistes solo et nos ensembles &#8212; chacun une touche signature pour votre prochain &#233;v&#233;nement extraordinaire.">Beyond our roaming bands, discover our solo artists and ensembles &#8212; each a signature touch for your next extraordinary event.</p>
   </section>
