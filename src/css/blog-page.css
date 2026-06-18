@@ -156,7 +156,7 @@ body.blog-body {
 /* Thin accent underline that grows left-to-right on hover (like the nav bar). */
 .post-card::after {
   content: ""; position: absolute; left: 0; bottom: 0;
-  width: 100%; height: 2px; background: #dec37c;
+  width: 100%; height: 1px; background: #dec37c;
   transform: scaleX(0); transform-origin: left center;
   transition: transform 0.45s var(--ease-smooth, ease);
 }
