@@ -86,7 +86,8 @@ body.blog-body {
 .feature-banner:hover .feature-banner__img { transform: scale(1.04); }
 .feature-banner::after {
   content: ''; position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0.15) 45%, rgba(0,0,0,0.4));
+  /* Gradient from below so the bottom-left title/tags stay readable. */
+  background: linear-gradient(to top, rgba(0,0,0,0.80) 0%, rgba(0,0,0,0.32) 40%, rgba(0,0,0,0) 72%);
 }
 /* Ornate inset frame (joshuas.io editorial look) */
 .feature-banner::before {
@@ -99,30 +100,40 @@ body.blog-body {
   display: block; z-index: 3;
   font-size: 0.78rem; letter-spacing: 0.22em;
   text-transform: uppercase; color: #dec37c;
-  margin-bottom: clamp(0.6rem, 1.2vw, 1rem);
+  margin-bottom: clamp(0.5rem, 1vw, 0.8rem);
 }
+/* Title bottom-left + tags bottom-right — differentiates the preview banners
+   from the centred main hero title (Canva mockup reference). */
 .feature-banner__body {
   position: absolute; inset: 0; z-index: 3;
   display: flex; flex-direction: column;
-  align-items: center; justify-content: center;
-  text-align: center; padding: clamp(1.5rem, 4vw, 3rem);
+  align-items: flex-start; justify-content: flex-end;
+  text-align: left; padding: clamp(1.8rem, 4vw, 3.5rem);
 }
 .feature-banner__title {
   font-family: var(--font-heading);
   font-size: clamp(1.8rem, 4vw, 3.4rem);
   font-weight: var(--fw-medium);
-  line-height: 1.1; margin: 0 0 1rem; max-width: 18ch;
+  line-height: 1.1; margin: 0; max-width: 22ch;
 }
-.feature-banner__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; }
+.feature-banner__tags {
+  display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: flex-end;
+  position: absolute; z-index: 3;
+  right: clamp(1.8rem, 4vw, 3.5rem); bottom: clamp(1.8rem, 4vw, 3.5rem);
+  max-width: 45%;
+}
+@media (max-width: 600px) {
+  .feature-banner__tags { position: static; max-width: none; justify-content: flex-start; margin-top: 0.8rem; }
+}
 
 /* chips */
 .chip {
   display: inline-block;
   font-family: var(--font-body);
-  font-size: 0.65rem; letter-spacing: 0.1em;
+  font-size: 0.56rem; letter-spacing: 0.08em;
   text-transform: uppercase; color: #fff;
   border: 1px solid rgba(255,255,255,0.4);
-  border-radius: 999px; padding: 0.28rem 0.7rem;
+  border-radius: 999px; padding: 0.24rem 0.6rem;
 }
 
 /* ===== CARD ROWS ===== */
@@ -141,7 +152,15 @@ body.blog-body {
   display: grid; grid-template-columns: repeat(4, 1fr);
   gap: clamp(1rem, 2vw, 1.6rem);
 }
-.post-card { display: block; color: inherit; text-decoration: none; }
+.post-card { display: block; color: inherit; text-decoration: none; position: relative; padding-bottom: 0.9rem; }
+/* Thin accent underline that grows left-to-right on hover (like the nav bar). */
+.post-card::after {
+  content: ""; position: absolute; left: 0; bottom: 0;
+  width: 100%; height: 2px; background: #dec37c;
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform 0.45s var(--ease-smooth, ease);
+}
+.post-card:hover::after { transform: scaleX(1); }
 .post-card__media {
   aspect-ratio: 4 / 3; border-radius: 10px;
   overflow: hidden; margin-bottom: 0.85rem; background: #3a3a3a;
