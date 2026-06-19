@@ -212,11 +212,17 @@ body.is-header-hidden .hero-center-title {
   transition: opacity 0.35s ease, translate 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* .header--scrolled used to swap background on scroll. Header is now
-   solid at all times (N1), so this rule is a no-op kept only so the JS
-   that still toggles the class doesn't generate dead-property warnings. */
+/* .header--scrolled marks every SUB-PAGE header (the homepage uses .header
+   without it). The homepage nav bar is ~73px because its logo is a separate
+   overlay, not in-flow. Sub-pages put the logo image inside the bar, so we
+   trim the vertical padding and fix the logo height to keep the bar the same
+   ~73px instead of running 90px+ tall (client: "use the main page size"). */
 .header--scrolled {
-  /* intentionally empty */
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+.header--scrolled .logo__img {
+  height: 3.75rem;
 }
 
 .header > * {
