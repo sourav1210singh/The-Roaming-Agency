@@ -376,6 +376,17 @@ body.blog-body.is-past-hero:has(main.article) .nav__hamburger span { background:
   .article-body--split > .article-row:nth-of-type(odd) .article-row__text { order: 0; }
 }
 
+/* Orphan/widow control (client red comment): never leave one or two words
+   alone on the last line. `balance` evens out short headings + the pull-quote;
+   `pretty` stops a lone word dangling at the end of a paragraph. Both degrade
+   gracefully (ignored) on browsers that don't support them. */
+body.blog-body:has(main.article) .article-hero__title,
+body.blog-body:has(main.article) .article-hero__sub,
+body.blog-body:has(main.article) .article-quote,
+body.blog-body:has(main.article) .blog2-row__title,
+body.blog-body:has(main.article) .post-card__title { text-wrap: balance; }
+body.blog-body:has(main.article) .article-body p { text-wrap: pretty; }
+
 /* ===== Footer back link ===== */
 .footer__back {
   color: #c8a560; font-size: 0.85rem;
