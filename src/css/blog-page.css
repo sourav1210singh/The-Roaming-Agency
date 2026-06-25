@@ -59,7 +59,8 @@ body.blog-body {
 .blog2-featured {
   /* Full-bleed: banners span the entire page width (joshuas.io reference),
      not a centered 1100px column — so they read as wide banners, not squares. */
-  margin: clamp(3rem, 6vw, 5rem) 0;
+  /* No top margin: the first banner sits right under the hero (client: "delete this space"). */
+  margin: 0 0 clamp(3rem, 6vw, 5rem);
   padding: 0;
 }
 /* Stacked-cards on scroll: each banner sticks below the top bar and the next
@@ -154,14 +155,16 @@ body.blog-body {
   gap: clamp(1rem, 2vw, 1.6rem);
 }
 .post-card { display: block; color: inherit; text-decoration: none; position: relative; padding-bottom: 0.9rem; }
-/* Thin accent underline that grows left-to-right on hover (like the nav bar). */
+/* Thin accent underline (like the nav bar): grows from the left on hover
+   (0 -> 100), and on leave it exits to the RIGHT via an origin swap - so it
+   never retracts backwards / stalls when the cursor moves away. */
 .post-card::after {
   content: ""; position: absolute; left: 0; bottom: 0;
   width: 100%; height: 1px; background: #dec37c;
-  transform: scaleX(0); transform-origin: left center;
+  transform: scaleX(0); transform-origin: right center;
   transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
-.post-card:hover::after { transform: scaleX(1); }
+.post-card:hover::after { transform: scaleX(1); transform-origin: left center; }
 .post-card__media {
   aspect-ratio: 4 / 3; border-radius: 10px;
   overflow: hidden; margin-bottom: 0.85rem; background: #3a3a3a;
