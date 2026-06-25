@@ -43,7 +43,35 @@
       });
     }
 
-    // 3. Scroll-reveal
+    // 3. Article hero — the ONE brand logo is "stuck" and flips from light
+    //    (negative, sitting over the photo) to dark the moment the page
+    //    scrolls to its white background. The nav still hides on scroll-down
+    //    and returns on scroll-up, but the logo never leaves.
+    var articleHero = document.querySelector('main.article .article-hero');
+    if (articleHero) {
+      var logoEl = document.querySelector('.header .logo');
+      var flipPoint = 40;
+      var measure = function () {
+        if (logoEl) {
+          var r = logoEl.getBoundingClientRect();
+          flipPoint = (r.top + r.bottom) / 2; // the logo's vertical centre
+        }
+      };
+      var wasPast = null;
+      var flipLogo = function () {
+        var isPast = articleHero.getBoundingClientRect().bottom <= flipPoint;
+        if (isPast !== wasPast) {
+          wasPast = isPast;
+          document.body.classList.toggle('is-past-hero', isPast);
+        }
+      };
+      measure();
+      flipLogo();
+      window.addEventListener('scroll', flipLogo, { passive: true });
+      window.addEventListener('resize', function () { measure(); flipLogo(); }, { passive: true });
+    }
+
+    // 4. Scroll-reveal
     var revealEls = document.querySelectorAll('.reveal');
     if (!revealEls.length) return;
 

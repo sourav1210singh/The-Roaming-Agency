@@ -199,7 +199,7 @@ body.blog-body:has(main.article) .post-card__date { color: rgba(0,0,0,0.5); }
 body.blog-body:has(main.article) .chip { color: #2A2A2A; border-color: rgba(0,0,0,0.28); }
 body.blog-body:has(main.article) .footer__back { color: #2A2A2A; }
 
-.article { padding-top: clamp(5.5rem, 9vw, 8rem); } /* clears the fixed header */
+.article { padding-top: 0; } /* hero photo bleeds to the very top, behind the bar (auwa.life ref) */
 
 /* Hero: big photo bleeding from the left edge, brand logo "in negative" on it,
    title on a white right half (auwa.life / Canva mockup reference). */
@@ -214,14 +214,9 @@ body.blog-body:has(main.article) .footer__back { color: #2A2A2A; }
   border-radius: 0; aspect-ratio: auto;
 }
 .article-hero__media img { width: 100%; height: 100%; object-fit: cover; }
-.article-hero__media::before {
-  content: ""; position: absolute; z-index: 2; pointer-events: none;
-  top: clamp(1.4rem, 3vw, 2.4rem); left: clamp(1.4rem, 3vw, 2.6rem);
-  width: clamp(116px, 13vw, 188px); height: clamp(54px, 7vw, 88px);
-  background: url("/src/assets/images/logo-roaming-agency.png") left top / contain no-repeat;
-  filter: brightness(0) invert(1);
-  mix-blend-mode: difference;
-}
+/* (Removed) The brand mark is no longer painted onto the photo. It is now the
+   ONE sticky header logo that flips colour on scroll - see the hero-logo block
+   just after the hero rules below. */
 .article-hero__head {
   display: flex; flex-direction: column; justify-content: center;
   padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 5vw, 5rem);
@@ -245,6 +240,55 @@ body.blog-body:has(main.article) .footer__back { color: #2A2A2A; }
   margin: 0 0 1.25rem;
 }
 .article-hero__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+
+/* ============================================================================
+   HERO LOGO (auwa.life ref / 6th-draft red comment): ONE brand mark, stuck in
+   place, reading "negative" - light while it sits over the photo, dark the
+   moment the page scrolls to white. The nav still hides on scroll-down /
+   returns on scroll-up; the logo never leaves. `.is-past-hero` is toggled by
+   blog-article.js once the hero photo clears the bar.
+   ========================================================================== */
+body.blog-body:has(main.article) .header {
+  background: transparent;
+  transition: translate 0.4s cubic-bezier(0.22,1,0.36,1), background 0.35s ease, box-shadow 0.35s ease;
+}
+/* Soft top scrim keeps the light logo + nav legible over a bright photo. */
+body.blog-body:has(main.article) .header::before {
+  content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.34), rgba(0,0,0,0));
+  transition: opacity 0.35s ease;
+}
+/* Stuck logo: when the bar "hides", keep it in place and fade ONLY the nav +
+   language button - the logo stays put. */
+body.blog-body:has(main.article) .header.is-hidden { translate: 0; }
+body.blog-body:has(main.article) .header.is-hidden .nav,
+body.blog-body:has(main.article) .header.is-hidden .lang-toggle {
+  opacity: 0; pointer-events: none;
+}
+body.blog-body:has(main.article) .nav,
+body.blog-body:has(main.article) .lang-toggle { transition: opacity 0.3s ease, color 0.35s ease; }
+body.blog-body:has(main.article) .logo__img { transition: filter 0.35s ease; }
+/* Past the photo → white bar, dark logo + nav (still "negative" against the page). */
+body.blog-body.is-past-hero:has(main.article) .header {
+  background: #FCFCFC; box-shadow: 0 1px 0 rgba(0,0,0,0.08);
+}
+body.blog-body.is-past-hero:has(main.article) .header::before { opacity: 0; }
+body.blog-body.is-past-hero:has(main.article) .logo__img { filter: brightness(0); }
+body.blog-body.is-past-hero:has(main.article) .nav__link,
+body.blog-body.is-past-hero:has(main.article) .lang-toggle { color: #2A2A2A; }
+/* At the top the nav straddles the photo (left) and the white title half
+   (right), so let each link read its own backdrop and stay "negative":
+   inverts to dark over the white side, light over the photo. Switched off
+   once the solid white bar takes over (is-past-hero handles colour there). */
+@media (min-width: 801px) {
+  body.blog-body:has(main.article):not(.is-past-hero) .nav__link,
+  body.blog-body:has(main.article):not(.is-past-hero) .lang-toggle {
+    mix-blend-mode: difference; color: #fff;
+  }
+}
+/* Mobile: header sits over the full-width photo (no straddle), so the
+   injected hamburger just needs to darken on the white bar. */
+body.blog-body.is-past-hero:has(main.article) .nav__hamburger span { background: #2A2A2A; }
 
 .article-body {
   max-width: 680px; margin: 0 auto;
