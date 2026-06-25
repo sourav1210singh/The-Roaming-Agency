@@ -1306,19 +1306,16 @@ function initGlobeAnimation() {
         zNorm >= 0.55 ? 1 :
         zNorm <= 0.45 ? 0 :
         (zNorm - 0.45) / 0.10;
-      // Top + bottom fade (client revision): keep only the front-CENTRE band
-      // (~8-9 cards) solid - cards fade as they rise toward the pole or sink
-      // to the bottom edge, so the front view reads clean and never clusters.
+      // Top fade only (client revision): the cards that pile up near the pole
+      // at the TOP get hidden, but every card on the FRONT of the globe -
+      // including the ones low on the sphere (e.g. Luxembourg) - stays fully
+      // solid, because it is facing the viewer. No bottom fade.
       const yNorm = py / ch;            // 0 = top of the globe, 1 = bottom
       const topFade =
         yNorm >= 0.40 ? 1 :
         yNorm <= 0.24 ? 0 :
         (yNorm - 0.24) / 0.16;
-      const bottomFade =
-        yNorm <= 0.76 ? 1 :
-        yNorm >= 0.90 ? 0 :
-        (0.90 - yNorm) / 0.14;
-      const cardOpacity = frontFade * topFade * bottomFade;
+      const cardOpacity = frontFade * topFade;
 
       // Depth scale - front cards a touch larger.
       const cardScale = (0.85 + zNorm * 0.30) * 0.95;
