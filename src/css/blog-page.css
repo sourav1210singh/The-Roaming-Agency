@@ -155,14 +155,15 @@ body.blog-body {
   gap: clamp(1rem, 2vw, 1.6rem);
 }
 .post-card { display: block; color: inherit; text-decoration: none; position: relative; padding-bottom: 0.9rem; }
-/* Accent underline - white, 1px, fixed LEFT origin + scaleX, 0.6s (nav-bar
-   link technique). The APPEAR and LEAVE use DIFFERENT easings on purpose:
-   - leave (base rule) keeps the ease-in-out retract right->left - the user
-     called this one "perfect".
-   - hover/appear uses an ease-OUT so the line starts growing from the left
-     IMMEDIATELY and you can read the left->right travel. With a single shared
-     ease-in-out the appear's slow start held the line at 0 (invisible) then
-     popped it in, so it looked instant rather than sweeping in from the left.
+/* Accent underline - white, 1px, fixed LEFT origin + scaleX. APPEAR and LEAVE
+   use DIFFERENT transitions on purpose:
+   - leave (base rule) keeps the ease-in-out retract right->left (0.6s) - the
+     user called this one "perfect".
+   - hover/appear uses 0.8s LINEAR: a constant-speed sweep. Earlier easings
+     either front-loaded the start (ease-out) or held the line invisible then
+     popped it in (ease-in-out), so it looked like it filled "all at once".
+     Linear grows the line at the SAME pace the whole way, so the left->right
+     travel reads clearly as gradual.
    Dark variant on the light article page below. */
 .post-card::after {
   content: ""; position: absolute; left: 0; bottom: 0;
@@ -172,7 +173,7 @@ body.blog-body {
 }
 .post-card:hover::after {
   transform: scaleX(1);
-  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* APPEAR: ease-out, visible left->right grow */
+  transition: transform 0.8s linear; /* APPEAR: constant-speed, clearly gradual left->right */
 }
 .post-card__media {
   aspect-ratio: 4 / 3; border-radius: 10px;
