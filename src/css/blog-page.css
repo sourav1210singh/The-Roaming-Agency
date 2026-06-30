@@ -155,20 +155,24 @@ body.blog-body {
   gap: clamp(1rem, 2vw, 1.6rem);
 }
 .post-card { display: block; color: inherit; text-decoration: none; position: relative; padding-bottom: 0.9rem; }
-/* Accent underline - a TRUE left->right WIPE (NOT transform: scaleX, which
-   reads as a "pop"/scale). The 1px white line spans the full width but is
-   CLIPPED away to nothing; on hover the clip recedes left->right so the line
-   is visibly DRAWN across the whole card, and on leave it clips back
-   right->left (erases). Single transition on the base rule, :hover only moves
-   the clip - same structure as the nav underline. White only, 1px.
-   Dark variant on the light article page below. */
+/* Accent underline - a TRUE left->right WIPE (clip-path reveal, NOT scaleX).
+   The 1px white line is full width but clipped to nothing; the clip animates.
+   The APPEAR is deliberately SLOWER than the leave: the line draws from nothing
+   (no visible reference), so at the leave's speed the wide card filled before
+   the eye caught it ("sudden"); the leave starts from the full visible line, so
+   the same speed reads as a smooth retract. So hover DRAWS left->right over
+   1.5s (clearly visible), leave ERASES right->left over 0.8s (the speed the
+   client already liked). White only, 1px. Dark variant on the article below. */
 .post-card::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0;
   height: 1px; background: #FCFCFC;
   clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.8s linear;
+  transition: clip-path 0.8s linear;   /* LEAVE: erase right->left */
 }
-.post-card:hover::after { clip-path: inset(0 0 0 0); }
+.post-card:hover::after {
+  clip-path: inset(0 0% 0 0);
+  transition: clip-path 1.5s linear;   /* APPEAR: draw left->right, slow so it is clearly visible */
+}
 .post-card__media {
   aspect-ratio: 4 / 3; border-radius: 10px;
   overflow: hidden; margin-bottom: 0.85rem; background: #3a3a3a;
