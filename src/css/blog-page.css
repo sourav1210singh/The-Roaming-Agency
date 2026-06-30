@@ -164,7 +164,7 @@ body.blog-body {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0;
   height: 1px; background: #FCFCFC;
   transform: scaleX(0); transform-origin: left center;
-  transition: transform 0.8s linear;
+  transition: transform 0.6s linear;
 }
 .post-card:hover::after { transform: scaleX(1); }
 .post-card__media {
