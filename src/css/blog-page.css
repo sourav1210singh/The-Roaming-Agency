@@ -155,26 +155,22 @@ body.blog-body {
   gap: clamp(1rem, 2vw, 1.6rem);
 }
 .post-card { display: block; color: inherit; text-decoration: none; position: relative; padding-bottom: 0.9rem; }
-/* Accent underline - white, 1px, fixed LEFT origin + scaleX. APPEAR and LEAVE
-   use DIFFERENT transitions on purpose:
-   - leave (base rule) keeps the ease-in-out retract right->left (0.6s) - the
-     user called this one "perfect".
-   - hover/appear uses 0.8s LINEAR: a constant-speed sweep. Earlier easings
-     either front-loaded the start (ease-out) or held the line invisible then
-     popped it in (ease-in-out), so it looked like it filled "all at once".
-     Linear grows the line at the SAME pace the whole way, so the left->right
-     travel reads clearly as gradual.
-   Dark variant on the light article page below. */
+/* Accent underline - built EXACTLY like the nav-bar link underline
+   (.nav__link::before), which animates perfectly both ways. The key: ONE
+   single transition lives on the base rule, and :hover ONLY flips scaleX -
+   it does NOT redefine the transition. Earlier the card also set a different
+   transition on :hover (a "split"); changing the transition AND the transform
+   together on hover made the browser skip the appear animation (it popped in
+   "all at once") while the leave - which used the base transition - animated
+   fine. Linear keeps a constant speed so the left->right travel reads clearly
+   on the wide card. Dark variant on the light article page below. */
 .post-card::after {
-  content: ""; position: absolute; left: 0; bottom: 0;
-  width: 100%; height: 1px; background: #FCFCFC;
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+  height: 1px; background: #FCFCFC;
   transform: scaleX(0); transform-origin: left center;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* LEAVE: right->left retract */
+  transition: transform 0.6s linear;
 }
-.post-card:hover::after {
-  transform: scaleX(1);
-  transition: transform 0.8s linear; /* APPEAR: constant-speed, clearly gradual left->right */
-}
+.post-card:hover::after { transform: scaleX(1); }
 .post-card__media {
   aspect-ratio: 4 / 3; border-radius: 10px;
   overflow: hidden; margin-bottom: 0.85rem; background: #3a3a3a;
