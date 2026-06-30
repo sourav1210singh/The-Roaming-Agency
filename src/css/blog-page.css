@@ -155,23 +155,23 @@ body.blog-body {
   gap: clamp(1rem, 2vw, 1.6rem);
 }
 .post-card { display: block; color: inherit; text-decoration: none; position: relative; padding-bottom: 0.9rem; }
-/* Accent underline - a TRUE left->right WIPE (clip-path reveal, NOT scaleX).
-   The 1px white line is full width but clipped to nothing; the clip animates.
-   The APPEAR is deliberately SLOWER than the leave: the line draws from nothing
-   (no visible reference), so at the leave's speed the wide card filled before
-   the eye caught it ("sudden"); the leave starts from the full visible line, so
-   the same speed reads as a smooth retract. So hover DRAWS left->right over
-   1.5s (clearly visible), leave ERASES right->left over 0.8s (the speed the
-   client already liked). White only, 1px. Dark variant on the article below. */
+/* Accent underline - the nav-bar underline's exact technique: transform scaleX
+   from a fixed LEFT origin. The line extends out from the left (its right edge
+   travels rightward) = a left->right DRAW; on leave it retracts right->left.
+   scaleX is compositor-driven, so it animates smoothly. The APPEAR is run SLOW
+   (2.5s): the card is far wider than a nav link and the line draws from nothing,
+   so it needs a long, gentle sweep to read as a draw instead of a "pop" (the
+   pop was always the speed, never the technique). The leave keeps the 0.8s the
+   client liked. White only, 1px. Dark variant on the light article below. */
 .post-card::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0;
   height: 1px; background: #FCFCFC;
-  clip-path: inset(0 100% 0 0);
-  transition: clip-path 0.8s linear;   /* LEAVE: erase right->left */
+  transform: scaleX(0); transform-origin: left center;
+  transition: transform 0.8s linear;   /* LEAVE: retract right->left */
 }
 .post-card:hover::after {
-  clip-path: inset(0 0% 0 0);
-  transition: clip-path 1.5s linear;   /* APPEAR: draw left->right, slow so it is clearly visible */
+  transform: scaleX(1);
+  transition: transform 2.5s linear;   /* APPEAR: slow left->right draw across the whole card */
 }
 .post-card__media {
   aspect-ratio: 4 / 3; border-radius: 10px;
