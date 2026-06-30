@@ -155,20 +155,25 @@ body.blog-body {
   gap: clamp(1rem, 2vw, 1.6rem);
 }
 .post-card { display: block; color: inherit; text-decoration: none; position: relative; padding-bottom: 0.9rem; }
-/* Accent underline - same single white colour + fixed LEFT origin + scaleX
-   technique as the nav-bar link underline (.nav__link::before): grows in from
-   the left on hover, retracts on leave. The cards are far WIDER than a nav
-   link, so the nav's 0.35s snapped the sweep across too fast to read the
-   direction - here it runs slower (0.6s) with an even, non front-loaded easing
-   so the left->right travel is clearly visible. (Client: white, no gold,
-   keep 1px.) Dark variant on the light article page below. */
+/* Accent underline - white, 1px, fixed LEFT origin + scaleX, 0.6s (nav-bar
+   link technique). The APPEAR and LEAVE use DIFFERENT easings on purpose:
+   - leave (base rule) keeps the ease-in-out retract right->left - the user
+     called this one "perfect".
+   - hover/appear uses an ease-OUT so the line starts growing from the left
+     IMMEDIATELY and you can read the left->right travel. With a single shared
+     ease-in-out the appear's slow start held the line at 0 (invisible) then
+     popped it in, so it looked instant rather than sweeping in from the left.
+   Dark variant on the light article page below. */
 .post-card::after {
   content: ""; position: absolute; left: 0; bottom: 0;
   width: 100%; height: 1px; background: #FCFCFC;
   transform: scaleX(0); transform-origin: left center;
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); /* LEAVE: right->left retract */
 }
-.post-card:hover::after { transform: scaleX(1); }
+.post-card:hover::after {
+  transform: scaleX(1);
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* APPEAR: ease-out, visible left->right grow */
+}
 .post-card__media {
   aspect-ratio: 4 / 3; border-radius: 10px;
   overflow: hidden; margin-bottom: 0.85rem; background: #3a3a3a;
