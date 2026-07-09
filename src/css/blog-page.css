@@ -211,15 +211,20 @@ body.blog-body:has(main.article) .footer__back { color: #2A2A2A; }
 }
 .article-hero__media {
   position: relative; overflow: hidden;
-  border-radius: 0; aspect-ratio: auto;
+  /* 7th revision: bottom-right corner matches the body figures' 14px radius;
+     the other corners stay square (photo bleeds off the top/left edges). */
+  border-radius: 0 0 14px 0; aspect-ratio: auto;
 }
 .article-hero__media img { width: 100%; height: 100%; object-fit: cover; }
 /* (Removed) The brand mark is no longer painted onto the photo. It is now the
    ONE sticky header logo that flips colour on scroll - see the hero-logo block
    just after the hero rules below. */
 .article-hero__head {
-  display: flex; flex-direction: column; justify-content: center;
-  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 5vw, 5rem);
+  /* 7th revision: the whole block (date, title, sub, tags) bottom-aligns with
+     the cover image's bottom edge - tags sit ON that line (padding-bottom 0),
+     per Sofia's red guideline. */
+  display: flex; flex-direction: column; justify-content: flex-end;
+  padding: clamp(2rem, 5vw, 4rem) clamp(1.5rem, 5vw, 5rem) 0;
 }
 .article-hero__date {
   display: block; font-family: var(--font-body);
@@ -321,6 +326,9 @@ body.blog-body.is-past-hero:has(main.article) .logo__img { filter: brightness(0)
 @media (max-width: 800px) {
   .article-hero { grid-template-columns: 1fr; min-height: 0; }
   .article-hero__media { aspect-ratio: 16 / 10; }
+  /* Stacked layout: the head sits below the image, so the bottom-edge
+     alignment doesn't apply - restore the breathing room under the tags. */
+  .article-hero__head { padding-bottom: clamp(2rem, 5vw, 4rem); }
 }
 
 /* ===== ARTICLE BODY — split rows (first image right margin, later images left) ===== */
