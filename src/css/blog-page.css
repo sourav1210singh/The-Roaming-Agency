@@ -21,11 +21,9 @@ body.blog-body {
   position: relative;
   height: clamp(560px, 85vh, 920px);
   overflow: hidden;
-  /* Offset below the fixed header so the dark header doesn't overlap/clip
-     the band's heads at the top of the image. */
-  margin-top: 88px;
+  /* 7th revision: the blog has no nav bar anymore, so the photo bleeds to the
+     very top of the page and the fixed brand mark floats over it. */
 }
-@media (max-width: 768px) { .blog2-hero { margin-top: 64px; } }
 .blog2-hero__img {
   width: 100%; height: 100%;
   object-fit: cover; object-position: center 35%;
@@ -41,13 +39,7 @@ body.blog-body {
   align-items: center; justify-content: center;
   text-align: center; padding: 0 1rem;
 }
-.blog2-hero__eyebrow {
-  display: block;
-  font-family: var(--font-body);
-  font-size: 0.8rem; letter-spacing: 0.2em;
-  text-transform: uppercase; color: #dec37c;
-  margin-bottom: 0.6rem;
-}
+/* (7th revision) "The Journal" eyebrow removed — the main title stands alone. */
 .blog2-hero__title {
   font-family: var(--font-heading);
   font-size: clamp(2rem, 5vw, 4rem);
@@ -63,8 +55,9 @@ body.blog-body {
   margin: 0 0 clamp(3rem, 6vw, 5rem);
   padding: 0;
 }
-/* Stacked-cards on scroll: each banner sticks below the top bar and the next
-   slides up to stack over it (scale + dim driven by inline JS in blog.html). */
+/* Stacked-cards on scroll: each banner sticks to the top of the viewport (the
+   blog has no nav bar) and the next slides up to stack over it (scale + dim
+   driven by inline JS in blog.html). */
 .feature-banner {
   position: sticky; display: block;
   width: 100%;
@@ -77,9 +70,9 @@ body.blog-body {
   will-change: transform, filter;
 }
 .feature-banner:last-child { margin-bottom: 0; }
-.feature-banner:nth-child(1) { top: 80px;  z-index: 1; }
-.feature-banner:nth-child(2) { top: 96px;  z-index: 2; }
-.feature-banner:nth-child(3) { top: 112px; z-index: 3; }
+.feature-banner:nth-child(1) { top: 0;    z-index: 1; }
+.feature-banner:nth-child(2) { top: 16px; z-index: 2; }
+.feature-banner:nth-child(3) { top: 32px; z-index: 3; }
 .feature-banner__img {
   width: 100%; height: 100%; object-fit: cover; object-position: center top;
   transition: transform 0.6s var(--ease-smooth);
@@ -100,8 +93,10 @@ body.blog-body {
 }
 .feature-banner__label {
   display: block; z-index: 3;
+  /* 7th revision: white + bold (was gold), same size. */
   font-size: 0.78rem; letter-spacing: 0.22em;
-  text-transform: uppercase; color: #dec37c;
+  text-transform: uppercase; color: #FCFCFC;
+  font-weight: 700;
   margin-bottom: clamp(0.5rem, 1vw, 0.8rem);
 }
 /* Title bottom-left + tags bottom-right — differentiates the preview banners
@@ -247,53 +242,39 @@ body.blog-body:has(main.article) .footer__back { color: #2A2A2A; }
 .article-hero__tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 
 /* ============================================================================
-   HERO LOGO (auwa.life ref / 6th-draft red comment): ONE brand mark, stuck in
-   place, reading "negative" - light while it sits over the photo, dark the
-   moment the page scrolls to white. The nav still hides on scroll-down /
-   returns on scroll-up; the logo never leaves. `.is-past-hero` is toggled by
-   blog-article.js once the hero photo clears the bar.
+   HEADER (7th revision, Sofia): the nav bar NEVER appears on the blog or the
+   articles. Exactly like the homepage there is only ONE brand mark, fixed
+   top-left, that never moves and simply changes colour with what sits behind
+   it: light over the hero photo (and over the dark blog listing), dark once
+   an article's white body scrolls under it (`.is-past-hero`, toggled by
+   blog-article.js). Nav links + language toggle are gone on these pages;
+   navigation happens through the content and the footer.
    ========================================================================== */
-body.blog-body:has(main.article) .header {
+body.blog-body .header,
+body.blog-body .header__inner {
   background: transparent;
-  transition: translate 0.4s cubic-bezier(0.22,1,0.36,1), background 0.35s ease, box-shadow 0.35s ease;
+  box-shadow: none;
+  /* The invisible bar must not swallow clicks on content beneath it. */
+  pointer-events: none;
 }
-/* Soft top scrim keeps the light logo + nav legible over a bright photo. */
-body.blog-body:has(main.article) .header::before {
+body.blog-body .header .logo { pointer-events: auto; }
+body.blog-body .header .nav,
+body.blog-body .header .lang-toggle,
+body.blog-body .header .nav__hamburger { display: none !important; }
+/* The mark never leaves - cancel the header's hide-on-scroll translate. */
+body.blog-body .header.is-hidden { translate: 0; }
+/* Soft top scrim keeps the light mark legible over bright photos... */
+body.blog-body .header::before {
   content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background: linear-gradient(to bottom, rgba(0,0,0,0.34), rgba(0,0,0,0));
   transition: opacity 0.35s ease;
 }
-/* Stuck logo: when the bar "hides", keep it in place and fade ONLY the nav +
-   language button - the logo stays put. */
-body.blog-body:has(main.article) .header.is-hidden { translate: 0; }
-body.blog-body:has(main.article) .header.is-hidden .nav,
-body.blog-body:has(main.article) .header.is-hidden .lang-toggle {
-  opacity: 0; pointer-events: none;
-}
-body.blog-body:has(main.article) .nav,
-body.blog-body:has(main.article) .lang-toggle { transition: opacity 0.3s ease, color 0.35s ease; }
-body.blog-body:has(main.article) .logo__img { transition: filter 0.35s ease; }
-/* Past the photo → white bar, dark logo + nav (still "negative" against the page). */
-body.blog-body.is-past-hero:has(main.article) .header {
-  background: #FCFCFC; box-shadow: 0 1px 0 rgba(0,0,0,0.08);
-}
-body.blog-body.is-past-hero:has(main.article) .header::before { opacity: 0; }
+/* ...and fades away once an article's white body takes over. */
+body.blog-body.is-past-hero .header::before { opacity: 0; }
+body.blog-body .logo__img { transition: filter 0.35s ease; }
+/* Articles are white past the hero -> dark mark. The blog listing stays dark
+   below its hero, so the mark simply stays light there. */
 body.blog-body.is-past-hero:has(main.article) .logo__img { filter: brightness(0); }
-body.blog-body.is-past-hero:has(main.article) .nav__link,
-body.blog-body.is-past-hero:has(main.article) .lang-toggle { color: #2A2A2A; }
-/* At the top the nav straddles the photo (left) and the white title half
-   (right), so let each link read its own backdrop and stay "negative":
-   inverts to dark over the white side, light over the photo. Switched off
-   once the solid white bar takes over (is-past-hero handles colour there). */
-@media (min-width: 801px) {
-  body.blog-body:has(main.article):not(.is-past-hero) .nav__link,
-  body.blog-body:has(main.article):not(.is-past-hero) .lang-toggle {
-    mix-blend-mode: difference; color: #fff;
-  }
-}
-/* Mobile: header sits over the full-width photo (no straddle), so the
-   injected hamburger just needs to darken on the white bar. */
-body.blog-body.is-past-hero:has(main.article) .nav__hamburger span { background: #2A2A2A; }
 
 .article-body {
   max-width: 680px; margin: 0 auto;
