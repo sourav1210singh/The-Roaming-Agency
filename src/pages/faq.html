@@ -41,19 +41,16 @@
       margin: 0 auto;
       padding: 0 clamp(1.25rem, 4vw, 3rem);
     }
+    /* 7th revision (Sofia): gold "FAQ" eyebrow removed - the title + subtitle
+       are enough. Both are centred and sit on a single line on desktop (they
+       wrap naturally on small screens, where forcing one line would shrink
+       the text too far). The header lives OUTSIDE the narrow accordion
+       container so the one-line subtitle has room. */
     .faq-page__header {
-      max-width: 60ch;
-      margin: 0 0 clamp(2.5rem, 5vw, 4rem);
-    }
-    .faq-page__eyebrow {
-      display: block;
-      font-family: var(--font-body);
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: #c8a560;
-      margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
+      max-width: 1200px;
+      margin: 0 auto clamp(2.5rem, 5vw, 4rem);
+      padding: 0 clamp(1.25rem, 4vw, 3rem);
+      text-align: center;
     }
     .faq-page__title {
       font-family: 'Nohemi', 'Inter', 'Helvetica Neue', system-ui, sans-serif;
@@ -61,9 +58,12 @@
       font-weight: 800;
       line-height: 1.05;
       letter-spacing: -0.02em;
-      margin: 0 0 clamp(0.75rem, 1.5vw, 1.25rem);
+      /* Tight title->subtitle lockup, matching the site-wide standard. */
+      margin: 0 0 clamp(0.4rem, 0.8vw, 0.6rem);
       color: #2A2A2A;
     }
+    @media (min-width: 900px)  { .faq-page__title { white-space: nowrap; } }
+    @media (min-width: 1200px) { .faq-page__lead  { white-space: nowrap; } }
     .faq-page__lead {
       font-family: var(--font-body);
       font-size: clamp(0.95rem, 1.05vw, 1.0625rem);
@@ -267,10 +267,8 @@
        page now. Reuses the same .faq accordion behaviour from the
        homepage version. -->
   <main class="faq-page" id="main-content">
-    <div class="container">
-      <header class="faq-page__header">
-        <span class="faq-page__eyebrow" data-en="FAQ" data-fr="FAQ">FAQ</span>
-        <h1 class="faq-page__title"
+    <header class="faq-page__header">
+      <h1 class="faq-page__title"
             data-en="Frequently Asked Questions"
             data-fr="Questions Fréquemment Posées">
           Frequently Asked Questions
@@ -280,7 +278,8 @@
            data-fr="Tout ce que vous pourriez vouloir savoir sur notre fonctionnement - répertoire, durée des sets, déplacements, exigences techniques.">
           Everything you might want to know about how we work - repertoire, set lengths, travel, venue requirements and more.
         </p>
-      </header>
+    </header>
+    <div class="container">
 
       <div class="faq__list">
         <div class="faq__item">

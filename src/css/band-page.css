@@ -98,21 +98,23 @@
   font-weight: 600;
   color: var(--color-white);
   line-height: 1;
-  margin-bottom: var(--space-md);
+  margin-bottom: 0.15rem;
 }
 
+/* 7th revision (Sofia): ONE standard hero tagline site-wide - white, upright
+   (gold/italic dropped), a step smaller (--text-xl -> --text-lg) and pulled
+   up tight under the title. This is the old .band-hero--plain look promoted
+   to the default, so that modifier (still in the MMA pages' markup) is inert.
+   The negative top margin matters: at 112px the title's line box carries
+   ~25px of built-in air below the baseline even at line-height 1, so a small
+   positive margin still LOOKS like a wide gap (the Violin Duet complaint). */
 .band-hero__tagline {
   font-family: var(--font-accent);
-  font-size: var(--text-xl);
-  color: var(--color-gold);
-  font-style: italic;
+  font-size: var(--text-lg);
+  color: var(--color-white);
   letter-spacing: 0.05em;
+  margin-top: -0.3rem;
 }
-
-/* 6th draft — More Music Acts pages (DJ, Violin Duet, Saxophonist, Jazz Band):
-   plain white hero tagline (no gold/italic) + tighter title->tagline gap. */
-.band-hero--plain .band-hero__name { margin-bottom: 0.1rem; }
-.band-hero--plain .band-hero__tagline { color: var(--color-white); font-style: normal; }
 
 /* === BAND SLOGAN + DESCRIPTION (nitex.com style) === */
 .band-intro {
