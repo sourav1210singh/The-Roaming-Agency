@@ -316,7 +316,8 @@ body.blog-body.is-past-hero:has(main.article) .logo__img { filter: brightness(0)
   font-size: 0.8rem !important; letter-spacing: 0.1em;
   text-transform: uppercase;
   color: rgba(0,0,0,0.5) !important;
-  margin-top: clamp(2rem, 4vw, 3rem) !important;
+  /* Tucked right under the last paragraph (was a floaty 2-3rem drop). */
+  margin-top: clamp(0.5rem, 1vw, 0.75rem) !important;
 }
 .article-related {
   margin-top: clamp(3rem, 6vw, 5rem);
@@ -350,6 +351,12 @@ body.blog-body.is-past-hero:has(main.article) .logo__img { filter: brightness(0)
   font-family: var(--font-body); font-size: 0.82rem;
   color: rgba(0,0,0,0.5); line-height: 1.55; margin-top: 0.75rem;
 }
+/* Short text blocks hug the BOTTOM edge of their photo (Sofia's red arrows -
+   the same bottom-line rule as the article hero) instead of hanging at the
+   top with a void beneath. Rows where the text is taller than its image are
+   unaffected: the text defines the row height there. Mobile stacking (860px)
+   is also unaffected - each item sits in its own row. */
+.article-row__text { align-self: end; }
 .article-row__text > :first-child { margin-top: 0; }
 .article-row__text > :last-child { margin-bottom: 0; }
 /* First image aligned to the RIGHT margin (opposite the hero); text on the left. */
