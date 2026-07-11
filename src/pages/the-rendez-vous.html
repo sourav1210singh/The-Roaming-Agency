@@ -263,8 +263,12 @@
   </section>
 
   <!-- ===== 4. FULL-WIDTH BAND IMAGE ===== -->
-  <section class="band-strip reveal">
-    <img src="/src/assets/images/bands/rendezvous-strip3.jpg" alt="The Rendez-Vous performing" loading="lazy" style="object-position: center 12%">
+  <!-- Sharp re-cut from the ORIGINAL 4266px photo (the 1376px "1" PNG went
+       soft when upscaled). The staircase diagonal spans ~44% of the image's
+       height, more than a default strip shows, so this strip is taller too -
+       otherwise the lowest face would clip. -->
+  <section class="band-strip reveal" style="height: clamp(300px, 52vh, 560px)">
+    <img src="/src/assets/images/bands/rendezvous-strip4.jpg" alt="The Rendez-Vous performing" loading="lazy" style="object-position: center 23%">
   </section>
 
   <!-- ===== 5. TESTIMONIALS (homepage "They Chose" layout) ===== -->

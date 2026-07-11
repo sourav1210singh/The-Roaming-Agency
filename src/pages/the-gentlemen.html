@@ -263,7 +263,11 @@
   </section>
 
   <!-- ===== 4. FULL-WIDTH BAND IMAGE ===== -->
-  <section class="band-strip reveal">
+  <!-- Taller strip on this page: the photo's full width is already on screen
+       (no more zoom-out left in the source) and the blond guy's hair already
+       touches the top, so the "zoom out + up" ask is delivered by showing
+       MORE of the scene instead - band stays pinned at the top. -->
+  <section class="band-strip reveal" style="height: clamp(300px, 52vh, 560px)">
     <img src="/src/assets/images/bands/gentlemen-strip3.jpg" alt="The Gentlemen performing" loading="lazy" style="object-position: center 12%">
   </section>
 
