@@ -2,6 +2,14 @@
   "trailingSlash": false,
   "rewrites": [
     {
+      "source": "/bands",
+      "destination": "/src/pages/bands.html"
+    },
+    {
+      "source": "/fr/bands",
+      "destination": "/src/pages/fr/bands.html"
+    },
+    {
       "source": "/fr",
       "destination": "/src/pages/fr/index.html"
     },

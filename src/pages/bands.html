@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en" data-lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Meet our ten luxury roaming bands: acoustic, mobile and unforgettable. Compare their styles and find the perfect live band for your wedding or event.">
+  <title>Our Bands - 10 Luxury Roaming Bands | The Roaming Agency</title>
+
+  <link rel="canonical" href="https://theroamingagency.com/bands">
+  <link rel="alternate" hreflang="en" href="https://theroamingagency.com/bands">
+  <link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/bands">
+  <link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/bands">
+  <meta property="og:title" content="Our Bands - 10 Luxury Roaming Bands | The Roaming Agency">
+  <meta property="og:description" content="Meet our ten luxury roaming bands: acoustic, mobile and unforgettable. Compare their styles and find the perfect live band for your wedding or event.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://theroamingagency.com/bands">
+  <meta property="og:locale" content="en_GB">
+  <meta property="og:locale:alternate" content="fr_FR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Our Bands - 10 Luxury Roaming Bands | The Roaming Agency">
+  <meta name="twitter:description" content="Meet our ten luxury roaming bands: acoustic, mobile and unforgettable. Compare their styles and find the perfect live band for your wedding or event.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <meta name="theme-color" content="#2A2A2A">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127925;</text></svg>">
+  <link rel="stylesheet" href="/src/css/variables.css">
+  <link rel="stylesheet" href="/src/css/reset.css">
+  <link rel="stylesheet" href="/src/css/style.css">
+  <link rel="stylesheet" href="/src/css/band-page.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+  <script src="/src/js/smart-header.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js" defer></script>
+  <style>
+    /* Same listing treatment as More Music Acts: light page, white cards.
+       Top padding clears the fixed header so the H1 isn't clipped. */
+    .bands-hero { text-align: center; padding: clamp(8.5rem, 12vw, 11rem) var(--space-md) var(--space-lg); }
+    .bands-hero__title {
+      font-family: var(--font-heading); font-weight: 600;
+      font-size: clamp(2.4rem, 6vw, 4.5rem); line-height: 1.05;
+      color: var(--color-dark, #2A2A2A); margin-bottom: 0.5rem;
+    }
+    .bands-hero__sub {
+      font-family: var(--font-body); font-size: clamp(1rem, 1.5vw, 1.2rem);
+      color: var(--color-grey, #666); max-width: 40rem; margin: 0 auto;
+    }
+    .bands-intro {
+      max-width: 46rem; margin: 0 auto;
+      padding: 0 var(--space-md) clamp(2.5rem, 5vw, 4rem);
+    }
+    .bands-intro p {
+      font-family: var(--font-body); font-size: clamp(0.98rem, 1.15vw, 1.1rem);
+      line-height: 1.75; color: #4a4a4a; margin: 0 0 1.1rem;
+    }
+    .bands-intro p:last-child { margin-bottom: 0; }
+    .bands-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: clamp(1.2rem, 3vw, 2.2rem); max-width: 1200px;
+      margin: 0 auto; padding: 0 var(--space-md) clamp(2.5rem, 5vw, 4rem);
+    }
+    .act-card {
+      display: flex; flex-direction: column; text-decoration: none;
+      background: #fff; border-radius: 14px; overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      transition: transform .4s ease, box-shadow .4s ease;
+    }
+    .act-card:hover { transform: translateY(-6px); box-shadow: 0 18px 44px rgba(0,0,0,0.14); }
+    .act-card__media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
+    .act-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
+    .act-card:hover .act-card__media img { transform: scale(1.06); }
+    .act-card__body { padding: 1.4rem 1.5rem 1.7rem; }
+    .act-card__title {
+      display: block;
+      font-family: var(--font-heading); font-weight: 600;
+      font-size: 1.5rem; color: var(--color-dark, #2A2A2A); margin-bottom: 0.25rem;
+    }
+    .act-card__line { display: block; font-family: var(--font-body); color: var(--color-grey, #666); font-size: 0.98rem; margin-bottom: 0.4rem; }
+    .act-card__cta {
+      display: inline-block;
+      font-family: var(--font-body); font-weight: var(--fw-semibold, 600);
+      font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase;
+      color: var(--color-gold-dark, #b8902f);
+    }
+    /* More-acts + CTA bands */
+    .bands-more {
+      text-align: center; max-width: 44rem;
+      margin: 0 auto; padding: 0 var(--space-md) clamp(3rem, 6vw, 5rem);
+    }
+    .bands-more p {
+      font-family: var(--font-body); font-size: clamp(0.98rem, 1.15vw, 1.1rem);
+      line-height: 1.7; color: #4a4a4a; margin: 0 0 1.2rem;
+    }
+    .bands-cta {
+      background: #2A2A2A; text-align: center;
+      padding: clamp(3rem, 7vw, 5.5rem) var(--space-md);
+    }
+    .bands-cta__title {
+      font-family: var(--font-heading); font-weight: 600;
+      font-size: clamp(1.6rem, 3.4vw, 2.6rem); color: #FCFCFC;
+      margin: 0 0 0.5rem;
+    }
+    .bands-cta__sub {
+      font-family: var(--font-body); font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+      color: rgba(252,252,252,0.75); margin: 0 0 1.6rem;
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    "name": "Our Bands",
+    "url": "https://theroamingagency.com/bands",
+    "description": "Meet our ten luxury roaming bands: acoustic, mobile and unforgettable. Compare their styles and find the perfect live band for your wedding or event.",
+    "inLanguage": "en",
+    "publisher": {
+      "@type": "Organization",
+      "name": "The Roaming Agency",
+      "url": "https://theroamingagency.com"
+    },
+    "mainEntity": {
+      "@type": "ItemList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "The Brotherockers", "url": "https://theroamingagency.com/the-brotherockers" },
+        { "@type": "ListItem", "position": 2, "name": "The Kingsmen", "url": "https://theroamingagency.com/the-kingsmen" },
+        { "@type": "ListItem", "position": 3, "name": "The Peppermints", "url": "https://theroamingagency.com/the-peppermints" },
+        { "@type": "ListItem", "position": 4, "name": "The Gentlemen", "url": "https://theroamingagency.com/the-gentlemen" },
+        { "@type": "ListItem", "position": 5, "name": "The Serenades", "url": "https://theroamingagency.com/the-serenades" },
+        { "@type": "ListItem", "position": 6, "name": "The Supersonics", "url": "https://theroamingagency.com/the-supersonics" },
+        { "@type": "ListItem", "position": 7, "name": "The Rendez-Vous", "url": "https://theroamingagency.com/the-rendez-vous" },
+        { "@type": "ListItem", "position": 8, "name": "Café Crème", "url": "https://theroamingagency.com/cafe-creme" },
+        { "@type": "ListItem", "position": 9, "name": "Why So Serious?", "url": "https://theroamingagency.com/why-so-serious" },
+        { "@type": "ListItem", "position": 10, "name": "The Blackjacks", "url": "https://theroamingagency.com/the-blackjacks" }
+      ]
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://theroamingagency.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Our Bands", "item": "https://theroamingagency.com/bands" }
+    ]
+  }
+  </script>
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to content</a>
+
+  <!-- Page Loader -->
+  <div class="page-loader" id="pageLoader"><div class="page-loader__spinner"></div></div>
+
+  <!-- WhatsApp -->
+  <a href="https://wa.me/33686621282" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Contact us on WhatsApp">
+    <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+    <span class="whatsapp-btn__label" data-en="Let's chat." data-fr="Discutons.">Let's chat.</span>
+  </a>
+
+  <!-- Header -->
+  <header class="header header--scrolled" id="mainHeader">
+    <div class="header__inner">
+      <a href="/" class="logo logo--scrolled" id="mainLogo">
+        <img class="logo__img" src="/src/assets/images/logo-roaming-agency.png" alt="The Roaming Agency" width="670" height="373">
+      </a>
+      <nav class="nav nav--visible" id="mainNav" aria-label="Site navigation">
+        <ul class="nav__list">
+          <li class="nav__item nav__item--has-dropdown">
+            <a href="/#events" class="nav__link">Events</a>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="/weddings">Weddings</a></li>
+              <li><a href="/corporate-events">Corporate Events</a></li>
+              <li><a href="/private-parties">Private Parties</a></li>
+              <li><a href="/artistic-direction">Artistic Direction</a></li>
+            </ul>
+          </li>
+          <li class="nav__item nav__item--has-dropdown">
+            <a href="/bands" class="nav__link nav__link--active">Bands</a>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="/bands">All Bands</a></li>
+              <li><a href="/the-brotherockers">The Brotherockers</a></li>
+              <li><a href="/the-kingsmen">The Kingsmen</a></li>
+              <li><a href="/the-peppermints">The Peppermints</a></li>
+              <li><a href="/the-gentlemen">The Gentlemen</a></li>
+              <li><a href="/the-serenades">The Serenades</a></li>
+              <li><a href="/the-supersonics">The Supersonics</a></li>
+              <li><a href="/the-rendez-vous">The Rendez-Vous</a></li>
+              <li><a href="/cafe-creme">Café Crème</a></li>
+              <li><a href="/why-so-serious">Why So Serious?</a></li>
+              <li><a href="/the-blackjacks">The Blackjacks</a></li>
+              <li class="nav__dropdown-divider" aria-hidden="true"></li>
+              <li><a href="/more-music-acts">More Music Acts</a></li>
+            </ul>
+          </li>
+          <li class="nav__item"><a href="/dj" class="nav__link">DJ</a></li>
+          <li class="nav__item"><a href="/faq" class="nav__link">FAQ</a></li>
+          <li class="nav__item"><a href="/blog" class="nav__link">Blog</a></li>
+          <li class="nav__item"><a href="/more-music-acts" class="nav__link">More Music Acts</a></li>
+        </ul>
+      </nav>
+      <a class="lang-toggle" href="/fr/bands">FR</a>
+    </div>
+  </header>
+
+  <!-- ===== BANDS HERO ===== -->
+  <a id="main-content"></a><section class="bands-hero">
+    <h1 class="bands-hero__title" data-en="Our Bands" data-fr="Nos Groupes">Our Bands</h1>
+    <p class="bands-hero__sub" data-en="Ten roaming bands, one signature: live music that moves with your guests." data-fr="Dix groupes itinérants, une signature : de la musique live qui se déplace avec vos invités.">Ten roaming bands, one signature: live music that moves with your guests.</p>
+  </section>
+
+  <!-- ===== SEO INTRO ===== -->
+  <section class="bands-intro reveal">
+    <p>A roaming band is a fully acoustic, mobile group. There is no stage, no cables and no barrier between the musicians and the room. The band walks, plays and sings among your guests, so every corner of the venue becomes the front row. It is the signature of The Roaming Agency, and the reason our events feel so personal.</p>
+    <p>Based on the French Riviera and performing worldwide, our ten bands cover everything from vocal harmony and French chanson to rock'n'roll and jazz, in up to five languages. Each one has its own character, repertoire and story. Browse the lineup below and click any band to see videos, reviews and details, or send us a note and we will match the right band to your wedding, corporate event or private party.</p>
+  </section>
+
+  <!-- ===== BANDS GRID ===== -->
+  <section class="bands-grid-section">
+    <div class="bands-grid">
+      <a href="/the-brotherockers" class="act-card">
+        <span class="act-card__media"><img src="/src/assets/images/bands/brotherockers-strip3.jpg" alt="The Brotherockers roaming band" loading="lazy"></span>
+        <span class="act-card__body">
+          <span class="act-card__title">The Brotherockers</span>
+          <span class="act-card__line" data-en="The original roaming band" data-fr="Le groupe itinérant originel">The original roaming band</span>
+          <span class="act-card__cta" data-en="Discover &#8594;" data-fr="Découvrir &#8594;">Discover &#8594;</span>
+        </span>
+      </a>
+      <a href="/the-kingsmen" class="act-card">
+        <span class="act-card__media"><img src="/src/assets/images/bands/kingsmen-strip3.jpg" alt="The Kingsmen vocal roaming band" loading="lazy"></span>
+        <span class="act-card__body">
+          <span class="act-card__title">The Kingsmen</span>
+          <span class="act-card__line" data-en="Five voices, one crown" data-fr="Cinq voix, une couronne">Five voices, one crown</span>
+          <span class="act-card__cta" data-en="Discover &#8594;" data-fr="Découvrir &#8594;">Discover &#8594;</span>
+        </span>
+      </a>
+      <a href="/the-peppermints" class="act-card">
+        <span class="act-card__media"><img src="/src/assets/images/bands/peppermints-strip3.jpg" alt="The Peppermints pop band" loading="lazy"></span>
+        <span class="act-card__body">
+          <span class="act-card__title">The Peppermints</span>
+          <span class="act-card__line" data-en="Feel-good pop in perfect harmony" data-fr="Pop feel-good en parfaite harmonie">Feel-good pop in perfect harmony</span>
+          <span class="act-card__cta" data-en="Discover &#8594;" data-fr="Découvrir &#8594;">Discover &#8594;</span>
+        </span>
+      </a>
+      <a href="/the-gentlemen" class="act-card">
+        <span class="act-card__media"><img src="/src/assets/images/bands/gentlemen-strip3.jpg" alt="The Gentlemen roaming band by the sea" loading="lazy"></span>
+        <span class="act-card__body">
+          <span class="act-card__title">The Gentlemen</span>
+          <span class="act-card__line" data-en="Six musicians, pure charm" data-fr="Six musiciens, un charme fou">Six musicians, pure charm</span>
+          <span class="act-card__cta" data-en="Discover &#8594;" data-fr="Découvrir &#8594;">Discover &#8594;</span>
+        </span>
+      </a>
+      <a href="/the-serenades" class="act-card">
+        <span class="act-card__media"><img src="/src/assets/images/bands/serenades-strip3.jpg" alt="The Serenades romantic band" loading="lazy"></span>
+        <span class="act-card__body">
+          <span class="act-card__title">The Serenades</span>
+          <span class="act-card__line" data-en="Romance, played live" data-fr="La romance, jouée en direct">Romance, played live</span>
+          <span class="act-card__cta" data-en="Discover &#8594;" data-fr="Découvrir &#8594;">Discover &#8594;</span>
+        </span>
+      </a>
+      <a href="/the-supersonics" class="act-card">
+        <span class="act-card__media"><img src="/src/assets/images/bands/supersonics-strip3.jpg" alt="The Supersonics rock'n'roll band" loading="lazy"></span>
+        <span class="act-card__body">
+          <span class="act-card__title">The Supersonics</span>
+          <span class="act-card__line" data-en="Rock'n'roll that fills the floor" data-fr="Un rock'n'roll qui remplit la piste">Rock'n'roll that fills the floor</span>
+          <span class="act-card__cta" data-en="Discover &#8594;" data-fr="Découvrir &#8594;">Discover &#8594;</span>
+        </span>
+      </a>
+      <a href="/the-rendez-vous" class="act-card">
+        <span class="act-card__media"><img src="/src/assets/images/bands/rendezvous-strip4.jpg" alt="The Rendez-Vous French band" loading="lazy"></span>
+        <span class="act-card__body">
+          <span class="act-card__title">The Rendez-Vous</span>
+          <span class="act-card__line" data-en="French elegance, international hits" data-fr="Élégance française, tubes internationaux">French elegance, international hits</span>
+          <span class="act-card__cta" data-en="Discover &#8594;" data-fr="Découvrir &#8594;">Discover &#8594;</span>
+        </span>
+      </a>
+      <a href="/cafe-creme" class="act-card">
+        <span class="act-card__media"><img src="/src/assets/images/bands/cafecreme-strip3.jpg" alt="Café Crème French chanson band" loading="lazy"></span>
+        <span class="act-card__body">
+          <span class="act-card__title">Café Crème</span>
+          <span class="act-card__line" data-en="French chanson, modern twist" data-fr="La chanson française, twist moderne">French chanson, modern twist</span>
+          <span class="act-card__cta" data-en="Discover &#8594;" data-fr="Découvrir &#8594;">Discover &#8594;</span>
+        </span>
+      </a>
+      <a href="/why-so-serious" class="act-card">
+        <span class="act-card__media"><img src="/src/assets/images/bands/whysoserious-strip3.jpg" alt="Why So Serious? party band" loading="lazy"></span>
+        <span class="act-card__body">
+          <span class="act-card__title">Why So Serious?</span>
+          <span class="act-card__line" data-en="Playful show, serious musicianship" data-fr="Un show espiègle, des musiciens sérieux">Playful show, serious musicianship</span>
+          <span class="act-card__cta" data-en="Discover &#8594;" data-fr="Découvrir &#8594;">Discover &#8594;</span>
+        </span>
+      </a>
+      <a href="/the-blackjacks" class="act-card">
+        <span class="act-card__media"><img src="/src/assets/images/bands/blackjacks-strip5.jpg" alt="The Blackjacks rock band" loading="lazy"></span>
+        <span class="act-card__body">
+          <span class="act-card__title">The Blackjacks</span>
+          <span class="act-card__line" data-en="Sharp suits, tight harmonies" data-fr="Costumes impeccables, harmonies parfaites">Sharp suits, tight harmonies</span>
+          <span class="act-card__cta" data-en="Discover &#8594;" data-fr="Découvrir &#8594;">Discover &#8594;</span>
+        </span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== MORE ACTS ===== -->
+  <section class="bands-more reveal">
+    <p data-en="Looking for something more intimate? Discover our solo artists and ensembles: the DJ, The Violin Duet, The Saxophonist and The Jazz Band." data-fr="Envie d'une formule plus intime ? Découvrez nos artistes solo et nos ensembles : le DJ, The Violin Duet, The Saxophonist et The Jazz Band.">Looking for something more intimate? Discover our solo artists and ensembles: the DJ, The Violin Duet, The Saxophonist and The Jazz Band.</p>
+    <a href="/more-music-acts" class="btn btn--outline" data-en="More Music Acts" data-fr="Plus d'Actes Musicaux">More Music Acts</a>
+  </section>
+
+  <!-- ===== CTA ===== -->
+  <section class="bands-cta">
+    <h2 class="bands-cta__title" data-en="Not sure which band fits your event?" data-fr="Vous hésitez sur le groupe idéal pour votre événement ?">Not sure which band fits your event?</h2>
+    <p class="bands-cta__sub" data-en="Tell us about your plans and we will match you with the right lineup within 12 hours." data-fr="Parlez-nous de votre projet et nous vous proposerons la formation idéale sous 12 heures.">Tell us about your plans and we will match you with the right lineup within 12 hours.</p>
+    <a href="/#contact" class="btn btn--primary" data-en="Find Your Band" data-fr="Trouver Votre Groupe">Find Your Band</a>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__bottom" style="border: none; padding: 0;">
+        <span>© 2026 The Roaming Agency. All rights reserved.</span>
+        <span class="footer__credit">Designed by <a href="https://www.incrementors.com/" target="_blank" rel="noopener noreferrer">Incrementors</a></span>
+        <div class="footer__social">
+          <a href="https://www.instagram.com/thebrotherockers/" target="_blank" class="footer__social-link" aria-label="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/thebrotherockers" target="_blank" class="footer__social-link" aria-label="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Page loader
+    const loader = document.getElementById('pageLoader');
+    window.addEventListener('load', () => setTimeout(() => loader.classList.add('loaded'), 300));
+    setTimeout(() => loader.classList.add('loaded'), 2000);
+
+    // Scroll reveals
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
+      document.querySelectorAll('.reveal').forEach(el => {
+        gsap.fromTo(el, { opacity: 0, y: 40 }, {
+          opacity: 1, y: 0, duration: 0.8, ease: 'power2.out',
+          scrollTrigger: { trigger: el, start: 'top 85%' }
+        });
+      });
+      gsap.utils.toArray('.act-card').forEach((card, i) => {
+        gsap.fromTo(card, { opacity: 0, y: 30 }, {
+          opacity: 1, y: 0, duration: 0.6, delay: (i % 4) * 0.08, ease: 'power2.out',
+          scrollTrigger: { trigger: card, start: 'top 88%' }
+        });
+      });
+    }
+  });
+  </script>
+</body>
+</html>
