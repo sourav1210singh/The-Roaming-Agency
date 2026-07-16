@@ -225,6 +225,19 @@ body.is-header-hidden .hero-center-title {
 .header--scrolled .logo__img {
   height: 3.75rem;
 }
+/* Homepage bar: its logo floats as an overlay (not in-flow), so without help
+   the bar collapses to nav-height and reads visibly SHORTER than sub-pages
+   (client: make them equal). Only the homepage header contains the .logo--hero
+   measurement proxy, so :has() scopes this safely - and it stays stable while
+   JS toggles .header--scrolled during scroll. Same padding + a min-height
+   equal to the sub-page logo (3.75rem) = identical bar height everywhere. */
+.header:has(.logo--hero) {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+}
+.header:has(.logo--hero) .header__inner {
+  min-height: 3.75rem;
+}
 
 .header > * {
   pointer-events: auto;
