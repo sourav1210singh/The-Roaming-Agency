@@ -1,52 +1,310 @@
 {
   "trailingSlash": false,
   "rewrites": [
-    { "source": "/the-brotherockers", "destination": "/src/pages/the-brotherockers.html" },
-    { "source": "/the-kingsmen", "destination": "/src/pages/the-kingsmen.html" },
-    { "source": "/the-peppermints", "destination": "/src/pages/the-peppermints.html" },
-    { "source": "/the-gentlemen", "destination": "/src/pages/the-gentlemen.html" },
-    { "source": "/the-serenades", "destination": "/src/pages/the-serenades.html" },
-    { "source": "/the-supersonics", "destination": "/src/pages/the-supersonics.html" },
-    { "source": "/the-rendez-vous", "destination": "/src/pages/the-rendez-vous.html" },
-    { "source": "/cafe-creme", "destination": "/src/pages/cafe-creme.html" },
-    { "source": "/why-so-serious", "destination": "/src/pages/why-so-serious.html" },
-    { "source": "/the-blackjacks", "destination": "/src/pages/the-blackjacks.html" },
-    { "source": "/blog", "destination": "/src/pages/blog.html" },
-    { "source": "/dj", "destination": "/src/pages/dj.html" },
-    { "source": "/faq", "destination": "/src/pages/faq.html" },
-    { "source": "/more-music-acts", "destination": "/src/pages/more-music-acts.html" },
-    { "source": "/the-violin-duet", "destination": "/src/pages/the-violin-duet.html" },
-    { "source": "/the-saxophonist", "destination": "/src/pages/the-saxophonist.html" },
-    { "source": "/the-jazz-band", "destination": "/src/pages/the-jazz-band.html" },
-    { "source": "/weddings", "destination": "/src/pages/weddings.html" },
-    { "source": "/corporate-events", "destination": "/src/pages/corporate-events.html" },
-    { "source": "/private-parties", "destination": "/src/pages/private-parties.html" },
-    { "source": "/artistic-direction", "destination": "/src/pages/artistic-direction.html" },
-    { "source": "/blog/the-band-that-elevated-the-entire-evening", "destination": "/src/pages/article-elevated-evening.html" },
-    { "source": "/blog/how-live-music-shapes-the-guest-experience", "destination": "/src/pages/article-guest-experience.html" },
-    { "source": "/blog/why-everyone-is-looking-at-the-kingsmen", "destination": "/src/pages/article-kingsmen.html" },
-    { "source": "/blog/why-the-right-sound-changes-everything", "destination": "/src/pages/article-right-sound.html" },
-    { "source": "/blog/what-a-wedding-feels-like-when-music-is-done-right", "destination": "/src/pages/article-wedding-music.html" }
+    {
+      "source": "/fr",
+      "destination": "/src/pages/fr/index.html"
+    },
+    {
+      "source": "/fr/the-brotherockers",
+      "destination": "/src/pages/fr/the-brotherockers.html"
+    },
+    {
+      "source": "/fr/the-kingsmen",
+      "destination": "/src/pages/fr/the-kingsmen.html"
+    },
+    {
+      "source": "/fr/the-peppermints",
+      "destination": "/src/pages/fr/the-peppermints.html"
+    },
+    {
+      "source": "/fr/the-gentlemen",
+      "destination": "/src/pages/fr/the-gentlemen.html"
+    },
+    {
+      "source": "/fr/the-serenades",
+      "destination": "/src/pages/fr/the-serenades.html"
+    },
+    {
+      "source": "/fr/the-supersonics",
+      "destination": "/src/pages/fr/the-supersonics.html"
+    },
+    {
+      "source": "/fr/the-rendez-vous",
+      "destination": "/src/pages/fr/the-rendez-vous.html"
+    },
+    {
+      "source": "/fr/cafe-creme",
+      "destination": "/src/pages/fr/cafe-creme.html"
+    },
+    {
+      "source": "/fr/why-so-serious",
+      "destination": "/src/pages/fr/why-so-serious.html"
+    },
+    {
+      "source": "/fr/the-blackjacks",
+      "destination": "/src/pages/fr/the-blackjacks.html"
+    },
+    {
+      "source": "/fr/blog",
+      "destination": "/src/pages/fr/blog.html"
+    },
+    {
+      "source": "/fr/dj",
+      "destination": "/src/pages/fr/dj.html"
+    },
+    {
+      "source": "/fr/faq",
+      "destination": "/src/pages/fr/faq.html"
+    },
+    {
+      "source": "/fr/more-music-acts",
+      "destination": "/src/pages/fr/more-music-acts.html"
+    },
+    {
+      "source": "/fr/the-violin-duet",
+      "destination": "/src/pages/fr/the-violin-duet.html"
+    },
+    {
+      "source": "/fr/the-saxophonist",
+      "destination": "/src/pages/fr/the-saxophonist.html"
+    },
+    {
+      "source": "/fr/the-jazz-band",
+      "destination": "/src/pages/fr/the-jazz-band.html"
+    },
+    {
+      "source": "/fr/weddings",
+      "destination": "/src/pages/fr/weddings.html"
+    },
+    {
+      "source": "/fr/corporate-events",
+      "destination": "/src/pages/fr/corporate-events.html"
+    },
+    {
+      "source": "/fr/private-parties",
+      "destination": "/src/pages/fr/private-parties.html"
+    },
+    {
+      "source": "/fr/artistic-direction",
+      "destination": "/src/pages/fr/artistic-direction.html"
+    },
+    {
+      "source": "/fr/blog/the-band-that-elevated-the-entire-evening",
+      "destination": "/src/pages/fr/article-elevated-evening.html"
+    },
+    {
+      "source": "/fr/blog/how-live-music-shapes-the-guest-experience",
+      "destination": "/src/pages/fr/article-guest-experience.html"
+    },
+    {
+      "source": "/fr/blog/why-everyone-is-looking-at-the-kingsmen",
+      "destination": "/src/pages/fr/article-kingsmen.html"
+    },
+    {
+      "source": "/fr/blog/why-the-right-sound-changes-everything",
+      "destination": "/src/pages/fr/article-right-sound.html"
+    },
+    {
+      "source": "/fr/blog/what-a-wedding-feels-like-when-music-is-done-right",
+      "destination": "/src/pages/fr/article-wedding-music.html"
+    },
+    {
+      "source": "/the-brotherockers",
+      "destination": "/src/pages/the-brotherockers.html"
+    },
+    {
+      "source": "/the-kingsmen",
+      "destination": "/src/pages/the-kingsmen.html"
+    },
+    {
+      "source": "/the-peppermints",
+      "destination": "/src/pages/the-peppermints.html"
+    },
+    {
+      "source": "/the-gentlemen",
+      "destination": "/src/pages/the-gentlemen.html"
+    },
+    {
+      "source": "/the-serenades",
+      "destination": "/src/pages/the-serenades.html"
+    },
+    {
+      "source": "/the-supersonics",
+      "destination": "/src/pages/the-supersonics.html"
+    },
+    {
+      "source": "/the-rendez-vous",
+      "destination": "/src/pages/the-rendez-vous.html"
+    },
+    {
+      "source": "/cafe-creme",
+      "destination": "/src/pages/cafe-creme.html"
+    },
+    {
+      "source": "/why-so-serious",
+      "destination": "/src/pages/why-so-serious.html"
+    },
+    {
+      "source": "/the-blackjacks",
+      "destination": "/src/pages/the-blackjacks.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/src/pages/blog.html"
+    },
+    {
+      "source": "/dj",
+      "destination": "/src/pages/dj.html"
+    },
+    {
+      "source": "/faq",
+      "destination": "/src/pages/faq.html"
+    },
+    {
+      "source": "/more-music-acts",
+      "destination": "/src/pages/more-music-acts.html"
+    },
+    {
+      "source": "/the-violin-duet",
+      "destination": "/src/pages/the-violin-duet.html"
+    },
+    {
+      "source": "/the-saxophonist",
+      "destination": "/src/pages/the-saxophonist.html"
+    },
+    {
+      "source": "/the-jazz-band",
+      "destination": "/src/pages/the-jazz-band.html"
+    },
+    {
+      "source": "/weddings",
+      "destination": "/src/pages/weddings.html"
+    },
+    {
+      "source": "/corporate-events",
+      "destination": "/src/pages/corporate-events.html"
+    },
+    {
+      "source": "/private-parties",
+      "destination": "/src/pages/private-parties.html"
+    },
+    {
+      "source": "/artistic-direction",
+      "destination": "/src/pages/artistic-direction.html"
+    },
+    {
+      "source": "/blog/the-band-that-elevated-the-entire-evening",
+      "destination": "/src/pages/article-elevated-evening.html"
+    },
+    {
+      "source": "/blog/how-live-music-shapes-the-guest-experience",
+      "destination": "/src/pages/article-guest-experience.html"
+    },
+    {
+      "source": "/blog/why-everyone-is-looking-at-the-kingsmen",
+      "destination": "/src/pages/article-kingsmen.html"
+    },
+    {
+      "source": "/blog/why-the-right-sound-changes-everything",
+      "destination": "/src/pages/article-right-sound.html"
+    },
+    {
+      "source": "/blog/what-a-wedding-feels-like-when-music-is-done-right",
+      "destination": "/src/pages/article-wedding-music.html"
+    }
   ],
   "redirects": [
-    { "source": "/src/pages/article-elevated-evening.html", "destination": "/blog/the-band-that-elevated-the-entire-evening", "permanent": true },
-    { "source": "/src/pages/article-guest-experience.html", "destination": "/blog/how-live-music-shapes-the-guest-experience", "permanent": true },
-    { "source": "/src/pages/article-kingsmen.html", "destination": "/blog/why-everyone-is-looking-at-the-kingsmen", "permanent": true },
-    { "source": "/src/pages/article-right-sound.html", "destination": "/blog/why-the-right-sound-changes-everything", "permanent": true },
-    { "source": "/src/pages/article-wedding-music.html", "destination": "/blog/what-a-wedding-feels-like-when-music-is-done-right", "permanent": true },
-    { "source": "/src/pages/the-brotherockers.html", "destination": "/the-brotherockers", "permanent": true },
-    { "source": "/src/pages/the-kingsmen.html", "destination": "/the-kingsmen", "permanent": true },
-    { "source": "/src/pages/the-peppermints.html", "destination": "/the-peppermints", "permanent": true },
-    { "source": "/src/pages/the-gentlemen.html", "destination": "/the-gentlemen", "permanent": true },
-    { "source": "/src/pages/the-serenades.html", "destination": "/the-serenades", "permanent": true },
-    { "source": "/src/pages/the-supersonics.html", "destination": "/the-supersonics", "permanent": true },
-    { "source": "/src/pages/the-rendez-vous.html", "destination": "/the-rendez-vous", "permanent": true },
-    { "source": "/src/pages/cafe-creme.html", "destination": "/cafe-creme", "permanent": true },
-    { "source": "/src/pages/why-so-serious.html", "destination": "/why-so-serious", "permanent": true },
-    { "source": "/src/pages/the-blackjacks.html", "destination": "/the-blackjacks", "permanent": true },
-    { "source": "/src/pages/blog.html", "destination": "/blog", "permanent": true },
-    { "source": "/src/pages/dj.html", "destination": "/dj", "permanent": true },
-    { "source": "/src/pages/faq.html", "destination": "/faq", "permanent": true }
+    {
+      "source": "/src/pages/article-elevated-evening.html",
+      "destination": "/blog/the-band-that-elevated-the-entire-evening",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/article-guest-experience.html",
+      "destination": "/blog/how-live-music-shapes-the-guest-experience",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/article-kingsmen.html",
+      "destination": "/blog/why-everyone-is-looking-at-the-kingsmen",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/article-right-sound.html",
+      "destination": "/blog/why-the-right-sound-changes-everything",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/article-wedding-music.html",
+      "destination": "/blog/what-a-wedding-feels-like-when-music-is-done-right",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/the-brotherockers.html",
+      "destination": "/the-brotherockers",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/the-kingsmen.html",
+      "destination": "/the-kingsmen",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/the-peppermints.html",
+      "destination": "/the-peppermints",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/the-gentlemen.html",
+      "destination": "/the-gentlemen",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/the-serenades.html",
+      "destination": "/the-serenades",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/the-supersonics.html",
+      "destination": "/the-supersonics",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/the-rendez-vous.html",
+      "destination": "/the-rendez-vous",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/cafe-creme.html",
+      "destination": "/cafe-creme",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/why-so-serious.html",
+      "destination": "/why-so-serious",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/the-blackjacks.html",
+      "destination": "/the-blackjacks",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/blog.html",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/dj.html",
+      "destination": "/dj",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/faq.html",
+      "destination": "/faq",
+      "permanent": true
+    }
   ],
   "headers": [
     {

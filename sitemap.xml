@@ -1,138 +1,435 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://theroamingagency.com/</loc>
-    <lastmod>2026-07-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/"/>
+    <lastmod>2026-07-16</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://theroamingagency.com/weddings</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theroamingagency.com/corporate-events</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theroamingagency.com/private-parties</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://theroamingagency.com/artistic-direction</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.8</priority>
+    <loc>https://theroamingagency.com/fr</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/the-brotherockers</loc>
-    <lastmod>2026-07-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-brotherockers"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-brotherockers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-brotherockers"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/the-brotherockers</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-brotherockers"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-brotherockers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-brotherockers"/>
+    <lastmod>2026-07-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/the-kingsmen</loc>
-    <lastmod>2026-07-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-kingsmen"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-kingsmen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-kingsmen"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/the-kingsmen</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-kingsmen"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-kingsmen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-kingsmen"/>
+    <lastmod>2026-07-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/the-peppermints</loc>
-    <lastmod>2026-07-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-peppermints"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-peppermints"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-peppermints"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/the-peppermints</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-peppermints"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-peppermints"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-peppermints"/>
+    <lastmod>2026-07-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/the-gentlemen</loc>
-    <lastmod>2026-07-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-gentlemen"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-gentlemen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-gentlemen"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/the-gentlemen</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-gentlemen"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-gentlemen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-gentlemen"/>
+    <lastmod>2026-07-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/the-serenades</loc>
-    <lastmod>2026-07-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-serenades"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-serenades"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-serenades"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/the-serenades</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-serenades"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-serenades"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-serenades"/>
+    <lastmod>2026-07-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/the-supersonics</loc>
-    <lastmod>2026-07-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-supersonics"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-supersonics"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-supersonics"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/the-supersonics</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-supersonics"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-supersonics"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-supersonics"/>
+    <lastmod>2026-07-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/the-rendez-vous</loc>
-    <lastmod>2026-07-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-rendez-vous"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-rendez-vous"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-rendez-vous"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/the-rendez-vous</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-rendez-vous"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-rendez-vous"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-rendez-vous"/>
+    <lastmod>2026-07-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/cafe-creme</loc>
-    <lastmod>2026-07-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/cafe-creme"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/cafe-creme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/cafe-creme"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/cafe-creme</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/cafe-creme"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/cafe-creme"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/cafe-creme"/>
+    <lastmod>2026-07-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/why-so-serious</loc>
-    <lastmod>2026-07-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/why-so-serious"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/why-so-serious"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/why-so-serious"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/why-so-serious</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/why-so-serious"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/why-so-serious"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/why-so-serious"/>
+    <lastmod>2026-07-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/the-blackjacks</loc>
-    <lastmod>2026-07-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-blackjacks"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-blackjacks"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-blackjacks"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/the-blackjacks</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-blackjacks"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-blackjacks"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-blackjacks"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/blog"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/blog"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/blog"/>
+    <lastmod>2026-07-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/dj</loc>
-    <lastmod>2026-07-13</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/dj"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/dj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/dj"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/dj</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/dj"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/dj"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/dj"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/faq</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/faq"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/faq"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/faq"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/faq</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/faq"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/faq"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/faq"/>
+    <lastmod>2026-07-16</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/more-music-acts</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/more-music-acts"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/more-music-acts"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/more-music-acts"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/more-music-acts</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/more-music-acts"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/more-music-acts"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/more-music-acts"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/the-violin-duet</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-violin-duet"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-violin-duet"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-violin-duet"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/the-violin-duet</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-violin-duet"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-violin-duet"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-violin-duet"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/the-saxophonist</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-saxophonist"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-saxophonist"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-saxophonist"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/the-saxophonist</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-saxophonist"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-saxophonist"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-saxophonist"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/the-jazz-band</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-jazz-band"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-jazz-band"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-jazz-band"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://theroamingagency.com/blog</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.7</priority>
+    <loc>https://theroamingagency.com/fr/the-jazz-band</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/the-jazz-band"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/the-jazz-band"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/the-jazz-band"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://theroamingagency.com/faq</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.6</priority>
+    <loc>https://theroamingagency.com/weddings</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/weddings"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/weddings"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/weddings"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/weddings</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/weddings"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/weddings"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/weddings"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/corporate-events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/corporate-events"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/corporate-events"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/corporate-events"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/corporate-events</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/corporate-events"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/corporate-events"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/corporate-events"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/private-parties</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/private-parties"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/private-parties"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/private-parties"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/private-parties</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/private-parties"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/private-parties"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/private-parties"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/artistic-direction</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/artistic-direction"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/artistic-direction"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/artistic-direction"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/artistic-direction</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/artistic-direction"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/artistic-direction"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/artistic-direction"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/blog/the-band-that-elevated-the-entire-evening</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/blog/the-band-that-elevated-the-entire-evening"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/blog/the-band-that-elevated-the-entire-evening"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/blog/the-band-that-elevated-the-entire-evening"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/blog/the-band-that-elevated-the-entire-evening</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/blog/the-band-that-elevated-the-entire-evening"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/blog/the-band-that-elevated-the-entire-evening"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/blog/the-band-that-elevated-the-entire-evening"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/blog/how-live-music-shapes-the-guest-experience</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/blog/how-live-music-shapes-the-guest-experience"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/blog/how-live-music-shapes-the-guest-experience"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/blog/how-live-music-shapes-the-guest-experience"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/blog/how-live-music-shapes-the-guest-experience</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/blog/how-live-music-shapes-the-guest-experience"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/blog/how-live-music-shapes-the-guest-experience"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/blog/how-live-music-shapes-the-guest-experience"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/blog/why-everyone-is-looking-at-the-kingsmen</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/blog/why-everyone-is-looking-at-the-kingsmen"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/blog/why-everyone-is-looking-at-the-kingsmen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/blog/why-everyone-is-looking-at-the-kingsmen"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/blog/why-everyone-is-looking-at-the-kingsmen</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/blog/why-everyone-is-looking-at-the-kingsmen"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/blog/why-everyone-is-looking-at-the-kingsmen"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/blog/why-everyone-is-looking-at-the-kingsmen"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/blog/why-the-right-sound-changes-everything</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/blog/why-the-right-sound-changes-everything"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/blog/why-the-right-sound-changes-everything"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/blog/why-the-right-sound-changes-everything"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/blog/why-the-right-sound-changes-everything</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/blog/why-the-right-sound-changes-everything"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/blog/why-the-right-sound-changes-everything"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/blog/why-the-right-sound-changes-everything"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://theroamingagency.com/blog/what-a-wedding-feels-like-when-music-is-done-right</loc>
-    <lastmod>2026-07-13</lastmod>
-    <priority>0.6</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/blog/what-a-wedding-feels-like-when-music-is-done-right"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/blog/what-a-wedding-feels-like-when-music-is-done-right"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/blog/what-a-wedding-feels-like-when-music-is-done-right"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://theroamingagency.com/fr/blog/what-a-wedding-feels-like-when-music-is-done-right</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://theroamingagency.com/blog/what-a-wedding-feels-like-when-music-is-done-right"/>
+    <xhtml:link rel="alternate" hreflang="fr" href="https://theroamingagency.com/fr/blog/what-a-wedding-feels-like-when-music-is-done-right"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://theroamingagency.com/blog/what-a-wedding-feels-like-when-music-is-done-right"/>
+    <lastmod>2026-07-16</lastmod>
+    <priority>0.7</priority>
   </url>
 </urlset>

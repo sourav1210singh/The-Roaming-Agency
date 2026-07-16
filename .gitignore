@@ -34,3 +34,7 @@ src/assets/Web Site Assets/
 
 # Client audit PDFs (not site assets)
 audit_seo_pierre_*.pdf
+
+# FR translation working files (extraction/translation JSONs; the generated
+# pages in src/pages/fr/ ARE committed - these intermediates are not)
+.claude/fr_work/
