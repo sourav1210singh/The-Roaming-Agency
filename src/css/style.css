@@ -1788,19 +1788,16 @@ body.is-header-hidden .hero-center-title {
      2.5-4rem, now 2-3.2rem) so the overall strip shrinks ~20% in
      height. Combined with the 40% smaller logo cells below this
      gives a notably more compact brand band. */
-  /* 3rd draft / G2: Trusted By must line up with every other section.
-     Contain it to the SAME --container-max + --container-padding
-     gutter (was full-bleed edge-to-edge) and drop the panel bg - the
-     mock shows logos on the page within the margins, no grey block.
-     overflow:hidden keeps the marquee clipping at the gutter edges. */
-  max-width: var(--container-max);
-  margin-inline: auto;
+  /* 8th revision follow-up: the grey band must run EDGE TO EDGE - the client
+     flagged the white page showing at the left/right of the panel. Full-bleed
+     again (the earlier contained-panel treatment is retired), which also
+     removes the hard corners entirely, so no radius needed. The logo rows
+     still fade out at the viewport edges via their mask gradients. */
+  max-width: none;
+  margin-inline: 0;
   padding: clamp(2rem, 4vw, 3.2rem) var(--container-padding);
-  /* Client tweak: light-grey panel behind the Trusted By logos (was white).
-     8th revision: rounded corners so the panel sits cleanly on the page
-     instead of showing hard colour-break corners against the white bg. */
+  /* Client tweak: light-grey panel behind the Trusted By logos (was white). */
   background: #F0F0F0;
-  border-radius: 18px;
   /* No border-top / border-bottom - divider lines removed per brief. */
   overflow: hidden;
 }
