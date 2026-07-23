@@ -32,6 +32,10 @@ src/assets/images/Gemini_Generated_Image_*.png
 src/assets/Violin Duet - Roaming Agency/
 src/assets/Web Site Assets/
 
+# Full client Drive dump (8th revision) - raw multi-GB photos; the processed
+# web copies live in src/assets/images/band-galleries/ + images/articles/
+src/Web Site Assets/
+
 # Client audit PDFs (not site assets)
 audit_seo_pierre_*.pdf
 
