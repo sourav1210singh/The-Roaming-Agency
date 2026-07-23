@@ -77,6 +77,7 @@ a:hover {
 .standards-scroll__card,
 .blog-card__link,
 .post-card,
+.logo,
 .testimonial-card a,
 .globe-card,
 .events__cat,
@@ -1795,8 +1796,11 @@ body.is-header-hidden .hero-center-title {
   max-width: var(--container-max);
   margin-inline: auto;
   padding: clamp(2rem, 4vw, 3.2rem) var(--container-padding);
-  /* Client tweak: light-grey panel behind the Trusted By logos (was white). */
+  /* Client tweak: light-grey panel behind the Trusted By logos (was white).
+     8th revision: rounded corners so the panel sits cleanly on the page
+     instead of showing hard colour-break corners against the white bg. */
   background: #F0F0F0;
+  border-radius: 18px;
   /* No border-top / border-bottom - divider lines removed per brief. */
   overflow: hidden;
 }
