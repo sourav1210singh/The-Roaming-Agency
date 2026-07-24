@@ -28,7 +28,7 @@ def esc(s):
 
 for band in PICKS:
     slug = band["band"]
-    photos = band["photos"][:14]
+    photos = band["photos"]  # no cap: the client explicitly added back photos beyond the original 14
     out_dir = os.path.join(OUT_BASE, slug)
     os.makedirs(out_dir, exist_ok=True)
 
