@@ -48,7 +48,8 @@ prep(os.path.join(CA, "Why Everyone Is Looking at The Kingsmen", "1 Cover.jpg"),
 prep(os.path.join(CA, "Why Everyone Is Looking at The Kingsmen", "2.jpg"), "kingsmen-fig1.jpg", 1200, crop_ratio=0.8)
 prep(os.path.join(CA, "Why Everyone Is Looking at The Kingsmen", "3.JPG"), "kingsmen-fig2.jpg", 1200, crop_ratio=0.8)
 prep(os.path.join(CA, "Why the Right Sound Changes Everything", "AURELIE_NICOLAS-707-2.jpg"), "right-sound-cover.jpg", 1800)
-prep(os.path.join(EX, "Weddings and brides", "ruby-aj-dinner-party (480).jpg"), "wedding-music-cover.jpg", 1800)
+# client later added a dedicated folder with the file literally named "Cover (replace only this one)"
+prep(os.path.join(CA, "What a Wedding Feels Like When Music Is Done Right", "Cover (replace only this one).jpg"), "wedding-music-cover.jpg", 1800)
 
 # ---- patch pages (EN + FR share identical image paths) ----
 A = "/src/assets/images/articles/"
@@ -80,8 +81,8 @@ ALTS = {
         "A live band in pale blue suits plays between the tables at an evening party while a laughing guest sings along under white parasols.",
         "Un groupe en costumes bleu clair joue entre les tables lors d'une soirée, tandis qu'une invitée rit et chante avec eux sous les parasols blancs."),
     "wedding-music-cover.jpg": (
-        "Bride and groom laughing and dancing at night at a chateau wedding reception, bathed in warm golden light",
-        "Les mariés rient et dansent en soirée lors d'une réception de mariage au château, baignés d'une lumière dorée chaleureuse"),
+        "Bride and groom dancing at dusk by the water while guests raise their glasses around them",
+        "Les mariés dansent au crépuscule au bord de l'eau, entourés d'invités qui lèvent leur verre"),
 }
 
 for fname, repl in PATCH.items():
