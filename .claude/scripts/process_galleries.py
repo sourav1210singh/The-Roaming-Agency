@@ -50,15 +50,22 @@ for band in PICKS:
     # build slides html (7 per slide) for a given alt index (1=EN, 2=FR)
     def slides_html(alt_idx):
         chunks = [web_paths[i:i + 7] for i in range(0, len(web_paths), 7)]
+        # a trailing slide of 1-2 photos looks lost: rebalance the last two
+        # slides so every partial slide has 3-6 items (gallery--part-N CSS)
+        if len(chunks) >= 2 and len(chunks[-1]) < 3:
+            merged = chunks[-2] + chunks[-1]
+            h = (len(merged) + 1) // 2
+            chunks[-2:] = [merged[:h], merged[h:]]
         parts = []
         for ci, chunk in enumerate(chunks):
             active = " is-active" if ci == 0 else ""
+            part = "" if len(chunk) == 7 else f" gallery--part-{len(chunk)}"
             items = "\n".join(
                 f'            <div class="gallery__item"><img src="{p}" alt="{esc(a if alt_idx == 1 else b)}" loading="lazy"></div>'
                 for p, a, b in chunk
             )
             parts.append(f'        <div class="gallery-slide{active}">\n'
-                         f'          <div class="gallery gallery--masonry">\n{items}\n'
+                         f'          <div class="gallery gallery--masonry{part}">\n{items}\n'
                          f'          </div>\n        </div>')
         return "\n" + "\n".join(parts) + "\n        "
 

@@ -2981,6 +2981,52 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .gallery--masonry .gallery__item:nth-child(6) { grid-area: l1; }
 .gallery--masonry .gallery__item:nth-child(7) { grid-area: s2; }
 
+/* Partial slides (client galleries aren't always multiples of 7): the
+   7-area collage leaves empty white cells when a slide has fewer items,
+   so slides of 3-6 get their own gap-free collage. Declared before the
+   mobile queries so the plain mobile grid still wins there. */
+.gallery--part-3 {
+  grid-template-areas:
+    "a a b b b b"
+    "a a b b b b"
+    "a a c c c c"
+    "a a c c c c";
+}
+.gallery--part-3 .gallery__item:nth-child(1) { grid-area: a; }
+.gallery--part-3 .gallery__item:nth-child(2) { grid-area: b; }
+.gallery--part-3 .gallery__item:nth-child(3) { grid-area: c; }
+
+.gallery--part-4 {
+  grid-template-areas:
+    "a a a b b b"
+    "a a a b b b"
+    "c c c d d d"
+    "c c c d d d";
+}
+.gallery--part-4 .gallery__item:nth-child(1) { grid-area: a; }
+.gallery--part-4 .gallery__item:nth-child(2) { grid-area: b; }
+.gallery--part-4 .gallery__item:nth-child(3) { grid-area: c; }
+.gallery--part-4 .gallery__item:nth-child(4) { grid-area: d; }
+
+/* part-5: the base collage without the two small center tiles */
+.gallery--part-5 {
+  grid-template-areas:
+    "l1 l1 c  c  r1 r1"
+    "l1 l1 c  c  r1 r1"
+    "l2 l2 c  c  r2 r2"
+    "l2 l2 c  c  r2 r2";
+}
+.gallery--part-5 .gallery__item:nth-child(5) { grid-area: l1; }
+
+/* part-6: the base collage with one wide small tile instead of two */
+.gallery--part-6 {
+  grid-template-areas:
+    "l1 l1 c  c  r1 r1"
+    "l1 l1 c  c  r1 r1"
+    "l2 l2 c  c  r2 r2"
+    "l2 l2 s1 s1 r2 r2";
+}
+
 .gallery__item {
   position: relative;
   overflow: hidden;
