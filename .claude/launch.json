@@ -2,6 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "live",
+      "url": "https://the-roaming-agency.vercel.app"
+    },
+    {
       "name": "roaming-agency-dev",
       "runtimeExecutable": "node",
       "runtimeArgs": ["server.js"],

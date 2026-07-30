@@ -100,6 +100,11 @@ a:hover {
 }
 
 /* === GLOBAL === */
+html {
+  /* stop stray horizontal scroll on mobile browsers (clip, not hidden,
+     so position:sticky keeps working) */
+  overflow-x: clip;
+}
 body {
   font-family: var(--font-body);
   /* 3rd draft typography system: Paragraphs = Light. Base weight is
@@ -4154,11 +4159,17 @@ body.cta-modal-open { overflow: hidden; }
     right: -100%;
     width: 280px;
     height: 100vh;
+    height: 100dvh; /* iOS: track the real visible height, not the URL-bar one */
     background: rgba(10, 10, 10, 0.97);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     padding: 80px var(--space-xl) var(--space-xl);
-    transition: right var(--duration-base) var(--ease-out-expo);
+    /* visibility flips AFTER the slide-out finishes; body overflow clip can't
+       contain a position:fixed drawer on iOS Safari, so a merely-offscreen
+       drawer could be revealed by pinch-zoom/panning (client's screenshot) */
+    visibility: hidden;
+    transition: right var(--duration-base) var(--ease-out-expo),
+                visibility 0s linear var(--duration-base);
     z-index: calc(var(--z-header) + 2);
     overflow-y: auto;
     flex-direction: column;
@@ -4166,6 +4177,8 @@ body.cta-modal-open { overflow: hidden; }
 
   .nav--visible {
     right: 0;
+    visibility: visible;
+    transition: right var(--duration-base) var(--ease-out-expo), visibility 0s;
   }
 
   .nav__band-list {
