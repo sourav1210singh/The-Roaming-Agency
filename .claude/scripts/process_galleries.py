@@ -45,8 +45,11 @@ for band in PICKS:
         im.save(os.path.join(out_dir, name), "JPEG", quality=80, optimize=True, progressive=True)
         # ph["style"] (optional): inline style for the <img> - used to keep a
         # marked person fully visible (object-position / zoom tweaks)
+        # ph["tall"] (optional): this portrait MUST get a tall cell in a
+        # part-4--tall slide (the client flagged it as cut)
         web_paths.append((f"/src/assets/images/band-galleries/{slug}/{name}",
-                          ph["altEn"], ph["altFr"], ph.get("style", ""), im.height > im.width))
+                          ph["altEn"], ph["altFr"], ph.get("style", ""), im.height > im.width,
+                          ph.get("tall", False)))
     total_kb = sum(os.path.getsize(os.path.join(out_dir, f)) for f in os.listdir(out_dir)) / 1024
     print(f"{slug}: {len(web_paths)} photos, {total_kb:,.0f} KB total")
 
@@ -66,14 +69,15 @@ for band in PICKS:
             # a 4-slide with 2+ portrait photos gets the tall-pair layout so
             # the portraits land in tall cells instead of being decapitated
             if len(chunk) == 4:
-                ports = [x for x in chunk if x[4]]
+                # tall-flagged portraits first, then the other portraits
+                ports = sorted([x for x in chunk if x[4]], key=lambda x: not x[5])
                 if len(ports) >= 2:
                     chunk = ports[:2] + [x for x in chunk if x is not ports[0] and x is not ports[1]]
                     part += " gallery--part-4--tall"
             items = "\n".join(
                 f'            <div class="gallery__item"><img src="{p}" alt="{esc(a if alt_idx == 1 else b)}"'
                 + (f' style="{st}"' if st else "") + ' loading="lazy"></div>'
-                for p, a, b, st, _ in chunk
+                for p, a, b, st, _, _ in chunk
             )
             parts.append(f'        <div class="gallery-slide{active}">\n'
                          f'          <div class="gallery gallery--masonry{part}">\n{items}\n'

@@ -85,12 +85,14 @@
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\1 - The Brotherockers\\3 Gallery\\THEROAMINGAGENCY445.jpg",
     "altEn": "The Brotherockers guitarist in a beige suit playing a vintage archtop guitar with a smile on a chateau terrace during cocktail hour",
-    "altFr": "Le guitariste des Brotherockers en costume beige joue une guitare archtop vintage en souriant sur la terrasse d'un château pendant le cocktail"
+    "altFr": "Le guitariste des Brotherockers en costume beige joue une guitare archtop vintage en souriant sur la terrasse d'un château pendant le cocktail",
+    "tall": true
    },
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\1 - The Brotherockers\\3 Gallery\\THEROAMINGAGENCY455.jpg",
     "altEn": "The Brotherockers percussionist singing while drumming on his wooden cajon beside the saxophonist at an outdoor cocktail reception",
-    "altFr": "Le percussionniste des Brotherockers chante en jouant sur son cajon en bois aux côtés du saxophoniste lors d'un cocktail en plein air"
+    "altFr": "Le percussionniste des Brotherockers chante en jouant sur son cajon en bois aux côtés du saxophoniste lors d'un cocktail en plein air",
+    "tall": true
    },
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\1 - The Brotherockers\\3 Gallery\\THEROAMINGAGENCY466.jpg",
@@ -385,11 +387,6 @@
     "altFr": "Le guitariste sourit pendant un set du soir sous le porche en pierre illuminé"
    },
    {
-    "path": "C:\\Brotherockers\\src\\Web Site Assets\\4 - The Gentlemen\\3 Gallery\\lisa-hugo-larebellestudio-690.jpg",
-    "altEn": "Percussionist in a beige suit grooving on the cajon during a night set",
-    "altFr": "Le percussionniste en costume beige joue du cajon lors d'un set de nuit"
-   },
-   {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\4 - The Gentlemen\\3 Gallery\\lisa-hugo-larebellestudio-681.jpg",
     "altEn": "The whole room on its feet, guests and the bride clapping along under the fairy lights",
     "altFr": "Toute la salle debout, invités et mariée applaudissant sous les guirlandes lumineuses"
@@ -439,13 +436,10 @@
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\4 - The Gentlemen\\3 Gallery\\WhatsApp Image 2025-06-15 at 17.53.13 (2).jpeg",
     "altEn": "A bride sings along with her guests as The Gentlemen play guitar and saxophone in the middle of the party",
     "altFr": "Une mariée chante avec ses invités tandis que les Gentlemen jouent guitare et saxophone au coeur de la fête"
-   },
-   {
-    "path": "C:\\Brotherockers\\src\\Web Site Assets\\4 - The Gentlemen\\3 Gallery\\lisa-hugo-larebellestudio-690.jpg",
-    "altEn": "The Gentlemen percussionist smiling as he drums on his cajon at night beside the guitarist",
-    "altFr": "Le percussionniste des Gentlemen sourit en jouant de son cajon de nuit aux côtés du guitariste",
-    "style": "object-position: center top"
    }
+  ],
+  "excluded": [
+   "lisa-hugo-larebellestudio-690.jpg"
   ]
  },
  {
@@ -516,7 +510,8 @@
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\5 - The Serenades\\3 Gallery\\Copy of THEROAMINGAGENCY155.jpg",
     "altEn": "Close-up of the Serenades trombonist in a beige suit playing in bright sunlight against a red facade",
-    "altFr": "Gros plan sur le tromboniste des Serenades en costume beige jouant en plein soleil devant une façade rouge"
+    "altFr": "Gros plan sur le tromboniste des Serenades en costume beige jouant en plein soleil devant une façade rouge",
+    "style": "object-position: center top"
    },
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\5 - The Serenades\\3 Gallery\\Copy of THEROAMINGAGENCY215.jpg",
@@ -736,12 +731,14 @@
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\7 - The Rendez-Vous\\3 Gallery\\THEROAMINGAGENCY19.jpg",
     "altEn": "A Rendez-Vous guitarist in a teal suit leaning over his vintage electric guitar next to a Vox amp",
-    "altFr": "Un guitariste des Rendez-Vous en costume bleu canard penché sur sa guitare électrique vintage près d'un ampli Vox"
+    "altFr": "Un guitariste des Rendez-Vous en costume bleu canard penché sur sa guitare électrique vintage près d'un ampli Vox",
+    "style": "object-position: center top"
    },
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\7 - The Rendez-Vous\\3 Gallery\\THEROAMINGAGENCY29.jpg",
     "altEn": "The Rendez-Vous drummer in a beige houndstooth suit laughing with sticks in hand over his compact drum kit",
-    "altFr": "Le batteur des Rendez-Vous en costume beige pied-de-poule riant baguettes en main derrière sa batterie compacte"
+    "altFr": "Le batteur des Rendez-Vous en costume beige pied-de-poule riant baguettes en main derrière sa batterie compacte",
+    "style": "object-position: center top"
    },
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\7 - The Rendez-Vous\\3 Gallery\\THEROAMINGAGENCY3.jpg",
