@@ -43,7 +43,10 @@ for band in PICKS:
             im = im.resize((round(w * 1400 / h), 1400), Image.LANCZOS)
         name = f"{slug}-{i:02d}.jpg"
         im.save(os.path.join(out_dir, name), "JPEG", quality=80, optimize=True, progressive=True)
-        web_paths.append((f"/src/assets/images/band-galleries/{slug}/{name}", ph["altEn"], ph["altFr"]))
+        # ph["style"] (optional): inline style for the <img> - used to keep a
+        # marked person fully visible (object-position / zoom tweaks)
+        web_paths.append((f"/src/assets/images/band-galleries/{slug}/{name}",
+                          ph["altEn"], ph["altFr"], ph.get("style", ""), im.height > im.width))
     total_kb = sum(os.path.getsize(os.path.join(out_dir, f)) for f in os.listdir(out_dir)) / 1024
     print(f"{slug}: {len(web_paths)} photos, {total_kb:,.0f} KB total")
 
@@ -60,9 +63,17 @@ for band in PICKS:
         for ci, chunk in enumerate(chunks):
             active = " is-active" if ci == 0 else ""
             part = "" if len(chunk) == 7 else f" gallery--part-{len(chunk)}"
+            # a 4-slide with 2+ portrait photos gets the tall-pair layout so
+            # the portraits land in tall cells instead of being decapitated
+            if len(chunk) == 4:
+                ports = [x for x in chunk if x[4]]
+                if len(ports) >= 2:
+                    chunk = ports[:2] + [x for x in chunk if x is not ports[0] and x is not ports[1]]
+                    part += " gallery--part-4--tall"
             items = "\n".join(
-                f'            <div class="gallery__item"><img src="{p}" alt="{esc(a if alt_idx == 1 else b)}" loading="lazy"></div>'
-                for p, a, b in chunk
+                f'            <div class="gallery__item"><img src="{p}" alt="{esc(a if alt_idx == 1 else b)}"'
+                + (f' style="{st}"' if st else "") + ' loading="lazy"></div>'
+                for p, a, b, st, _ in chunk
             )
             parts.append(f'        <div class="gallery-slide{active}">\n'
                          f'          <div class="gallery gallery--masonry{part}">\n{items}\n'

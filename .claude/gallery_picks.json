@@ -265,7 +265,8 @@
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\2- The Kingsmen\\3 Gallery\\TheRoamingAgency228.jpg",
     "altEn": "The Kingsmen saxophonist in a navy pinstripe suit plays under a terracotta parasol in the garden",
-    "altFr": "Le saxophoniste des Kingsmen en costume rayé bleu marine joue sous un parasol terracotta dans le jardin"
+    "altFr": "Le saxophoniste des Kingsmen en costume rayé bleu marine joue sous un parasol terracotta dans le jardin",
+    "style": "object-position: center top"
    },
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\2- The Kingsmen\\3 Gallery\\TheRoamingAgency235.jpg",
@@ -325,7 +326,8 @@
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\3 - The Peppermints\\3 Gallery\\BCP_9901.jpg",
     "altEn": "Stylish band portrait in lilac suits and sunglasses outside a Provencal manor",
-    "altFr": "Portrait du groupe en costumes lilas et lunettes de soleil devant une bâtisse provençale"
+    "altFr": "Portrait du groupe en costumes lilas et lunettes de soleil devant une bâtisse provençale",
+    "style": "transform: scale(1.4); transform-origin: 50% 85%"
    },
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\3 - The Peppermints\\3 Gallery\\mariage-agathe-charly-19-juillet-JourJ-1089.jpg",
@@ -425,7 +427,8 @@
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\4 - The Gentlemen\\3 Gallery\\mariage-portrait-pro-photographe-confiance-auvergne-jabinet-photo-08681.jpg",
     "altEn": "The Gentlemen bassist in a white shirt and sunglasses plays a white bass in the golden evening light among guests",
-    "altFr": "Le bassiste des Gentlemen en chemise blanche et lunettes de soleil joue une basse blanche dans la lumière dorée du soir parmi les invités"
+    "altFr": "Le bassiste des Gentlemen en chemise blanche et lunettes de soleil joue une basse blanche dans la lumière dorée du soir parmi les invités",
+    "style": "object-position: center top"
    },
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\4 - The Gentlemen\\3 Gallery\\thibaultmaestracci_20260523_KatieJohn_353.jpg",
@@ -465,7 +468,8 @@
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\5 - The Serenades\\3 Gallery\\TheTailors_Lea&Robert_Trauung-218.jpg",
     "altEn": "Guitarist sharing a laugh with the groom during an acoustic set on the wedding lawn",
-    "altFr": "Le guitariste partage un fou rire avec le marié pendant un set acoustique sur la pelouse du mariage"
+    "altFr": "Le guitariste partage un fou rire avec le marié pendant un set acoustique sur la pelouse du mariage",
+    "style": "object-position: center top"
    },
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\5 - The Serenades\\3 Gallery\\Soirée-259.jpg",
@@ -475,7 +479,8 @@
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\5 - The Serenades\\3 Gallery\\TheTailors_Lea&Robert_Trauung-220.jpg",
     "altEn": "Close-up of the laughing percussionist in the sunshine, cajon in hand",
-    "altFr": "Gros plan du percussionniste riant au soleil, cajón à la main"
+    "altFr": "Gros plan du percussionniste riant au soleil, cajón à la main",
+    "style": "object-position: center top"
    },
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\5 - The Serenades\\3 Gallery\\TheRoamingAgency283.jpg",
@@ -790,7 +795,8 @@
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\8 - Why So Serious\\3 Gallery\\THEROAMINGAGENCY61.jpg",
     "altEn": "The Why So Serious bassist in a dark suit singing with eyes closed as he plays his bass beside a red parasol at a garden cocktail hour",
-    "altFr": "Le bassiste de Why So Serious en costume sombre chante les yeux fermés en jouant de la basse près d'un parasol rouge lors d'un cocktail au jardin"
+    "altFr": "Le bassiste de Why So Serious en costume sombre chante les yeux fermés en jouant de la basse près d'un parasol rouge lors d'un cocktail au jardin",
+    "style": "object-position: center top"
    },
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\8 - Why So Serious\\3 Gallery\\THEROAMINGAGENCY82.jpg",
@@ -880,7 +886,8 @@
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\10 - The Blackjacks\\3 Gallery\\TheRoamingAgency72.jpg",
     "altEn": "The percussionist bursts out laughing, cajon in hand, in front of a striped food truck",
-    "altFr": "Le percussionniste éclate de rire, cajon à la main, devant un food truck à rayures"
+    "altFr": "Le percussionniste éclate de rire, cajon à la main, devant un food truck à rayures",
+    "style": "object-position: center top"
    },
    {
     "path": "C:\\Brotherockers\\src\\Web Site Assets\\10 - The Blackjacks\\3 Gallery\\THEROAMINGAGENCY391.jpg",

@@ -3008,6 +3008,20 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .gallery--part-4 .gallery__item:nth-child(3) { grid-area: c; }
 .gallery--part-4 .gallery__item:nth-child(4) { grid-area: d; }
 
+/* part-4 with 2+ portrait photos: two tall cells so nobody gets cropped
+   (the generator sorts the portraits into a and b) */
+.gallery--part-4--tall {
+  grid-template-areas:
+    "a a b b c c"
+    "a a b b c c"
+    "a a b b d d"
+    "a a b b d d";
+}
+.gallery--part-4--tall .gallery__item:nth-child(1) { grid-area: a; }
+.gallery--part-4--tall .gallery__item:nth-child(2) { grid-area: b; }
+.gallery--part-4--tall .gallery__item:nth-child(3) { grid-area: c; }
+.gallery--part-4--tall .gallery__item:nth-child(4) { grid-area: d; }
+
 /* part-5: the base collage without the two small center tiles */
 .gallery--part-5 {
   grid-template-areas:
