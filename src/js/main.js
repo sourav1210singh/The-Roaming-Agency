@@ -26,7 +26,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Fallback: show everything without animation
     document.querySelectorAll('.reveal').forEach(el => el.classList.add('is-visible'));
     document.getElementById('mainLogo')?.classList.replace('logo--hero', 'logo--scrolled');
-    document.getElementById('mainNav')?.classList.add('nav--visible');
+    // Desktop only: on <=768px nav--visible means "drawer open" and the
+    // hamburger owns that class - adding it here opened the drawer on load.
+    if (window.innerWidth > 768) document.getElementById('mainNav')?.classList.add('nav--visible');
   }
 
   initFAQ();
@@ -587,11 +589,14 @@ function initLogoAnimation() {
           { opacity: 1, scale: 1, duration: 0.6, ease: 'power2.out' }
         );
 
-        // Nav fades in smoothly
-        gsap.to(nav, {
-          opacity: 1, y: 0, duration: 0.5, ease: 'power2.out',
-          onStart: () => { nav.classList.add('nav--visible'); }
-        });
+        // Nav fades in smoothly (desktop only - on mobile nav--visible
+        // opens the drawer, which must stay under hamburger control)
+        if (!isMobile()) {
+          gsap.to(nav, {
+            opacity: 1, y: 0, duration: 0.5, ease: 'power2.out',
+            onStart: () => { nav.classList.add('nav--visible'); }
+          });
+        }
 
         // Header background fades in
         if (header) header.classList.add('header--scrolled');
@@ -601,10 +606,12 @@ function initLogoAnimation() {
         isScrolled = false;
 
         // Smooth transition: logo grows and returns to center
-        gsap.to(nav, {
-          opacity: 0, y: -10, duration: 0.3, ease: 'power2.in',
-          onComplete: () => { nav.classList.remove('nav--visible'); }
-        });
+        if (!isMobile()) {
+          gsap.to(nav, {
+            opacity: 0, y: -10, duration: 0.3, ease: 'power2.in',
+            onComplete: () => { nav.classList.remove('nav--visible'); }
+          });
+        }
 
         // Small delay then switch logo back
         gsap.delayedCall(0.15, () => {
@@ -1649,8 +1656,11 @@ function initHeroIntro() {
     }
 
     // ── Nav reveal + push-right (room for docking logo) ───────────
+    // Desktop only: this runs EVERY frame, and on <=768px nav--visible
+    // opens the drawer - it kept re-opening it on scroll (the client's
+    // "black panel" bug) and instantly re-opened it after closing.
     const nav = document.getElementById('mainNav');
-    if (nav) {
+    if (nav && window.innerWidth > 768) {
       if (currentRaw > 0.5) nav.classList.add('nav--visible');
       else nav.classList.remove('nav--visible');
       const pushPx = travelEase * (logoTarget.dockedWidth + 32);

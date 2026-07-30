@@ -4253,6 +4253,17 @@ body.cta-modal-open { overflow: hidden; }
   }
 }
 
+@media (max-width: 768px) {
+  /* iOS Safari zooms the page when focusing a form control under 16px and
+     KEEPS that zoom after blur - that lingering zoom made the whole site
+     (and the menu drawer) look cropped. Every field stays 16px on touch. */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
 @media (max-width: 480px) {
   .gallery--masonry {
     grid-template-columns: 1fr;
