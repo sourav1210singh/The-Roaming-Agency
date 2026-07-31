@@ -1532,6 +1532,13 @@ body.is-header-hidden .hero-center-title {
   .stat--bottom-left {
     grid-column: 1;
     grid-row: auto;
+    /* the desktop zig-zag nudges (negative/positive margin-left,
+       label translateX) made the single-column stack look randomly
+       misaligned on phones - all four cells sit centred here */
+    margin-left: 0;
+  }
+  .stat--top-right .stat__label {
+    transform: none;
   }
 }
 
@@ -2423,6 +2430,18 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   .events__photo-stack {
     height: 60vh;
     margin-top: 1.5rem;
+  }
+  /* The desktop pair positions (back right:24%, front left:28% set by
+     JS) left the collage hugging one side with dead space beside it on
+     phones. Static layout here: back photo on the right, front photo
+     fanned over its lower-left, pair spans the stack nicely. */
+  .events__photo--back {
+    right: 6%;
+    top: 50%;
+  }
+  .events__photo--front {
+    left: 6% !important;
+    top: 55%;
   }
   .events__progress-line {
     display: none;
@@ -4207,6 +4226,11 @@ body.cta-modal-open { overflow: hidden; }
   .nav__hamburger {
     display: flex;
     z-index: calc(var(--z-header) + 3);
+    /* Pin to the header's right edge - without this it sat mid-header
+       right where the hero logo docks, so the (z-900) logo anchor
+       swallowed every tap meant for the hamburger -> "menu opens the
+       homepage". */
+    margin-left: auto;
   }
 
   .nav__hamburger.open span:nth-child(1) {

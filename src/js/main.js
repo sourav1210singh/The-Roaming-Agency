@@ -1549,7 +1549,9 @@ function initHeroIntro() {
       : { left: 40, top: 0 };
     const headerH = headerEl.offsetHeight || 56;
     logoTarget = {
-      x: innerRect.left + approxTextWidth / 2,
+      // Mobile: dock the logo dead-centre of the header - the desktop
+      // left-slot landed it on top of the FR toggle / hamburger zone.
+      x: window.innerWidth <= 768 ? window.innerWidth / 2 : innerRect.left + approxTextWidth / 2,
       y: headerH / 2,
       fontSizePx: dockedFontPx,
       dockedWidth: approxTextWidth,
