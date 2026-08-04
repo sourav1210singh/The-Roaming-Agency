@@ -13,10 +13,15 @@
 .header__inner {
   opacity: 1;
 }
-.nav {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
+/* Desktop only: at <=768 the nav is the off-canvas drawer whose
+   closed/open states (opacity, transform, visibility) live in style.css -
+   this unscoped reset was fighting them on every sub-page. */
+@media (min-width: 769px) {
+  .nav {
+    opacity: 1;
+    transform: none;
+    pointer-events: auto;
+  }
 }
 
 /* === BAND HERO === */

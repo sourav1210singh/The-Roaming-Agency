@@ -4185,8 +4185,10 @@ body.cta-modal-open { overflow: hidden; }
     height: 100vh;
     height: 100dvh; /* iOS: track the real visible height, not the URL-bar one */
     background: rgba(10, 10, 10, 0.97);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    /* NO backdrop-filter here: iOS WebKit paints a backdrop blur even on a
+       visibility:hidden element, so the closed drawer showed up as a ghost
+       white blur panel (client's screenshot). The 97% opaque background
+       makes the blur invisible anyway. */
     padding: 80px var(--space-xl) var(--space-xl);
     visibility: hidden;
     opacity: 0;
