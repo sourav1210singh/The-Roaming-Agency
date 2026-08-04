@@ -4308,3 +4308,67 @@ body.cta-modal-open { overflow: hidden; }
     letter-spacing: 0.1em;
   }
 }
+
+/* === QC ROUND (client doc, 2026-08-04): mobile + tablet fixes ========
+   21-point QC pass. Each rule tags the doc point it fixes. */
+
+@media (max-width: 1024px) {
+  /* pt 12: gallery crops kept clipping heads - anchor every photo top */
+  .gallery__item img { object-position: center top; }
+  /* pts 7/11/20/21: the slider is a stacked grid, so short slides left
+     dead space below - centre each slide inside the tall cell */
+  .gallery-slide { display: flex; flex-direction: column; justify-content: center; }
+  .gallery-slide .gallery { width: 100%; }
+  /* pts 3/16: the photo pair rendered as skinny strips (widths tracked a
+     narrowed stack) - size by aspect ratio instead */
+  .events__photo--back { height: 84%; width: auto; aspect-ratio: 2 / 3; right: 2%; top: 50%; }
+  .events__photo--front { height: 60%; width: auto; aspect-ratio: 2 / 3; left: 2% !important; top: 58%; }
+  /* pt 9: dead space above/below the category text */
+  .events__cat-stack { height: 180px; }
+  .events__sticky { padding-top: 1.5rem; }
+  /* pt 10: band selector viewport was a 490px empty window */
+  .band-selector__viewport { height: 340px; }
+}
+
+/* pt 8: tablets - stats sit beside the intro text, not under it */
+@media (min-width: 721px) and (max-width: 1024px) {
+  .who-we-are__grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 2rem; align-items: center; }
+}
+
+@media (max-width: 768px) {
+  /* pts 1/2: asymmetric desktop side-padding squeezed the text columns */
+  .who-we-are { padding-left: 1.25rem; padding-right: 1.25rem; }
+  .who-we-are__copy, .events__cat-desc { max-width: none; }
+  .events__sticky { padding-inline: 1rem; }
+  .events__left, .events__cat-stack, .events__cat { width: 100%; }
+  /* pts 5/6: testimonials heading clipped long service names */
+  .testimonials__title { font-size: clamp(1.15rem, 5.8vw, 1.6rem); overflow-wrap: anywhere; }
+  /* pts 4/17: band selector - shrink the empty list window, centre the block
+     (the desktop 1.95x left-padding multiplier pushed everything right) */
+  .band-selector__viewport { height: 300px; margin-inline: auto; }
+  .band-selector__sticky { padding-inline: 1rem; }
+  .band-selector__inner { padding-inline: 1rem; }
+  /* pts 5/6: same asymmetric padding under the testimonials heading */
+  .testimonials__layout { padding-inline: 1.25rem; }
+  /* pts 18/19: contact form centred */
+  .contact__inner { padding-inline: 1rem; }
+  .contact__form { width: 100%; max-width: 26rem; margin-inline: auto; }
+  /* pts 7/20/21: a lone gallery image sits mid-screen, not top-left */
+  .gallery__item:only-child { grid-column: 1 / -1; width: 72%; margin-inline: auto; }
+}
+
+/* pts 11/14/15: 2-col grid (phones landscape / small tablets) - an odd
+   last image centres across both columns instead of hugging the left */
+@media (min-width: 481px) and (max-width: 768px) {
+  .gallery--masonry .gallery__item:last-child:nth-child(odd):not(:only-child) {
+    grid-column: 1 / -1;
+    width: calc(50% - 8px);
+    margin-inline: auto;
+  }
+}
+
+/* pt 13: touch devices - CSS hover dropdowns got stuck open after a tap;
+   the Events/Bands links navigate to real pages anyway */
+@media (hover: none) {
+  .nav__dropdown { display: none !important; }
+}
