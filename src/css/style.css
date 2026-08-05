@@ -4379,9 +4379,10 @@ body.cta-modal-open { overflow: hidden; }
   /* pts 5/6: same asymmetric padding under the testimonials heading;
      client round 4: a touch further left so long titles have room */
   .testimonials__layout { padding-inline: 0.75rem; }
-  /* pts 18/19: contact form centred */
-  .contact__inner { padding-inline: 1rem; }
-  .contact__form { width: 100%; max-width: 26rem; margin-inline: auto; }
+  /* pts 18/19: contact form centred; client round 5: a touch narrower so
+     the card floats centred with clear margins (iPhone reference shot) */
+  .contact__inner { padding-inline: 1.25rem; }
+  .contact__form { width: 100%; max-width: 24rem; margin-inline: auto; }
   /* pts 7/20/21: a lone gallery image sits mid-screen, not top-left */
   .gallery__item:only-child { grid-column: 1 / -1; width: 72%; margin-inline: auto; }
 }
