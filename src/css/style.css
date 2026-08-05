@@ -4376,8 +4376,9 @@ body.cta-modal-open { overflow: hidden; }
      (sticky-choreography alignment) pushed the title down the screen */
   .band-selector__intro { padding-top: 0; padding-bottom: 0; }
   .band-selector__inner { height: auto; row-gap: 1.5rem; }
-  /* pts 5/6: same asymmetric padding under the testimonials heading */
-  .testimonials__layout { padding-inline: 1.25rem; }
+  /* pts 5/6: same asymmetric padding under the testimonials heading;
+     client round 4: a touch further left so long titles have room */
+  .testimonials__layout { padding-inline: 0.75rem; }
   /* pts 18/19: contact form centred */
   .contact__inner { padding-inline: 1rem; }
   .contact__form { width: 100%; max-width: 26rem; margin-inline: auto; }
@@ -4385,13 +4386,21 @@ body.cta-modal-open { overflow: hidden; }
   .gallery__item:only-child { grid-column: 1 / -1; width: 72%; margin-inline: auto; }
 }
 
-/* pts 11/14/15: 2-col grid (phones landscape / small tablets) - an odd
-   last image centres across both columns instead of hugging the left */
-@media (min-width: 481px) and (max-width: 768px) {
+/* pts 11/14/15 + client round 4: EVERY phone/tablet width shows the
+   gallery as PAIRS (2-up rows); an odd last image centres across both
+   columns instead of hugging the left */
+@media (max-width: 768px) {
   .gallery--masonry .gallery__item:last-child:nth-child(odd):not(:only-child) {
     grid-column: 1 / -1;
     width: calc(50% - 8px);
     margin-inline: auto;
+  }
+}
+@media (max-width: 480px) {
+  /* was a single stacked column - client wants 2-image sets on phones */
+  .gallery--masonry {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 150px;
   }
 }
 
