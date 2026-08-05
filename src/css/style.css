@@ -4324,9 +4324,9 @@ body.cta-modal-open { overflow: hidden; }
   /* pts 3/16 (client round 2): mirror the desktop arrangement - small
      photo LEFT, big photo RIGHT, sized off the stack WIDTH so both always
      fit on screen with only the slight desktop-style overlap */
-  .events__photo-stack { height: min(100vw, 58vh); }
-  .events__photo--back { width: 60%; height: auto; aspect-ratio: 2 / 3; max-height: 96%; left: auto; right: 0; top: 50%; }
-  .events__photo--front { width: 44%; height: auto; aspect-ratio: 2 / 3; max-height: 70%; left: 0 !important; top: 58%; }
+  .events__photo-stack { height: min(58vw, 40vh); margin-top: 0.5rem; }
+  .events__photo--back { width: 62%; height: auto; aspect-ratio: 2 / 3; max-height: 100%; left: auto; right: 0; top: 50%; }
+  .events__photo--front { width: 46%; height: auto; aspect-ratio: 2 / 3; max-height: 76%; left: 2% !important; top: 48%; }
   /* pt 9: dead space above/below the category text */
   .events__cat-stack { height: 180px; }
   .events__sticky { padding-top: 1.5rem; }
@@ -4349,7 +4349,8 @@ body.cta-modal-open { overflow: hidden; }
   .testimonials__title { font-size: clamp(1.15rem, 5.8vw, 1.6rem); overflow-wrap: anywhere; }
   /* pts 4/17: band selector - shrink the empty list window, centre the block
      (the desktop 1.95x left-padding multiplier pushed everything right) */
-  .band-selector__viewport { height: 300px; margin-inline: auto; }
+  /* full list visible - no fixed window, so no item is cut mid-row */
+  .band-selector__viewport { height: auto; margin-inline: auto; margin-top: 0.5rem; }
   .band-selector__sticky { padding-inline: 1rem; }
   .band-selector__inner { padding-inline: 1rem; }
   /* client: section content started ~226px down - the desktop viewport
