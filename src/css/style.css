@@ -4392,9 +4392,21 @@ body.cta-modal-open { overflow: hidden; }
    columns instead of hugging the left */
 @media (max-width: 768px) {
   .gallery--masonry .gallery__item:last-child:nth-child(odd):not(:only-child) {
-    grid-column: 1 / -1;
-    width: calc(50% - 8px);
+    /* !important because the mobile grid reset (grid-area: auto !important)
+       otherwise cancels the span and squeezes the tile into one column */
+    grid-column: 1 / -1 !important;
+    /* wider than half so the lone tile reads LANDSCAPE (rows are 150px) */
+    width: 62%;
+    /* grid items with an explicit width default to justify-self:stretch,
+       which pins them LEFT - center is what actually centres the tile */
+    justify-self: center;
     margin-inline: auto;
+    /* same landscape tile shape as every other cell */
+    height: 100%;
+  }
+  .gallery__item:only-child {
+    justify-self: center;
+    height: 100%;
   }
 }
 @media (max-width: 480px) {
