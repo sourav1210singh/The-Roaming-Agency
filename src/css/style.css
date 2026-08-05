@@ -4346,7 +4346,11 @@ body.cta-modal-open { overflow: hidden; }
   .events__sticky { padding-inline: 1rem; }
   .events__left, .events__cat-stack, .events__cat { width: 100%; }
   /* pts 5/6: testimonials heading clipped long service names */
-  .testimonials__title { font-size: clamp(1.15rem, 5.8vw, 1.6rem); overflow-wrap: anywhere; }
+  .testimonials__title { font-size: clamp(1.05rem, 5.2vw, 1.5rem); overflow-wrap: anywhere; }
+  /* the heading lines are nowrap spans on desktop - let them wrap on
+     phones so long service names (EN + FR) are never clipped */
+  .testimonials__title,
+  .testimonials__title * { white-space: normal; }
   /* pts 4/17: band selector - shrink the empty list window, centre the block
      (the desktop 1.95x left-padding multiplier pushed everything right) */
   /* full list visible - no fixed window, so no item is cut mid-row */
@@ -4363,13 +4367,15 @@ body.cta-modal-open { overflow: hidden; }
   }
   .band-selector__content {
     align-items: flex-start;
-    padding-top: 2.5rem;
+    /* client: intro nudged a touch down so the gap above the band list
+       is balanced instead of pooling under the button */
+    padding-top: 4rem;
     padding-bottom: 2rem;
   }
   /* the real gap: a 226px desktop padding-top on the intro column
      (sticky-choreography alignment) pushed the title down the screen */
-  .band-selector__intro { padding-top: 0; }
-  .band-selector__inner { height: auto; }
+  .band-selector__intro { padding-top: 0; padding-bottom: 0; }
+  .band-selector__inner { height: auto; row-gap: 1.5rem; }
   /* pts 5/6: same asymmetric padding under the testimonials heading */
   .testimonials__layout { padding-inline: 1.25rem; }
   /* pts 18/19: contact form centred */
