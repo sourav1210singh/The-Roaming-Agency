@@ -4381,8 +4381,15 @@ body.cta-modal-open { overflow: hidden; }
   .testimonials__layout { padding-inline: 0.75rem; }
   /* pts 18/19: contact form centred; client round 5: a touch narrower so
      the card floats centred with clear margins (iPhone reference shot) */
-  .contact__inner { padding-inline: 1.25rem; }
-  .contact__form { width: 100%; max-width: 24rem; margin-inline: auto; }
+  /* physical properties: some Android browsers ignore margin-inline /
+     padding-inline, which left the card sitting right of centre there */
+  .contact__inner { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+  .contact__form {
+    width: 100%;
+    max-width: 24rem;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
   /* pts 7/20/21: a lone gallery image sits mid-screen, not top-left */
   .gallery__item:only-child { grid-column: 1 / -1; width: 72%; margin-inline: auto; }
 }
