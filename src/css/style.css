@@ -4352,6 +4352,23 @@ body.cta-modal-open { overflow: hidden; }
   .band-selector__viewport { height: 300px; margin-inline: auto; }
   .band-selector__sticky { padding-inline: 1rem; }
   .band-selector__inner { padding-inline: 1rem; }
+  /* client: section content started ~226px down - the desktop viewport
+     height + vertical centering left a big black gap above the title */
+  .band-selector,
+  .band-selector__sticky,
+  .band-selector__content {
+    height: auto;
+    min-height: 0;
+  }
+  .band-selector__content {
+    align-items: flex-start;
+    padding-top: 2.5rem;
+    padding-bottom: 2rem;
+  }
+  /* the real gap: a 226px desktop padding-top on the intro column
+     (sticky-choreography alignment) pushed the title down the screen */
+  .band-selector__intro { padding-top: 0; }
+  .band-selector__inner { height: auto; }
   /* pts 5/6: same asymmetric padding under the testimonials heading */
   .testimonials__layout { padding-inline: 1.25rem; }
   /* pts 18/19: contact form centred */
