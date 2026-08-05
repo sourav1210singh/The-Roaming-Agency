@@ -4321,10 +4321,12 @@ body.cta-modal-open { overflow: hidden; }
      dead space below - centre each slide inside the tall cell */
   .gallery-slide { display: flex; flex-direction: column; justify-content: center; }
   .gallery-slide .gallery { width: 100%; }
-  /* pts 3/16: the photo pair rendered as skinny strips (widths tracked a
-     narrowed stack) - size by aspect ratio instead */
-  .events__photo--back { height: 84%; width: auto; aspect-ratio: 2 / 3; right: 2%; top: 50%; }
-  .events__photo--front { height: 60%; width: auto; aspect-ratio: 2 / 3; left: 2% !important; top: 58%; }
+  /* pts 3/16 (client round 2): mirror the desktop arrangement - small
+     photo LEFT, big photo RIGHT, sized off the stack WIDTH so both always
+     fit on screen with only the slight desktop-style overlap */
+  .events__photo-stack { height: min(100vw, 58vh); }
+  .events__photo--back { width: 60%; height: auto; aspect-ratio: 2 / 3; max-height: 96%; left: auto; right: 0; top: 50%; }
+  .events__photo--front { width: 44%; height: auto; aspect-ratio: 2 / 3; max-height: 70%; left: 0 !important; top: 58%; }
   /* pt 9: dead space above/below the category text */
   .events__cat-stack { height: 180px; }
   .events__sticky { padding-top: 1.5rem; }
