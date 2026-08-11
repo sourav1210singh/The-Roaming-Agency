@@ -3350,6 +3350,17 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   /* Phase 4: Three.js is not loaded on <=1024 (perf), so the canvas
      would be an empty box - hide it; the section stands cleanly on
      its "Available Worldwide" text alone. */
+  /* client: "Presents dans les Plus Belles Celebrations d'Europe" (FR) is
+     longer than the EN lines and got clipped on the right at the fixed
+     2.4rem floor - scale the whole clamp down for narrow phones, and let
+     a still-too-long line wrap instead of hard-cutting. */
+  .globe-section .section__title {
+    font-size: clamp(1.6rem, 7.8vw, 3.6rem);
+  }
+  .globe-section .globe-title__line {
+    white-space: normal;
+  }
+
   .globe-container {
     display: none;
   }
