@@ -4207,6 +4207,21 @@ body.cta-modal-open { overflow: hidden; }
   .band-selector__bg-image {
     display: none;
   }
+  /* The desktop vh-based padding-top on the intro column (sticky-
+     choreography alignment) survived here, making intro the tallest
+     flex item and inflating the whole section ~330px past where the
+     band list (now auto-height, all 11 shown) actually ends - the
+     next section (globe) started inside that inflated box and
+     overlapped the tail of the list. Same treatment as <=768 below. */
+  .band-selector__intro {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .band-selector__content {
+    align-items: flex-start;
+    padding-top: 4rem;
+    padding-bottom: 2rem;
+  }
 
   /* Safety net: never let scroll-reveal content stay hidden on a
      collapsed mobile layout, and kill any horizontal overflow. */
@@ -4379,8 +4394,12 @@ body.cta-modal-open { overflow: hidden; }
   /* pt 9: dead space above/below the category text */
   .events__cat-stack { height: 180px; }
   .events__sticky { padding-top: 1.5rem; }
-  /* pt 10: band selector viewport was a 490px empty window */
-  .band-selector__viewport { height: 340px; }
+  /* pt 10 fix superseded: this 340px cap was from when the viewport
+     showed a short JS-scrubbed "peek window". JS is disabled at
+     <=1024 now and the full 11-band list renders, so a fixed 340px
+     clipped/starved it again - the earlier <=1024 block already sets
+     height:auto (correctly, since it's positioned right below it in
+     source order and wins the cascade); nothing to override here. */
 }
 
 /* pt 8: tablets - stats sit beside the intro text, not under it */
