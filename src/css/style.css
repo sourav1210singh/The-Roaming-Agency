@@ -3598,7 +3598,13 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 
 .contact__form-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  /* minmax(0, 1fr), NOT 1fr: a plain 1fr track can never shrink below its
+     content's min-content width. The French <select> options are long
+     ("Comment nous avez-vous connus ?"), which set a ~323px floor - on a
+     360px phone that blew every field 46px past the card's edge while the
+     English build (shorter options) stayed inside. minmax(0, ...) removes
+     that floor so the tracks always follow the card width instead. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   column-gap: clamp(0.85rem, 1.6vw, 1.25rem);
   row-gap: clamp(0.55rem, 1vw, 0.8rem);
 }
@@ -3611,6 +3617,17 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  /* same reasoning as the track above - a flex item's default min-width
+     is auto, which would re-introduce the long-option floor */
+  min-width: 0;
+}
+
+/* Belt-and-braces: nothing inside the card may exceed it, whatever the
+   translated option text turns out to be. */
+.contact__form input,
+.contact__form select,
+.contact__form textarea {
+  max-width: 100%;
 }
 
 /* Reference (weddings-new) form: each field's text lives INSIDE it as a
@@ -3725,7 +3742,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      stayed 2-column, overflowing the card by 150px+. Synced to the
      same breakpoint as the card. */
   .contact__form-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
