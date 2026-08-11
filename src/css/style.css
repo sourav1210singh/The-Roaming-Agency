@@ -4160,6 +4160,10 @@ body.cta-modal-open { overflow: hidden; }
   .gallery-section {
     position: relative;
     height: auto;
+    /* base rule's min-height:100vh survived height:auto, so the much
+       shorter collage was centring inside a full-viewport-tall box -
+       equal empty space above and below on tablets. */
+    min-height: 0;
     overflow: visible;
   }
   .gallery-track {
@@ -4176,6 +4180,12 @@ body.cta-modal-open { overflow: hidden; }
   .band-selector__sticky {
     position: relative;
     height: auto;
+    /* The desktop pin still leaves overflow:hidden active here - on
+       tablets the collapsed content (heading + all 11 bands) runs
+       taller than the sticky box's own resolved height, so the last
+       few names (Supersonics, DJ...) were getting clipped instead of
+       just needing a normal scroll. */
+    overflow: visible;
   }
   .band-selector__content {
     height: auto;
