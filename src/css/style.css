@@ -4394,7 +4394,19 @@ body.cta-modal-open { overflow: hidden; }
      the card floats centred with clear margins (iPhone reference shot) */
   /* physical properties: some Android browsers ignore margin-inline /
      padding-inline, which left the card sitting right of centre there */
-  .contact__inner { padding-left: 1.25rem !important; padding-right: 1.25rem !important; }
+  /* Drop the grid entirely on mobile instead of overriding its tracks -
+     a grid container here (even with grid-template-columns collapsed to
+     1fr by the <=900px rule above) left the base "margin:0 auto" and
+     padding fighting the track's auto-resolved width, which rendered
+     the whole card shifted off the left edge. Plain block flow removes
+     that ambiguity outright. */
+  .contact__inner {
+    display: block;
+    margin: 0;
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+  .contact__header { margin-bottom: 2rem; }
   .contact__form {
     width: 100%;
     max-width: 24rem;
