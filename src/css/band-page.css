@@ -723,6 +723,10 @@
     position: relative;
     height: auto;
     overflow: visible;
+    /* Collapsing to auto height left the light background hugging the
+       collage edge-to-edge (client: only a sliver showed above/below).
+       Restore vertical breathing room so the photos sit framed by it. */
+    padding-block: clamp(2rem, 5vw, 3.5rem);
   }
 }
 
