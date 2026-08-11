@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=15">
-  <link rel="stylesheet" href="/src/css/reset.css?v=15">
-  <link rel="stylesheet" href="/src/css/style.css?v=15">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=15">
+  <link rel="stylesheet" href="/src/css/variables.css?v=16">
+  <link rel="stylesheet" href="/src/css/reset.css?v=16">
+  <link rel="stylesheet" href="/src/css/style.css?v=16">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=16">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -531,23 +531,23 @@
         <div class="contact__form-grid">
           <div class="form-group">
             <label for="name" data-en="Full Name" data-fr="Nom Complet">Full Name</label>
-            <input type="text" id="name" name="name" required placeholder="Full Name" data-en="Full Name" data-fr="Nom Complet">
+            <input type="text" id="name" autocomplete="name" name="name" required placeholder="Full Name" data-en="Full Name" data-fr="Nom Complet">
           </div>
           <div class="form-group">
             <label for="email" data-en="Email Address" data-fr="Adresse Email">Email Address</label>
-            <input type="email" id="email" name="email" required placeholder="Email address" data-en="Email address" data-fr="Adresse Email">
+            <input type="email" id="email" autocomplete="email" name="email" required placeholder="Email address" data-en="Email address" data-fr="Adresse Email">
           </div>
           <div class="form-group">
             <label for="eventDate" data-en="Event Date" data-fr="Date de l'Événement">Event Date</label>
-            <input type="text" id="eventDate" name="eventDate" placeholder="Event date" data-en="Event date" data-fr="Date de l'Événement">
+            <input type="text" id="eventDate" autocomplete="off" name="eventDate" placeholder="Event date" data-en="Event date" data-fr="Date de l'Événement">
           </div>
           <div class="form-group">
             <label for="location" data-en="Location" data-fr="Lieu">Location</label>
-            <input type="text" id="location" name="location" placeholder="Location" data-en="Location" data-fr="Lieu">
+            <input type="text" id="location" autocomplete="off" name="location" placeholder="Location" data-en="Location" data-fr="Lieu">
           </div>
           <div class="form-group">
             <label for="eventType" data-en="Type of Event" data-fr="Type d'Événement">Type of Event</label>
-            <select id="eventType" name="eventType">
+            <select id="eventType" autocomplete="off" name="eventType">
               <option value="" data-en="Type of event" data-fr="Type d'Événement">Type of event</option>
               <option value="wedding" data-en="Wedding" data-fr="Mariage">Wedding</option>
               <option value="corporate" data-en="Corporate Event" data-fr="Événement d'Entreprise">Corporate Event</option>
@@ -557,11 +557,11 @@
           </div>
           <div class="form-group">
             <label for="phone" data-en="Phone" data-fr="Téléphone">Phone</label>
-            <input type="tel" id="phone" name="phone" placeholder="Phone" data-en="Phone" data-fr="Téléphone">
+            <input type="tel" id="phone" autocomplete="tel" name="phone" placeholder="Phone" data-en="Phone" data-fr="Téléphone">
           </div>
           <div class="form-group">
             <label for="hearAbout" data-en="How did you hear about us?" data-fr="Comment nous avez-vous connus&#8239;?">How did you hear about us?</label>
-            <select id="hearAbout" name="hearAbout">
+            <select id="hearAbout" autocomplete="off" name="hearAbout">
               <option value="" data-en="How did you hear about us?" data-fr="Comment nous avez-vous connus&#8239;?">How did you hear about us?</option>
               <option value="google" data-en="Google" data-fr="Google">Google</option>
               <option value="instagram" data-en="Instagram" data-fr="Instagram">Instagram</option>
@@ -571,11 +571,11 @@
           </div>
           <div class="form-group">
             <label for="guests" data-en="Number of Guests" data-fr="Nombre d'Invités">Number of Guests</label>
-            <input type="number" id="guests" name="guests" min="0" placeholder="Number of guests" data-en="Number of guests" data-fr="Nombre d'Invités">
+            <input type="number" id="guests" autocomplete="off" name="guests" min="0" placeholder="Number of guests" data-en="Number of guests" data-fr="Nombre d'Invités">
           </div>
           <div class="form-group form-group--full">
             <label for="budget" data-en="Budget" data-fr="Budget">Budget</label>
-            <select id="budget" name="budget">
+            <select id="budget" autocomplete="off" name="budget">
               <option value="" data-en="Budget" data-fr="Budget">Budget</option>
               <option value="under2500">&lt; €2,500</option>
               <option value="2500-5000">€2,500 - €5,000</option>
@@ -585,7 +585,7 @@
           </div>
           <div class="form-group form-group--full">
             <label for="message" data-en="Tell us what you are planning..." data-fr="Dites-nous ce que vous planifiez...">Tell us what you are planning...</label>
-            <textarea id="message" name="message" rows="3" placeholder="Tell us what are you planning..." data-en="Tell us what are you planning..." data-fr="Dites-nous ce que vous planifiez..."></textarea>
+            <textarea id="message" autocomplete="off" name="message" rows="3" placeholder="Tell us what are you planning..." data-en="Tell us what are you planning..." data-fr="Dites-nous ce que vous planifiez..."></textarea>
           </div>
         </div>
         <button type="submit" class="contact__submit" data-en="Send Inquiry" data-fr="Envoyer la Demande">Send Inquiry</button>

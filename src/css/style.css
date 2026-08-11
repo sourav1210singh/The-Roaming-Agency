@@ -3657,6 +3657,29 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   background: #ffffff;
 }
 
+/* Android: Chrome's own autofill highlight paints a solid system colour
+   INSIDE the field (reported as dark bars breaking the card on Android).
+   Force it back to our own background/text colour. */
+.contact__form .form-group input:-webkit-autofill,
+.contact__form .form-group input:-webkit-autofill:hover,
+.contact__form .form-group input:-webkit-autofill:focus {
+  -webkit-text-fill-color: #2A2A2A;
+  -webkit-box-shadow: 0 0 0px 1000px #fafafa inset;
+  box-shadow: 0 0 0px 1000px #fafafa inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Same Android glitch report also matched the number field's native
+   step spinner - drop it, guest counts are typed, not stepped. */
+.contact__form .form-group input[type="number"] {
+  -moz-appearance: textfield;
+}
+.contact__form .form-group input[type="number"]::-webkit-inner-spin-button,
+.contact__form .form-group input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 .contact__form .form-group select {
   appearance: none;
   cursor: pointer;
