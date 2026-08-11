@@ -713,6 +713,19 @@
   justify-content: center;
 }
 
+/* Same bug as the homepage's own gallery section: height:100vh forces a
+   full-viewport-tall box, and flex justify-content:center then centres
+   the much shorter photo collage inside it, leaving equal empty grey
+   space above and below on tablets (client screenshot). Placed AFTER
+   the base rule above so it wins the cascade at matching widths. */
+@media (max-width: 1024px) {
+  .band-gallery2 {
+    position: relative;
+    height: auto;
+    overflow: visible;
+  }
+}
+
 /* Client: more left/right breathing room on the gallery + Get in touch
    sections (band pages only - this file isn't loaded on the homepage). */
 .band-gallery2 .container {

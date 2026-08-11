@@ -3718,7 +3718,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   }
   .contact__header { text-align: center; }
 }
-@media (max-width: 640px) {
+@media (max-width: 768px) {
+  /* Was 640px, but the form CARD itself narrows to a mobile width
+     (max-width:24rem) starting at 768px - between 641-768 (iPad Mini
+     portrait included) the card had shrunk while these paired fields
+     stayed 2-column, overflowing the card by 150px+. Synced to the
+     same breakpoint as the card. */
   .contact__form-grid {
     grid-template-columns: 1fr;
   }
