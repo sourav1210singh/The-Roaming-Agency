@@ -868,13 +868,13 @@ function initBandSelector() {
       en: 'The widest repertoire in the agency. British pop-rock, French classics, Latin rhythms and Irish folk, built around acoustic and electric guitars for a set as immersive as it is international.',
       fr: 'Le répertoire le plus large de l\'agence. Pop-rock britannique, classiques français, rythmes latins et folk irlandais, construits autour de guitares acoustiques et électriques pour un set aussi immersif qu\'international.'
     },
-    gentlemen: {
-      en: 'Paris meets Latin America in a multilingual roaming band mixing styles, cultures and infectious rhythms.',
-      fr: 'Paris rencontre l\'Amérique latine dans un groupe itinérant multilingue mêlant les styles, les cultures et les rythmes contagieux.'
-    },
     serenades: {
       en: 'Our Italian roaming band, bringing a touch of dolce vita to Italian classics and international favorites, with effortless style and charm.',
       fr: 'Notre groupe itinérant italien, qui apporte une touche de dolce vita aux classiques italiens et aux succès internationaux, avec un style et un charme naturels.'
+    },
+    gentlemen: {
+      en: 'Paris meets Latin America in a multilingual roaming band mixing styles, cultures and infectious rhythms.',
+      fr: 'Paris rencontre l\'Amérique latine dans un groupe itinérant multilingue mêlant les styles, les cultures et les rythmes contagieux.'
     },
     supersonics: {
       en: 'A high-energy roaming band led by a powerful London tenor, mixing British and American pop-rock with French, Italian and Spanish classics.',
@@ -884,13 +884,13 @@ function initBandSelector() {
       en: 'The agency\'s deepest specialists in Sixties and Seventies music, extending through today\'s hits, led by musicians with over twelve years of experience and some of the best vocals around.',
       fr: 'Les plus grands spécialistes de l\'agence des années soixante et soixante-dix, jusqu\'aux tubes d\'aujourd\'hui, portés par des musiciens forts de plus de douze ans d\'expérience et par des voix parmi les meilleures.'
     },
-    cafecreme: {
-      en: 'One of our two roaming bands in Paris, elegant and refined for luxury events, led by talented musicians who can read the room and elevate the atmosphere when it is needed.',
-      fr: 'L\'un de nos deux groupes itinérants à Paris, élégant et raffiné pour les événements de luxe, mené par des musiciens talentueux qui savent lire la salle et élever l\'ambiance au bon moment.'
-    },
     whysoserious: {
       en: 'A powerful quartet featuring a keyboardist who brings a unique touch and a wide range of possibilities, performing both as a roaming band and an amplified party band for late-night celebrations.',
       fr: 'Un quatuor puissant porté par un claviériste qui apporte une touche unique et un large éventail de possibilités, en groupe itinérant comme en formation amplifiée pour les fins de soirée.'
+    },
+    cafecreme: {
+      en: 'One of our two roaming bands in Paris, elegant and refined for luxury events, led by talented musicians who can read the room and elevate the atmosphere when it is needed.',
+      fr: 'L\'un de nos deux groupes itinérants à Paris, élégant et raffiné pour les événements de luxe, mené par des musiciens talentueux qui savent lire la salle et élever l\'ambiance au bon moment.'
     },
     blackjacks: {
       en: 'A royal flush of talent. The only roaming band in the industry fronted by a lyrical tenor, with a commanding stage presence that wins over even the most reserved crowd. One of the agency\'s largest repertoires, across five languages.',

@@ -3947,14 +3947,13 @@ body.cta-modal-open { overflow: hidden; }
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  width: 52px;
-  height: 52px;
+  /* Client revision: gold, and a touch bigger than the old 52px. */
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  background: rgba(0, 0, 0, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  backdrop-filter: blur(12px) saturate(140%);
-  -webkit-backdrop-filter: blur(12px) saturate(140%);
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.22);
+  background: var(--color-gold);
+  border: 1px solid var(--color-gold-dark);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.26);
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -3967,16 +3966,17 @@ body.cta-modal-open { overflow: hidden; }
 }
 
 .whatsapp-btn:hover {
-  background: rgba(0, 0, 0, 0.42);
-  border-color: rgba(255, 255, 255, 0.28);
-  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.32);
+  background: var(--color-gold-dark);
+  border-color: var(--color-gold-dark);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.34);
   transform: scale(1.05);
 }
 
 .whatsapp-btn svg {
-  width: 22px;
-  height: 22px;
-  fill: #ffffff;
+  width: 26px;
+  height: 26px;
+  /* Dark glyph on gold - white on #F2DCA3 has almost no contrast. */
+  fill: #1F1F1F;
 }
 
 /* Hover tooltip - separate pill to the LEFT of the button. Shows
