@@ -2069,6 +2069,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 .events__title--light {
   font-weight: 300;
+}
+/* The nudge belongs to whichever word comes SECOND, so it survives the
+   light/bold flip between "EVENTS we serve" and "our EXPERTISE". */
+.events__title--bold + .events__title--light,
+.events__title--light + .events__title--bold {
   margin-left: 0.1ch;
 }
 

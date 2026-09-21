@@ -853,50 +853,52 @@ function initBandSelector() {
   if (!items.length) return;
 
   // Band descriptions from content
+  /* Client copy (Pierre, Sept 2026 revision). FR is provisional -
+     swap in the official French text when he sends it. */
   const bandDescriptions = {
     brotherockers: {
-      en: 'Based on the French Riviera, available worldwide. Composed of international musicians fluent in French, English, Italian, Spanish, and Portuguese, The Brotherockers transform your drinks and dinners into unforgettable memories.',
-      fr: 'Basés sur la Côte d\'Azur, disponibles dans le monde entier. Composés de musiciens internationaux, les Brotherockers transforment vos cocktails et dîners en souvenirs inoubliables.'
+      en: 'The ultimate roaming band, and the agency\'s founding act. Twelve years of experience, a dream team of international musicians fluent in five languages, performing for VIP clients and leading brands at the most exceptional celebrations.',
+      fr: 'Le groupe itinérant ultime, et l\'acte fondateur de l\'agence. Douze ans d\'expérience, une dream team de musiciens internationaux maîtrisant cinq langues, au service de clients VIP et de grandes marques lors des célébrations les plus exceptionnelles.'
     },
     kingsmen: {
-      en: 'A quintet featuring lead singers who play instruments plus a distinctive saxophone player. Stunning vocals, live instruments, and powerful energy to events worldwide.',
-      fr: 'Un quintette avec des chanteurs qui jouent des instruments et un saxophoniste distinctif. Des voix magnifiques et une énergie puissante pour vos événements.'
+      en: 'Our only five-piece roaming band, adding a touch of power to large events, paired with the absolute best singers in the industry for an iconic stage presence.',
+      fr: 'Notre seul groupe itinérant à cinq musiciens, qui apporte une touche de puissance aux grands événements, associé aux meilleurs chanteurs du métier pour une présence scénique iconique.'
     },
     peppermints: {
-      en: 'The Peppermints combine British pop/rock, French classics, Latin rhythms, and Irish folk in a refreshing cocktail. A breath of fresh air for your events.',
-      fr: 'Les Peppermints combinent pop/rock britannique, classiques français, rythmes latins et folk irlandais dans un cocktail rafraîchissant.'
+      en: 'The widest repertoire in the agency. British pop-rock, French classics, Latin rhythms and Irish folk, built around acoustic and electric guitars for a set as immersive as it is international.',
+      fr: 'Le répertoire le plus large de l\'agence. Pop-rock britannique, classiques français, rythmes latins et folk irlandais, construits autour de guitares acoustiques et électriques pour un set aussi immersif qu\'international.'
     },
     gentlemen: {
-      en: 'Composed of musicians from France and Latin America, The Gentlemen blend diverse musical styles. They perform in five languages with flexible lineup options.',
-      fr: 'Composés de musiciens de France et d\'Amérique latine, les Gentlemen mélangent des styles musicaux divers en cinq langues.'
+      en: 'Paris meets Latin America in a multilingual roaming band mixing styles, cultures and infectious rhythms.',
+      fr: 'Paris rencontre l\'Amérique latine dans un groupe itinérant multilingue mêlant les styles, les cultures et les rythmes contagieux.'
     },
     serenades: {
-      en: 'A talented blend of Italian and French musicians delivering timeless Italian charm mixed with international hits, jazz, bossa nova, and piano elegance.',
-      fr: 'Un mélange talentueux de musiciens italiens et français offrant un charme italien intemporel mêlé de hits internationaux, jazz et bossa nova.'
+      en: 'Our Italian roaming band, bringing a touch of dolce vita to Italian classics and international favorites, with effortless style and charm.',
+      fr: 'Notre groupe itinérant italien, qui apporte une touche de dolce vita aux classiques italiens et aux succès internationaux, avec un style et un charme naturels.'
     },
     supersonics: {
-      en: 'A powerful roaming band blending UK vocals with French musical talent. British-American pop rock hits with timeless French, Italian, and Spanish classics.',
-      fr: 'Un groupe itinérant puissant mélangeant des voix britanniques avec le talent musical français. Pop rock anglo-américain avec des classiques intemporels.'
+      en: 'A high-energy roaming band led by a powerful London tenor, mixing British and American pop-rock with French, Italian and Spanish classics.',
+      fr: 'Un groupe itinérant plein d\'énergie mené par un puissant ténor londonien, mêlant pop-rock britannique et américain aux classiques français, italiens et espagnols.'
     },
     rendezvous: {
-      en: 'Specializing in 60s and 70s hits with sharp style, breathtaking vocal harmonies, and legendary guitar solos. Over 10 years of experience.',
-      fr: 'Spécialisé dans les hits des années 60 et 70 avec un style pointu, des harmonies vocales à couper le souffle et des solos de guitare légendaires.'
+      en: 'The agency\'s deepest specialists in Sixties and Seventies music, extending through today\'s hits, led by musicians with over twelve years of experience and some of the best vocals around.',
+      fr: 'Les plus grands spécialistes de l\'agence des années soixante et soixante-dix, jusqu\'aux tubes d\'aujourd\'hui, portés par des musiciens forts de plus de douze ans d\'expérience et par des voix parmi les meilleures.'
     },
     cafecreme: {
-      en: 'Paris, mon amour. Café Crème brings a distinguished touch - soul, neo soul, pop, and jazz. The reference for strolling music based in Paris.',
-      fr: 'Paris, mon amour. Café Crème apporte une touche distinguée - soul, neo soul, pop et jazz. La référence de la musique itinérante basée à Paris.'
+      en: 'One of our two roaming bands in Paris, elegant and refined for luxury events, led by talented musicians who can read the room and elevate the atmosphere when it is needed.',
+      fr: 'L\'un de nos deux groupes itinérants à Paris, élégant et raffiné pour les événements de luxe, mené par des musiciens talentueux qui savent lire la salle et élever l\'ambiance au bon moment.'
     },
     whysoserious: {
-      en: 'An extraordinary experience awaits. Details coming soon.',
-      fr: 'Une expérience extraordinaire vous attend. Détails à venir.'
+      en: 'A powerful quartet featuring a keyboardist who brings a unique touch and a wide range of possibilities, performing both as a roaming band and an amplified party band for late-night celebrations.',
+      fr: 'Un quatuor puissant porté par un claviériste qui apporte une touche unique et un large éventail de possibilités, en groupe itinérant comme en formation amplifiée pour les fins de soirée.'
     },
     blackjacks: {
-      en: 'An extraordinary experience awaits. Details coming soon.',
-      fr: 'Une expérience extraordinaire vous attend. Détails à venir.'
+      en: 'A royal flush of talent. The only roaming band in the industry fronted by a lyrical tenor, with a commanding stage presence that wins over even the most reserved crowd. One of the agency\'s largest repertoires, across five languages.',
+      fr: 'Une quinte flush de talents. Le seul groupe itinérant du métier mené par un ténor lyrique, avec une présence scénique qui conquiert même les publics les plus réservés. L\'un des plus vastes répertoires de l\'agence, en cinq langues.'
     },
     dj: {
-      en: 'Johnny Molotov - The Party Engineer. The only man performing live with a roaming band before switching to an unbelievable DJ set.',
-      fr: 'Johnny Molotov - L\'ingénieur de la fête. Le seul homme à se produire en live avec un groupe itinérant avant de passer à un set DJ incroyable.'
+      en: 'A collective of trusted DJs with extensive international experience and technical expertise, preparing tailored sets in advance while instinctively reading the room on the night.',
+      fr: 'Un collectif de DJ de confiance, forts d\'une grande expérience internationale et d\'une vraie expertise technique, qui préparent des sets sur mesure en amont tout en lisant instinctivement la salle le jour J.'
     }
   };
 
