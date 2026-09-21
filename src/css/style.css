@@ -1815,11 +1815,11 @@ body.is-header-hidden .hero-center-title {
   overflow: hidden;
 }
 
-/* 3rd draft: the client's mock uses a SINGLE row of logos, not the
-   two-row opposite-scroll marquee. Hide the reverse (2nd) row so it
-   reads as one clean line like the mock. */
+/* The 3rd draft collapsed this to a single row to match a mock. The
+   client now wants the two tiers back: brands on top, the hotels he
+   named underneath - so the reverse row is visible again. */
 .brands-marquee__row--reverse {
-  display: none;
+  display: flex;
 }
 
 /* 3rd draft: "Trusted By" label above the logo rows. Same size as the
@@ -1915,19 +1915,22 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 
 .brands-marquee__item {
-  /* UNIFORM CELL SIZING - every logo, regardless of its natural aspect,
-     gets the same fixed cell. Client tweak: cells reduced ~40% from
-     the previous 120-150 × 50-60 pass - now 72-90 × 30-36 - so each
-     logo reads as a more refined accent rather than a busy strip. */
+  /* Client: "we have spacing differences for the trusted by logos".
+     The old fixed-width cell was the cause. Every cell was 122px wide
+     but object-fit:contain drew Louis Vuitton at 41px and Bulgari at
+     110px inside it, so the visible gap between neighbours swung from
+     ~12px to ~81px. The cell now shrinks to the mark it holds and the
+     spacing lives in the padding, which makes the gap identical for
+     every pair. Padding rather than flex `gap` on purpose: each item
+     carrying its own spacing keeps the duplicate set exactly half the
+     track, so the translate(-50%) loop still seams perfectly. */
   flex-shrink: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  /* 5th draft: brands a bit bigger (~35% up from 76-95 / 32-38). */
-  width: clamp(102px, 8.5vw, 128px);
+  width: auto;
   height: clamp(43px, 3.5vw, 51px);
-  /* 3rd draft: less horizontal space between logos in the marquee. */
-  padding: 0 clamp(0.2rem, 0.5vw, 0.4rem);
+  padding: 0 clamp(0.8rem, 1.3vw, 1.4rem);
 }
 
 .brands-marquee__logo {
@@ -1941,9 +1944,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      No more blend-modes, no more filter chains, no more per-logo
      invert() overrides - every logo renders as plain black-on-
      transparent over the white panel. Clean and uniform across all 46. */
-  width: 100%;
+  /* Height-led now: the mark keeps its aspect and the cell follows it.
+     max-width still caps the very wide wordmarks (Bulgari is 9:1) so
+     one logo can't run away with half the row. */
+  width: auto;
   height: 100%;
-  max-width: 100%;
+  max-width: clamp(102px, 8.5vw, 128px);
   max-height: 100%;
   object-fit: contain;
   opacity: 1;
