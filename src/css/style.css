@@ -1795,7 +1795,9 @@ button.nav__link {
   /* 3rd draft client spec (Canva inspector): Nohemi Medium, ~69px /
      97px line-height, 0 tracking, ALL CAPS. One line per band - never
      wrap "THE BROTHEROCKERS" to two rows. */
-  font-size: clamp(2.45rem, 4.95vw, 4.1rem); /* 3rd draft: -5% */
+  /* Client revision: "the names of the band could be a little smaller"
+     - down ~12% from the 3rd-draft 2.45/4.95vw/4.1rem. */
+  font-size: clamp(2.15rem, 4.35vw, 3.6rem);
   font-weight: var(--fw-medium);
   line-height: 1.4;
   text-transform: uppercase;
@@ -1811,12 +1813,11 @@ button.nav__link {
               opacity var(--duration-base) var(--ease-smooth);
 }
 
-/* 3rd draft: hover + selected = gold #F2DCA3. */
-.band-selector__item:hover {
-  opacity: 1;
-  color: #F2DCA3;
-}
-
+/* Client revision: "the arrow shall not enlight a band" and "shall not be
+   possible to select 2" - the hover gold used to fire alongside the
+   scroll-driven one, so two names read as selected at once. Gold is now
+   ONLY the band being viewed; the pointer cursor still says it is
+   clickable. */
 .band-selector__item.is-active,
 .band-selector__item.active {
   color: #F2DCA3;

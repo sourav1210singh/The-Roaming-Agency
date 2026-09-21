@@ -147,9 +147,9 @@
   <!-- Stylesheets - Nohemi (self-hosted, all 9 weights) is loaded inside
        variables.css via @font-face. The Google Fonts Inter link was
        removed once the licensed Nohemi files arrived. -->
-  <link rel="stylesheet" href="/src/css/variables.css?v=27">
-  <link rel="stylesheet" href="/src/css/reset.css?v=27">
-  <link rel="stylesheet" href="/src/css/style.css?v=27">
+  <link rel="stylesheet" href="/src/css/variables.css?v=28">
+  <link rel="stylesheet" href="/src/css/reset.css?v=28">
+  <link rel="stylesheet" href="/src/css/style.css?v=28">
 
   <!-- GSAP + ScrollTrigger (needed early for hero animations).
        Three.js is NOT loaded here - main.js dynamically injects it only
@@ -636,8 +636,12 @@
                  perfectly fixed in place through the whole pinned section
                  (heading/desc never had reveal, so the button was the only
                  thing appearing to move). -->
-            <a href="#contact" class="btn btn--primary section-cta" data-open-form
-               data-en="Book Your Band" data-fr="Réservez Votre Groupe">Réservez Votre Groupe</a>
+            <!-- Client revision: "Book your band" becomes "Discover <Band>",
+                 relabelled + repointed per band by initBandSelector(). The
+                 markup default is the first band so the button is already
+                 correct below 1024, where that JS deliberately never runs. -->
+            <a href="/fr/the-brotherockers" class="btn btn--primary section-cta" id="bandDiscover"
+               data-en="Discover The Brotherockers" data-fr="Découvrir The Brotherockers">Découvrir The Brotherockers</a>
           </div>
 
           <!-- Right column - viewport-windowed list. JS translates this

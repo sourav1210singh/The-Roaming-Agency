@@ -850,6 +850,7 @@ function initBandSelector() {
   const items = document.querySelectorAll('.band-selector__item');
   const bgImages = document.querySelectorAll('.band-selector__bg-image');
   const descEl = document.getElementById('bandDesc');
+  const discoverEl = document.getElementById('bandDiscover');
   if (!items.length) return;
 
   // Band descriptions from content
@@ -943,6 +944,17 @@ function initBandSelector() {
     const band = item.dataset.band;
     items.forEach(i => i.classList.remove('is-active', 'active'));
     item.classList.add('is-active');
+    /* "The 'book your band' button is replaced by 'Discover X', X being the
+       name of the band. It changes for each band we are seing on the menu."
+       Name + href come straight off the row, so this needs no second list
+       to keep in sync. */
+    if (discoverEl) {
+      const name = item.textContent.trim();
+      discoverEl.textContent = (currentLang() === 'fr' ? 'D\u00e9couvrir ' : 'Discover ') + name;
+      discoverEl.setAttribute('href', item.getAttribute('href'));
+      discoverEl.setAttribute('data-en', 'Discover ' + name);
+      discoverEl.setAttribute('data-fr', 'D\u00e9couvrir ' + name);
+    }
     bgImages.forEach(bg => {
       const match = bg.dataset.band === band;
       bg.classList.toggle('is-active', match);
@@ -971,9 +983,34 @@ function initBandSelector() {
     setActiveBand(idx);
   }
 
-  // Click jumps to a band AND lets the anchor navigate to the band's page.
+  /* Client revision: "if we click to another band, we stay on the same menu,
+     same page, but we just go to this band's presentation and it is yellow
+     now." Clicking therefore scrolls the pinned runway to that band's slot
+     instead of navigating - the existing scroll scrub then carries the list,
+     the background and the description across, so there is still exactly one
+     source of truth for which band is current. (A plain setActive() would be
+     undone by the very next scroll tick.)
+     The rows stay real <a href> links on purpose: this whole function
+     early-returns below 1024, where a tap should open the band page. */
+  function scrollToBand(idx) {
+    const total = section ? section.offsetHeight - window.innerHeight : 0;
+    if (!section || total <= 0) { setActive(idx); return; }
+    const top = section.getBoundingClientRect().top + window.scrollY;
+    const target = top + (idx / (items.length - 1)) * total;
+    // Lenis owns the scroll position on desktop, so ask it rather than
+    // fighting it with a native smooth scroll.
+    if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+      window.lenis.scrollTo(target, { duration: 0.9 });
+    } else {
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    }
+  }
+
   items.forEach((item, idx) => {
-    item.addEventListener('click', () => { setActive(idx); });
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollToBand(idx);
+    });
   });
 
   /* Scroll-driven scrub - maps progress through the tall section's runway
