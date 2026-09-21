@@ -220,6 +220,30 @@
     {
       "source": "/blog/what-a-wedding-feels-like-when-music-is-done-right",
       "destination": "/src/pages/article-wedding-music.html"
+    },
+    {
+      "source": "/demo",
+      "destination": "/demo/index.html"
+    },
+    {
+      "source": "/demo/globe-1",
+      "destination": "/demo/globe-1.html"
+    },
+    {
+      "source": "/demo/globe-2",
+      "destination": "/demo/globe-2.html"
+    },
+    {
+      "source": "/demo/globe-4",
+      "destination": "/demo/globe-4.html"
+    },
+    {
+      "source": "/demo/bands-colour-a",
+      "destination": "/demo/bands-colour-a.html"
+    },
+    {
+      "source": "/demo/bands-colour-b",
+      "destination": "/demo/bands-colour-b.html"
     }
   ],
   "redirects": [

@@ -3,5 +3,6 @@ Allow: /
 Disallow: /.claude/
 Disallow: /.git/
 Disallow: /The-Roaming-Agency-main/
+Disallow: /demo/
 
 Sitemap: https://theroamingagency.com/sitemap.xml

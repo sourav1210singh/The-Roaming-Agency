@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Demos for review | The Roaming Agency</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --gold: #F2DCA3;
+      --gold-dark: #C8A560;
+      --ink: #FCFCFC;
+      --muted: rgba(252, 252, 252, 0.62);
+      --panel: #1F1F1F;
+      --line: rgba(255, 255, 255, 0.1);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 16px clamp(3rem, 8vw, 6rem);
+      background: #141414;
+      color: var(--ink);
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      font-weight: 300;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .wrap { max-width: 900px; margin: 0 auto; }
+
+    .eyebrow {
+      display: block;
+      color: var(--gold);
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin: 0 0 0.9rem;
+    }
+    h1 {
+      margin: 0 0 0.75rem;
+      font-size: clamp(1.75rem, 4.5vw, 2.75rem);
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+    }
+    .lede { margin: 0 0 2.75rem; color: var(--muted); max-width: 62ch; }
+
+    h2 {
+      margin: 2.75rem 0 0.35rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .quote {
+      margin: 0 0 1.4rem;
+      padding-left: 0.9rem;
+      border-left: 2px solid var(--line);
+      color: var(--muted);
+      font-size: 0.9rem;
+      font-style: italic;
+      max-width: 62ch;
+    }
+
+    .grid { display: grid; gap: 0.75rem; }
+    a.card {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.35rem 0.85rem;
+      padding: 1.05rem 1.25rem;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      color: inherit;
+      text-decoration: none;
+      transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+    }
+    a.card:hover, a.card:focus-visible {
+      border-color: var(--gold-dark);
+      background: #262626;
+      transform: translateY(-1px);
+    }
+    .card b { font-weight: 600; letter-spacing: 0.01em; }
+    .card i { font-style: normal; color: var(--muted); font-size: 0.92rem; }
+    .card .ref {
+      margin-left: auto;
+      color: var(--gold-dark);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .note {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 0.85rem;
+      max-width: 68ch;
+    }
+    .note b { color: var(--ink); font-weight: 500; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <span class="eyebrow">Internal &middot; not linked from the site</span>
+    <h1>Two things to choose</h1>
+    <p class="lede">
+      Each demo below is the real homepage with only the one thing being decided
+      swapped out, so you can see it in context and scroll past it the way a
+      visitor would. Nothing here is indexed and nothing on the live site links
+      to it.
+    </p>
+
+    <h2>1 &middot; The earth globe</h2>
+    <p class="quote">
+      "Can we use design 1, 2 and 4 in 3 different homepage simulation and show
+      us in action how it looks like please?"
+    </p>
+    <div class="grid">
+      <a class="card" href="/demo/globe-1.html">
+        <b>Design 1</b><i>Light page, night globe</i><span class="ref">1g</span>
+      </a>
+      <a class="card" href="/demo/globe-2.html">
+        <b>Design 2</b><i>Wire frame</i><span class="ref">1c</span>
+      </a>
+      <a class="card" href="/demo/globe-4.html">
+        <b>Design 4</b><i>Desk globe, gold stand</i><span class="ref">1h</span>
+      </a>
+    </div>
+
+    <h2>2 &middot; Colour behind the bands</h2>
+    <p class="quote">
+      "I would like to try out to put back some colour to the bands, as it is
+      impossible to differenciate them now &hellip; I would like to see
+      suggestions of the 2 ideas above."
+    </p>
+    <div class="grid">
+      <a class="card" href="/demo/bands-colour-a.html">
+        <b>Idea A</b><i>Colour inside a circle, darkening outward</i><span class="ref">Spotlight</span>
+      </a>
+      <a class="card" href="/demo/bands-colour-b.html">
+        <b>Idea B</b><i>Whole photo, partial colour and a little darker</i><span class="ref">Muted</span>
+      </a>
+    </div>
+
+    <p class="note">
+      <b>Scroll to the section you are judging.</b> The globe sits after "Choose
+      Your Band"; the band colour is the "Choose Your Band" section itself, and
+      both need a desktop-width window &mdash; below 1024px the site drops the
+      3D globe and the pinned band animation on purpose, for battery and data.
+      <br><br>
+      These pages are temporary and will be deleted once the choices are made.
+    </p>
+  </div>
+</body>
+</html>
