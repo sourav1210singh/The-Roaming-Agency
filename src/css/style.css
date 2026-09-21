@@ -2914,7 +2914,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 }
 
 .gallery-section {
-  background: #2A2A2A;
+  /* Client revision: the gallery panel is white now. */
+  background: #ffffff;
   padding-block: clamp(2.5rem, 5vw, 4rem);
   /* Client: PIN the gallery - it sticks to the top of the viewport while the
      form + footer (which follow and carry a higher z-index) slide UP and over
@@ -2962,18 +2963,20 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   height: 44px;
   border-radius: 50%;
   border: 0;
-  background: rgba(255, 255, 255, 0.92);
-  color: #2A2A2A;
+  /* Inverted with the panel: a white puck on a white gallery would
+     have disappeared, so the arrows are dark now. */
+  background: rgba(42, 42, 42, 0.9);
+  color: #ffffff;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
   transition: transform 0.2s ease, background 0.2s ease;
 }
 .gallery-nav:hover {
   transform: translateY(-50%) scale(1.08);
-  background: #ffffff;
+  background: #1F1F1F;
 }
 .gallery-nav--prev { left: clamp(-22px, -1.5vw, -8px); }
 .gallery-nav--next { right: clamp(-22px, -1.5vw, -8px); }
@@ -3466,9 +3469,14 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
    uses a 2-column inner grid matching the mockup. */
 .contact {
   position: relative;
-  /* 3rd draft: "take out the gradient of the final part of the page". */
-  background: #2A2A2A;
-  color: #ffffff;
+  /* 3rd draft: "take out the gradient of the final part of the page".
+     Client revision: the whole contact panel is white now. The hairline
+     top border keeps it separated from whatever section precedes it -
+     on the homepage it also draws the curtain edge as the form slides
+     up over the pinned gallery. */
+  background: #ffffff;
+  color: #2A2A2A;
+  border-top: 1px solid #ECECEC;
   padding: clamp(4rem, 7vw, 6rem) 0;
   overflow: hidden;
   /* Sits ABOVE the pinned (sticky) gallery: this z-index lifts the form over
@@ -3581,7 +3589,7 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   font-size: clamp(1.8rem, 4vw, 3.25rem);
   font-weight: var(--fw-medium);
   line-height: 1.1;
-  color: #ffffff;
+  color: #2A2A2A;
   margin: 0 0 clamp(0.6rem, 1.2vw, 1rem);
 }
 
@@ -3589,16 +3597,19 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   font-family: var(--font-body);
   font-size: clamp(0.95rem, 1.05vw, 1.1rem);
   font-weight: var(--fw-light);
-  color: rgba(255, 255, 255, 0.7);
+  color: #5A5A5A;
   margin: 0;
 }
 
-/* White card form */
+/* White card form. On the old dark panel the drop shadow alone read as
+   a card; on a white panel it needs a hairline edge and a much lighter
+   lift, otherwise the card dissolves into the section. */
 .contact__form {
   background: #ffffff;
+  border: 1px solid #E8E8E8;
   border-radius: 16px;
   padding: clamp(1.25rem, 2.5vw, 1.75rem) clamp(1.5rem, 3vw, 2.25rem);
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 14px 44px rgba(0, 0, 0, 0.09);
 }
 
 .contact__form-grid {
@@ -4038,8 +4049,10 @@ body.cta-modal-open { overflow: hidden; }
 }
 
 .footer {
-  background: var(--color-black);
-  border-top: 1px solid var(--color-gray-800);
+  /* Client revision: white footer. Every colour below is stated
+     explicitly rather than via the dark-theme grey tokens. */
+  background: #ffffff;
+  border-top: 1px solid #E6E6E6;
   padding: var(--space-4xl) 0 var(--space-2xl);
   /* Rides OVER the pinned (sticky) gallery, same as the form. */
   position: relative;
@@ -4061,17 +4074,20 @@ body.cta-modal-open { overflow: hidden; }
   max-width: 300px;
 }
 
+/* Now holds the brand lockup image instead of a gold text wordmark. */
 .footer__brand-name {
-  font-family: var(--font-heading);
-  font-size: var(--text-xl);
-  color: var(--color-gold);
   margin-bottom: var(--space-md);
+}
+.footer__brand-logo {
+  display: block;
+  width: clamp(150px, 16vw, 200px);
+  height: auto;
 }
 
 .footer__brand-tagline {
   font-family: var(--font-accent);
   font-size: var(--text-base);
-  color: var(--color-gray-400);
+  color: #6B6B6B;
   font-style: italic;
 }
 
@@ -4079,7 +4095,7 @@ body.cta-modal-open { overflow: hidden; }
   font-size: var(--text-sm);
   text-transform: uppercase;
   letter-spacing: 0.15em;
-  color: var(--color-gray-400);
+  color: #6B6B6B;
   margin-bottom: var(--space-lg);
 }
 
@@ -4091,12 +4107,13 @@ body.cta-modal-open { overflow: hidden; }
 
 .footer__link {
   font-size: var(--text-base);
-  color: var(--color-gray-400);
+  color: #555555;
   transition: color var(--duration-fast);
 }
 
+/* gold-dark, not gold: #F2DCA3 on white is barely visible. */
 .footer__link:hover {
-  color: var(--color-gold);
+  color: var(--color-gold-dark);
 }
 
 .footer__social {
@@ -4107,28 +4124,28 @@ body.cta-modal-open { overflow: hidden; }
 .footer__social-link {
   width: 40px;
   height: 40px;
-  border: 1px solid var(--color-gray-800);
+  border: 1px solid #DDDDDD;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--color-gray-400);
+  color: #555555;
   transition: all var(--duration-fast);
 }
 
 .footer__social-link:hover {
-  color: var(--color-gold);
-  border-color: var(--color-gold);
+  color: var(--color-gold-dark);
+  border-color: var(--color-gold-dark);
 }
 
 .footer__bottom {
-  border-top: 1px solid var(--color-gray-800);
+  border-top: 1px solid #E6E6E6;
   padding-top: var(--space-xl);
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-size: var(--text-xs);
-  color: var(--color-gray-600);
+  color: #777777;
 }
 
 /* Designed-by credit - sits INLINE in the same .footer__bottom row as
@@ -4137,7 +4154,7 @@ body.cta-modal-open { overflow: hidden; }
    copyright; the link picks up a subtle gold accent on hover. */
 .footer__credit {
   font-size: var(--text-xs);
-  color: var(--color-gray-600);
+  color: #777777;
 }
 .footer__credit a {
   color: inherit;
@@ -4146,8 +4163,8 @@ body.cta-modal-open { overflow: hidden; }
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 .footer__credit a:hover {
-  color: var(--color-gold);
-  border-color: var(--color-gold);
+  color: var(--color-gold-dark);
+  border-color: var(--color-gold-dark);
 }
 
 /* === RESPONSIVE === */
