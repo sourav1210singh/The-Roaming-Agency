@@ -473,6 +473,49 @@ body.is-header-hidden .hero-center-title {
   color: #FCFCFC;
 }
 
+/* Expertise is a menu, not a page, so its trigger is a <button>. Strip the
+   browser's button chrome; everything else it needs it already inherits
+   from .nav__link. Deliberately only resets properties the <=768 nav
+   block does not touch, so the mobile accordion sizing still wins. */
+button.nav__link {
+  background: none;
+  border: 0;
+  margin: 0;
+  line-height: inherit;
+  text-align: inherit;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Client: "we miss a Contact Us button that should stand out". A gold pill
+   closing the bar, on the same type scale as the links beside it. Dark
+   glyph colour for the same reason as the WhatsApp button - white on
+   #F2DCA3 is close to unreadable. */
+.nav__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: #1F1F1F;
+  background: var(--color-gold);
+  border: 1px solid var(--color-gold);
+  border-radius: 999px;
+  padding: 0.6rem 1.15rem;
+  transition: background-color 0.25s ease, border-color 0.25s ease;
+}
+
+.nav__cta:hover,
+.nav__cta:focus-visible {
+  background: var(--color-gold-dark);
+  border-color: var(--color-gold-dark);
+  color: #1F1F1F;
+}
+
 .nav__link:hover::before,
 .nav__link--active::before,
 .nav__item.is-open > .nav__link::before {
@@ -628,6 +671,17 @@ body.is-header-hidden .hero-center-title {
   }
   .nav__dropdown a {
     padding: 0.7rem 1rem 0.7rem 1.5rem;
+    font-size: 0.95rem;
+  }
+
+  /* In the drawer the CTA reads as a button, not another row. */
+  .nav__item--cta {
+    border-bottom: 0;
+    margin-top: var(--space-lg);
+  }
+  .nav__cta {
+    width: 100%;
+    padding: 0.9rem 1rem;
     font-size: 0.95rem;
   }
 }

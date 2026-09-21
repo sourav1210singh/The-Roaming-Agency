@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=26">
-  <link rel="stylesheet" href="/src/css/reset.css?v=26">
-  <link rel="stylesheet" href="/src/css/style.css?v=26">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=26">
+  <link rel="stylesheet" href="/src/css/variables.css?v=27">
+  <link rel="stylesheet" href="/src/css/reset.css?v=27">
+  <link rel="stylesheet" href="/src/css/style.css?v=27">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=27">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -118,36 +118,37 @@
       <nav class="nav" id="mainNav" aria-label="Site navigation">
         <ul class="nav__list">
           <li class="nav__item nav__item--has-dropdown">
-            <a href="/fr#events" class="nav__link">Événements</a>
-            <ul class="nav__dropdown" role="menu">
-              <li><a href="/fr/weddings">Mariages</a></li>
-              <li><a href="/fr/corporate-events">Événements d'Entreprise</a></li>
-              <li><a href="/fr/private-parties">Soirées Privées</a></li>
-              <li><a href="/fr/artistic-direction">La Direction Artistique</a></li>
-            </ul>
-          </li>
-          <li class="nav__item nav__item--has-dropdown">
             <a href="/fr/bands" class="nav__link">Groupes</a>
             <ul class="nav__dropdown" role="menu">
               <li><a href="/fr/bands">Tous les Groupes</a></li>
               <li><a href="/fr/the-brotherockers" class="nav__dropdown-link--active">The Brotherockers</a></li>
               <li><a href="/fr/the-kingsmen">The Kingsmen</a></li>
               <li><a href="/fr/the-peppermints">The Peppermints</a></li>
-              <li><a href="/fr/the-gentlemen">The Gentlemen</a></li>
               <li><a href="/fr/the-serenades">The Serenades</a></li>
+              <li><a href="/fr/the-gentlemen">The Gentlemen</a></li>
               <li><a href="/fr/the-supersonics">The Supersonics</a></li>
               <li><a href="/fr/the-rendez-vous">The Rendez-Vous</a></li>
-              <li><a href="/fr/cafe-creme">Café Crème</a></li>
               <li><a href="/fr/why-so-serious">Why So Serious?</a></li>
+              <li><a href="/fr/cafe-creme">Café Crème</a></li>
               <li><a href="/fr/the-blackjacks">The Blackjacks</a></li>
               <li class="nav__dropdown-divider" aria-hidden="true"></li>
               <li><a href="/fr/more-music-acts">Plus d'Actes Musicaux</a></li>
             </ul>
           </li>
           <li class="nav__item"><a href="/fr/dj" class="nav__link">DJ</a></li>
-          <li class="nav__item"><a href="/fr/faq" class="nav__link">FAQ</a></li>
+          <li class="nav__item nav__item--has-dropdown">
+            <button type="button" class="nav__link">Expertise</button>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="/fr/weddings">Mariages</a></li>
+              <li><a href="/fr/corporate-events">Événements d'Entreprise</a></li>
+              <li><a href="/fr/private-parties">Fêtes</a></li>
+              <li><a href="/fr/artistic-direction">La Direction Artistique</a></li>
+            </ul>
+          </li>
           <li class="nav__item"><a href="/fr/blog" class="nav__link">Journal</a></li>
-          <li class="nav__item"><a href="/fr/more-music-acts" class="nav__link">Plus d'Actes Musicaux</a></li>
+          <li class="nav__item nav__item--cta">
+            <a href="#contact" class="nav__cta" data-open-form>Contactez-Nous</a>
+          </li>
         </ul>
       </nav>
       <a class="lang-toggle" href="/the-brotherockers">EN</a>

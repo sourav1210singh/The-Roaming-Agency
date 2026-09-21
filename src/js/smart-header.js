@@ -31,6 +31,7 @@
     // scrolling before the header reveals (was popping back too quickly
     // on a single up-correction).
     const REVEAL_AFTER = 400;       // px of cumulative up-scroll to reveal
+    const HIDE_ON_SCROLL_DOWN = false; // client: keep the menu visible
     let upAccum = 0;
     // Homepage hero is a stack (sticky black panel + video that slides up).
     // We track the OUTER wrapper so smart-header stays dormant during the
@@ -79,10 +80,12 @@
       if (Math.abs(diff) < DELTA_MIN) return;
 
       if (diff > 0) {
-        // Scrolling DOWN → hide. Reset the accumulator so a later
-        // small up-correction doesn't instantly re-show the bar.
+        // Client revision: "while we scroll down we should have the menu
+        // visible". Hide-on-scroll-down is retired - the bar stays pinned.
+        // Left behind HIDE_ON_SCROLL_DOWN rather than deleted so the old
+        // behaviour is one constant away if he changes his mind.
         upAccum = 0;
-        setHidden(true);
+        setHidden(HIDE_ON_SCROLL_DOWN);
       } else {
         // Scrolling UP → only reveal after a deliberate amount of
         // upward scroll. Small corrective ups keep the bar hidden.

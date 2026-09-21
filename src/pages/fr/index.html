@@ -147,9 +147,9 @@
   <!-- Stylesheets - Nohemi (self-hosted, all 9 weights) is loaded inside
        variables.css via @font-face. The Google Fonts Inter link was
        removed once the licensed Nohemi files arrived. -->
-  <link rel="stylesheet" href="/src/css/variables.css?v=26">
-  <link rel="stylesheet" href="/src/css/reset.css?v=26">
-  <link rel="stylesheet" href="/src/css/style.css?v=26">
+  <link rel="stylesheet" href="/src/css/variables.css?v=27">
+  <link rel="stylesheet" href="/src/css/reset.css?v=27">
+  <link rel="stylesheet" href="/src/css/style.css?v=27">
 
   <!-- GSAP + ScrollTrigger (needed early for hero animations).
        Three.js is NOT loaded here - main.js dynamically injects it only
@@ -192,43 +192,36 @@
       <nav class="nav" id="mainNav" aria-label="Site navigation">
         <ul class="nav__list">
           <li class="nav__item nav__item--has-dropdown">
-            <a href="#events" class="nav__link" data-en="Events" data-fr="Événements">Événements</a>
-            <ul class="nav__dropdown" role="menu">
-              <li><a href="/fr/weddings" data-en="Weddings"          data-fr="Mariages">Mariages</a></li>
-              <li><a href="/fr/corporate-events" data-en="Corporate Events"  data-fr="Événements d'Entreprise">Événements d'Entreprise</a></li>
-              <li><a href="/fr/private-parties" data-en="Private Parties"   data-fr="Événements Privés">Événements Privés</a></li>
-              <li><a href="/fr/artistic-direction" data-en="Artistic Direction" data-fr="Direction Artistique">Direction Artistique</a></li>
-            </ul>
-          </li>
-          <li class="nav__item nav__item--has-dropdown">
             <a href="/fr/bands" class="nav__link" data-en="Bands" data-fr="Groupes">Groupes</a>
             <ul class="nav__dropdown" role="menu">
-              <li><a href="/fr/bands">Tous les Groupes</a></li>
-              <li><a href="/fr/the-brotherockers">The Brotherockers</a></li>
-              <li><a href="/fr/the-kingsmen">The Kingsmen</a></li>
-              <li><a href="/fr/the-peppermints">The Peppermints</a></li>
-              <li><a href="/fr/the-gentlemen">The Gentlemen</a></li>
-              <li><a href="/fr/the-serenades">The Serenades</a></li>
-              <li><a href="/fr/the-supersonics">The Supersonics</a></li>
-              <li><a href="/fr/the-rendez-vous">The Rendez-Vous</a></li>
-              <li><a href="/fr/cafe-creme">Café Crème</a></li>
-              <li><a href="/fr/why-so-serious">Why So Serious?</a></li>
-              <li><a href="/fr/the-blackjacks">The Blackjacks</a></li>
+              <li><a href="/fr/bands" data-en="All Bands" data-fr="Tous les Groupes">Tous les Groupes</a></li>
+              <li><a href="/fr/the-brotherockers" data-en="The Brotherockers" data-fr="The Brotherockers">The Brotherockers</a></li>
+              <li><a href="/fr/the-kingsmen" data-en="The Kingsmen" data-fr="The Kingsmen">The Kingsmen</a></li>
+              <li><a href="/fr/the-peppermints" data-en="The Peppermints" data-fr="The Peppermints">The Peppermints</a></li>
+              <li><a href="/fr/the-serenades" data-en="The Serenades" data-fr="The Serenades">The Serenades</a></li>
+              <li><a href="/fr/the-gentlemen" data-en="The Gentlemen" data-fr="The Gentlemen">The Gentlemen</a></li>
+              <li><a href="/fr/the-supersonics" data-en="The Supersonics" data-fr="The Supersonics">The Supersonics</a></li>
+              <li><a href="/fr/the-rendez-vous" data-en="The Rendez-Vous" data-fr="The Rendez-Vous">The Rendez-Vous</a></li>
+              <li><a href="/fr/why-so-serious" data-en="Why So Serious?" data-fr="Why So Serious?">Why So Serious?</a></li>
+              <li><a href="/fr/cafe-creme" data-en="Café Crème" data-fr="Café Crème">Café Crème</a></li>
+              <li><a href="/fr/the-blackjacks" data-en="The Blackjacks" data-fr="The Blackjacks">The Blackjacks</a></li>
               <li class="nav__dropdown-divider" aria-hidden="true"></li>
-              <li><a href="/fr/more-music-acts" data-en="More Music Acts" data-fr="Plus de Groupes Musicaux">Plus de Groupes Musicaux</a></li>
+              <li><a href="/fr/more-music-acts" data-en="More Music Acts" data-fr="Plus d'Actes Musicaux">Plus d'Actes Musicaux</a></li>
             </ul>
           </li>
-          <li class="nav__item">
-            <a href="/fr/dj" class="nav__link">DJ</a>
+          <li class="nav__item"><a href="/fr/dj" class="nav__link" data-en="DJ" data-fr="DJ">DJ</a></li>
+          <li class="nav__item nav__item--has-dropdown">
+            <button type="button" class="nav__link" data-en="Expertise" data-fr="Expertise">Expertise</button>
+            <ul class="nav__dropdown" role="menu">
+              <li><a href="/fr/weddings" data-en="Weddings" data-fr="Mariages">Mariages</a></li>
+              <li><a href="/fr/corporate-events" data-en="Corporate Events" data-fr="Événements d'Entreprise">Événements d'Entreprise</a></li>
+              <li><a href="/fr/private-parties" data-en="Parties" data-fr="Fêtes">Fêtes</a></li>
+              <li><a href="/fr/artistic-direction" data-en="Artistic Direction" data-fr="La Direction Artistique">La Direction Artistique</a></li>
+            </ul>
           </li>
-          <li class="nav__item">
-            <a href="/fr/faq" class="nav__link">FAQ</a>
-          </li>
-          <li class="nav__item">
-            <a href="/fr/blog" class="nav__link" data-en="Blog" data-fr="Journal">Journal</a>
-          </li>
-          <li class="nav__item">
-            <a href="/fr/more-music-acts" class="nav__link" data-en="More Music Acts" data-fr="Plus de Groupes">Plus de Groupes</a>
+          <li class="nav__item"><a href="/fr/blog" class="nav__link" data-en="Blog" data-fr="Journal">Journal</a></li>
+          <li class="nav__item nav__item--cta">
+            <a href="#contact" class="nav__cta" data-open-form data-en="Contact Us" data-fr="Contactez-Nous">Contactez-Nous</a>
           </li>
         </ul>
       </nav>
@@ -1143,33 +1136,35 @@
         <div>
           <h4 class="footer__heading" data-en="Bands" data-fr="Groupes">Groupes</h4>
           <div class="footer__links">
-            <a href="/fr/the-brotherockers" class="footer__link">The Brotherockers</a>
-            <a href="/fr/the-kingsmen" class="footer__link">The Kingsmen</a>
-            <a href="/fr/the-peppermints" class="footer__link">The Peppermints</a>
-            <a href="/fr/the-gentlemen" class="footer__link">The Gentlemen</a>
-            <a href="/fr/the-serenades" class="footer__link">The Serenades</a>
-            <a href="/fr/the-supersonics" class="footer__link">The Supersonics</a>
+            <a href="/fr/the-brotherockers" class="footer__link" data-en="The Brotherockers" data-fr="The Brotherockers">The Brotherockers</a>
+            <a href="/fr/the-kingsmen" class="footer__link" data-en="The Kingsmen" data-fr="The Kingsmen">The Kingsmen</a>
+            <a href="/fr/the-peppermints" class="footer__link" data-en="The Peppermints" data-fr="The Peppermints">The Peppermints</a>
+            <a href="/fr/the-serenades" class="footer__link" data-en="The Serenades" data-fr="The Serenades">The Serenades</a>
+            <a href="/fr/the-gentlemen" class="footer__link" data-en="The Gentlemen" data-fr="The Gentlemen">The Gentlemen</a>
+            <a href="/fr/the-supersonics" class="footer__link" data-en="The Supersonics" data-fr="The Supersonics">The Supersonics</a>
           </div>
         </div>
 
         <div>
           <h4 class="footer__heading">&nbsp;</h4>
           <div class="footer__links">
-            <a href="/fr/the-rendez-vous" class="footer__link">The Rendez-Vous</a>
-            <a href="/fr/cafe-creme" class="footer__link">Café Crème</a>
-            <a href="/fr/why-so-serious" class="footer__link">Why So Serious?</a>
-            <a href="/fr/the-blackjacks" class="footer__link">The Blackjacks</a>
-            <a href="/fr/dj" class="footer__link">DJ</a>
+            <a href="/fr/the-rendez-vous" class="footer__link" data-en="The Rendez-Vous" data-fr="The Rendez-Vous">The Rendez-Vous</a>
+            <a href="/fr/why-so-serious" class="footer__link" data-en="Why So Serious?" data-fr="Why So Serious?">Why So Serious?</a>
+            <a href="/fr/cafe-creme" class="footer__link" data-en="Café Crème" data-fr="Café Crème">Café Crème</a>
+            <a href="/fr/the-blackjacks" class="footer__link" data-en="The Blackjacks" data-fr="The Blackjacks">The Blackjacks</a>
+            <a href="/fr/dj" class="footer__link" data-en="DJ" data-fr="DJ">DJ</a>
+            <a href="/fr/more-music-acts" class="footer__link" data-en="More Music Acts" data-fr="Plus d'Actes Musicaux">Plus d'Actes Musicaux</a>
           </div>
         </div>
 
         <div>
-          <h4 class="footer__heading" data-en="Events" data-fr="Événements">Événements</h4>
+          <h4 class="footer__heading" data-en="Expertise" data-fr="Expertise">Expertise</h4>
           <div class="footer__links">
-            <a href="#" class="footer__link" data-en="Weddings" data-fr="Mariages">Mariages</a>
-            <a href="#" class="footer__link" data-en="Corporate" data-fr="Entreprises">Entreprises</a>
-            <a href="#" class="footer__link" data-en="Private Parties" data-fr="Événements Privés">Événements Privés</a>
-            <a href="/fr/faq" class="footer__link">FAQ</a>
+            <a href="/fr/weddings" class="footer__link" data-en="Weddings" data-fr="Mariages">Mariages</a>
+            <a href="/fr/corporate-events" class="footer__link" data-en="Corporate Events" data-fr="Événements d'Entreprise">Événements d'Entreprise</a>
+            <a href="/fr/private-parties" class="footer__link" data-en="Parties" data-fr="Fêtes">Fêtes</a>
+            <a href="/fr/artistic-direction" class="footer__link" data-en="Artistic Direction" data-fr="La Direction Artistique">La Direction Artistique</a>
+            <a href="/fr/faq" class="footer__link" data-en="FAQ" data-fr="FAQ">FAQ</a>
             <a href="#contact" class="footer__link" data-en="Contact" data-fr="Contact">Contact</a>
           </div>
         </div>
