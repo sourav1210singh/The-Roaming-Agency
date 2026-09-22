@@ -234,6 +234,10 @@
       "destination": "/demo/globe-2.html"
     },
     {
+      "source": "/demo/globe-5",
+      "destination": "/demo/globe-5.html"
+    },
+    {
       "source": "/demo/globe-4",
       "destination": "/demo/globe-4.html"
     },

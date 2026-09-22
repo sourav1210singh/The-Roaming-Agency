@@ -6,7 +6,7 @@
   <meta name="description" content="Luxury roaming bands for weddings, corporate events and private parties. Based on the French Riviera, performing worldwide in five languages.">
   <meta name="keywords" content="luxury wedding band, roaming band French Riviera, live music agency, strolling band, destination wedding music">
 
-  <title>DEMO Band backgrounds Idea B - Whole photo, partial colour + darker | The Roaming Agency</title>
+  <title>DEMO Design 5 - Night lights | The Roaming Agency</title>
 
   <!-- Open Graph -->
   <meta property="og:title" content="The Roaming Agency - Luxury Roaming Bands">
@@ -84,17 +84,34 @@
   }
   @media (max-width: 768px) { .demo-badge { font-size: 10px; padding: 7px 12px; } }
 
-  /* IDEA B - "the photo not be with 100% of the color, maybe a little darker
-     than original version." Colour across the whole frame, pulled back and
-     dimmed so the bands are tellable apart without fighting the names. */
-  .band-selector__bg-image {
-    filter: saturate(0.6) brightness(0.6) contrast(1.06);
+  /* The brief's <globe-view> fills 100% of its container, so the container
+     needs a real height here - on the live page the <canvas> supplied it.
+     The homepage's 20deg tilt also has to go: the element draws its own city
+     labels and they have to stay upright. */
+  .globe-container--demo {
+    transform: none;
+    width: 100%;
+    max-width: 920px;
+    height: min(76vh, 780px);
   }
-  .band-selector__bg-overlay {
-    background: linear-gradient(135deg,
-      rgba(0, 0, 0, 0.66) 0%, rgba(0, 0, 0, 0.38) 50%, rgba(0, 0, 0, 0.74) 100%);
+  .globe-container--demo globe-view {
+    display: block;
+    width: 100%;
+    height: 100%;
   }
-  </style>
+
+  .globe-section { background: #111110; }
+  .globe-section .section__title { color: #F5F0E7; }
+  .globe-section .section__subtitle { color: #B3AAA0; }
+  .globe-section .section-cta { color: #171308; }
+  .globe-container--demo {
+    background: radial-gradient(110% 80% at 60% 45%,
+      #1a1712 0%, #100f0c 55%, #0a0908 100%);
+    border-radius: 20px;
+  }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+  <script src="/src/js/globe-view.js" defer></script>
 </head>
 <body>
   <a href="#main-content" class="skip-link">Skip to content</a>
@@ -108,7 +125,7 @@
   
 
   <a class="demo-badge" href="/demo/" title="Back to all demos">
-    <b>Band colour &middot; Idea B</b><span>Whole photo, partial colour + darker</span>
+    <b>Globe &middot; Design 5</b><span>Night lights</span>
   </a>
   <!-- ===== WHATSAPP BUTTON ===== -->
   <a href="https://wa.me/33686621282" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Contact us on WhatsApp">
@@ -623,7 +640,7 @@
   </section>
 
   <!-- ===== AVAILABLE WORLDWIDE (amra.com style 3D globe) ===== -->
-  <section class="section globe-section" id="worldwide">
+  <section class="section globe-section" id="worldwide-demo">
     <div class="container">
       <div class="globe-layout">
         <div class="globe-text">
@@ -641,9 +658,9 @@
              data-en="Contact Us" data-fr="Contactez-Nous">Contact Us</a>
         </div>
         <!-- Globe: Three.js canvas + JS-positioned cards -->
-        <div class="globe-container" id="globeContainer">
-          <canvas id="globeCanvas" class="globe-canvas"></canvas>
-          <div class="globe-cards" id="globeCards"></div>
+        <!-- Night lights (1f in the client's globe-brief.html) -->
+        <div class="globe-container globe-container--demo">
+          <globe-view variant="darkwire" layout="spread"></globe-view>
         </div>
       </div>
     </div>
