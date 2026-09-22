@@ -147,9 +147,9 @@
   <!-- Stylesheets - Nohemi (self-hosted, all 9 weights) is loaded inside
        variables.css via @font-face. The Google Fonts Inter link was
        removed once the licensed Nohemi files arrived. -->
-  <link rel="stylesheet" href="/src/css/variables.css?v=28">
-  <link rel="stylesheet" href="/src/css/reset.css?v=28">
-  <link rel="stylesheet" href="/src/css/style.css?v=28">
+  <link rel="stylesheet" href="/src/css/variables.css?v=30">
+  <link rel="stylesheet" href="/src/css/reset.css?v=30">
+  <link rel="stylesheet" href="/src/css/style.css?v=30">
 
   <!-- GSAP + ScrollTrigger (needed early for hero animations).
        Three.js is NOT loaded here - main.js dynamically injects it only
@@ -191,6 +191,9 @@
            names live INSIDE the Bands dropdown. -->
       <nav class="nav" id="mainNav" aria-label="Site navigation">
         <ul class="nav__list">
+          <li class="nav__item nav__item--cta">
+            <a href="#contact" class="nav__cta" data-open-form data-en="Contact Us" data-fr="Contactez-Nous">Contactez-Nous</a>
+          </li>
           <li class="nav__item nav__item--has-dropdown">
             <a href="/fr/bands" class="nav__link" data-en="Bands" data-fr="Groupes">Groupes</a>
             <ul class="nav__dropdown" role="menu">
@@ -220,9 +223,6 @@
             </ul>
           </li>
           <li class="nav__item"><a href="/fr/blog" class="nav__link" data-en="Blog" data-fr="Journal">Journal</a></li>
-          <li class="nav__item nav__item--cta">
-            <a href="#contact" class="nav__cta" data-open-form data-en="Contact Us" data-fr="Contactez-Nous">Contactez-Nous</a>
-          </li>
         </ul>
       </nav>
 

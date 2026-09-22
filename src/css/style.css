@@ -487,10 +487,11 @@ button.nav__link {
   appearance: none;
 }
 
-/* Client: "we miss a Contact Us button that should stand out". A gold pill
-   closing the bar, on the same type scale as the links beside it. Dark
-   glyph colour for the same reason as the WhatsApp button - white on
-   #F2DCA3 is close to unreadable. */
+/* Client: "we miss a Contact Us button that should stand out", then
+   "these are not the same colours - we should keep the colors of the
+   website used for the 'contact us' in the middle". So this is the exact
+   .section-cta treatment: gold-dark pill, near-white label, lightening to
+   --color-gold on hover. Same type scale as the links beside it. */
 .nav__cta {
   display: inline-flex;
   align-items: center;
@@ -501,19 +502,19 @@ button.nav__link {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
-  color: #1F1F1F;
-  background: var(--color-gold);
-  border: 1px solid var(--color-gold);
-  border-radius: 999px;
+  color: #FCFCFC;
+  background: var(--color-gold-dark);
+  border: 1px solid var(--color-gold-dark);
+  border-radius: var(--radius-full);
   padding: 0.6rem 1.15rem;
   transition: background-color 0.25s ease, border-color 0.25s ease;
 }
 
 .nav__cta:hover,
 .nav__cta:focus-visible {
-  background: var(--color-gold-dark);
-  border-color: var(--color-gold-dark);
-  color: #1F1F1F;
+  background: var(--color-gold);
+  border-color: var(--color-gold);
+  color: #FCFCFC;
 }
 
 .nav__link:hover::before,
@@ -674,10 +675,11 @@ button.nav__link {
     font-size: 0.95rem;
   }
 
-  /* In the drawer the CTA reads as a button, not another row. */
+  /* In the drawer the CTA reads as a button, not another row. It leads the
+     list now, so the breathing room goes underneath it. */
   .nav__item--cta {
     border-bottom: 0;
-    margin-top: var(--space-lg);
+    margin-bottom: var(--space-lg);
   }
   .nav__cta {
     width: 100%;
@@ -4019,11 +4021,13 @@ body.cta-modal-open { overflow: hidden; }
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  /* Client revision: gold, and a touch bigger than the old 52px. */
+  /* Client revision: gold, and a touch bigger than the old 52px. The gold
+     is the site's CTA gold (same as .section-cta and the header button) -
+     he flagged that the pale --color-gold read as a different colour. */
   width: 60px;
   height: 60px;
   border-radius: 50%;
-  background: var(--color-gold);
+  background: var(--color-gold-dark);
   border: 1px solid var(--color-gold-dark);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.26);
   display: inline-flex;
@@ -4038,8 +4042,8 @@ body.cta-modal-open { overflow: hidden; }
 }
 
 .whatsapp-btn:hover {
-  background: var(--color-gold-dark);
-  border-color: var(--color-gold-dark);
+  background: var(--color-gold);
+  border-color: var(--color-gold);
   box-shadow: 0 8px 26px rgba(0, 0, 0, 0.34);
   transform: scale(1.05);
 }
@@ -4047,8 +4051,9 @@ body.cta-modal-open { overflow: hidden; }
 .whatsapp-btn svg {
   width: 26px;
   height: 26px;
-  /* Dark glyph on gold - white on #F2DCA3 has almost no contrast. */
-  fill: #1F1F1F;
+  /* Near-white on gold, matching the label colour the site's own CTA
+     buttons use. */
+  fill: #FCFCFC;
 }
 
 /* Hover tooltip - separate pill to the LEFT of the button. Shows
