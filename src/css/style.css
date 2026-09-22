@@ -487,14 +487,15 @@ button.nav__link {
   appearance: none;
 }
 
-/* Client: "we miss a Contact Us button that should stand out", "the contact
-   us shall be the first button on the left side", and then "is rectangle
-   wire ko remove kardo" - so the outlined box from his own nav mock-up is
-   gone and this is a plain gold label leading the bar. The gold is
-   --color-gold-dark, sampled at #C9A86B off that mock-up and the same gold
-   the site's other CTAs use, per "keep the colors of the website used for
-   the contact us in the middle". With no box to fill, hover just lifts the
-   label to the lighter gold. */
+/* Client: "we miss a Contact Us button that should stand out" and "the
+   contact us shall be the first button on the left side".
+   Shape and colour are measured off his own nav mock-up rather than
+   invented: an OUTLINED rectangle, transparent over the bar, 1px gold
+   border with a gold label, and corners so slightly rounded they read as
+   square (his box is 360x88 with ~2px of radius). His border/text sampled
+   at #C9A86B, which is --color-gold-dark within a hair - consistent with
+   "keep the colors of the website used for the contact us in the middle".
+   Hover fills it in, matching the site's solid CTAs. */
 .nav__cta {
   display: inline-flex;
   align-items: center;
@@ -507,15 +508,19 @@ button.nav__link {
   white-space: nowrap;
   color: var(--color-gold-dark);
   background: transparent;
-  border: 0;
-  padding: 0.62rem 0;
+  border: 1px solid var(--color-gold-dark);
+  border-radius: 2px;
+  padding: 0.62rem 1.5rem;
   letter-spacing: 0.14em;
-  transition: color 0.25s ease;
+  transition: background-color 0.25s ease, border-color 0.25s ease,
+              color 0.25s ease;
 }
 
 .nav__cta:hover,
 .nav__cta:focus-visible {
-  color: var(--color-gold);
+  background: var(--color-gold-dark);
+  border-color: var(--color-gold-dark);
+  color: #FCFCFC;
 }
 
 .nav__link:hover::before,
@@ -684,8 +689,8 @@ button.nav__link {
   }
   .nav__cta {
     width: 100%;
-    padding: 1rem 0;
-    font-size: 1rem;
+    padding: 0.9rem 1rem;
+    font-size: 0.95rem;
   }
 }
 
