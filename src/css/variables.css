@@ -99,7 +99,8 @@
   /* Gold accent (< 10%, highlights only - eyebrows, hover underlines) */
   --color-gold:         #F2DCA3;
   --color-gold-light:   #F8E9C2;
-  --color-gold-dark:    #C8A560;   /* deeper gold for hover */
+  --color-gold-dark:    #C8A560;   /* the CTA gold - buttons sit on this */
+  --color-gold-deep:    #AE8E4F;   /* ~13% darker, for button hover */
 
   /* Legacy grey scale aliases - kept so old selectors don't break,
      but mapped onto the new palette. */

@@ -3872,8 +3872,8 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   transition: background 0.2s ease, transform 0.2s ease;
 }
 .contact__submit:hover {
-  background: var(--color-gold);
-  transform: translateY(-1px);
+  background: var(--color-gold-deep);
+  transform: scale(1.04);
 }
 
 /* ── Responsive ─────────────────────────────────────────────── */
@@ -3918,9 +3918,12 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   color: var(--color-black);
 }
 
+/* Client: no more lightening on hover - these darken and zoom a touch.
+   This one rests on --color-gold, so a step down to --color-gold-dark is
+   its darken; the buttons that already rest on gold-dark go to gold-deep. */
 .btn--primary:hover {
-  background: var(--color-gold-light);
-  transform: translateY(-2px);
+  background: var(--color-gold-dark);
+  transform: scale(1.04);
   /* Removed `box-shadow: var(--shadow-gold)` per brief - no gold glows. */
 }
 
@@ -3944,8 +3947,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   padding: 0.95rem 2.4rem;
 }
 .section-cta:hover {
-  background: var(--color-gold);
+  background: var(--color-gold-deep);
   color: #FCFCFC;
+  transform: scale(1.04);
 }
 
 /* Client tweak: smaller font size for the "Book Your Band" CTA only
@@ -4113,8 +4117,8 @@ body.cta-modal-open { overflow: hidden; }
 }
 
 .whatsapp-btn:hover {
-  background: var(--color-gold);
-  border-color: var(--color-gold);
+  background: var(--color-gold-deep);
+  border-color: var(--color-gold-deep);
   box-shadow: 0 8px 26px rgba(0, 0, 0, 0.34);
   transform: scale(1.05);
 }
