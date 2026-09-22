@@ -1667,7 +1667,10 @@ button.nav__link {
 /* Client: "the colour not to be fully on the page, but just on the circle,
    the remaining is getting darker and darker." The oval is his, measured
    off the screenshot he marked up - x 19-83%, y 8-90%, so centre 53%/51%
-   with radii 32%/41% - sitting over the band names and the faces.
+   - sitting over the band names and the faces. Client follow-up: "iska
+   radius thoda increase kardo", so the radii are opened from his measured
+   32%/41% to 38%/49%, ~19% wider. The ellipse still inscribes the frame,
+   so the corners keep falling away to grey, which is the part he liked.
    One masked backdrop-filter rather than two stacked photos, so the colour
    half and the greyscale half can never drift apart, and the Ken Burns
    zoom keeps driving both. */
@@ -1677,9 +1680,9 @@ button.nav__link {
   inset: 0;
   backdrop-filter: grayscale(1) brightness(0.42);
   -webkit-backdrop-filter: grayscale(1) brightness(0.42);
-  -webkit-mask-image: radial-gradient(ellipse 32% 41% at 53% 51%,
+  -webkit-mask-image: radial-gradient(ellipse 38% 49% at 53% 51%,
     transparent 0%, transparent 58%, rgba(0, 0, 0, 0.6) 82%, #000 100%);
-  mask-image: radial-gradient(ellipse 32% 41% at 53% 51%,
+  mask-image: radial-gradient(ellipse 38% 49% at 53% 51%,
     transparent 0%, transparent 58%, rgba(0, 0, 0, 0.6) 82%, #000 100%);
 }
 
