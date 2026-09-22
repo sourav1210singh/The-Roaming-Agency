@@ -6,7 +6,7 @@
   <meta name="description" content="Luxury roaming bands for weddings, corporate events and private parties. Based on the French Riviera, performing worldwide in five languages.">
   <meta name="keywords" content="luxury wedding band, roaming band French Riviera, live music agency, strolling band, destination wedding music">
 
-  <title>DEMO Band backgrounds Idea A - Colour in the circle, darker outward | The Roaming Agency</title>
+  <title>DEMO Band backgrounds Idea A - Colour inside the oval he drew, dark outside | The Roaming Agency</title>
 
   <!-- Open Graph -->
   <meta property="og:title" content="The Roaming Agency - Luxury Roaming Bands">
@@ -35,9 +35,9 @@
   <!-- Stylesheets - Nohemi (self-hosted, all 9 weights) is loaded inside
        variables.css via @font-face. The Google Fonts Inter link was
        removed once the licensed Nohemi files arrived. -->
-  <link rel="stylesheet" href="/src/css/variables.css?v=30">
-  <link rel="stylesheet" href="/src/css/reset.css?v=30">
-  <link rel="stylesheet" href="/src/css/style.css?v=30">
+  <link rel="stylesheet" href="/src/css/variables.css?v=31">
+  <link rel="stylesheet" href="/src/css/reset.css?v=31">
+  <link rel="stylesheet" href="/src/css/style.css?v=31">
 
   <!-- GSAP + ScrollTrigger (needed early for hero animations).
        Three.js is NOT loaded here - main.js dynamically injects it only
@@ -86,10 +86,13 @@
 
   /* IDEA A - "the colour not to be fully on the page, but just on the circle,
      the remaining is getting darker and darker."
-     The photo renders in full colour and a masked backdrop-filter sits on top
-     of it: transparent inside the circle (colour comes through), opaque
-     outside (greyscale + darkened). One layer, so the two states can never
-     drift apart. */
+     Geometry is measured off the oval he drew on the screenshot, not guessed:
+     his green shape spans x 19-83% and y 8-90%, so centre 53%/51% with radii
+     32%/41%. It sits over the band names and the faces, not over the left-hand
+     text column.
+     The photo renders in full colour and a masked backdrop-filter sits on top:
+     masked OUT inside the oval (colour comes through), opaque outside
+     (greyscale + darkened). One layer, so the two states cannot drift apart. */
   .band-selector__bg-image {
     filter: none;
   }
@@ -97,18 +100,18 @@
     content: '';
     position: absolute;
     inset: 0;
-    backdrop-filter: grayscale(1) brightness(0.5);
-    -webkit-backdrop-filter: grayscale(1) brightness(0.5);
-    -webkit-mask-image: radial-gradient(circle at 34% 48%,
-      transparent 0%, transparent 18%, rgba(0,0,0,0.75) 40%, #000 56%);
-    mask-image: radial-gradient(circle at 34% 48%,
-      transparent 0%, transparent 18%, rgba(0,0,0,0.75) 40%, #000 56%);
+    backdrop-filter: grayscale(1) brightness(0.42);
+    -webkit-backdrop-filter: grayscale(1) brightness(0.42);
+    -webkit-mask-image: radial-gradient(ellipse 32% 41% at 53% 51%,
+      transparent 0%, transparent 58%, rgba(0,0,0,0.6) 82%, #000 100%);
+    mask-image: radial-gradient(ellipse 32% 41% at 53% 51%,
+      transparent 0%, transparent 58%, rgba(0,0,0,0.6) 82%, #000 100%);
   }
   /* The live overlay is heavy enough to kill the colour it is meant to show,
      so it is eased off - still dark behind the names, readable. */
   .band-selector__bg-overlay {
     background: linear-gradient(135deg,
-      rgba(0, 0, 0, 0.62) 0%, rgba(0, 0, 0, 0.30) 50%, rgba(0, 0, 0, 0.72) 100%);
+      rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.22) 50%, rgba(0, 0, 0, 0.66) 100%);
   }
   </style>
 </head>
@@ -124,7 +127,7 @@
   
 
   <a class="demo-badge" href="/demo/" title="Back to all demos">
-    <b>Band colour &middot; Idea A</b><span>Colour in the circle, darker outward</span>
+    <b>Band colour &middot; Idea A</b><span>Colour inside the oval he drew, dark outside</span>
   </a>
   <!-- ===== WHATSAPP BUTTON ===== -->
   <a href="https://wa.me/33686621282" target="_blank" rel="noopener" class="whatsapp-btn" aria-label="Contact us on WhatsApp">
@@ -148,37 +151,37 @@
       <nav class="nav" id="mainNav" aria-label="Site navigation">
         <ul class="nav__list">
           <li class="nav__item nav__item--cta">
-            <a href="#contact" class="nav__cta" data-open-form>Contact Us</a>
+            <a href="#contact" class="nav__cta" data-open-form data-en="Contact Us" data-fr="Contactez-Nous">Contact Us</a>
           </li>
           <li class="nav__item nav__item--has-dropdown">
-            <a href="/bands" class="nav__link">Bands</a>
+            <a href="/bands" class="nav__link" data-en="Bands" data-fr="Groupes">Bands</a>
             <ul class="nav__dropdown" role="menu">
-              <li><a href="/bands">All Bands</a></li>
-              <li><a href="/the-brotherockers">The Brotherockers</a></li>
-              <li><a href="/the-kingsmen">The Kingsmen</a></li>
-              <li><a href="/the-peppermints">The Peppermints</a></li>
-              <li><a href="/the-serenades">The Serenades</a></li>
-              <li><a href="/the-gentlemen">The Gentlemen</a></li>
-              <li><a href="/the-supersonics">The Supersonics</a></li>
-              <li><a href="/the-rendez-vous">The Rendez-Vous</a></li>
-              <li><a href="/why-so-serious">Why So Serious?</a></li>
-              <li><a href="/cafe-creme">Café Crème</a></li>
-              <li><a href="/the-blackjacks">The Blackjacks</a></li>
+              <li><a href="/bands" data-en="All Bands" data-fr="Tous les Groupes">All Bands</a></li>
+              <li><a href="/the-brotherockers" data-en="The Brotherockers" data-fr="The Brotherockers">The Brotherockers</a></li>
+              <li><a href="/the-kingsmen" data-en="The Kingsmen" data-fr="The Kingsmen">The Kingsmen</a></li>
+              <li><a href="/the-peppermints" data-en="The Peppermints" data-fr="The Peppermints">The Peppermints</a></li>
+              <li><a href="/the-serenades" data-en="The Serenades" data-fr="The Serenades">The Serenades</a></li>
+              <li><a href="/the-gentlemen" data-en="The Gentlemen" data-fr="The Gentlemen">The Gentlemen</a></li>
+              <li><a href="/the-supersonics" data-en="The Supersonics" data-fr="The Supersonics">The Supersonics</a></li>
+              <li><a href="/the-rendez-vous" data-en="The Rendez-Vous" data-fr="The Rendez-Vous">The Rendez-Vous</a></li>
+              <li><a href="/why-so-serious" data-en="Why So Serious?" data-fr="Why So Serious?">Why So Serious?</a></li>
+              <li><a href="/cafe-creme" data-en="Café Crème" data-fr="Café Crème">Café Crème</a></li>
+              <li><a href="/the-blackjacks" data-en="The Blackjacks" data-fr="The Blackjacks">The Blackjacks</a></li>
               <li class="nav__dropdown-divider" aria-hidden="true"></li>
-              <li><a href="/more-music-acts">More Music Acts</a></li>
+              <li><a href="/more-music-acts" data-en="More Music Acts" data-fr="Plus d'Actes Musicaux">More Music Acts</a></li>
             </ul>
           </li>
-          <li class="nav__item"><a href="/dj" class="nav__link">DJ</a></li>
+          <li class="nav__item"><a href="/dj" class="nav__link" data-en="DJ" data-fr="DJ">DJ</a></li>
           <li class="nav__item nav__item--has-dropdown">
-            <button type="button" class="nav__link">Expertise</button>
+            <button type="button" class="nav__link" data-en="Expertise" data-fr="Expertise">Expertise</button>
             <ul class="nav__dropdown" role="menu">
-              <li><a href="/weddings">Weddings</a></li>
-              <li><a href="/corporate-events">Corporate Events</a></li>
-              <li><a href="/private-parties">Parties</a></li>
-              <li><a href="/artistic-direction">Artistic Direction</a></li>
+              <li><a href="/weddings" data-en="Weddings" data-fr="Mariages">Weddings</a></li>
+              <li><a href="/corporate-events" data-en="Corporate Events" data-fr="Événements d'Entreprise">Corporate Events</a></li>
+              <li><a href="/private-parties" data-en="Parties" data-fr="Fêtes">Parties</a></li>
+              <li><a href="/artistic-direction" data-en="Artistic Direction" data-fr="La Direction Artistique">Artistic Direction</a></li>
             </ul>
           </li>
-          <li class="nav__item"><a href="/blog" class="nav__link">Blog</a></li>
+          <li class="nav__item"><a href="/blog" class="nav__link" data-en="Blog" data-fr="Journal">Blog</a></li>
         </ul>
       </nav>
 
@@ -582,7 +585,6 @@
         <div class="band-selector__bg-image" data-band="whysoserious" style="background-image: url('/src/assets/images/bands/whysoserious-bg.jpg');"></div>
         <div class="band-selector__bg-image" data-band="cafecreme"    style="background-image: url('/src/assets/images/bands/cafecreme-bg.jpg');"></div>
         <div class="band-selector__bg-image" data-band="blackjacks"   style="background-image: url('/src/assets/images/bands/blackjacks-bg.jpg');"></div>
-        <div class="band-selector__bg-image" data-band="moreacts"     style="background-image: url('/src/assets/images/bands/dj-bg.jpg');"></div>
         <div class="band-selector__bg-overlay"></div>
       </div>
 
@@ -628,7 +630,6 @@
               <a class="band-selector__item" data-band="whysoserious" href="/why-so-serious">Why So Serious?</a>
               <a class="band-selector__item" data-band="cafecreme"    href="/cafe-creme">Café Crème</a>
               <a class="band-selector__item" data-band="blackjacks"   href="/the-blackjacks">The Blackjacks</a>
-              <a class="band-selector__item" data-band="moreacts"     href="/more-music-acts">More Music Acts</a>
             </div>
           </div>
 

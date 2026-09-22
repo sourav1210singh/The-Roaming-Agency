@@ -896,14 +896,6 @@ function initBandSelector() {
     blackjacks: {
       en: 'A royal flush of talent. The only roaming band in the industry fronted by a lyrical tenor, with a commanding stage presence that wins over even the most reserved crowd. One of the agency\'s largest repertoires, across five languages.',
       fr: 'Une quinte flush de talents. Le seul groupe itinérant du métier mené par un ténor lyrique, avec une présence scénique qui conquiert même les publics les plus réservés. L\'un des plus vastes répertoires de l\'agence, en cinq langues.'
-    },
-    /* Not one of Pierre's band descriptions - he wrote none for this slot.
-       Assembled from the More Music Acts page's own intro line and the acts
-       it lists. Swap it if he sends copy. His DJ description now lives only
-       on the DJ page, which is where he wanted DJ to sit. */
-    moreacts: {
-      en: 'Beyond our roaming bands: the violin duet, the saxophonist, the jazz band and our DJs. Solo artists and ensembles, each a signature touch for your next extraordinary event.',
-      fr: 'Au-delà de nos groupes itinérants : le duo de violons, le saxophoniste, le jazz band et nos DJ. Des artistes solo et des ensembles, chacun une touche signature pour votre prochain événement extraordinaire.'
     }
   };
 
