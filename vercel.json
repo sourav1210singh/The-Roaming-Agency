@@ -240,14 +240,6 @@
     {
       "source": "/demo/globe-4",
       "destination": "/demo/globe-4.html"
-    },
-    {
-      "source": "/demo/bands-colour-a",
-      "destination": "/demo/bands-colour-a.html"
-    },
-    {
-      "source": "/demo/bands-colour-b",
-      "destination": "/demo/bands-colour-b.html"
     }
   ],
   "redirects": [
