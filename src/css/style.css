@@ -1671,7 +1671,7 @@ button.nav__link {
    the radius, then "circle se ellipse kardo, horizontal ellipse". His
    measured 32%/41% read as round because those percentages are of the box,
    not of each other - on his 1349x603 window they resolve to 432x247px,
-   only 1.74:1. 58%/40% resolves to 782x241px, 3.24:1, which reads
+   only 1.74:1. 52%/36% resolves to 701x217px, 3.23:1, which reads
    unmistakably as a horizontal ellipse while still keeping every musician
    inside the colour; it is the sky and the ground that fall away now.
    The ellipse still inscribes the frame, so the corners keep going grey,
@@ -1685,9 +1685,9 @@ button.nav__link {
   inset: 0;
   backdrop-filter: grayscale(1) brightness(0.42);
   -webkit-backdrop-filter: grayscale(1) brightness(0.42);
-  -webkit-mask-image: radial-gradient(ellipse 58% 40% at 53% 51%,
+  -webkit-mask-image: radial-gradient(ellipse 52% 36% at 53% 51%,
     transparent 0%, transparent 58%, rgba(0, 0, 0, 0.6) 82%, #000 100%);
-  mask-image: radial-gradient(ellipse 58% 40% at 53% 51%,
+  mask-image: radial-gradient(ellipse 52% 36% at 53% 51%,
     transparent 0%, transparent 58%, rgba(0, 0, 0, 0.6) 82%, #000 100%);
 }
 
