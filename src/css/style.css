@@ -1649,8 +1649,6 @@ button.nav__link {
    completely; the existing dark overlay above keeps contrast for the
    white band names + heading. */
 .band-selector__bg-image {
-  filter: grayscale(1);
-
   position: absolute;
   inset: 0;
   background-size: cover;
@@ -1658,11 +1656,31 @@ button.nav__link {
   opacity: 0;
   transition: opacity 0.8s var(--ease-smooth);
   /* Subtle Ken Burns zoom while a band is active - matches the cinematic
-     feel without distracting from the list selection.
-     Revision round 2 C3: client wants the bg photos fully B&W - so
-     grayscale(1) on the active state too, not just 0.4. */
+     feel without distracting from the list selection. */
   transform: scale(1.04);
-  filter: grayscale(1) brightness(0.85);
+  /* The round-2 `filter: grayscale(1) brightness(0.85)` is gone. Client:
+     "put back some colour to the bands, as it is impossible to
+     differenciate them now" - the photo is full colour now and the
+     ::before below greys out everything outside the circle. */
+}
+
+/* Client: "the colour not to be fully on the page, but just on the circle,
+   the remaining is getting darker and darker." The oval is his, measured
+   off the screenshot he marked up - x 19-83%, y 8-90%, so centre 53%/51%
+   with radii 32%/41% - sitting over the band names and the faces.
+   One masked backdrop-filter rather than two stacked photos, so the colour
+   half and the greyscale half can never drift apart, and the Ken Burns
+   zoom keeps driving both. */
+.band-selector__bg-image::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  backdrop-filter: grayscale(1) brightness(0.42);
+  -webkit-backdrop-filter: grayscale(1) brightness(0.42);
+  -webkit-mask-image: radial-gradient(ellipse 32% 41% at 53% 51%,
+    transparent 0%, transparent 58%, rgba(0, 0, 0, 0.6) 82%, #000 100%);
+  mask-image: radial-gradient(ellipse 32% 41% at 53% 51%,
+    transparent 0%, transparent 58%, rgba(0, 0, 0, 0.6) 82%, #000 100%);
 }
 
 /* Both `.is-active` (new) and legacy `.active` keep working. */
@@ -1671,14 +1689,17 @@ button.nav__link {
   opacity: 1;
 }
 
+/* Eased off with the colour: at 0.78/0.55/0.85 this legibility scrim was
+   heavy enough to kill the colour it now has to let through. Still dark
+   enough behind the names and the left-hand copy. */
 .band-selector__bg-overlay {
   position: absolute;
   inset: 0;
   background: linear-gradient(
     135deg,
-    rgba(0, 0, 0, 0.78) 0%,
-    rgba(0, 0, 0, 0.55) 50%,
-    rgba(0, 0, 0, 0.85) 100%
+    rgba(0, 0, 0, 0.55) 0%,
+    rgba(0, 0, 0, 0.22) 50%,
+    rgba(0, 0, 0, 0.66) 100%
   );
 }
 

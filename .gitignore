@@ -42,3 +42,8 @@ audit_seo_pierre_*.pdf
 # FR translation working files (extraction/translation JSONs; the generated
 # pages in src/pages/fr/ ARE committed - these intermediates are not)
 .claude/fr_work/
+
+# Client source photos kept locally for re-processing; the web-sized
+# <band>-bg.jpg files are what actually ship.
+src/assets/images/bands/TheRoamingAgency*.jpg
+src/assets/images/bands/THEROAMINGAGENCY*.jpg
