@@ -487,11 +487,15 @@ button.nav__link {
   appearance: none;
 }
 
-/* Client: "we miss a Contact Us button that should stand out", then
-   "these are not the same colours - we should keep the colors of the
-   website used for the 'contact us' in the middle". So this is the exact
-   .section-cta treatment: gold-dark pill, near-white label, lightening to
-   --color-gold on hover. Same type scale as the links beside it. */
+/* Client: "we miss a Contact Us button that should stand out" and "the
+   contact us shall be the first button on the left side".
+   Shape and colour are measured off his own nav mock-up rather than
+   invented: an OUTLINED rectangle, transparent over the bar, 1px gold
+   border with a gold label, and corners so slightly rounded they read as
+   square (his box is 360x88 with ~2px of radius). His border/text sampled
+   at #C9A86B, which is --color-gold-dark within a hair - consistent with
+   "keep the colors of the website used for the contact us in the middle".
+   Hover fills it in, matching the site's solid CTAs. */
 .nav__cta {
   display: inline-flex;
   align-items: center;
@@ -502,18 +506,20 @@ button.nav__link {
   letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
-  color: #FCFCFC;
-  background: var(--color-gold-dark);
+  color: var(--color-gold-dark);
+  background: transparent;
   border: 1px solid var(--color-gold-dark);
-  border-radius: var(--radius-full);
-  padding: 0.6rem 1.15rem;
-  transition: background-color 0.25s ease, border-color 0.25s ease;
+  border-radius: 2px;
+  padding: 0.62rem 1.5rem;
+  letter-spacing: 0.14em;
+  transition: background-color 0.25s ease, border-color 0.25s ease,
+              color 0.25s ease;
 }
 
 .nav__cta:hover,
 .nav__cta:focus-visible {
-  background: var(--color-gold);
-  border-color: var(--color-gold);
+  background: var(--color-gold-dark);
+  border-color: var(--color-gold-dark);
   color: #FCFCFC;
 }
 
