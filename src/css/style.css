@@ -1689,6 +1689,26 @@ button.nav__link {
   opacity: 1;
 }
 
+/* Client: "images ko niche kardo taki unka head na cut" - heads were being
+   cropped off the top of these photos. `cover` plus the scale(1.04) Ken
+   Burns throws away the top ~17.8% of the frame on a short, wide window
+   (his is 1349x603), and each of these bands has its topmost head inside
+   that band. Values are per photo, measured against where that group's
+   highest head actually sits, with ~3% of headroom left above it.
+   A percentage background-position scales with the overflow, so these hold
+   at any window shape - on a tall window the entire movable range is only
+   ~6% of the frame and they barely shift.
+   kingsmen and serenades are deliberately untouched: their heads already
+   clear the crop, which is why the client left them off his list. */
+.band-selector__bg-image[data-band="brotherockers"] { background-position: center 18%; }  /* head at 10% - thoda sa niche */
+.band-selector__bg-image[data-band="peppermints"] { background-position: center 10%; }  /* head at 7% - thoda niche */
+.band-selector__bg-image[data-band="gentlemen"] { background-position: center 24%; }  /* head at 12% - thoda niche */
+.band-selector__bg-image[data-band="supersonics"] { background-position: center 12%; }  /* head at 8% - thoda niche */
+.band-selector__bg-image[data-band="rendezvous"] { background-position: center 22%; }  /* head at 18% - thoda zyada niche */
+.band-selector__bg-image[data-band="whysoserious"] { background-position: center 36%; }  /* head at 19% - thoda sa niche */
+.band-selector__bg-image[data-band="cafecreme"] { background-position: center 5%; }  /* head at 5% - thoda niche */
+.band-selector__bg-image[data-band="blackjacks"] { background-position: center 34%; }  /* head at 18% - thoda niche */
+
 /* Eased off with the colour: at 0.78/0.55/0.85 this legibility scrim was
    heavy enough to kill the colour it now has to let through. Still dark
    enough behind the names and the left-hand copy. */
