@@ -1881,21 +1881,6 @@ button.nav__link {
   opacity: 1;
 }
 
-/* Client: only the gold band is clickable, and it goes to that band's page;
-   the white ones are inert. Scoped to >=1025 on purpose - initBandSelector()
-   early-returns below that, the section collapses to a plain list with no
-   scroll-driven gold, and every name has to stay tappable there. */
-@media (min-width: 1025px) {
-  .band-selector__item {
-    pointer-events: none;
-    cursor: default;
-  }
-  .band-selector__item.is-active,
-  .band-selector__item.active {
-    pointer-events: auto;
-    cursor: pointer;
-  }
-}
 
 /* === BRANDS - TWO-ROW MARQUEE (vastspace.com style) ===
    Per client v2 + later revision:

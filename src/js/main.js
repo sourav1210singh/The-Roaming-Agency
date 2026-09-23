@@ -979,14 +979,36 @@ function initBandSelector() {
     setActiveBand(idx);
   }
 
-  /* Client revision: only the band currently in gold is clickable, and it
-     opens that band's page. The rest are made inert in CSS (pointer-events
-     on the non-active rows), so there is no click handler here at all - the
-     gold row is a plain <a href> and is left to navigate on its own.
-     This supersedes the earlier 'click another band to switch to it'
-     behaviour, so scrolling is now the only way to move through the list.
-     Below 1024 this whole function early-returns and the matching CSS is
-     scoped to >=1025, so every name stays tappable on phones and tablets. */
+  /* Client revision: "if we click to another band, we stay on the same menu,
+     same page, but we just go to this band's presentation and it is yellow
+     now." Clicking therefore scrolls the pinned runway to that band's slot
+     instead of navigating - the existing scroll scrub then carries the list,
+     the background and the description across, so there is still exactly one
+     source of truth for which band is current. (A plain setActive() would be
+     undone by the very next scroll tick.)
+     Going to a band's page is the "Discover <Band>" button's job.
+     The rows stay real <a href> links on purpose: this whole function
+     early-returns below 1024, where a tap should open the band page. */
+  function scrollToBand(idx) {
+    const total = section ? section.offsetHeight - window.innerHeight : 0;
+    if (!section || total <= 0) { setActive(idx); return; }
+    const top = section.getBoundingClientRect().top + window.scrollY;
+    const target = top + (idx / (items.length - 1)) * total;
+    // Lenis owns the scroll position on desktop, so ask it rather than
+    // fighting it with a native smooth scroll.
+    if (window.lenis && typeof window.lenis.scrollTo === 'function') {
+      window.lenis.scrollTo(target, { duration: 0.9 });
+    } else {
+      window.scrollTo({ top: target, behavior: 'smooth' });
+    }
+  }
+
+  items.forEach((item, idx) => {
+    item.addEventListener('click', (e) => {
+      e.preventDefault();
+      scrollToBand(idx);
+    });
+  });
 
   /* Scroll-driven scrub - maps progress through the tall section's runway
      to a FRACTIONAL band position and glides the list continuously. Plain
