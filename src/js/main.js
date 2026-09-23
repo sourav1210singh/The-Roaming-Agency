@@ -156,15 +156,17 @@ function initBrandsMarquee() {
       track,
       isReverse,
       x: 0,
-      // Velocities in pixels per second. Row 2 (reverse) defaults a
-      // bit faster to roughly match the visual pace of row 1 (its track
-      // is shorter so a higher px/s keeps the perceived speed even).
-      // Idle (default), hover (slowed), scrolling (sped up).
-      idleVel:     isReverse ? 38 : 28,
-      hoverVel:    isReverse ? 14 : 10,
-      scrollVel:   isReverse ? 130 : 95,
-      currentVel:  isReverse ? 38 : 28,
-      targetVel:   isReverse ? 38 : 28,
+      // Velocities in pixels per second. Row 2 used to idle at 38 because
+      // it held only five hotels on repeat; now that the brands are divided
+      // across both rows the two tracks are comparable, so the rows share
+      // one pace and simply run in opposite directions.
+      // (hoverVel / scrollVel are legacy - the client asked for a constant
+      // speed, so nothing reads them any more; only idleVel drives the loop.)
+      idleVel:     28,
+      hoverVel:    10,
+      scrollVel:   95,
+      currentVel:  28,
+      targetVel:   28,
       halfWidth:   0,
       hovered:     false,
     };

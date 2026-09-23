@@ -1904,8 +1904,13 @@ button.nav__link {
      • Hover on a row → SLOW (so user can read each logo).
      `body.is-scrolling` class is toggled by main.js on scroll events
      with a small idle timeout. */
-  --marquee-speed-row1: 60s;        /* row 1 idle (slow) */
-  --marquee-speed-row2: 38s;        /* row 2 idle, scaled to match row 1 visual speed (60 × 18/28 ≈ 38) */
+  /* No-JS fallback only - initBrandsMarquee() switches the rows to a RAF
+     loop and `animation: none`. Now that the brands are split across both
+     rows the two tracks are close in length, so both durations come from
+     row 1's existing pace (72 px/s at 1920px) and the rows read at the same
+     speed in opposite directions. */
+  --marquee-speed-row1: 65s;        /* row 1 idle (slow) */
+  --marquee-speed-row2: 79s;        /* row 2 idle - longer track, so longer */
   --marquee-speed-row1-active: 22s; /* row 1 while page is scrolling */
   --marquee-speed-row2-active: 14s; /* row 2 while page is scrolling */
   --marquee-speed-row1-hover: 110s; /* row 1 on hover (very slow read) */

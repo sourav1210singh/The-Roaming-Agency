@@ -103,9 +103,9 @@
   <!-- Stylesheets - Nohemi (self-hosted, all 9 weights) is loaded inside
        variables.css via @font-face. The Google Fonts Inter link was
        removed once the licensed Nohemi files arrived. -->
-  <link rel="stylesheet" href="/src/css/variables.css?v=44">
-  <link rel="stylesheet" href="/src/css/reset.css?v=44">
-  <link rel="stylesheet" href="/src/css/style.css?v=44">
+  <link rel="stylesheet" href="/src/css/variables.css?v=45">
+  <link rel="stylesheet" href="/src/css/reset.css?v=45">
+  <link rel="stylesheet" href="/src/css/style.css?v=45">
 
   <!-- GSAP + ScrollTrigger (needed early for hero animations).
        Three.js is NOT loaded here - main.js dynamically injects it only
@@ -315,133 +315,170 @@
       <span data-en="By" data-fr="Nous Font Confiance">By</span>
     </p>
 
-    <!-- Row 1 - scrolls LEFT -->
+    <!-- Client audio, Sept 2026: "the second line should not be only
+         hotels. I believe we have enough brands to have brands on the first
+         line and on the second line, divide the brands, and have them moving.
+         And on the second line, you will also have those hotels that we kept,
+         but plus some brands."
+         So the 28 brands split across the two rows and the 5 kept hotels are
+         spread through row 2, one every fourth mark - row 2 is no longer the
+         same five hotels coming round on repeat.
+         The row1/ and row2/ folders are storage, not display rows: several
+         row1/ files now appear on the second line.
+         Each row lists its set TWICE per half-track. One pass measures only
+         ~2324px (row 1) / ~2823px (row 2) and stops growing past ~1920px
+         wide, because the cell height, padding and logo max-width all clamp
+         out - so on a 2560px screen a single pass would be narrower than the
+         viewport and the translate(-50%) wrap would open a visible gap. -->
+
+    <!-- Row 1 - scrolls LEFT. 15 brands. -->
     <div class="brands-marquee__row">
       <div class="brands-marquee__track">
+        <!-- pass 1 of 2 -->
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/louis-vuitton.png" alt="Louis Vuitton" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/dior.png" alt="Dior" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/chanel.png" alt="Chanel" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/bulgari.png" alt="Bulgari" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/fendi.png" alt="Fendi" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/lacoste.png" alt="Lacoste" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/hublot.png" alt="Hublot" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/patek-philippe.png" alt="Patek Philippe" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/panerai.png" alt="Panerai" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/adler-joalliers.png" alt="Adler Joalliers" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/guerlain.png" alt="Guerlain" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/loreal.png" alt="L'Oréal" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/la-mer.png" alt="La Mer" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/edmond-de-rothschild.png" alt="Edmond de Rothschild" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/festival-de-cannes.png" alt="Festival de Cannes" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/superyacht-awards.png" alt="Superyacht Awards" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/f1.png" alt="Formula 1" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/amg.png" alt="AMG" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/orange.png" alt="Orange" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/netflix.png" alt="Netflix" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/swissroc.png" alt="Swissroc" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/orkla.png" alt="Orkla" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/veolia.png" alt="Veolia" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="AstraZeneca" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/novartis.png" alt="Novartis" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="PokerStars" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/luxottica.png" alt="Luxottica" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/mitsubishi.png" alt="Mitsubishi" class="brands-marquee__logo"></span>
-        <!-- Loop duplicate -->
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/veolia.png" alt="Veolia" class="brands-marquee__logo"></span>
+        <!-- pass 2 of 2 -->
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/louis-vuitton.png" alt="Louis Vuitton" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/dior.png" alt="Dior" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/chanel.png" alt="Chanel" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/bulgari.png" alt="Bulgari" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/fendi.png" alt="Fendi" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/hublot.png" alt="Hublot" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/patek-philippe.png" alt="Patek Philippe" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/guerlain.png" alt="Guerlain" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/loreal.png" alt="L'Oréal" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/festival-de-cannes.png" alt="Festival de Cannes" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/f1.png" alt="Formula 1" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/amg.png" alt="AMG" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/netflix.png" alt="Netflix" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/novartis.png" alt="Novartis" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/veolia.png" alt="Veolia" class="brands-marquee__logo"></span>
+        <!-- Loop duplicate - the whole half again, so the translate(-50%) wrap seams -->
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/louis-vuitton.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/dior.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/chanel.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/bulgari.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/fendi.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/lacoste.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/hublot.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/patek-philippe.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/panerai.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/adler-joalliers.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/guerlain.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/loreal.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/la-mer.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/edmond-de-rothschild.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/festival-de-cannes.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/superyacht-awards.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/f1.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/amg.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/orange.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/netflix.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/swissroc.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/orkla.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/veolia.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/novartis.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/luxottica.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/mitsubishi.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/veolia.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/louis-vuitton.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/dior.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/chanel.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/bulgari.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/fendi.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/hublot.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/patek-philippe.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/guerlain.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/loreal.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/festival-de-cannes.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/f1.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/amg.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/netflix.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/novartis.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/veolia.png" alt="" class="brands-marquee__logo"></span>
       </div>
     </div>
 
-    <!-- Row 2 - scrolls RIGHT. Hotels set per client Drive. -->
+    <!-- Row 2 - scrolls RIGHT. 13 brands with the 5 kept hotels spread
+         through them, one every fourth mark. -->
     <div class="brands-marquee__row brands-marquee__row--reverse">
       <div class="brands-marquee__track">
+        <!-- pass 1 of 2 -->
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/ritz-carlton.png" alt="The Ritz-Carlton" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/lacoste.png" alt="Lacoste" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/panerai.png" alt="Panerai" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/adler-joalliers.png" alt="Adler Joalliers" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="Airelles Val d'Isère" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/la-mer.png" alt="La Mer" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/edmond-de-rothschild.png" alt="Edmond de Rothschild" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/superyacht-awards.png" alt="Superyacht Awards" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="Shangri-La Paris" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/orange.png" alt="Orange" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/swissroc.png" alt="Swissroc" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/orkla.png" alt="Orkla" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="Fairmont Monte-Carlo" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="AstraZeneca" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="PokerStars" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/luxottica.png" alt="Luxottica" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="Grand Hotel Tremezzo" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/mitsubishi.png" alt="Mitsubishi" class="brands-marquee__logo"></span>
+        <!-- pass 2 of 2 -->
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/ritz-carlton.png" alt="The Ritz-Carlton" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/lacoste.png" alt="Lacoste" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/panerai.png" alt="Panerai" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/adler-joalliers.png" alt="Adler Joalliers" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="Airelles Val d'Isère" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/la-mer.png" alt="La Mer" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/edmond-de-rothschild.png" alt="Edmond de Rothschild" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/superyacht-awards.png" alt="Superyacht Awards" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="Shangri-La Paris" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/orange.png" alt="Orange" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/swissroc.png" alt="Swissroc" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/orkla.png" alt="Orkla" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="Fairmont Monte-Carlo" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="AstraZeneca" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="PokerStars" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/luxottica.png" alt="Luxottica" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="Grand Hotel Tremezzo" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/ritz-carlton.png" alt="The Ritz-Carlton" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="Airelles Val d'Isère" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="Shangri-La Paris" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="Fairmont Monte-Carlo" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="Grand Hotel Tremezzo" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/ritz-carlton.png" alt="The Ritz-Carlton" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="Airelles Val d'Isère" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="Shangri-La Paris" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="Fairmont Monte-Carlo" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="Grand Hotel Tremezzo" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/ritz-carlton.png" alt="The Ritz-Carlton" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="Airelles Val d'Isère" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="Shangri-La Paris" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="Fairmont Monte-Carlo" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="Grand Hotel Tremezzo" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/ritz-carlton.png" alt="The Ritz-Carlton" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="Airelles Val d'Isère" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="Shangri-La Paris" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="Fairmont Monte-Carlo" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="Grand Hotel Tremezzo" class="brands-marquee__logo"></span>
-        <!-- Loop duplicate -->
+        <span class="brands-marquee__item"><img src="/src/assets/images/brands/v2-clean/row1/mitsubishi.png" alt="Mitsubishi" class="brands-marquee__logo"></span>
+        <!-- Loop duplicate - the whole half again, so the translate(-50%) wrap seams -->
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/ritz-carlton.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/lacoste.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/panerai.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/adler-joalliers.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/la-mer.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/edmond-de-rothschild.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/superyacht-awards.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/orange.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/swissroc.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/orkla.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/luxottica.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/mitsubishi.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/ritz-carlton.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/lacoste.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/panerai.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/adler-joalliers.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/la-mer.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/edmond-de-rothschild.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/superyacht-awards.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/orange.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/swissroc.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/orkla.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/astrazeneca.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/pokerstars.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/luxottica.png" alt="" class="brands-marquee__logo"></span>
         <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/ritz-carlton.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/ritz-carlton.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/ritz-carlton.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/ritz-carlton.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/airelles-val-disere.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/shangri-la-paris.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/fairmont-monte-carlo.png" alt="" class="brands-marquee__logo"></span>
-        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row2/grand-hotel-tremezzo.png" alt="" class="brands-marquee__logo"></span>
+        <span class="brands-marquee__item" aria-hidden="true"><img src="/src/assets/images/brands/v2-clean/row1/mitsubishi.png" alt="" class="brands-marquee__logo"></span>
       </div>
     </div>
   </section>
