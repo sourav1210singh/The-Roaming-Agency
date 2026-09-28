@@ -1909,7 +1909,7 @@ button.nav__link {
      rows the two tracks are close in length, so both durations come from
      row 1's existing pace (72 px/s at 1920px) and the rows read at the same
      speed in opposite directions. */
-  --marquee-speed-row1: 65s;        /* row 1 idle (slow) */
+  --marquee-speed-row1: 68s;        /* row 1 idle (slow) */
   --marquee-speed-row2: 79s;        /* row 2 idle - longer track, so longer */
   --marquee-speed-row1-active: 22s; /* row 1 while page is scrolling */
   --marquee-speed-row2-active: 14s; /* row 2 while page is scrolling */
