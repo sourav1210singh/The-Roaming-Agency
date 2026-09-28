@@ -3243,8 +3243,15 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
 .globe-layout {
   display: grid;
   /* Client mockup match: widen the text column so the 4-line title
-     fits without breaking each span into a second line (was 0.33/0.67). */
-  grid-template-columns: 0.42fr 0.58fr;
+     fits without breaking each span into a second line (was 0.33/0.67).
+     42fr/58fr, NOT 0.42fr/0.58fr: an fr track can never go below its
+     min-content, and the French heading ("notre terrain de jeu.") is wider
+     than 42% of the row. When that freezes the text column, flex factors
+     that sum to less than 1 hand the globe only 58% of what is left and
+     the other 42% becomes dead space - the French globe rendered 374px
+     wide against 716px on the English page. Factors of 42 and 58 sum well
+     over 1, so the globe takes all the remaining width instead. */
+  grid-template-columns: 42fr 58fr;
   gap: var(--space-2xl);
   align-items: center;
   min-height: 90vh;
