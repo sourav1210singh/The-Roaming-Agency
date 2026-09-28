@@ -1229,30 +1229,32 @@ function initGlobeAnimation() {
      with varied latitudes - as the user grabs and spins the globe,
      different cities rotate into the front view. 22 locations from the
      client's selection, spread evenly by longitude (decorative globe -
-     not a literal world map; real coords would clump the European spots). */
+     not a literal world map; real coords would clump the European spots).
+     `fr` is the French exonym where one exists - the client asked for
+     English spellings on the English site and French on the French one. */
   const cities = [
-    { name: 'Dubai',       lat:  54, lon:   0,  img: 'gallery-17.jpg' },
-    { name: 'Jeddah',      lat:  30, lon:  16,  img: 'gallery-27.jpg' },
-    { name: 'Monaco',      lat: -16, lon:  33,  img: 'gallery-07.jpg' },
-    { name: 'Abu Dhabi',   lat:  48, lon:  49,  img: 'gallery-25.jpg' },
-    { name: 'Oslo',        lat:  18, lon:  65,  img: 'gallery-01.jpg' },
-    { name: 'Capri',       lat: -24, lon:  82,  img: 'gallery-15.jpg' },
-    { name: 'Lake Como',   lat:  56, lon:  98,  img: 'gallery-13.jpg' },
-    { name: 'Portofino',   lat:  38, lon: 115,  img: 'gallery-21.jpg' },
-    { name: 'Gstaad',      lat: -12, lon: 131,  img: 'gallery-02.jpg' },
-    { name: 'Geneva',      lat:  52, lon: 147,  img: 'gallery-19.jpg' },
-    { name: 'Maldives',    lat:  22, lon: 164,  img: 'gallery-04.jpg' },
-    { name: 'Bucharest',   lat: -22, lon: 180,  img: 'gallery-11.jpg' },
-    { name: 'Cyprus',      lat:  53, lon: 196,  img: 'gallery-06.jpg' },
-    { name: 'Athens',      lat:  34, lon: 213,  img: 'gallery-09.jpg' },
-    { name: 'Mykonos',     lat:  14, lon: 229,  img: 'gallery-08.jpg' },
-    { name: 'Marbella',    lat:  49, lon: 245,  img: 'gallery-03.jpg' },
-    { name: 'Seychelles',  lat: -10, lon: 262,  img: 'gallery-10.jpg' },
-    { name: 'Miami',       lat:  42, lon: 278,  img: 'gallery-05.jpg' },
-    { name: 'London',      lat:  55, lon: 295,  img: 'gallery-12.jpg' },
-    { name: 'Istanbul',    lat:  26, lon: 311,  img: 'gallery-23.jpg' },
-    { name: 'Faro',        lat:  50, lon: 327,  img: 'gallery-14.jpg' },
-    { name: 'Luxembourg',  lat: -26, lon: 344,  img: 'gallery-16.jpg' },
+    { name: 'Dubai',      fr: 'Dubaï',       lat:   54, lon:    0, img: 'gallery-17.jpg' },
+    { name: 'Jeddah',     fr: 'Djeddah',     lat:   30, lon:   16, img: 'gallery-27.jpg' },
+    { name: 'Monaco',                        lat:  -16, lon:   33, img: 'gallery-07.jpg' },
+    { name: 'Abu Dhabi',  fr: 'Abou Dabi',   lat:   48, lon:   49, img: 'gallery-25.jpg' },
+    { name: 'Oslo',                          lat:   18, lon:   65, img: 'gallery-01.jpg' },
+    { name: 'Capri',                         lat:  -24, lon:   82, img: 'gallery-15.jpg' },
+    { name: 'Lake Como',  fr: 'Lac de Côme', lat:   56, lon:   98, img: 'gallery-13.jpg' },
+    { name: 'Portofino',                     lat:   38, lon:  115, img: 'gallery-21.jpg' },
+    { name: 'Gstaad',                        lat:  -12, lon:  131, img: 'gallery-02.jpg' },
+    { name: 'Geneva',     fr: 'Genève',      lat:   52, lon:  147, img: 'gallery-19.jpg' },
+    { name: 'Maldives',                      lat:   22, lon:  164, img: 'gallery-04.jpg' },
+    { name: 'Bucharest',  fr: 'Bucarest',    lat:  -22, lon:  180, img: 'gallery-11.jpg' },
+    { name: 'Cyprus',     fr: 'Chypre',      lat:   53, lon:  196, img: 'gallery-06.jpg' },
+    { name: 'Athens',     fr: 'Athènes',     lat:   34, lon:  213, img: 'gallery-09.jpg' },
+    { name: 'Mykonos',                       lat:   14, lon:  229, img: 'gallery-08.jpg' },
+    { name: 'Marbella',                      lat:   49, lon:  245, img: 'gallery-03.jpg' },
+    { name: 'Seychelles',                    lat:  -10, lon:  262, img: 'gallery-10.jpg' },
+    { name: 'Miami',                         lat:   42, lon:  278, img: 'gallery-05.jpg' },
+    { name: 'London',     fr: 'Londres',     lat:   55, lon:  295, img: 'gallery-12.jpg' },
+    { name: 'Istanbul',                      lat:   26, lon:  311, img: 'gallery-23.jpg' },
+    { name: 'Faro',                          lat:   50, lon:  327, img: 'gallery-14.jpg' },
+    { name: 'Luxembourg',                    lat:  -26, lon:  344, img: 'gallery-16.jpg' },
   ];
 
   // Per client revision: every card uses the SAME black map-pin icon and
@@ -1265,7 +1267,24 @@ function initGlobeAnimation() {
       <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/>
     </svg>`;
 
+  /* Client: "On english site, we need english spelling, on french, we need
+     french please". The two homepages are separate documents and the lang
+     toggle is a plain <a href="/fr">, so the language is fixed for the life
+     of the page and can simply be read off <html data-lang>. data-en /
+     data-fr still go on the label, matching every other translated string
+     on the site, so a JS switcher would pick the cards up for free.
+     The French alt text uses a dash rather than a preposition - it would
+     otherwise have to be "a Geneve" but "aux Maldives" and "a Chypre". */
+  const globeLang = document.documentElement.getAttribute('data-lang') === 'fr'
+    ? 'fr' : 'en';
+
   cities.forEach((city) => {
+    const nameEn = city.name;
+    const nameFr = city.fr || city.name;
+    const label = globeLang === 'fr' ? nameFr : nameEn;
+    const alt = globeLang === 'fr'
+      ? `Prestation \u2013 ${nameFr}`
+      : `Performance in ${nameEn}`;
     const card = document.createElement('div');
     card.className = 'globe-card';
     card.dataset.lat = city.lat;
@@ -1273,9 +1292,9 @@ function initGlobeAnimation() {
     card.innerHTML = `
       <div class="globe-card__icon">${PIN_SVG}</div>
       <div class="globe-card__info">
-        <span class="globe-card__city">${city.name}</span>
+        <span class="globe-card__city" data-en="${nameEn}" data-fr="${nameFr}">${label}</span>
       </div>
-      <div class="globe-card__photo"><img src="src/assets/images/gallery/${city.img}" alt="Performance in ${city.name}"></div>
+      <div class="globe-card__photo"><img src="src/assets/images/gallery/${city.img}" alt="${alt}"></div>
     `;
     cardsEl.appendChild(card);
   });
