@@ -240,6 +240,22 @@
     {
       "source": "/demo/globe-4",
       "destination": "/demo/globe-4.html"
+    },
+    {
+      "source": "/dj-baptiste",
+      "destination": "/src/pages/dj-baptiste.html"
+    },
+    {
+      "source": "/fr/dj-baptiste",
+      "destination": "/src/pages/fr/dj-baptiste.html"
+    },
+    {
+      "source": "/dj-enzo",
+      "destination": "/src/pages/dj-enzo.html"
+    },
+    {
+      "source": "/fr/dj-enzo",
+      "destination": "/src/pages/fr/dj-enzo.html"
     }
   ],
   "redirects": [
@@ -331,6 +347,26 @@
     {
       "source": "/src/pages/faq.html",
       "destination": "/faq",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/dj-baptiste.html",
+      "destination": "/dj-baptiste",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/fr/dj-baptiste.html",
+      "destination": "/fr/dj-baptiste",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/dj-enzo.html",
+      "destination": "/dj-enzo",
+      "permanent": true
+    },
+    {
+      "source": "/src/pages/fr/dj-enzo.html",
+      "destination": "/fr/dj-enzo",
       "permanent": true
     }
   ],

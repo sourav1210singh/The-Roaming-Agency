@@ -611,6 +611,32 @@
   text-transform: uppercase;
   color: #5a5a5a;
 }
+/* The brochure puts a row of buttons on each DJ's page - latest clip,
+   Instagram, SoundCloud. They sit under the slogan in the same small
+   right-aligned type as the bands' line up, so the column reads the
+   same way on both kinds of page. DOWNLOADABLE CONTENT is left out on
+   purpose: it is the agency's working Drive folder, not a visitor link. */
+.band-intro2__links {
+  list-style: none; margin: 0; padding: 0;
+  text-align: right;
+  font-family: var(--font-body);
+  font-size: clamp(0.72rem, 0.85vw, 0.85rem);
+  line-height: 2.1;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.band-intro2__links a {
+  color: #2A2A2A;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(42, 42, 42, 0.3);
+  padding-bottom: 1px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.band-intro2__links a:hover,
+.band-intro2__links a:focus-visible {
+  color: var(--color-gold-dark);
+  border-color: var(--color-gold-dark);
+}
 .band-intro2__lineup-formation {
   font-weight: var(--fw-bold);
   color: #2A2A2A;
@@ -635,6 +661,7 @@
   .band-intro2__inner { grid-template-columns: 1fr; }
   .band-intro2__slogan, .band-intro2__slogan-line { text-align: left; }
   .band-intro2__lineup { text-align: left; }
+  .band-intro2__links { text-align: left; }
   .band-intro2__cta { align-self: flex-start; }
 }
 
