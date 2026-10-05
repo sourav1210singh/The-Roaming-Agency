@@ -159,3 +159,22 @@
     })();
   });
 })();
+
+/* DJ pages: the clip is a click-to-load poster, so a visit costs nothing
+   from YouTube until someone presses play. The button is then replaced by
+   the player, loaded from youtube-nocookie.com. */
+(function () {
+  document.querySelectorAll('.dj-listen__play').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var id = btn.getAttribute('data-video');
+      if (!id) return;
+      var f = document.createElement('iframe');
+      f.className = 'dj-listen__frame';
+      f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0';
+      f.title = btn.getAttribute('aria-label') || 'Video';
+      f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+      f.allowFullscreen = true;
+      btn.replaceWith(f);
+    });
+  });
+})();

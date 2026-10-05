@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=49">
-  <link rel="stylesheet" href="/src/css/reset.css?v=49">
-  <link rel="stylesheet" href="/src/css/style.css?v=49">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=49">
+  <link rel="stylesheet" href="/src/css/variables.css?v=50">
+  <link rel="stylesheet" href="/src/css/reset.css?v=50">
+  <link rel="stylesheet" href="/src/css/style.css?v=50">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=50">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -388,6 +388,29 @@
         <button class="gallery-nav gallery-nav--next" id="bandGalleryNext" type="button" aria-label="Next photos">
           <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
         </button>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ===== LISTEN & WATCH =====
+       The clip and, for Enzo, the SoundCloud that the brochure puts on
+       his page. The clip is a click-to-load poster: nothing is fetched
+       from YouTube until someone presses play. -->
+  <section class="dj-listen section">
+    <div class="container">
+      <h2 class="dj-listen__title">
+        <span data-en="Listen" data-fr="Écouter">Listen</span>
+        <strong data-en="&amp; Watch" data-fr="&amp; Regarder">& Watch</strong>
+      </h2>
+      <div class="dj-listen__grid">
+        <div class="dj-listen__media">
+          <button class="dj-listen__play" type="button" data-video="TuPPEA1x3HM"
+                  aria-label="Play the latest clip">
+            <img src="/src/assets/images/bands/dj-baptiste-clip.jpg" alt="DJ Baptiste's latest clip" loading="lazy">
+            <span class="dj-listen__icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span>
+          </button>
+        </div>
       </div>
     </div>
   </section>

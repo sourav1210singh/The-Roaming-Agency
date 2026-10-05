@@ -854,3 +854,56 @@
 @media (max-width: 760px) {
   .band-faq--split .band-faq__layout { grid-template-columns: 1fr; gap: 1.5rem; }
 }
+
+/* ============================================
+   DJ pages - LISTEN & WATCH
+   The brochure gives each DJ a clip, and Enzo a SoundCloud. The clip is
+   a click-to-load poster rather than an embedded player, so a visit
+   costs nothing from YouTube until someone presses play; the button is
+   swapped for the iframe in band-extras.js.
+   ============================================ */
+.dj-listen { background: #f4f4f4; }
+.dj-listen__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.4rem);
+  font-weight: var(--fw-regular);
+  text-transform: uppercase; letter-spacing: 0.02em;
+  color: #2A2A2A; text-align: center;
+  margin: 0 0 clamp(1.6rem, 3vw, 2.6rem);
+}
+.dj-listen__title strong { font-weight: var(--fw-bold); }
+.dj-listen__grid {
+  display: grid; grid-template-columns: 1fr;
+  gap: clamp(1.2rem, 2.5vw, 2rem);
+  max-width: 1100px; margin: 0 auto;
+}
+.dj-listen--two .dj-listen__grid { grid-template-columns: 1.45fr 1fr; align-items: start; }
+.dj-listen__media {
+  position: relative; overflow: hidden;
+  border-radius: 14px; background: #111; aspect-ratio: 16 / 9;
+}
+.dj-listen__play {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  padding: 0; border: 0; background: none; cursor: pointer; display: block;
+}
+.dj-listen__play img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.5s ease, filter 0.4s ease;
+}
+.dj-listen__play:hover img,
+.dj-listen__play:focus-visible img { transform: scale(1.04); filter: brightness(0.82); }
+.dj-listen__icon {
+  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+  display: grid; place-items: center;
+  width: clamp(56px, 7vw, 76px); height: clamp(56px, 7vw, 76px);
+  border-radius: 50%; background: var(--color-gold-dark); color: #FCFCFC;
+  transition: background 0.25s ease, transform 0.25s ease;
+}
+.dj-listen__play:hover .dj-listen__icon { background: var(--color-gold-deep); transform: translate(-50%, -50%) scale(1.06); }
+.dj-listen__frame { width: 100%; height: 100%; border: 0; display: block; }
+.dj-listen__audio { border-radius: 14px; overflow: hidden; background: #111; }
+.dj-listen__audio iframe { width: 100%; height: 100%; min-height: 320px; border: 0; display: block; }
+@media (max-width: 800px) {
+  .dj-listen--two .dj-listen__grid { grid-template-columns: 1fr; }
+  .dj-listen__audio iframe { min-height: 260px; }
+}
