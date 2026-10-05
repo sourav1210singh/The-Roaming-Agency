@@ -23,10 +23,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127925;</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=57">
-  <link rel="stylesheet" href="/src/css/reset.css?v=57">
-  <link rel="stylesheet" href="/src/css/style.css?v=57">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=57">
+  <link rel="stylesheet" href="/src/css/variables.css?v=58">
+  <link rel="stylesheet" href="/src/css/reset.css?v=58">
+  <link rel="stylesheet" href="/src/css/style.css?v=58">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=58">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -69,7 +69,13 @@
     .act-card__media { position: relative; aspect-ratio: 4 / 3; overflow: hidden; }
     .act-card__media img { width: 100%; height: 100%; object-fit: cover; transition: transform .6s ease; }
     .act-card:hover .act-card__media img { transform: scale(1.06); }
-    .act-card__body { padding: 1.4rem 1.5rem 1.7rem; }
+    .act-card__body {
+      /* the card is already a column; let the body grow and pin the CTA to
+         its foot, so a strapline that wraps to two lines - the French DJ one
+         does - does not push its DISCOVER out of line with the others. */
+      display: flex; flex-direction: column; flex: 1;
+      padding: 1.4rem 1.5rem 1.7rem;
+    }
     .act-card__title {
       display: block;
       font-family: var(--font-heading); font-weight: 600;
@@ -77,7 +83,7 @@
     }
     .act-card__line { display: block; font-family: var(--font-body); color: var(--color-grey, #666); font-size: 0.98rem; margin-bottom: 0.4rem; }
     .act-card__cta {
-      display: inline-block;
+      display: inline-block; margin-top: auto;
       font-family: var(--font-body); font-weight: var(--fw-semibold, 600);
       font-size: 0.9rem; letter-spacing: 0.05em; text-transform: uppercase;
       color: var(--color-gold-dark, #b8902f);
