@@ -595,26 +595,9 @@
   text-transform: uppercase; letter-spacing: -0.01em;
 }
 .band-intro2__slogan-line { display: block; }
-/* Brochure LINE UP: the formation and instruments off each band's third
-   page in Brochure - The Roaming Agency.pdf. Right-aligned under the
-   slogan so the column reads title -> formation -> button, the way the
-   brochure spread does. .band-intro2__head keeps the right column's big
-   flex gap between this pair and the CTA instead of splitting them. */
-.band-intro2__head { display: flex; flex-direction: column; gap: clamp(1rem, 2vw, 1.6rem); }
-.band-intro2__lineup {
-  list-style: none; margin: 0; padding: 0;
-  text-align: right;
-  font-family: var(--font-body);
-  font-size: clamp(0.72rem, 0.85vw, 0.85rem);
-  line-height: 2.1;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #5a5a5a;
-}
 /* The brochure puts a row of buttons on each DJ's page - latest clip,
    Instagram, SoundCloud. They sit under the slogan in the same small
-   right-aligned type as the bands' line up, so the column reads the
-   same way on both kinds of page. DOWNLOADABLE CONTENT is left out on
+   right-aligned type under the slogan. DOWNLOADABLE CONTENT is left out on
    purpose: it is the agency's working Drive folder, not a visitor link. */
 .band-intro2__links {
   list-style: none; margin: 0; padding: 0;
@@ -637,11 +620,6 @@
   color: var(--color-gold-dark);
   border-color: var(--color-gold-dark);
 }
-.band-intro2__lineup-formation {
-  font-weight: var(--fw-bold);
-  color: #2A2A2A;
-  letter-spacing: 0.16em;
-}
 /* Match the "Be Our Next Story" section CTA exactly (client reference):
    deep-gold pill, near-white Nohemi Regular text, Canva spec 20/22 -0.3px,
    roomy padding. Only the grid positioning stays band-specific. */
@@ -660,7 +638,6 @@
 @media (max-width: 800px) {
   .band-intro2__inner { grid-template-columns: 1fr; }
   .band-intro2__slogan, .band-intro2__slogan-line { text-align: left; }
-  .band-intro2__lineup { text-align: left; }
   .band-intro2__links { text-align: left; }
   .band-intro2__cta { align-self: flex-start; }
 }
