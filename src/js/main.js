@@ -861,43 +861,43 @@ function initBandSelector() {
   const bandDescriptions = {
     brotherockers: {
       en: 'The ultimate roaming band, and the agency\'s founding act. Twelve years of experience, a dream team of international musicians fluent in five languages, performing for VIP clients and leading brands at the most exceptional celebrations.',
-      fr: 'Le groupe itinérant ultime, et l\'acte fondateur de l\'agence. Douze ans d\'expérience, une dream team de musiciens internationaux maîtrisant cinq langues, au service de clients VIP et de grandes marques lors des célébrations les plus exceptionnelles.'
+      fr: 'Le groupe de strolling ultime, à l\'origine même de l\'agence. Douze ans d\'expérience, une équipe exceptionnelle de musiciens internationaux maîtrisant cinq langues, habitués aux clients VIP, aux grandes marques et aux célébrations prestigieuses.'
     },
     kingsmen: {
       en: 'Our only five-piece roaming band, adding a touch of power to large events, paired with the absolute best singers in the industry for an iconic stage presence.',
-      fr: 'Notre seul groupe itinérant à cinq musiciens, qui apporte une touche de puissance aux grands événements, associé aux meilleurs chanteurs du métier pour une présence scénique iconique.'
+      fr: 'Notre seul groupe de strolling à cinq musiciens, apportant une puissance supplémentaire aux événements d\'envergure, porté par des chanteurs exceptionnels et une présence scénique iconique.'
     },
     peppermints: {
       en: 'The widest repertoire in the agency. British pop-rock, French classics, Latin rhythms and Irish folk, built around acoustic and electric guitars for a set as immersive as it is international.',
-      fr: 'Le répertoire le plus large de l\'agence. Pop-rock britannique, classiques français, rythmes latins et folk irlandais, construits autour de guitares acoustiques et électriques pour un set aussi immersif qu\'international.'
+      fr: 'Le répertoire le plus vaste de l\'agence. Pop-rock britannique, classiques français, rythmes latinos et folk irlandais, portés par le son riche de deux guitares, pour un set aussi immersif qu\'international.'
     },
     serenades: {
       en: 'Our Italian roaming band, bringing a touch of dolce vita to Italian classics and international favorites, with effortless style and charm.',
-      fr: 'Notre groupe itinérant italien, qui apporte une touche de dolce vita aux classiques italiens et aux succès internationaux, avec un style et un charme naturels.'
+      fr: 'Notre groupe de strolling italien, apportant une touche de dolce vita grâce à un vaste répertoire local et international. Leur charme, présence scénique et talent musical séduisent les publics les plus exigeants.'
     },
     gentlemen: {
       en: 'Paris meets Latin America in a multilingual roaming band mixing styles, cultures and infectious rhythms.',
-      fr: 'Paris rencontre l\'Amérique latine dans un groupe itinérant multilingue mêlant les styles, les cultures et les rythmes contagieux.'
+      fr: 'Notre groupe de strolling parisien aux accents d\'Amérique latine. Des musiciens multilingues pour un mélange de styles, de cultures et de rythmes irrésistibles.'
     },
     supersonics: {
       en: 'A high-energy roaming band led by a powerful London tenor, mixing British and American pop-rock with French, Italian and Spanish classics.',
-      fr: 'Un groupe itinérant plein d\'énergie mené par un puissant ténor londonien, mêlant pop-rock britannique et américain aux classiques français, italiens et espagnols.'
+      fr: 'Un puissant ténor londonien et un saxophoniste flamboyant pour un registre varié, mêlant pop-rock britannique et univers franco-italien.'
     },
     rendezvous: {
       en: 'The agency\'s deepest specialists in Sixties and Seventies music, extending through today\'s hits, led by musicians with over twelve years of experience and some of the best vocals around.',
-      fr: 'Les plus grands spécialistes de l\'agence des années soixante et soixante-dix, jusqu\'aux tubes d\'aujourd\'hui, portés par des musiciens forts de plus de douze ans d\'expérience et par des voix parmi les meilleures.'
+      fr: 'Les plus grands spécialistes de l\'agence des années 60 à 80, avec un répertoire qui s\'étend jusqu\'aux hits d\'aujourd\'hui. Plus de douze ans d\'expérience par musicien et certaines des plus belles voix que vous entendrez dans un groupe de strolling.'
     },
     whysoserious: {
       en: 'A powerful quartet featuring a keyboardist who brings a unique touch and a wide range of possibilities, performing both as a roaming band and an amplified party band for late-night celebrations.',
-      fr: 'Un quatuor puissant porté par un claviériste qui apporte une touche unique et un large éventail de possibilités, en groupe itinérant comme en formation amplifiée pour les fins de soirée.'
+      fr: 'Un puissant quartet dont le clavier apporte un son unique et ouvre une multitude de possibilités musicales. Aussi à l\'aise en groupe de strolling qu\'en formation amplifiée pour les soirées qui se prolongent tard dans la nuit.'
     },
     cafecreme: {
       en: 'One of our two roaming bands in Paris, elegant and refined for luxury events, led by talented musicians who can read the room and elevate the atmosphere when it is needed.',
-      fr: 'L\'un de nos deux groupes itinérants à Paris, élégant et raffiné pour les événements de luxe, mené par des musiciens talentueux qui savent lire la salle et élever l\'ambiance au bon moment.'
+      fr: 'L\'un de nos deux groupes de strolling basés à Paris. Élégant et raffiné pour vos événements haut de gamme, composé de musiciens talentueux capables de s\'adapter à tous types d\'ambiances.'
     },
     blackjacks: {
       en: 'A royal flush of talent. The only roaming band in the industry fronted by a lyrical tenor, with a commanding stage presence that wins over even the most reserved crowd. One of the agency\'s largest repertoires, across five languages.',
-      fr: 'Une quinte flush de talents. Le seul groupe itinérant du métier mené par un ténor lyrique, avec une présence scénique qui conquiert même les publics les plus réservés. L\'un des plus vastes répertoires de l\'agence, en cinq langues.'
+      fr: 'Le seul groupe de strolling mené par un ténor lyrique, avec une présence scénique qui captive même les invités les plus réservés. L\'un des répertoires les plus vastes de l\'agence, interprété en cinq langues.'
     }
   };
 
