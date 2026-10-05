@@ -780,6 +780,13 @@
    drop the band-page testimonials title one size smaller so they fit. Scoped
    to band pages - the homepage "They Chose" title is unchanged. */
 .testimonials--band .testimonials__title { font-size: clamp(1.7rem, 3.05vw, 2.7rem); }
+/* Client, Corporate events: the testimonials heading becomes "They Chose /
+   The Roaming Agency". That second line is longer than any band name and
+   these lines are nowrap, so they spill out of the grid column rather than
+   break - measured across eight widths, the old line cleared the cards
+   everywhere, this one reached them at 1920. Scoped to the pages that carry
+   it so the band pages' own titles keep their size. */
+.testimonials--long-title .testimonials__title { font-size: clamp(1.4rem, 2.6vw, 2.3rem); }
 
 /* 10. FAQ section */
 .band-faq { background: #ffffff; position: relative; z-index: 2; }
