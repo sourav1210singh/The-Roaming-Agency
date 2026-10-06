@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127925;</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=60">
-  <link rel="stylesheet" href="/src/css/reset.css?v=60">
-  <link rel="stylesheet" href="/src/css/style.css?v=60">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=60">
+  <link rel="stylesheet" href="/src/css/variables.css?v=61">
+  <link rel="stylesheet" href="/src/css/reset.css?v=61">
+  <link rel="stylesheet" href="/src/css/style.css?v=61">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=61">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -735,19 +735,66 @@
   </section>
 
   <!-- ===== FOOTER ===== -->
-  <footer class="footer">
+  <footer class="footer" id="footer">
     <div class="container">
-      <div class="footer__bottom" style="border: none; padding: 0;">
-        <span>&copy; 2026 The Roaming Agency. Tous droits réservés.</span>
-        <span class="footer__credit">Conçu par <a href="https://www.incrementors.com/" target="_blank" rel="noopener noreferrer">Incrementors</a></span>
-        <div class="footer__social">
-          <a href="https://www.instagram.com/thebrotherockers/" target="_blank" class="footer__social-link" aria-label="Instagram">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/></svg>
-          </a>
-          <a href="https://www.facebook.com/thebrotherockers" target="_blank" class="footer__social-link" aria-label="Facebook">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-          </a>
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <div class="footer__brand-name"><img class="footer__brand-logo" src="/src/assets/images/the-roaming-agency-title-2x.png" alt="The Roaming Agency" width="670" height="373" loading="lazy"></div>
+          <p class="footer__brand-tagline" data-en="We create memories" data-fr="Nous créons des souvenirs">Nous créons des souvenirs</p>
+          <div class="footer__social" style="margin-top: var(--space-lg);">
+            <a href="https://www.instagram.com/thebrotherockers/" target="_blank" class="footer__social-link" aria-label="Instagram">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+            </a>
+            <a href="https://www.facebook.com/thebrotherockers" target="_blank" class="footer__social-link" aria-label="Facebook">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/channel/UCJlrbgsbHGmtk1M4ysH0f9w" target="_blank" class="footer__social-link" aria-label="YouTube">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22.54 6.42a2.78 2.78 0 00-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 00-1.94 2A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.4 19.6C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 001.94-2A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="currentColor" stroke="none"/></svg>
+            </a>
+          </div>
         </div>
+
+        <div>
+          <h4 class="footer__heading" data-en="Bands" data-fr="Groupes">Groupes</h4>
+          <div class="footer__links">
+            <a href="/fr/the-brotherockers" class="footer__link" data-en="The Brotherockers" data-fr="The Brotherockers">The Brotherockers</a>
+            <a href="/fr/the-kingsmen" class="footer__link" data-en="The Kingsmen" data-fr="The Kingsmen">The Kingsmen</a>
+            <a href="/fr/the-peppermints" class="footer__link" data-en="The Peppermints" data-fr="The Peppermints">The Peppermints</a>
+            <a href="/fr/the-serenades" class="footer__link" data-en="The Serenades" data-fr="The Serenades">The Serenades</a>
+            <a href="/fr/the-gentlemen" class="footer__link" data-en="The Gentlemen" data-fr="The Gentlemen">The Gentlemen</a>
+            <a href="/fr/the-supersonics" class="footer__link" data-en="The Supersonics" data-fr="The Supersonics">The Supersonics</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__heading">&nbsp;</h4>
+          <div class="footer__links">
+            <a href="/fr/the-rendez-vous" class="footer__link" data-en="The Rendez-Vous" data-fr="The Rendez-Vous">The Rendez-Vous</a>
+            <a href="/fr/why-so-serious" class="footer__link" data-en="Why So Serious?" data-fr="Why So Serious?">Why So Serious?</a>
+            <a href="/fr/cafe-creme" class="footer__link" data-en="Café Crème" data-fr="Café Crème">Café Crème</a>
+            <a href="/fr/the-blackjacks" class="footer__link" data-en="The Blackjacks" data-fr="The Blackjacks">The Blackjacks</a>
+            <a href="/fr/dj" class="footer__link" data-en="DJ" data-fr="DJ">DJ</a>
+            <a href="/fr/more-music-acts" class="footer__link" data-en="More Music Acts" data-fr="Plus d'Actes Musicaux">Plus d'Actes Musicaux</a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__heading" data-en="Expertise" data-fr="Expertise">Expertise</h4>
+          <div class="footer__links">
+            <a href="/fr/weddings" class="footer__link" data-en="Weddings" data-fr="Mariages">Mariages</a>
+            <a href="/fr/corporate-events" class="footer__link" data-en="Corporate Events" data-fr="Événements d'Entreprise">Événements d'Entreprise</a>
+            <a href="/fr/private-parties" class="footer__link" data-en="Parties" data-fr="Fêtes">Fêtes</a>
+            <a href="/fr/artistic-direction" class="footer__link" data-en="Artistic Direction" data-fr="La Direction Artistique">La Direction Artistique</a>
+            <a href="/fr/faq" class="footer__link" data-en="FAQ" data-fr="FAQ">FAQ</a>
+            <a href="#contact" class="footer__link" data-en="Contact" data-fr="Contact">Contact</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span>© 2026 The Roaming Agency. Tous droits réservés.</span>
+        <span class="footer__credit">Conçu par <a href="https://www.incrementors.com/" target="_blank" rel="noopener noreferrer">Incrementors</a></span>
+        <span>Basés à Nice, Côte d'Azur - Disponibles dans le monde entier</span>
       </div>
     </div>
   </footer>
