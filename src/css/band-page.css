@@ -590,7 +590,13 @@
 .band-intro2__para { display: block; }
 .band-intro2__para + .band-intro2__para { margin-top: 0.9em; }
 .band-intro2__right {
-  display: flex; flex-direction: column; gap: clamp(2.5rem, 6vw, 5rem);
+  display: flex; flex-direction: column;
+  /* Client: the drop between the title and the button was 80px at 1440,
+     against a 171px title and a 52px button - far more air than the pair
+     needs, and it made the right column taller than the paragraphs beside
+     it. Halved. On the DJ pages this is also the gap above the links list,
+     so those tighten with it. */
+  gap: clamp(1.5rem, 3vw, 2.5rem);
   padding-top: clamp(0.5rem, 2vw, 1.5rem);
 }
 .band-intro2__slogan {
