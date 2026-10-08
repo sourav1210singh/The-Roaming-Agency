@@ -2859,6 +2859,11 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
      another ~5% via tighter vertical padding (22/18 -> 18/14). */
   flex: 0 0 clamp(198px, 16.5vw, 253px);
   scroll-snap-align: start;
+  /* Column so .testimonial-card__inner can fill the stretched card -
+     without this the inner stopped at its own content height and the
+     author block floated high on the cards with shorter quotes. */
+  display: flex;
+  flex-direction: column;
   position: relative;
   background: #ffffff;
   border-radius: 28px;
@@ -2888,6 +2893,9 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   justify-content: space-between;
   gap: 18px;
   min-height: 280px;
+  /* Fill the card, so justify-content:space-between below really does
+     pin the author block to the bottom on every card in the row. */
+  flex: 1 1 auto;
   padding-top: 12px;
 }
 
@@ -2913,7 +2921,39 @@ body.is-scrolling .brands-marquee__row--reverse .brands-marquee__track {
   color: #2a2a2a;
   line-height: 1.55;
   margin: 0;
+  /* Google reviews come in whatever length the guest wrote. Five lines
+     keeps the row even; testimonials-clamp.js puts a Read more under
+     the ones that are actually cut off, and only those. */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  overflow: hidden;
 }
+.testimonial-card.is-expanded .testimonial-card__text {
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+}
+.testimonial-card__more {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #555;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+}
+.testimonial-card__more:hover { color: #111; }
+/* The rule above sets display, which would otherwise beat the UA
+   stylesheet's [hidden] { display: none } and leave a dead button
+   on the cards whose quote fits. */
+.testimonial-card__more[hidden] { display: none; }
 
 .testimonial-card__author {
   font-family: var(--font-body);

@@ -147,9 +147,9 @@
   <!-- Stylesheets - Nohemi (self-hosted, all 9 weights) is loaded inside
        variables.css via @font-face. The Google Fonts Inter link was
        removed once the licensed Nohemi files arrived. -->
-  <link rel="stylesheet" href="/src/css/variables.css?v=68">
-  <link rel="stylesheet" href="/src/css/reset.css?v=68">
-  <link rel="stylesheet" href="/src/css/style.css?v=68">
+  <link rel="stylesheet" href="/src/css/variables.css?v=69">
+  <link rel="stylesheet" href="/src/css/reset.css?v=69">
+  <link rel="stylesheet" href="/src/css/style.css?v=69">
 
   <!-- GSAP + ScrollTrigger (needed early for hero animations).
        Three.js is NOT loaded here - main.js dynamically injects it only
@@ -1286,6 +1286,10 @@
   <!-- Smart header - hide on scroll-down, reveal on scroll-up. Standalone
        so band sub-pages can also include it without pulling in main.js. -->
   <script src="/src/js/smart-header.js" defer></script>
+  <!-- Testimonial quotes are capped at five lines so every card in the
+       row keeps its author block on the same line; this adds a Read more
+       to the ones that are genuinely cut off. -->
+  <script src="/src/js/testimonials-clamp.js" defer></script>
   <script src="/src/js/smooth-scroll.js" defer></script>
 </body>
 </html>
