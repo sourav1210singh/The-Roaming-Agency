@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -176,7 +176,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="Straight out of an action movie, The Blackjacks pull the audience into an alternative reality where atmosphere is no longer a concern, but a certainty. ||| The quartet brings together musicians trained in renowned conservatories, a tenor lead singer with a powerful and engaging voice, and an extensive repertoire performed in five languages, suited to international and multi generational audiences. ||| Lastly, their distinctive aesthetic, both refined and modern, naturally finds its place at the heart of exceptional events." data-src-fr="Tout droit sortis d'un film d'action, The Blackjacks cultivent une identité forte et une présence qui capte immédiatement l'attention. Mené par un ténor à la voix puissante et entouré de musiciens formés dans des conservatoires reconnus, ce groupe de strolling possède l'un des répertoires les plus vastes de l'agence, interprété en cinq langues. ||| À l'aise auprès de publics internationaux et multigénérationnels, The Blackjacks associent énergie, précision musicale et esthétique moderne. Leur format de groupe acoustique favorise une interaction directe avec les invités, aussi bien lors de mariages que d'événements d'entreprise et de soirées privées.">Tout droit sortis d'un film d'action, The Blackjacks cultivent une identité forte et une présence qui capte immédiatement l'attention. Mené par un ténor à la voix puissante et entouré de musiciens formés dans des conservatoires reconnus, ce groupe de strolling possède l'un des répertoires les plus vastes de l'agence, interprété en cinq langues.<br><br>À l'aise auprès de publics internationaux et multigénérationnels, The Blackjacks associent énergie, précision musicale et esthétique moderne. Leur format de groupe acoustique favorise une interaction directe avec les invités, aussi bien lors de mariages que d'événements d'entreprise et de soirées privées.</p>
+        <p class="band-intro2__desc" data-src-en="Straight out of an action movie, The Blackjacks pull the audience into an alternative reality where atmosphere is no longer a concern, but a certainty. ||| The quartet brings together musicians trained in renowned conservatories, a tenor lead singer with a powerful and engaging voice, and an extensive repertoire performed in five languages, suited to international and multi generational audiences. ||| Lastly, their distinctive aesthetic, both refined and modern, naturally finds its place at the heart of exceptional events." data-src-fr="Tout droit sortis d'un film d'action, The Blackjacks cultivent une identité forte et une présence qui capte immédiatement l'attention. Mené par un ténor à la voix puissante et entouré de musiciens formés dans des conservatoires reconnus, ce groupe de strolling possède l'un des répertoires les plus vastes de l'agence, interprété en cinq langues. ||| À l'aise auprès de publics internationaux et multigénérationnels, The Blackjacks associent énergie, précision musicale et esthétique moderne. Leur format de groupe acoustique favorise une interaction directe avec les invités, aussi bien lors de mariages que d'événements d'entreprise et de soirées privées."><span class="band-intro2__para">Tout droit sortis d'un film d'action, The Blackjacks cultivent une identité forte et une présence qui capte immédiatement l'attention. Mené par un ténor à la voix puissante et entouré de musiciens formés dans des conservatoires reconnus, ce groupe de strolling possède l'un des répertoires les plus vastes de l'agence, interprété en cinq langues.</span><span class="band-intro2__para">À l'aise auprès de publics internationaux et multigénérationnels, The Blackjacks associent énergie, précision musicale et esthétique moderne. Leur format de groupe acoustique favorise une interaction directe avec les invités, aussi bien lors de mariages que d'événements d'entreprise et de soirées privées.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -864,12 +864,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

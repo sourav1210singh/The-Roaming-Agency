@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -162,7 +162,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="The Roaming Agency is proud to collaborate with Enzo, a renowned DJ who has performed for years in some of the most exclusive venues along the French Riviera. ||| Experienced, precise, and deeply professional, his talent brings our DJ service to the highest level across all kinds of refined events: corporate, weddings, and private parties. ||| His mastery behind the decks is magnetic, combining instinct, technique, and passion in every performance. ||| Seamlessly moving between styles and decades, Enzo curates a musical journey that unites generations in perfect harmony." data-src-fr="The Roaming Agency est fière de collaborer avec Enzo, un DJ reconnu qui se produit depuis des années dans les lieux les plus exclusifs de la Côte d'Azur. ||| Expérimenté, précis et profondément professionnel, son talent porte notre offre DJ au plus haut niveau, pour tous les événements raffinés — entreprise, mariages et soirées privées. ||| Sa maîtrise derrière les platines est magnétique : instinct, technique et passion à chaque prestation. ||| Passant d'un style et d'une décennie à l'autre avec fluidité, Enzo compose un voyage musical qui réunit toutes les générations.">The Roaming Agency is proud to collaborate with Enzo, a renowned DJ who has performed for years in some of the most exclusive venues along the French Riviera.<br><br>Experienced, precise, and deeply professional, his talent brings our DJ service to the highest level across all kinds of refined events: corporate, weddings, and private parties.<br><br>His mastery behind the decks is magnetic, combining instinct, technique, and passion in every performance.<br><br>Seamlessly moving between styles and decades, Enzo curates a musical journey that unites generations in perfect harmony.</p>
+        <p class="band-intro2__desc" data-src-en="The Roaming Agency is proud to collaborate with Enzo, a renowned DJ who has performed for years in some of the most exclusive venues along the French Riviera. ||| Experienced, precise, and deeply professional, his talent brings our DJ service to the highest level across all kinds of refined events: corporate, weddings, and private parties. ||| His mastery behind the decks is magnetic, combining instinct, technique, and passion in every performance. ||| Seamlessly moving between styles and decades, Enzo curates a musical journey that unites generations in perfect harmony." data-src-fr="The Roaming Agency est fière de collaborer avec Enzo, un DJ reconnu qui se produit depuis des années dans les lieux les plus exclusifs de la Côte d'Azur. ||| Expérimenté, précis et profondément professionnel, son talent porte notre offre DJ au plus haut niveau, pour tous les événements raffinés — entreprise, mariages et soirées privées. ||| Sa maîtrise derrière les platines est magnétique : instinct, technique et passion à chaque prestation. ||| Passant d'un style et d'une décennie à l'autre avec fluidité, Enzo compose un voyage musical qui réunit toutes les générations."><span class="band-intro2__para">The Roaming Agency is proud to collaborate with Enzo, a renowned DJ who has performed for years in some of the most exclusive venues along the French Riviera.</span><span class="band-intro2__para">Experienced, precise, and deeply professional, his talent brings our DJ service to the highest level across all kinds of refined events: corporate, weddings, and private parties.</span><span class="band-intro2__para">His mastery behind the decks is magnetic, combining instinct, technique, and passion in every performance.</span><span class="band-intro2__para">Seamlessly moving between styles and decades, Enzo curates a musical journey that unites generations in perfect harmony.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -635,12 +635,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

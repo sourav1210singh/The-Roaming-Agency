@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -163,7 +163,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="The Gentlemen is a multicultural and international band formed in 2021. They created a singular universe, perfectly balancing the romance and timeless elegance of Paris with the irresistible rhythms of South America, where half of the band is originally from. ||| Over the years, and thanks to their irresistible energy, they have developed an unrivaled talent for winning hearts and turning every performance into an unforgettable celebration." data-src-fr="The Gentlemen marie le romantisme et l'élégance intemporelle de Paris aux rythmes irrésistibles d'Amérique du Sud, dont est originaire une partie des musiciens. ||| Multiculturel et international, le groupe se produit en cinq langues et dégage une énergie communicative. Premier groupe de strolling basé à Paris, The Gentlemen s'adapte aussi bien aux événements d'entreprise d'envergure qu'aux mariages de luxe réunissant une clientèle française et internationale.">The Gentlemen is a multicultural and international band formed in 2021. They created a singular universe, perfectly balancing the romance and timeless elegance of Paris with the irresistible rhythms of South America, where half of the band is originally from.<br><br>Over the years, and thanks to their irresistible energy, they have developed an unrivaled talent for winning hearts and turning every performance into an unforgettable celebration.</p>
+        <p class="band-intro2__desc" data-src-en="The Gentlemen is a multicultural and international band formed in 2021. They created a singular universe, perfectly balancing the romance and timeless elegance of Paris with the irresistible rhythms of South America, where half of the band is originally from. ||| Over the years, and thanks to their irresistible energy, they have developed an unrivaled talent for winning hearts and turning every performance into an unforgettable celebration." data-src-fr="The Gentlemen marie le romantisme et l'élégance intemporelle de Paris aux rythmes irrésistibles d'Amérique du Sud, dont est originaire une partie des musiciens. ||| Multiculturel et international, le groupe se produit en cinq langues et dégage une énergie communicative. Premier groupe de strolling basé à Paris, The Gentlemen s'adapte aussi bien aux événements d'entreprise d'envergure qu'aux mariages de luxe réunissant une clientèle française et internationale."><span class="band-intro2__para">The Gentlemen is a multicultural and international band formed in 2021. They created a singular universe, perfectly balancing the romance and timeless elegance of Paris with the irresistible rhythms of South America, where half of the band is originally from.</span><span class="band-intro2__para">Over the years, and thanks to their irresistible energy, they have developed an unrivaled talent for winning hearts and turning every performance into an unforgettable celebration.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -853,12 +853,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

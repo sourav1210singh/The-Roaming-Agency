@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -174,7 +174,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="Why So Serious? is an extremely versatile trio that moves with ease from roaming performances to an amplified setup, ideal for drinks receptions and after dinner parties. ||| The band is led by Andrea, whose warm voice wins every heart before his captivating energy turns the night into a wild party. ||| Backed by fantastic musicians, Why So Serious proves that a trio can surpass the fullness and impact usually expected from a larger band. ||| On stage, they specialize in bringing the party to life thanks to a carefully curated show that will keep any audience on the dance-floor." data-src-fr="Why So Serious? est un quatuor extrêmement polyvalent, qui passe naturellement d'un format en groupe de strolling à une configuration amplifiée pensée pour le dancefloor. ||| Mené par Andrea, dont la voix chaleureuse séduit dès les premières notes, Why So Serious réunit d'excellents musiciens. Son pianiste élargit encore les possibilités avec une palette sonore presque illimitée. ||| Groupe live le plus demandé de l'agence pour les événements d'entreprise, Why So Serious? se produit aussi en groupe de strolling pour des mariages de luxe. En version amplifiée, leur show maintient l'énergie, remplit la piste de danse et prolonge la fête jusque tard dans la nuit.">Why So Serious? est un quatuor extrêmement polyvalent, qui passe naturellement d'un format en groupe de strolling à une configuration amplifiée pensée pour le dancefloor.<br><br>Mené par Andrea, dont la voix chaleureuse séduit dès les premières notes, Why So Serious réunit d'excellents musiciens. Son pianiste élargit encore les possibilités avec une palette sonore presque illimitée.<br><br>Groupe live le plus demandé de l'agence pour les événements d'entreprise, Why So Serious? se produit aussi en groupe de strolling pour des mariages de luxe. En version amplifiée, leur show maintient l'énergie, remplit la piste de danse et prolonge la fête jusque tard dans la nuit.</p>
+        <p class="band-intro2__desc" data-src-en="Why So Serious? is an extremely versatile trio that moves with ease from roaming performances to an amplified setup, ideal for drinks receptions and after dinner parties. ||| The band is led by Andrea, whose warm voice wins every heart before his captivating energy turns the night into a wild party. ||| Backed by fantastic musicians, Why So Serious proves that a trio can surpass the fullness and impact usually expected from a larger band. ||| On stage, they specialize in bringing the party to life thanks to a carefully curated show that will keep any audience on the dance-floor." data-src-fr="Why So Serious? est un quatuor extrêmement polyvalent, qui passe naturellement d'un format en groupe de strolling à une configuration amplifiée pensée pour le dancefloor. ||| Mené par Andrea, dont la voix chaleureuse séduit dès les premières notes, Why So Serious réunit d'excellents musiciens. Son pianiste élargit encore les possibilités avec une palette sonore presque illimitée. ||| Groupe live le plus demandé de l'agence pour les événements d'entreprise, Why So Serious? se produit aussi en groupe de strolling pour des mariages de luxe. En version amplifiée, leur show maintient l'énergie, remplit la piste de danse et prolonge la fête jusque tard dans la nuit."><span class="band-intro2__para">Why So Serious? est un quatuor extrêmement polyvalent, qui passe naturellement d'un format en groupe de strolling à une configuration amplifiée pensée pour le dancefloor.</span><span class="band-intro2__para">Mené par Andrea, dont la voix chaleureuse séduit dès les premières notes, Why So Serious réunit d'excellents musiciens. Son pianiste élargit encore les possibilités avec une palette sonore presque illimitée.</span><span class="band-intro2__para">Groupe live le plus demandé de l'agence pour les événements d'entreprise, Why So Serious? se produit aussi en groupe de strolling pour des mariages de luxe. En version amplifiée, leur show maintient l'énergie, remplit la piste de danse et prolonge la fête jusque tard dans la nuit.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -848,12 +848,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

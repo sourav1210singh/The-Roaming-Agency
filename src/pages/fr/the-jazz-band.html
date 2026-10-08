@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127925;</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -162,7 +162,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="The Jazz Band is a roaming ensemble from The Roaming Agency &#8212; a refined collective of musicians who fill any room with the timeless warmth of live jazz. || Based on the French Riviera and performing worldwide, they move effortlessly through swing, bossa nova, soul and the Great American Songbook. || Fully mobile and unplugged, the band brings its sophisticated groove directly to your guests, setting the perfect mood for every moment. ||| Elegant, soulful and endlessly versatile, they are the ideal soundtrack for weddings, galas and the most refined private events." data-src-fr="The Jazz Band est un ensemble itin&#233;rant de The Roaming Agency &#8212; un collectif raffin&#233; de musiciens qui emplit chaque lieu de la chaleur intemporelle du jazz live. || Bas&#233; sur la C&#244;te d'Azur et se produisant dans le monde entier, il navigue avec aisance entre le swing, la bossa nova, la soul et le Great American Songbook. || Enti&#232;rement mobile et acoustique, le groupe apporte son groove raffin&#233; directement &#224; vos invit&#233;s, cr&#233;ant l'ambiance parfaite pour chaque moment. ||| &#201;l&#233;gant, plein d'&#226;me et infiniment polyvalent, il est la bande-son id&#233;ale des mariages, des galas et des &#233;v&#233;nements priv&#233;s les plus raffin&#233;s.">The Jazz Band is a roaming ensemble from The Roaming Agency &#8212; a refined collective of musicians who fill any room with the timeless warmth of live jazz.<br>Basés sur la Côte d'Azur et se produisant dans le monde entier, ils naviguent sans effort entre le swing, la bossa nova, la soul et le Great American Songbook.<br>Entièrement mobile et acoustique, le groupe apporte son groove sophistiqué directement à vos invités, instaurant l'ambiance parfaite à chaque instant.<br><br>Élégants, pleins d'âme et infiniment polyvalents, ils sont la bande-son idéale des mariages, des galas et des événements privés les plus raffinés.</p>
+        <p class="band-intro2__desc" data-src-en="The Jazz Band is a roaming ensemble from The Roaming Agency &#8212; a refined collective of musicians who fill any room with the timeless warmth of live jazz. || Based on the French Riviera and performing worldwide, they move effortlessly through swing, bossa nova, soul and the Great American Songbook. || Fully mobile and unplugged, the band brings its sophisticated groove directly to your guests, setting the perfect mood for every moment. ||| Elegant, soulful and endlessly versatile, they are the ideal soundtrack for weddings, galas and the most refined private events." data-src-fr="The Jazz Band est un ensemble itin&#233;rant de The Roaming Agency &#8212; un collectif raffin&#233; de musiciens qui emplit chaque lieu de la chaleur intemporelle du jazz live. || Bas&#233; sur la C&#244;te d'Azur et se produisant dans le monde entier, il navigue avec aisance entre le swing, la bossa nova, la soul et le Great American Songbook. || Enti&#232;rement mobile et acoustique, le groupe apporte son groove raffin&#233; directement &#224; vos invit&#233;s, cr&#233;ant l'ambiance parfaite pour chaque moment. ||| &#201;l&#233;gant, plein d'&#226;me et infiniment polyvalent, il est la bande-son id&#233;ale des mariages, des galas et des &#233;v&#233;nements priv&#233;s les plus raffin&#233;s."><span class="band-intro2__para">The Jazz Band is a roaming ensemble from The Roaming Agency &#8212; a refined collective of musicians who fill any room with the timeless warmth of live jazz.<br>Basés sur la Côte d'Azur et se produisant dans le monde entier, ils naviguent sans effort entre le swing, la bossa nova, la soul et le Great American Songbook.<br>Entièrement mobile et acoustique, le groupe apporte son groove sophistiqué directement à vos invités, instaurant l'ambiance parfaite à chaque instant.</span><span class="band-intro2__para">Élégants, pleins d'âme et infiniment polyvalents, ils sont la bande-son idéale des mariages, des galas et des événements privés les plus raffinés.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -829,12 +829,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -176,7 +176,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="Composed of Italian and French musicians, The Serenades bring a refined touch of Italy to every performance. Enhanced by powerful vocals, impeccable style, and the distinctive sound of a trombone, the band has performed at hundreds of events across Europe and beyond. International by nature, they offer a rich repertoire of Italian songs, Latin rhythms, French favorites, and timeless classics. Their elegance, artistry, and ability to engage with any audience make every occasion unforgettable." data-src-fr="Composés de musiciens italiens et français, The Serenades apportent à chaque performance une élégante touche de dolce vita. Voix puissantes, style impeccable et sonorité distinctive du saxophone ont déjà accompagné des centaines d'événements en Europe et au-delà. ||| Leur vaste répertoire mêle chansons italiennes, rythmes latinos, classiques français et grands standards internationaux. Élégance, talent musical et capacité à séduire tous les publics donnent à The Serenades une place à part parmi les groupes de strolling.">Composés de musiciens italiens et français, The Serenades apportent à chaque performance une élégante touche de dolce vita. Voix puissantes, style impeccable et sonorité distinctive du saxophone ont déjà accompagné des centaines d'événements en Europe et au-delà.<br><br>Leur vaste répertoire mêle chansons italiennes, rythmes latinos, classiques français et grands standards internationaux. Élégance, talent musical et capacité à séduire tous les publics donnent à The Serenades une place à part parmi les groupes de strolling.</p>
+        <p class="band-intro2__desc" data-src-en="Composed of Italian and French musicians, The Serenades bring a refined touch of Italy to every performance. Enhanced by powerful vocals, impeccable style, and the distinctive sound of a trombone, the band has performed at hundreds of events across Europe and beyond. International by nature, they offer a rich repertoire of Italian songs, Latin rhythms, French favorites, and timeless classics. Their elegance, artistry, and ability to engage with any audience make every occasion unforgettable." data-src-fr="Composés de musiciens italiens et français, The Serenades apportent à chaque performance une élégante touche de dolce vita. Voix puissantes, style impeccable et sonorité distinctive du saxophone ont déjà accompagné des centaines d'événements en Europe et au-delà. ||| Leur vaste répertoire mêle chansons italiennes, rythmes latinos, classiques français et grands standards internationaux. Élégance, talent musical et capacité à séduire tous les publics donnent à The Serenades une place à part parmi les groupes de strolling."><span class="band-intro2__para">Composés de musiciens italiens et français, The Serenades apportent à chaque performance une élégante touche de dolce vita. Voix puissantes, style impeccable et sonorité distinctive du saxophone ont déjà accompagné des centaines d'événements en Europe et au-delà.</span><span class="band-intro2__para">Leur vaste répertoire mêle chansons italiennes, rythmes latinos, classiques français et grands standards internationaux. Élégance, talent musical et capacité à séduire tous les publics donnent à The Serenades une place à part parmi les groupes de strolling.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -863,12 +863,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

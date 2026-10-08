@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -176,7 +176,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="With one of the most extensive 60s and 70s repertoires in the industry, The Rendez-Vous is the ultimate meeting point for lovers of that golden era. Breathtaking vocal harmonies, impeccable style, instrumental mastery, and iconic guitar solos make every performance a journey back to the timeless charm of classic pop, rock, and folk. Far from being just a nostalgic act, their versatility allows them to revisit legendary hits from every decade, always with taste and precision. With more than ten years of experience leading their own musical projects, the members of The Rendez-Vous embody everything you would expect from a top roaming band, and even more." data-src-fr="Avec l'un des répertoires les plus riches consacrés aux années 60 à 80, The Rendez-Vous est le point de rencontre idéal pour les amoureux de cette période. ||| Harmonies vocales remarquables, style impeccable, maîtrise instrumentale et solos de guitare donnent à chaque performance le charme intemporel de la pop, du rock et du folk de cette époque. ||| Le groupe ne se limite pas à la nostalgie. Sa polyvalence lui permet de revisiter les grands titres de toutes les décennies avec goût et précision. Forts de plus de dix ans d'expérience chacun à la tête de leurs propres projets musicaux, les membres de The Rendez-Vous réunissent tout ce que l'on attend d'un groupe de strolling de luxe, et davantage encore.">Avec l'un des répertoires les plus riches consacrés aux années 60 à 80, The Rendez-Vous est le point de rencontre idéal pour les amoureux de cette période.<br><br>Harmonies vocales remarquables, style impeccable, maîtrise instrumentale et solos de guitare donnent à chaque performance le charme intemporel de la pop, du rock et du folk de cette époque.<br><br>Le groupe ne se limite pas à la nostalgie. Sa polyvalence lui permet de revisiter les grands titres de toutes les décennies avec goût et précision. Forts de plus de dix ans d'expérience chacun à la tête de leurs propres projets musicaux, les membres de The Rendez-Vous réunissent tout ce que l'on attend d'un groupe de strolling de luxe, et davantage encore.</p>
+        <p class="band-intro2__desc" data-src-en="With one of the most extensive 60s and 70s repertoires in the industry, The Rendez-Vous is the ultimate meeting point for lovers of that golden era. Breathtaking vocal harmonies, impeccable style, instrumental mastery, and iconic guitar solos make every performance a journey back to the timeless charm of classic pop, rock, and folk. Far from being just a nostalgic act, their versatility allows them to revisit legendary hits from every decade, always with taste and precision. With more than ten years of experience leading their own musical projects, the members of The Rendez-Vous embody everything you would expect from a top roaming band, and even more." data-src-fr="Avec l'un des répertoires les plus riches consacrés aux années 60 à 80, The Rendez-Vous est le point de rencontre idéal pour les amoureux de cette période. ||| Harmonies vocales remarquables, style impeccable, maîtrise instrumentale et solos de guitare donnent à chaque performance le charme intemporel de la pop, du rock et du folk de cette époque. ||| Le groupe ne se limite pas à la nostalgie. Sa polyvalence lui permet de revisiter les grands titres de toutes les décennies avec goût et précision. Forts de plus de dix ans d'expérience chacun à la tête de leurs propres projets musicaux, les membres de The Rendez-Vous réunissent tout ce que l'on attend d'un groupe de strolling de luxe, et davantage encore."><span class="band-intro2__para">Avec l'un des répertoires les plus riches consacrés aux années 60 à 80, The Rendez-Vous est le point de rencontre idéal pour les amoureux de cette période.</span><span class="band-intro2__para">Harmonies vocales remarquables, style impeccable, maîtrise instrumentale et solos de guitare donnent à chaque performance le charme intemporel de la pop, du rock et du folk de cette époque.</span><span class="band-intro2__para">Le groupe ne se limite pas à la nostalgie. Sa polyvalence lui permet de revisiter les grands titres de toutes les décennies avec goût et précision. Forts de plus de dix ans d'expérience chacun à la tête de leurs propres projets musicaux, les membres de The Rendez-Vous réunissent tout ce que l'on attend d'un groupe de strolling de luxe, et davantage encore.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -868,12 +868,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

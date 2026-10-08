@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -163,7 +163,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="Created in 2019 The Peppermints stand out with a strong identity and a sound that instantly catches attention. With one of the most extensive repertoires, they weave together British pop and rock, French classics, Latin rhythms, and Irish folk into a singular and refreshing cocktail. ||| Their biggest strength is a contagious energy that brings smiles and the urge to dance even to the most reserved crowd. Friendly, easygoing, and irresistibly engaging, The Peppermints deliver exceptional performances in five languages across the world." data-src-fr="Créés en 2019, The Peppermints possèdent une identité forte et un son immédiatement reconnaissable. ||| Leur répertoire, le plus vaste de l'agence, offre une diversité rare chez un groupe de strolling, mêlant pop-rock britannique, classiques français, rythmes latinos et folk irlandais dans un univers singulier et rafraîchissant. ||| Leur énergie contagieuse fait sourire et danser même les invités les plus réservés. Spontanés, accessibles et hautement interactifs, The Peppermints se produisent en cinq langues.">Created in 2019 The Peppermints stand out with a strong identity and a sound that instantly catches attention. With one of the most extensive repertoires, they weave together British pop and rock, French classics, Latin rhythms, and Irish folk into a singular and refreshing cocktail.<br><br>Their biggest strength is a contagious energy that brings smiles and the urge to dance even to the most reserved crowd. Friendly, easygoing, and irresistibly engaging, The Peppermints deliver exceptional performances in five languages across the world.</p>
+        <p class="band-intro2__desc" data-src-en="Created in 2019 The Peppermints stand out with a strong identity and a sound that instantly catches attention. With one of the most extensive repertoires, they weave together British pop and rock, French classics, Latin rhythms, and Irish folk into a singular and refreshing cocktail. ||| Their biggest strength is a contagious energy that brings smiles and the urge to dance even to the most reserved crowd. Friendly, easygoing, and irresistibly engaging, The Peppermints deliver exceptional performances in five languages across the world." data-src-fr="Créés en 2019, The Peppermints possèdent une identité forte et un son immédiatement reconnaissable. ||| Leur répertoire, le plus vaste de l'agence, offre une diversité rare chez un groupe de strolling, mêlant pop-rock britannique, classiques français, rythmes latinos et folk irlandais dans un univers singulier et rafraîchissant. ||| Leur énergie contagieuse fait sourire et danser même les invités les plus réservés. Spontanés, accessibles et hautement interactifs, The Peppermints se produisent en cinq langues."><span class="band-intro2__para">Created in 2019 The Peppermints stand out with a strong identity and a sound that instantly catches attention. With one of the most extensive repertoires, they weave together British pop and rock, French classics, Latin rhythms, and Irish folk into a singular and refreshing cocktail.</span><span class="band-intro2__para">Their biggest strength is a contagious energy that brings smiles and the urge to dance even to the most reserved crowd. Friendly, easygoing, and irresistibly engaging, The Peppermints deliver exceptional performances in five languages across the world.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -836,12 +836,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

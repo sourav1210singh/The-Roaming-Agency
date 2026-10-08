@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -159,7 +159,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="Whether it is a birthday, a baptism, an anniversary, a special occasion or simply a reason to celebrate, we have mastered the art of turning private events into unforgettable experiences. ||| Our roaming bands offer a fresh and interactive approach to live music, moving freely among the guests and bringing the music right to the heart of the celebration. Alongside them, our DJs, saxophonists, percussionists and other solo artists offer endless possibilities throughout the day. ||| With more than 12 years of experience, our team takes care of the entertainment from start to finish, providing expert advice so all that is left to do is enjoy the party." data-src-fr="Anniversaire, baptême, célébration particulière ou simplement une belle occasion de réunir vos proches : nos groupes de strolling premium, DJs et artistes live créent des expériences dont vos invités se souviendront longtemps. ||| Pas de scène, pas de barrières ! Nos groupes de strolling évoluent au milieu de vos invités et interagissent directement avec eux en offrant une expérience nouvelle et totalement interactive. ||| Pour une soirée entièrement clé en main, nos DJs accompagnent la soirée jusque tard dans la nuit. Saxophoniste, percussionniste ou violoniste les rejoignent pour apporter une véritable dimension live. ||| En amont de votre événement, vous êtes accompagnés par une équipe expérimentée, elle-même issue du monde de la musique live. Des conseils d'experts fondés sur plus de douze ans d'expérience concrète et des centaines de célébrations privées.">Anniversaire, baptême, célébration particulière ou simplement une belle occasion de réunir vos proches : nos groupes de strolling premium, DJs et artistes live créent des expériences dont vos invités se souviendront longtemps.<br><br>Pas de scène, pas de barrières ! Nos groupes de strolling évoluent au milieu de vos invités et interagissent directement avec eux en offrant une expérience nouvelle et totalement interactive.<br><br>Pour une soirée entièrement clé en main, nos DJs accompagnent la soirée jusque tard dans la nuit. Saxophoniste, percussionniste ou violoniste les rejoignent pour apporter une véritable dimension live.<br><br>En amont de votre événement, vous êtes accompagnés par une équipe expérimentée, elle-même issue du monde de la musique live. Des conseils d'experts fondés sur plus de douze ans d'expérience concrète et des centaines de célébrations privées.</p>
+        <p class="band-intro2__desc" data-src-en="Whether it is a birthday, a baptism, an anniversary, a special occasion or simply a reason to celebrate, we have mastered the art of turning private events into unforgettable experiences. ||| Our roaming bands offer a fresh and interactive approach to live music, moving freely among the guests and bringing the music right to the heart of the celebration. Alongside them, our DJs, saxophonists, percussionists and other solo artists offer endless possibilities throughout the day. ||| With more than 12 years of experience, our team takes care of the entertainment from start to finish, providing expert advice so all that is left to do is enjoy the party." data-src-fr="Anniversaire, baptême, célébration particulière ou simplement une belle occasion de réunir vos proches : nos groupes de strolling premium, DJs et artistes live créent des expériences dont vos invités se souviendront longtemps. ||| Pas de scène, pas de barrières ! Nos groupes de strolling évoluent au milieu de vos invités et interagissent directement avec eux en offrant une expérience nouvelle et totalement interactive. ||| Pour une soirée entièrement clé en main, nos DJs accompagnent la soirée jusque tard dans la nuit. Saxophoniste, percussionniste ou violoniste les rejoignent pour apporter une véritable dimension live. ||| En amont de votre événement, vous êtes accompagnés par une équipe expérimentée, elle-même issue du monde de la musique live. Des conseils d'experts fondés sur plus de douze ans d'expérience concrète et des centaines de célébrations privées."><span class="band-intro2__para">Anniversaire, baptême, célébration particulière ou simplement une belle occasion de réunir vos proches : nos groupes de strolling premium, DJs et artistes live créent des expériences dont vos invités se souviendront longtemps.</span><span class="band-intro2__para">Pas de scène, pas de barrières ! Nos groupes de strolling évoluent au milieu de vos invités et interagissent directement avec eux en offrant une expérience nouvelle et totalement interactive.</span><span class="band-intro2__para">Pour une soirée entièrement clé en main, nos DJs accompagnent la soirée jusque tard dans la nuit. Saxophoniste, percussionniste ou violoniste les rejoignent pour apporter une véritable dimension live.</span><span class="band-intro2__para">En amont de votre événement, vous êtes accompagnés par une équipe expérimentée, elle-même issue du monde de la musique live. Des conseils d'experts fondés sur plus de douze ans d'expérience concrète et des centaines de célébrations privées.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -810,12 +810,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

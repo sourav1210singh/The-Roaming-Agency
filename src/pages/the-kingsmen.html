@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -163,7 +163,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="Created in 2020, The Kingsmen quickly rose to stand among the most exclusive roaming bands. The reason is simple: beyond their impeccable style and charm, the band unites the best singers in the industry. ||| With flawless harmonies and outstanding vocals, their performances never fail to leave guests speechless, while their infectious energy ensures lasting memories. ||| Formed by five exceptional musicians, The Kingsmen deliver a power that few roaming bands can match, and have already performed across 15 countries with the same signature energy and elegance." data-src-fr="Créés en 2020, The Kingsmen sont le seul quintet de strolling de l'agence, réunissant cinq musiciens au style impeccable et à la présence scénique remarquable. ||| Le groupe rassemble les meilleurs chanteurs de l'univers du strolling, portés par des harmonies impeccables et une énergie communicative. ||| Ce format à cinq leur apporte une puissance que peu de formations peuvent égaler, tout en conservant l'élégance qui les caractérise.">Created in 2020, The Kingsmen quickly rose to stand among the most exclusive roaming bands. The reason is simple: beyond their impeccable style and charm, the band unites the best singers in the industry.<br><br>With flawless harmonies and outstanding vocals, their performances never fail to leave guests speechless, while their infectious energy ensures lasting memories.<br><br>Formed by five exceptional musicians, The Kingsmen deliver a power that few roaming bands can match, and have already performed across 15 countries with the same signature energy and elegance.</p>
+        <p class="band-intro2__desc" data-src-en="Created in 2020, The Kingsmen quickly rose to stand among the most exclusive roaming bands. The reason is simple: beyond their impeccable style and charm, the band unites the best singers in the industry. ||| With flawless harmonies and outstanding vocals, their performances never fail to leave guests speechless, while their infectious energy ensures lasting memories. ||| Formed by five exceptional musicians, The Kingsmen deliver a power that few roaming bands can match, and have already performed across 15 countries with the same signature energy and elegance." data-src-fr="Créés en 2020, The Kingsmen sont le seul quintet de strolling de l'agence, réunissant cinq musiciens au style impeccable et à la présence scénique remarquable. ||| Le groupe rassemble les meilleurs chanteurs de l'univers du strolling, portés par des harmonies impeccables et une énergie communicative. ||| Ce format à cinq leur apporte une puissance que peu de formations peuvent égaler, tout en conservant l'élégance qui les caractérise."><span class="band-intro2__para">Created in 2020, The Kingsmen quickly rose to stand among the most exclusive roaming bands. The reason is simple: beyond their impeccable style and charm, the band unites the best singers in the industry.</span><span class="band-intro2__para">With flawless harmonies and outstanding vocals, their performances never fail to leave guests speechless, while their infectious energy ensures lasting memories.</span><span class="band-intro2__para">Formed by five exceptional musicians, The Kingsmen deliver a power that few roaming bands can match, and have already performed across 15 countries with the same signature energy and elegance.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -872,12 +872,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

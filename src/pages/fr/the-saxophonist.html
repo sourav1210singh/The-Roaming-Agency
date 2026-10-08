@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127925;</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -162,7 +162,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="The Saxophonist is a roaming solo act from The Roaming Agency &#8212; a single, spellbinding voice on saxophone that turns any room into a moment. || Based on the French Riviera and performing worldwide, the saxophonist moves effortlessly from smooth jazz at dinner to euphoric house and disco on the dance floor. || Fully mobile and unplugged, the sax weaves through your guests, improvising live and reading the energy of the room note by note. ||| Elegant, soulful and irresistibly cool, it is the perfect signature touch for weddings, galas and private parties alike." data-src-fr="The Saxophonist est un acte solo itin&#233;rant de The Roaming Agency &#8212; une voix unique et envo&#251;tante au saxophone qui transforme chaque lieu en un moment. || Bas&#233; sur la C&#244;te d'Azur et se produisant dans le monde entier, le saxophoniste passe avec aisance du jazz tout en douceur au d&#238;ner &#224; la house et au disco euphoriques sur la piste. || Enti&#232;rement mobile et acoustique, le sax se faufile parmi vos invit&#233;s, improvisant en direct et lisant l'&#233;nergie de la salle note apr&#232;s note. ||| &#201;l&#233;gant, plein d'&#226;me et irr&#233;sistiblement cool, c'est la touche signature parfaite pour les mariages, les galas et les soir&#233;es priv&#233;es.">The Saxophonist is a roaming solo act from The Roaming Agency &#8212; a single, spellbinding voice on saxophone that turns any room into a moment.<br>Basé sur la Côte d'Azur et se produisant dans le monde entier, le saxophoniste passe sans effort du jazz tout en douceur pendant le dîner à la house et au disco euphoriques sur la piste de danse.<br>Entièrement mobile et acoustique, le sax se faufile parmi vos invités, improvisant en direct et lisant l'énergie de la salle note après note.<br><br>Élégant, plein d'âme et irrésistiblement cool, c'est la touche signature parfaite pour les mariages, les galas comme les soirées privées.</p>
+        <p class="band-intro2__desc" data-src-en="The Saxophonist is a roaming solo act from The Roaming Agency &#8212; a single, spellbinding voice on saxophone that turns any room into a moment. || Based on the French Riviera and performing worldwide, the saxophonist moves effortlessly from smooth jazz at dinner to euphoric house and disco on the dance floor. || Fully mobile and unplugged, the sax weaves through your guests, improvising live and reading the energy of the room note by note. ||| Elegant, soulful and irresistibly cool, it is the perfect signature touch for weddings, galas and private parties alike." data-src-fr="The Saxophonist est un acte solo itin&#233;rant de The Roaming Agency &#8212; une voix unique et envo&#251;tante au saxophone qui transforme chaque lieu en un moment. || Bas&#233; sur la C&#244;te d'Azur et se produisant dans le monde entier, le saxophoniste passe avec aisance du jazz tout en douceur au d&#238;ner &#224; la house et au disco euphoriques sur la piste. || Enti&#232;rement mobile et acoustique, le sax se faufile parmi vos invit&#233;s, improvisant en direct et lisant l'&#233;nergie de la salle note apr&#232;s note. ||| &#201;l&#233;gant, plein d'&#226;me et irr&#233;sistiblement cool, c'est la touche signature parfaite pour les mariages, les galas et les soir&#233;es priv&#233;es."><span class="band-intro2__para">The Saxophonist is a roaming solo act from The Roaming Agency &#8212; a single, spellbinding voice on saxophone that turns any room into a moment.<br>Basé sur la Côte d'Azur et se produisant dans le monde entier, le saxophoniste passe sans effort du jazz tout en douceur pendant le dîner à la house et au disco euphoriques sur la piste de danse.<br>Entièrement mobile et acoustique, le sax se faufile parmi vos invités, improvisant en direct et lisant l'énergie de la salle note après note.</span><span class="band-intro2__para">Élégant, plein d'âme et irrésistiblement cool, c'est la touche signature parfaite pour les mariages, les galas comme les soirées privées.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -829,12 +829,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

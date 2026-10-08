@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -159,7 +159,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="Over the past twelve years, The Roaming Agency has contributed to the artistic direction of prestigious venues across the French Riviera and internationally, creating musical programmes designed around each establishment, its identity and its guests. ||| Our extensive catalogue of artists allows us to manage year-round entertainment programmes, from roaming bands and DJs to pianists, duos and many more, with almost endless possibilities. ||| We handle the entire process seamlessly, with clear schedules, carefully selected proposals and the flexibility to react quickly to last-minute requirements. ||| Today, leading hotels, restaurants and hospitality groups trust The Roaming Agency to manage their live entertainment, combining a premium selection of artists with the experience and responsiveness required to make artistic programming effortless." data-src-fr="Depuis plus de douze ans, The Roaming Agency contribue à la direction artistique d'établissements prestigieux sur la Côte d'Azur et à l'international, avec des programmations musicales pensées autour de chaque lieu, de son identité et de sa clientèle. ||| Grâce à un vaste catalogue d'artistes, l'agence accompagne des programmations tout au long de l'année, des groupes de strolling et DJs aux pianistes, duos et bien plus encore. ||| L'ensemble du processus est pris en charge de façon fluide, avec des plannings clairs, des propositions soigneusement sélectionnées et la réactivité nécessaire pour répondre aux demandes de dernière minute. ||| Aujourd'hui, restaurants et groupes hôteliers de premier plan font confiance à The Roaming Agency pour dynamiser leur programmation musicale, grâce à une sélection premium d'artistes guidée par une certaine idée de la musique live.">Depuis plus de douze ans, The Roaming Agency contribue à la direction artistique d'établissements prestigieux sur la Côte d'Azur et à l'international, avec des programmations musicales pensées autour de chaque lieu, de son identité et de sa clientèle.<br><br>Grâce à un vaste catalogue d'artistes, l'agence accompagne des programmations tout au long de l'année, des groupes de strolling et DJs aux pianistes, duos et bien plus encore.<br><br>L'ensemble du processus est pris en charge de façon fluide, avec des plannings clairs, des propositions soigneusement sélectionnées et la réactivité nécessaire pour répondre aux demandes de dernière minute.<br><br>Aujourd'hui, restaurants et groupes hôteliers de premier plan font confiance à The Roaming Agency pour dynamiser leur programmation musicale, grâce à une sélection premium d'artistes guidée par une certaine idée de la musique live.</p>
+        <p class="band-intro2__desc" data-src-en="Over the past twelve years, The Roaming Agency has contributed to the artistic direction of prestigious venues across the French Riviera and internationally, creating musical programmes designed around each establishment, its identity and its guests. ||| Our extensive catalogue of artists allows us to manage year-round entertainment programmes, from roaming bands and DJs to pianists, duos and many more, with almost endless possibilities. ||| We handle the entire process seamlessly, with clear schedules, carefully selected proposals and the flexibility to react quickly to last-minute requirements. ||| Today, leading hotels, restaurants and hospitality groups trust The Roaming Agency to manage their live entertainment, combining a premium selection of artists with the experience and responsiveness required to make artistic programming effortless." data-src-fr="Depuis plus de douze ans, The Roaming Agency contribue à la direction artistique d'établissements prestigieux sur la Côte d'Azur et à l'international, avec des programmations musicales pensées autour de chaque lieu, de son identité et de sa clientèle. ||| Grâce à un vaste catalogue d'artistes, l'agence accompagne des programmations tout au long de l'année, des groupes de strolling et DJs aux pianistes, duos et bien plus encore. ||| L'ensemble du processus est pris en charge de façon fluide, avec des plannings clairs, des propositions soigneusement sélectionnées et la réactivité nécessaire pour répondre aux demandes de dernière minute. ||| Aujourd'hui, restaurants et groupes hôteliers de premier plan font confiance à The Roaming Agency pour dynamiser leur programmation musicale, grâce à une sélection premium d'artistes guidée par une certaine idée de la musique live."><span class="band-intro2__para">Depuis plus de douze ans, The Roaming Agency contribue à la direction artistique d'établissements prestigieux sur la Côte d'Azur et à l'international, avec des programmations musicales pensées autour de chaque lieu, de son identité et de sa clientèle.</span><span class="band-intro2__para">Grâce à un vaste catalogue d'artistes, l'agence accompagne des programmations tout au long de l'année, des groupes de strolling et DJs aux pianistes, duos et bien plus encore.</span><span class="band-intro2__para">L'ensemble du processus est pris en charge de façon fluide, avec des plannings clairs, des propositions soigneusement sélectionnées et la réactivité nécessaire pour répondre aux demandes de dernière minute.</span><span class="band-intro2__para">Aujourd'hui, restaurants et groupes hôteliers de premier plan font confiance à The Roaming Agency pour dynamiser leur programmation musicale, grâce à une sélection premium d'artistes guidée par une certaine idée de la musique live.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -810,12 +810,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

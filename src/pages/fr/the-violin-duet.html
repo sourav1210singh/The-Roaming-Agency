@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#127925;</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -182,7 +182,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="Aliz&eacute;e and Raffaella are The Roaming Agency's signature violin duet &mdash; two virtuoso violinists who bring elegance and emotion to the Riviera's most refined celebrations. || From the bride walking down the aisle to a champagne-soaked cocktail hour, their bows turn moments into memories &mdash; weaving timeless classics, film scores and contemporary hits into one seamless, cinematic sound. ||| Fully mobile and endlessly graceful, the duet performs for ceremonies, cocktails and dinners at villas, ch&acirc;teaux and luxury venues across the French Riviera and beyond." data-src-fr="Aliz&eacute;e et Raffaella forment le duo de violons embl&eacute;matique de The Roaming Agency &mdash; deux violonistes virtuoses qui apportent &eacute;l&eacute;gance et &eacute;motion aux c&eacute;l&eacute;brations les plus raffin&eacute;es de la Riviera. || De l'entr&eacute;e de la mari&eacute;e jusqu'au cocktail baign&eacute; de champagne, leurs archets transforment les instants en souvenirs &mdash; tissant des classiques intemporels, des musiques de film et des tubes contemporains en un son fluide et cin&eacute;matographique. ||| Enti&egrave;rement mobile et infiniment gracieux, le duo se produit pour les c&eacute;r&eacute;monies, cocktails et d&icirc;ners dans les villas, ch&acirc;teaux et lieux de luxe de la C&ocirc;te d'Azur et au-del&agrave;.">Aliz&eacute;e and Raffaella are The Roaming Agency's signature violin duet &mdash; two virtuoso violinists who bring elegance and emotion to the Riviera's most refined celebrations.<br>From the bride walking down the aisle to a champagne-soaked cocktail hour, their bows turn moments into memories &mdash; weaving timeless classics, film scores and contemporary hits into one seamless, cinematic sound.<br><br>Fully mobile and endlessly graceful, the duet performs for ceremonies, cocktails and dinners at villas, ch&acirc;teaux and luxury venues across the French Riviera and beyond.</p>
+        <p class="band-intro2__desc" data-src-en="Aliz&eacute;e and Raffaella are The Roaming Agency's signature violin duet &mdash; two virtuoso violinists who bring elegance and emotion to the Riviera's most refined celebrations. || From the bride walking down the aisle to a champagne-soaked cocktail hour, their bows turn moments into memories &mdash; weaving timeless classics, film scores and contemporary hits into one seamless, cinematic sound. ||| Fully mobile and endlessly graceful, the duet performs for ceremonies, cocktails and dinners at villas, ch&acirc;teaux and luxury venues across the French Riviera and beyond." data-src-fr="Aliz&eacute;e et Raffaella forment le duo de violons embl&eacute;matique de The Roaming Agency &mdash; deux violonistes virtuoses qui apportent &eacute;l&eacute;gance et &eacute;motion aux c&eacute;l&eacute;brations les plus raffin&eacute;es de la Riviera. || De l'entr&eacute;e de la mari&eacute;e jusqu'au cocktail baign&eacute; de champagne, leurs archets transforment les instants en souvenirs &mdash; tissant des classiques intemporels, des musiques de film et des tubes contemporains en un son fluide et cin&eacute;matographique. ||| Enti&egrave;rement mobile et infiniment gracieux, le duo se produit pour les c&eacute;r&eacute;monies, cocktails et d&icirc;ners dans les villas, ch&acirc;teaux et lieux de luxe de la C&ocirc;te d'Azur et au-del&agrave;."><span class="band-intro2__para">Aliz&eacute;e and Raffaella are The Roaming Agency's signature violin duet &mdash; two virtuoso violinists who bring elegance and emotion to the Riviera's most refined celebrations.<br>From the bride walking down the aisle to a champagne-soaked cocktail hour, their bows turn moments into memories &mdash; weaving timeless classics, film scores and contemporary hits into one seamless, cinematic sound.</span><span class="band-intro2__para">Fully mobile and endlessly graceful, the duet performs for ceremonies, cocktails and dinners at villas, ch&acirc;teaux and luxury venues across the French Riviera and beyond.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -836,12 +836,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

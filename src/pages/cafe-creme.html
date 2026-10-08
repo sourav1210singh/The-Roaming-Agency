@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -163,7 +163,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="Café Crème is the quintessence of Parisian elegance, uniting outstanding musicians from the City of Light to elevate refined and luxury events with style. Trained in the best Paris conservatories, they combine natural charm and solid experience. From intimate, sophisticated receptions to grand wedding celebrations, Café Crème delivers refined performances with impeccable taste and effortless adaptability. Their wide repertoire includes timeless classics, jazz standards as well as French and Italian songs for the delight of every audience." data-src-fr="Groupe de strolling à Paris, Café Crème incarne une certaine idée de l'élégance française. Composé de quatre musiciens amis de longue date, le groupe accompagne avec style et raffinement mariages de luxe, réceptions privées et événements d'entreprise. ||| Formés dans de prestigieux conservatoires parisiens, ses musiciens associent charme naturel, maîtrise musicale et solide expérience. ||| Des réceptions intimistes aux grandes célébrations, Café Crème sait installer une atmosphère élégante puis faire monter progressivement l'énergie lorsque le moment s'y prête. ||| Son répertoire mêle classiques intemporels, standards de jazz, chansons françaises et italiennes, avec des influences gipsy et rock pour accompagner les moments les plus festifs.">Café Crème is the quintessence of Parisian elegance, uniting outstanding musicians from the City of Light to elevate refined and luxury events with style. Trained in the best Paris conservatories, they combine natural charm and solid experience. From intimate, sophisticated receptions to grand wedding celebrations, Café Crème delivers refined performances with impeccable taste and effortless adaptability. Their wide repertoire includes timeless classics, jazz standards as well as French and Italian songs for the delight of every audience.</p>
+        <p class="band-intro2__desc" data-src-en="Café Crème is the quintessence of Parisian elegance, uniting outstanding musicians from the City of Light to elevate refined and luxury events with style. Trained in the best Paris conservatories, they combine natural charm and solid experience. From intimate, sophisticated receptions to grand wedding celebrations, Café Crème delivers refined performances with impeccable taste and effortless adaptability. Their wide repertoire includes timeless classics, jazz standards as well as French and Italian songs for the delight of every audience." data-src-fr="Groupe de strolling à Paris, Café Crème incarne une certaine idée de l'élégance française. Composé de quatre musiciens amis de longue date, le groupe accompagne avec style et raffinement mariages de luxe, réceptions privées et événements d'entreprise. ||| Formés dans de prestigieux conservatoires parisiens, ses musiciens associent charme naturel, maîtrise musicale et solide expérience. ||| Des réceptions intimistes aux grandes célébrations, Café Crème sait installer une atmosphère élégante puis faire monter progressivement l'énergie lorsque le moment s'y prête. ||| Son répertoire mêle classiques intemporels, standards de jazz, chansons françaises et italiennes, avec des influences gipsy et rock pour accompagner les moments les plus festifs."><span class="band-intro2__para">Café Crème is the quintessence of Parisian elegance, uniting outstanding musicians from the City of Light to elevate refined and luxury events with style. Trained in the best Paris conservatories, they combine natural charm and solid experience. From intimate, sophisticated receptions to grand wedding celebrations, Café Crème delivers refined performances with impeccable taste and effortless adaptability. Their wide repertoire includes timeless classics, jazz standards as well as French and Italian songs for the delight of every audience.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -836,12 +836,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };

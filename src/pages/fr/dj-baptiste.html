@@ -24,10 +24,10 @@
   <meta name="theme-color" content="#2A2A2A">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
-  <link rel="stylesheet" href="/src/css/variables.css?v=63">
-  <link rel="stylesheet" href="/src/css/reset.css?v=63">
-  <link rel="stylesheet" href="/src/css/style.css?v=63">
-  <link rel="stylesheet" href="/src/css/band-page.css?v=63">
+  <link rel="stylesheet" href="/src/css/variables.css?v=64">
+  <link rel="stylesheet" href="/src/css/reset.css?v=64">
+  <link rel="stylesheet" href="/src/css/style.css?v=64">
+  <link rel="stylesheet" href="/src/css/band-page.css?v=64">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
@@ -175,7 +175,7 @@
   <section class="band-intro2">
     <div class="band-intro2__inner">
       <div class="band-intro2__text">
-        <p class="band-intro2__desc" data-src-en="With more than 50 performances at corporate events, private parties and weddings in 2025, Baptiste has become an essential part of The Roaming Agency. ||| Whether leading a party with a pure energy or creating a refined atmosphere earlier in the day, he brings precision, intuition, and style to every performance. ||| Passionate, meticulous, mastering his equipment and empathic, he always finds the right tune to keep the dance floor alive" data-src-fr="Avec plus de 50 prestations en 2025 lors d'événements d'entreprise, de soirées privées et de mariages, Baptiste est devenu un pilier de The Roaming Agency. ||| Qu'il s'agisse de mener la fête avec une énergie pure ou de créer une atmosphère raffinée en début de journée, il apporte précision, intuition et style à chaque prestation. ||| Passionné, méticuleux, maîtrisant parfaitement son matériel et à l'écoute, il trouve toujours le bon morceau pour garder la piste en vie.">Avec plus de 50 prestations en 2025 lors d'événements d'entreprise, de soirées privées et de mariages, Baptiste est devenu un pilier de The Roaming Agency.<br><br>Qu'il s'agisse de mener la fête avec une énergie pure ou de créer une atmosphère raffinée en début de journée, il apporte précision, intuition et style à chaque prestation.<br><br>Passionné, méticuleux, maîtrisant parfaitement son matériel et à l'écoute, il trouve toujours le bon morceau pour garder la piste en vie.</p>
+        <p class="band-intro2__desc" data-src-en="With more than 50 performances at corporate events, private parties and weddings in 2025, Baptiste has become an essential part of The Roaming Agency. ||| Whether leading a party with a pure energy or creating a refined atmosphere earlier in the day, he brings precision, intuition, and style to every performance. ||| Passionate, meticulous, mastering his equipment and empathic, he always finds the right tune to keep the dance floor alive" data-src-fr="Avec plus de 50 prestations en 2025 lors d'événements d'entreprise, de soirées privées et de mariages, Baptiste est devenu un pilier de The Roaming Agency. ||| Qu'il s'agisse de mener la fête avec une énergie pure ou de créer une atmosphère raffinée en début de journée, il apporte précision, intuition et style à chaque prestation. ||| Passionné, méticuleux, maîtrisant parfaitement son matériel et à l'écoute, il trouve toujours le bon morceau pour garder la piste en vie."><span class="band-intro2__para">Avec plus de 50 prestations en 2025 lors d'événements d'entreprise, de soirées privées et de mariages, Baptiste est devenu un pilier de The Roaming Agency.</span><span class="band-intro2__para">Qu'il s'agisse de mener la fête avec une énergie pure ou de créer une atmosphère raffinée en début de journée, il apporte précision, intuition et style à chaque prestation.</span><span class="band-intro2__para">Passionné, méticuleux, maîtrisant parfaitement son matériel et à l'écoute, il trouve toujours le bon morceau pour garder la piste en vie.</span></p>
       </div>
       <div class="band-intro2__right reveal">
         <h2 class="band-intro2__slogan">
@@ -605,12 +605,13 @@
         const build = (lang) => {
           const src = desc.getAttribute('data-src-' + lang) || desc.getAttribute('data-src-en') || '';
           const html = src.split('|||').map(block =>
+            '<span class="band-intro2__para">' +
             block.split('||').map(line =>
               line.trim().split(/\s+/).filter(Boolean).map(w =>
                 '<span class="darken-word" style="opacity:0.18;transition:opacity .35s ease-out;">' + w + ' </span>'
               ).join('')
-            ).join('<br>')
-          ).join('<br><br>');
+            ).join('<br>') + '</span>'
+          ).join('');
           desc.innerHTML = html;
           setupScrub();
         };
